@@ -1,1 +1,23 @@
-../../submodules/modules/system/ros/doc/img/ros-image-publisher.dot
+digraph G {
+  rankdir=LR;
+  _image_publisher [label="/image_publisher", URL="node:/image_publisher"];
+  _rosout [label="/rosout", URL="node:/rosout"];  _20_rosout [shape=box,label="/rosout",URL="topic:/rosout"];
+  _20_camera_image_theora_parameter_updates [shape=box,label="/camera/image/theora/parameter_updates",URL="topic:/camera/image/theora/parameter_updates"];
+  _20_rosout_agg [shape=box,label="/rosout_agg",URL="topic:/rosout_agg"];
+  _20_camera_image_compressed [shape=box,label="/camera/image/compressed",URL="topic:/camera/image/compressed"];
+  _20_camera_image_theora_parameter_descriptions [shape=box,label="/camera/image/theora/parameter_descriptions",URL="topic:/camera/image/theora/parameter_descriptions"];
+  _20_camera_image_compressed_parameter_updates [shape=box,label="/camera/image/compressed/parameter_updates",URL="topic:/camera/image/compressed/parameter_updates"];
+  _20_camera_image_compressed_parameter_descriptions [shape=box,label="/camera/image/compressed/parameter_descriptions",URL="topic:/camera/image/compressed/parameter_descriptions"];
+  _20_camera_image_theora [shape=box,label="/camera/image/theora",URL="topic:/camera/image/theora"];
+  _20_camera_image [shape=box,label="/camera/image",URL="topic:/camera/image"];
+    _20_rosout->_rosout
+    _image_publisher->_20_camera_image_compressed_parameter_updates
+    _image_publisher->_20_camera_image_compressed
+    _image_publisher->_20_rosout
+    _image_publisher->_20_camera_image_compressed_parameter_descriptions
+    _image_publisher->_20_camera_image_theora_parameter_descriptions
+    _image_publisher->_20_camera_image_theora_parameter_updates
+    _image_publisher->_20_camera_image_theora
+    _image_publisher->_20_camera_image
+    _rosout->_20_rosout_agg
+}
