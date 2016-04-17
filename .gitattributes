@@ -1,3 +1,4 @@
+*               text=auto
 *.YCbCr         binary
 *.grey8         binary
 *.jpeg          binary
