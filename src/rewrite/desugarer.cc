@@ -102,7 +102,7 @@ namespace rewrite
     source[SYMBOL(setter)] =
       exp(setter
           % new ast::Assign(loc, new_clone(tgt),
-                            factory_->make_call(loc, SYMBOL(v)), 0));
+                            factory_->make_call(loc, SYMBOL(v)), boost::none));
 
     // Convert into a dictionary.  Sort it to improve determinism in
     // the desugared output.  The cost is neglectible.

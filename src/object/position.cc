@@ -186,7 +186,7 @@ namespace urbi
     {
       if (pos_.filename)
         return libport::path(pos_.filename->name_get());
-      return 0;
+      return boost::none;
     }
 
     void

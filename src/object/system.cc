@@ -317,7 +317,7 @@ namespace urbi
       // If statistics have just been reset, return "nil" since we cannot
       // return anything significant.
       if (stats.empty())
-        return 0;
+        return boost::none;
 
       // The space after "Symbol(" is mandatory to avoid triggering an error in
       // symbol generation code
@@ -352,7 +352,7 @@ namespace urbi
     {
       if (const char* res = getenv(name.c_str()))
         return std::string(res);
-      return 0;
+      return boost::none;
     }
 
     static std::string

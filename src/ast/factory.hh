@@ -51,7 +51,7 @@ namespace ast
     rAssign
     make_assign(const location& loc,
                 const rExp& lvalue, const rExp& rvalue,
-                const boost::optional<modifiers_type>& modifiers = 0);
+                const boost::optional<modifiers_type>& modifiers = boost::none);
 
     /// at%flavor (%cond ~ %duration) {%body} onleave {%onleave}
     static

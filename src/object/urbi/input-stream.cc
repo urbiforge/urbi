@@ -195,7 +195,7 @@ namespace urbi
     {
       int res = get_();
       if (res == -1)
-        return 0;
+        return boost::none;
       return std::string(1, res);
     }
 
@@ -206,7 +206,7 @@ namespace urbi
       std::string res = getSeparator_('\n', false, ok);
       if (ok)
         return res;
-      return 0;
+      return boost::none;
     }
 
     rObject
