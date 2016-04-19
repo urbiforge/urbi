@@ -23,7 +23,7 @@ qi_swig_wrap_java(urbijava swig/java.i
   src/urbi_Log.cc
   src/urbi_Log.h
   DEPENDS
-  qi urbi uobject-remote
+  urbi uobject-remote
 )
 target_link_libraries(urbijava ${JAVA_JVM_LIBRARY})
 
