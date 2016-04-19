@@ -11,5 +11,6 @@
 /src/Makefile.in
 /src/kernel/config.h.in
 /src/kernel/config.h.in~
+/src/ast/merged.cc
 /build-*
 /CMakeLists.txt.user
