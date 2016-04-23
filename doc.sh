@@ -25,5 +25,4 @@ mv urbi-sdk.htmldir.tmp urbi-sdk.htmldir
 
 MAKEINDEX="makeindex -s headings.ist" TEXINDY="texindy --module makeindex" TEX4HT="tex4ht -cunihtf -utf8" ../doc/document-aux/bin/texi2dvi --pdf --tidy --build-dir=tmp.t2d --batch  -I ../doc/document-aux/styles -I ../doc/document-aux/bib -I ../doc/document-aux/ -I ../doc -o urbi-naming.pdf ../doc/urbi-naming.tex
 
-MAKEINDEX="makeindex -s headings.ist" TEXINDY="texindy --module makeindex" TEX4HT="tex4ht -cunihtf -utf8" ../doc/document-aux
-/bin/texi2dvi --pdf --tidy --build-dir=tmp.t2d --batch  -I ../doc/document-aux/styles -I ../doc/document-aux/bib -I ../doc/document-aux/ -I ../doc -o urbi-sdk.pdf ../doc/urbi-sdk.tex
+MAKEINDEX="makeindex -s headings.ist" TEXINDY="texindy --module makeindex" TEX4HT="tex4ht -cunihtf -utf8" ../doc/document-aux/bin/texi2dvi --pdf --tidy --build-dir=tmp.t2d --batch  -I ../doc/document-aux/styles -I ../doc/document-aux/bib -I ../doc/document-aux/ -I ../doc -o urbi-sdk.pdf ../doc/urbi-sdk.tex
