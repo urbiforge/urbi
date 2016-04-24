@@ -1,5 +1,7 @@
 #! /bin/bash
 
+sed 's@%%rootdir%%@'"$PWD"'@' doc/config.sty.template > doc/config.sty
+
 set -e
 
 mkdir -p build-doc

@@ -1,4 +1,4 @@
-\newcommand{\absTopSrcdir}{/home/urbi/jcbaillie/urbi}
+\newcommand{\absTopSrcdir}{%%rootdir%%}
 \newcommand{\packageTarname}{urbi-sdk}
 \newcommand{\packageName}{Urbi}
 \newcommand{\packageMajor}{3}
