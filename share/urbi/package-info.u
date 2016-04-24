@@ -21,14 +21,8 @@ class System.PackageInfo
   // A function to make initialization dependencies easier to manage.
   function banner()
   {
-    ["*" * 56]
-    +
-    ["",
-     "This program can be used under certain conditions.",
-     "Type `license();', `authors();', or `copyright();' for more information.",
-     "",
-     "Check our community site: https://github.com/jcbaillie/urbi",
-     "*" * 56];
+    ["%s %s" % [name, versionRev]
+    ]
   };
 
   function copyright(var deep = true)
