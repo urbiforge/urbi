@@ -14,3 +14,4 @@
 /src/ast/merged.cc
 /build-*
 /CMakeLists.txt.user
+doc/config.sty
