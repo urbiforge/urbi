@@ -163,7 +163,7 @@ var this.'[]';
 for instance.  They are listed in \autoref{tab:keywords}.
 
 \renewcommand{\baselinestretch}{.85}
-\begin{table}[\floatpos]
+\begin{table}[htbp]
   \centering
   \input{specs/keywords}
   \caption{Keywords}
@@ -181,7 +181,7 @@ radians. For instance, \lstinline|180deg| (180 degrees) is equal to
 \lstinline{pi}. Available units and their equivalent are presented in
 \autoref{tab:angle}.
 
-\begin{table}[\floatposh]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{|c|c|c|}
     \hline
@@ -418,7 +418,7 @@ contain arbitrary characters, which stand for themselves, with the exception
 of the escape character, backslash (\lstinline|\|), see below.  The escapes
 sequences are defined in \autoref{tab:escapes}.
 
-\begin{table}[\floatposh]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{|c|p{.6\linewidth}|}
     \hline
@@ -896,7 +896,7 @@ provide them.
 {
   \def\operatorTableLabel{#2}%
   \def\operatorTableCaption{#3}%
-  \begin{table}[\floatposh]
+  \begin{table}[!htb]
     \centering#1%
     \begin{operatorTabular}
     }{%
@@ -2580,7 +2580,7 @@ See \autoref{tab:keywords:flavors}.
   \ifthen{\equal{#6}{Y}}{\autoref{sec:lang:#1:pipe}}
 }
 
-\begin{table}[\floatpos]
+\begin{table}[htbp]
   \centering
   \begin{tabular}{|l|cccc|}
     \hline
