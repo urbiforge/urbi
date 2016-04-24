@@ -7,9 +7,40 @@
    |                                                               |
    `---------------------------------------------------------------'
 
-Robotic middleware and programming language.
+Component Software Platform and parallel programming language.
 
-Instructions about building Urbi SDK are now part of the HTML/PDF
-documentation. Source included in the repository, in the doc folder.
+Build the doc: ./doc.sh
 
+Build Urbi:
 
+ * install the following packages (debian/ubuntu):
+	build-essential git-core vim autoconf mlocate wget \
+        python python-pip libboost-all-dev default-jdk \
+        libssl-dev swig texlive texlive-latex-extra tex4ht
+
+ * pip install qibuild
+ * qisrc init && \
+   qisrc add https://github.com/jcbaillie/libjpeg.git && \
+   qisrc add https://github.com/jcbaillie/gtest.git   && \
+   qisrc add https://github.com/jcbaillie/libport.git && \
+   qisrc add https://github.com/jcbaillie/urbi.git
+
+ * qibuild configure --release --with-debug-info urbi && \
+   qibuild make urbi && \
+   qibuild install urbi /usr/local
+
+Run Urbi (interactive session):
+
+ * urbi-launch -s
+
+Run Urbi (server):
+
+ * urbi-launch --start -- -i --port 54000
+ * and then, from some other shell: 'nc localhost 54000'
+
+ (to preserve command history: rlwrap nc localhost 54000)
+
+Run Urbi docker container:
+
+ * docker run --net host jcbaillie/urbi
+ * rlwrap nc localhost 54000

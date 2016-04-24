@@ -1,0 +1,2 @@
+The doc is compiled with ../doc.sh
+The resulting doc (pdf and html) are located in build-doc.
