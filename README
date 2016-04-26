@@ -7,7 +7,9 @@
    |                                                               |
    `---------------------------------------------------------------'
 
-Component Software Platform and parallel programming language.
+Component Software Platform (Urbi) &
+Concurrent Programming Language (urbiscript).
+
 
 Build the doc: ./doc.sh
 
