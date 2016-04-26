@@ -20,10 +20,10 @@ Build Urbi:
 
  * pip install qibuild
  * qisrc init && \
-   qisrc add https://github.com/jcbaillie/libjpeg.git && \
-   qisrc add https://github.com/jcbaillie/gtest.git   && \
-   qisrc add https://github.com/jcbaillie/libport.git && \
-   qisrc add https://github.com/jcbaillie/urbi.git
+   qisrc add https://github.com/urbiforge/libjpeg.git && \
+   qisrc add https://github.com/urbiforge/gtest.git   && \
+   qisrc add https://github.com/urbiforge/libport.git && \
+   qisrc add https://github.com/urbiforge/urbi.git
 
  * qibuild configure --release --with-debug-info urbi && \
    qibuild make urbi && \
@@ -42,5 +42,5 @@ Run Urbi (server):
 
 Run Urbi docker container:
 
- * docker run --net host jcbaillie/urbi
+ * docker run --net host urbiforge/urbi
  * rlwrap nc localhost 54000
