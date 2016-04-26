@@ -12,6 +12,7 @@ Concurrent Programming Language (urbiscript).
 
 
 Build the doc: ./doc.sh
+Or get it at: https://github.com/urbiforge/urbi/blob/master/doc/urbi-sdk.pdf
 
 Build Urbi:
 
