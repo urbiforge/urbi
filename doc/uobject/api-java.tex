@@ -83,11 +83,7 @@ $ java -Djava.library.path=\var{urbi-root}/lib                          \
     -cp \var{urbi-root}/share/sdk-remote/java/lib/liburbijava.jar       \
      urbi.UMain ./machine.jar
 urbi-launch: obeying to URBI_ROOT = /usr/local/gostai
-UObject: Urbi SDK version 2.3 rev. 3e93ec1
-Copyright (C) 2004-2010 Gostai S.A.S.
-
-Libport version urbi-sdk-2.3 rev. 66cb0ec
-Copyright (C) 2004-2010 Gostai S.A.S.
+UObject: Urbi version 3.x.y
 UObject: Remote Component Running on 127.0.0.1 54000
 Kernel Version: 0
 [LibUObject] Registering function UMachine.init 1 into UMachine.init from UMachine
@@ -129,11 +125,7 @@ To run your UObject then use \command{urbi-launch-java} (see
 \begin{shell}
 $ urbi-launch-java machine.jar
 urbi-launch: obeying to URBI_ROOT = /usr/local/gostai
-UObject: Urbi SDK version 2.3 rev. 3e93ec1
-Copyright (C) 2004-2010 Gostai S.A.S.
-
-Libport version urbi-sdk-2.3 rev. 66cb0ec
-Copyright (C) 2004-2010 Gostai S.A.S.
+UObject: Urbi version 3.x.y
 UObject: Remote Component Running on 127.0.0.1 54000
 Kernel Version: 0
 [LibUObject] Registering function UMachine.init 1 into UMachine.init from UMachine
@@ -210,16 +202,7 @@ static { UStart(YourUObject.class); }
 If you run this UObject and test it from Urbi it gives:
 
 \begin{urbiunchecked}
-[00000102] *** ********************************************************
-[00000102] *** Urbi SDK version 2.0 rev. 96a4b2f
-[00000102] *** Copyright (C) 2004-2010 Gostai S.A.S.
-[00000102] ***
-[00000102] *** This program comes with ABSOLUTELY NO WARRANTY.
-[00000102] *** It can be used under certain conditions.
-[00000102] *** Type `license;' or `copyright;' for more information.
-[00000102] ***
-[00000102] *** Check our community site: http://www.urbiforge.org.
-[00000102] *** ********************************************************
+[00000102] *** Urbi version 3.x.y
 Adder;
 [00006783] Adder
 Adder.v;
@@ -310,16 +293,7 @@ can run this UObject and test it in \urbi to see the difference with the
 previous example:
 
 \begin{urbiunchecked}
-[00000097] *** ********************************************************
-[00000097] *** Urbi SDK version 2.0 rev. 96a4b2f
-[00000097] *** Copyright (C) 2004-2010 Gostai S.A.S.
-[00000097] ***
-[00000097] *** This program comes with ABSOLUTELY NO WARRANTY.
-[00000097] *** It can be used under certain conditions.
-[00000097] *** Type `license;' or `copyright;' for more information.
-[00000097] ***
-[00000097] *** Check our community site: http://www.urbiforge.org.
-[00000097] *** ********************************************************
+[00000097] *** Urbi version 3.x.y
 Adder;
 [00010592] Adder
 Adder.v;
