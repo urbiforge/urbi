@@ -5,8 +5,8 @@
 \newcommand{\packageMinor}{0}
 \newcommand{\packageVersion}{3.0.0}
 \newcommand{\packagePatchlevel}{1}
-\newcommand{\gostaiUrl}{https://github.com/jcbaillie/urbi}
-\newcommand{\downloadUrl}{https://github.com/jcbaillie/urbi}
+\newcommand{\gostaiUrl}{https://github.com/urbiforge/urbi}
+\newcommand{\downloadUrl}{https://github.com/urbiforge/urbi}
 \newcommand{\docurl}{\downloadUrl/urbi/\packageVersion/doc}
 
 \titleImage{figs/urbi-sdk/\packageMajor.\packageMinor/cube-and-disc}
