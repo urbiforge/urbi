@@ -20,7 +20,7 @@ described here.
 
 \section{The Structure Tree}
 
-The robot will be described as a set of \dfn{components} organized in a
+The hardware will be described as a set of \dfn{components} organized in a
 hierarchical structure called the \dfn{structure tree}. The relationship
 between a component and a sub-component in the tree is a `part-of' inclusion
 relationship. From the point of view of \urbi, each component in the tree is
@@ -39,7 +39,7 @@ And here is another example for an humanoid robot:
 \end{center}
 
 The leaves of the tree are called \dfn{devices}, and they usually match
-physical devices in the robot: motors, sensors, lights, camera, etc. Inside
+physical devices in the hardware: motors, sensors, lights, camera, etc. Inside
 \urbi, the various objects corresponding to the tree components are accessed
 by following the path of objects inclusions, like in the example below
 (shortcuts will be described later):
@@ -53,7 +53,7 @@ body.laser;
 
 
 The structure tree should not be mistaken for a representation of the
-kinematics chain of the robot. The kinematics chain is built from a subset
+kinematics chain. The kinematics chain is built from a subset
 of the devices corresponding to motor devices, and it represents spatial
 connections between them. Except for these motor devices, the structure tree
 components do not have a direct counterpart in the kinematics chain, or, if
@@ -62,13 +62,12 @@ they do, it is as a subset of the kinematics chain (for example,
 
 
 The goal of this standard is to provide guidelines on how to define
-the components and the structure tree, knowing the kinematics chain of
-the robot.
+the components and the structure tree, knowing the kinematics chain.
 
 \section{Frame of Reference}
 
 In many cases, it will be necessary to refer to an absolute frame of
-reference attached to the robot body. To avoid ambiguities, the
+reference attached to the hardware. To avoid ambiguities, the
 standard frame of reference will have the following definition:
 
 \begin{center}
@@ -76,8 +75,8 @@ standard frame of reference will have the following definition:
 \end{center}
 
 \begin{description}
-\item[Origin] the center of mass of the robot
-\item[X axis] oriented towards the front of the robot. If there is a camera,
+\item[Origin] the center of mass 
+\item[X axis] oriented towards the front of the machine. If there is a camera,
   the front is defined by the default direction of the camera, otherwise the
   front will be seen as the natural frontal orientation for a mobile robot
   (the direction of ``forward'' movement). If the robot is not naturally
@@ -88,11 +87,11 @@ standard frame of reference will have the following definition:
   should be made visible on the robot body to indicate it.
 \item[Z axis] oriented in the opposite direction from the gravity. If there
   is no gravity or natural up/down orientation in the environment or normal
-  operation mode of the robot, the Z axis should be chosen in the direction
+  operation mode, the Z axis should be chosen in the direction
   of the main axis of symmetry in the orthogonal plane defined by the X
   axis, oriented towards the smallest side. In case of a perfectly
-  symmetrical plane, the Z axis can be chosen arbitrarily but a clear mark
-  should be made visible on the robot body to indicate it.
+  symetrical plane, the Z axis can be chosen arbitrarily but a clear mark
+  should be made visible on the machine's body to indicate it.
 \item[Y axis] oriented to make a right-handed coordinate system.
 \end{description}
 
@@ -108,9 +107,9 @@ This name is a generic designation of what A represents, such as ``leg''
 ,``head'', or ``finger''.
 
 Using the correct name for each component is a critical part of this standard.
-No formal rule can be given to find this name for any possible robot
+No formal rule can be given to find this name for any possible hardware
 configuration. However, this document includes a table covering many different
-possible cases. We recommend that robot manufacturers pick from this table
+possible cases. We recommend that manufacturers pick from this table
 the name that fits the most the description of their component.
 
 \section{Localization}
@@ -126,7 +125,7 @@ localization should be simple geometrical qualifier like
 \textit{front}/\textit{middle}/\textit{back} or
 \textit{up}/\textit{in-between}/\textit{down}.  Note that ``right'' or
 ``front'' are understood here from the point of view of a man standing and
-looking in the direction of the X-axis of the robot, and \textit{up/pown}
+looking in the direction of the X-axis of the machine, and \textit{up/pown}
 matches the Z-axis, as depicted in the figure below:
 
 \begin{center}
@@ -323,20 +322,20 @@ the typical slots expected:
 
 
 \interface{Identity}
-Information about the robot identity.
+Information about the hardware.
 \begin{urbiscriptapi}
 \item[kind]%
-  This describes the robot category among: humanoid, four-legged, wheeled,
-  industrial arm. It gives a general idea of the robot family, but does not
+  This describes the category among: humanoid, four-legged, wheeled,
+  industrial arm, etc. It gives a general idea of the hardware family, but does not
   replace a more systematic probe of available services by investigating the
   list of attributes of the object.
 
 
-\item[model] Model of the robot.
+\item[model] Model of the hardware.
 
 
 \item[name]%
-  Name of the robot.
+  Name of the hardware.
 
 
 \item[serial] Serial number (if available).
@@ -542,10 +541,10 @@ controlled by its rotation speed.
 
 \interface{Network}
 
-Contains information about the network identification of the robot.
+Contains information about the network identification of the hardware.
 
 \begin{urbiscriptapi}
-\item[IP] IP address of the robot.
+\item[IP] IP address of the hardware.
 \end{urbiscriptapi}
 
 \interface{Sensor}
@@ -683,7 +682,7 @@ their default sound output.
 
 
 \item[script](<s>) (Optional.) Speak the text \var{s} augmented by script
-  markups (see specific Gostai documentation) to generate \urbi events.
+  markups to generate \urbi events.
 
 
 \item[speed]{} (Optional.) How fast the voice should go.  A positive number,
@@ -702,18 +701,18 @@ their default sound output.
 
 \interface{Tracker}
 
-Camera-equipped robots can sometimes move the orientation of the field of
+Camera-equipped machines can sometimes move the orientation of the field of
 view horizontally and vertically, which is a very important feature for many
 applications. In that case, this interface abstracts how such motion can be
 achieved, whether it is done with a pan/tilt camera or with whole body
 motion or a combination of both.
 
 \begin{urbiscriptapi}
-\item[pitch] Rotational articulation around the Y axis in the robot,
+\item[pitch] Rotational articulation around the Y axis,
   expressed in radians.
 
 
-\item[yaw] Rotational articulation around the Z axis in the robot, expressed
+\item[yaw] Rotational articulation around the Z axis, expressed
   in radians.
 \end{urbiscriptapi}
 
