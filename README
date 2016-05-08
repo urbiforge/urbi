@@ -10,9 +10,17 @@
 Component Software Platform (Urbi) &
 Concurrent Programming Language (urbiscript).
 
+Version:
 
-Build the doc: ./doc.sh
-Or get it at: https://github.com/urbiforge/urbi/blob/master/doc/urbi-sdk.pdf
+  This is version 3.0. There might be bits of 2.x references left
+  in the doc or in the code, just ignore them (or fix them!).
+
+Documentation:
+
+  * Build the doc: ./doc.sh (should be in build-doc folder then)
+  * Or get it at: https://github.com/urbiforge/urbi/blob/master/doc/urbi-sdk.pdf
+  * HTML archive version here (just uncompress an open locally):
+      https://github.com/urbiforge/urbi/blob/master/doc/urbi-sdk.html.tar.gz
 
 Build Urbi:
 
