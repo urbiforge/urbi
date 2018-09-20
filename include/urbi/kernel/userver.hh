@@ -41,7 +41,7 @@
 # include <urbi/kernel/fwd.hh>
 # include <urbi/kernel/utypes.hh>
 # include <urbi/export.hh>
-# include <urbi/parser/location.hh>
+# include <parser/location.hh>
 # include <urbi/object/object.hh>
 # include <urbi/urbi-root.hh>
 

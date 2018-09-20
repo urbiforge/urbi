@@ -10,16 +10,16 @@
 /// \file parser/ugrammar.y
 /// \brief Definition of the parser used by the ParserImpl object.
 
-%require "2.3"
+%require "3.1"
 %language "C++"
 %error-verbose
 %defines
 
 // Instead of "yytoken yylex(yylval, yylloc)", use "symbol_type yylex()".
-%define lex_symbol
+%define api.token.constructor
 
 // Prefix all our external definition of token names with "TOK_".
-%define api.tokens.prefix "TOK_"
+%define api.token.prefix {TOK_}
 
 // The leading :: are needed to avoid symbol clashes in the
 // parser class when it sees a parser namespace occurrence.
@@ -200,7 +200,7 @@
 };
 
 // We use variants.
-%define variant
+%define api.value.type variant
 // Default printer.
 %printer { debug_stream() << libport::deref << $$; } <*>;
 
@@ -668,7 +668,7 @@ k1_id:
 `------------*/
 
 
-%type <::ast::Factory::modifier_type> modifier;
+%type <ast::Factory::modifier_type> modifier;
 modifier:
   "identifier" ":" exp
   {
@@ -859,14 +859,14 @@ onleave.opt:
 | Cases.  |
 `--------*/
 
-%type <::ast::Factory::cases_type> cases;
+%type <ast::Factory::cases_type> cases;
 
 cases:
   /* empty */  {}
 | cases case   { std::swap($$, $1); $$ << $2; }
 ;
 
-%type <::ast::Factory::case_type> case;
+%type <ast::Factory::case_type> case;
 
 case:
   "case" match ":" stmts  { $$ = ::ast::Factory::case_type($2, $4); }
@@ -1364,7 +1364,7 @@ rel-exp:
   bitor-exp rel-ops  { $$ = MAKE(relation, @$, $1, $2); }
 ;
 
-%type <::ast::Factory::relations_type> rel-ops;
+%type <ast::Factory::relations_type> rel-ops;
 rel-ops:
   /* empty */              { /* empty */ }
 | rel-ops rel-op bitor-exp { std::swap($$, MAKE(relation, $1, $2, $3)); }
@@ -1510,40 +1510,40 @@ args.opt:
 | List of identifiers.  |
 `----------------------*/
 
-%type <::ast::symbols_type> identifiers;
+%type <ast::symbols_type> identifiers;
 identifiers:
   /* empty */ { /* empty */ }
 | identifiers "identifier" { std::swap($$, $1); $$.push_back($2); }
 ;
 
-%type <::ast::rExp> typespec;
+%type <ast::rExp> typespec;
 typespec:
   ":" exp { $$ = $2;}
 ;
 
-%type <::ast::rExp> typespec.opt;
+%type <ast::rExp> typespec.opt;
 typespec.opt:
   /* empty */ { $$=0;}
 | typespec { std::swap($$, $1);}
 ;
 
-%type <::ast::Formal> formal;
+%type <ast::Formal> formal;
 formal:
- var.opt "identifier" typespec.opt  { $$ = ::ast::Formal($2, 0, $3);  }
-| var.opt "identifier" "=" exp typespec.opt  { $$ = ::ast::Formal($2, $4, $5); }
-| var.opt "identifier" "[" "]"  { $$ = ::ast::Formal($2, true); }
+ var.opt "identifier" typespec.opt  { $$ = ast::Formal($2, 0, $3);  }
+| var.opt "identifier" "=" exp typespec.opt  { $$ = ast::Formal($2, $4, $5); }
+| var.opt "identifier" "[" "]"  { $$ = ast::Formal($2, true); }
 ;
 
 // One or several comma-separated identifiers.
-%type <::ast::Formals*> formals.0 formals.1 formals;
+%type <ast::Formals*> formals.0 formals.1 formals;
 formals.1:
-  formal                 { $$ = new ::ast::Formals(1, $1); }
+  formal                 { $$ = new ast::Formals(1, $1); }
 | formals.1 "," formal   { std::swap($$, $1); *$$ << $3; }
 ;
 
 // Zero or several comma-separated identifiers.
 formals.0:
-  /* empty */          { $$ = new ::ast::Formals; }
+  /* empty */          { $$ = new ast::Formals; }
 | formals.1 comma.opt  { std::swap($$, $1); }
 ;
 

@@ -1,50 +1,55 @@
-/* A Bison parser, made by GNU Bison 2.3b.656-d4b2.  */
+// A Bison parser, made by GNU Bison 3.1.
 
-/* Skeleton implementation for Bison LALR(1) parsers in C++
+// Skeleton implementation for Bison LALR(1) parsers in C++
 
-   Copyright (C) 2002-2011 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018 Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-/* As a special exception, you may create a larger work that contains
-   part or all of the Bison parser skeleton and distribute that work
-   under terms of your choice, so long as that work isn't itself a
-   parser generator using the skeleton or a modified version thereof
-   as a parser skeleton.  Alternatively, if you modify or redistribute
-   the parser skeleton itself, you may (at your option) remove this
-   special exception, which will cause the skeleton and the resulting
-   Bison output files to be licensed under the GNU General Public
-   License without this special exception.
+// As a special exception, you may create a larger work that contains
+// part or all of the Bison parser skeleton and distribute that work
+// under terms of your choice, so long as that work isn't itself a
+// parser generator using the skeleton or a modified version thereof
+// as a parser skeleton.  Alternatively, if you modify or redistribute
+// the parser skeleton itself, you may (at your option) remove this
+// special exception, which will cause the skeleton and the resulting
+// Bison output files to be licensed under the GNU General Public
+// License without this special exception.
 
-   This special exception was added by the Free Software Foundation in
-   version 2.2 of Bison.  */
+// This special exception was added by the Free Software Foundation in
+// version 2.2 of Bison.
 
 
-/* First part of user declarations.  */
+// First part of user declarations.
 
-/* Line 369 of lalr1.cc  */
-#line 38 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 37 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:407
+
+# ifndef YY_NULLPTR
+#  if defined __cplusplus && 201103L <= __cplusplus
+#   define YY_NULLPTR nullptr
+#  else
+#   define YY_NULLPTR 0
+#  endif
+# endif
 
 #include "ugrammar.hh"
 
-/* User implementation prologue.  */
+// User implementation prologue.
 
-/* Line 374 of lalr1.cc  */
-#line 45 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
-/* Unqualified %code blocks.  */
-/* Line 375 of lalr1.cc  */
-#line 62 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 51 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:415
+// Unqualified %code blocks.
+#line 62 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:416
 
 #include <string>
 #include <iostream>
@@ -127,14 +132,13 @@
   } while (false)
 
 
+#line 136 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:416
 
-/* Line 375 of lalr1.cc  */
-#line 133 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
 
 #ifndef YY_
 # if defined YYENABLE_NLS && YYENABLE_NLS
 #  if ENABLE_NLS
-#   include <libintl.h> /* FIXME: INFRINGES ON USER NAME SPACE */
+#   include <libintl.h> // FIXME: INFRINGES ON USER NAME SPACE.
 #   define YY_(msgid) dgettext ("bison-runtime", msgid)
 #  endif
 # endif
@@ -143,33 +147,43 @@
 # endif
 #endif
 
+// Whether we are compiled with exception support.
+#ifndef YY_EXCEPTIONS
+# if defined __GNUC__ && !defined __EXCEPTIONS
+#  define YY_EXCEPTIONS 0
+# else
+#  define YY_EXCEPTIONS 1
+# endif
+#endif
+
+#define YYRHSLOC(Rhs, K) ((Rhs)[K].location)
 /* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
    If N is 0, then set CURRENT to the empty location which ends
    the previous symbol: RHS[0] (always defined).  */
 
-#define YYRHSLOC(Rhs, K) ((Rhs)[K].location)
-#ifndef YYLLOC_DEFAULT
-# define YYLLOC_DEFAULT(Current, Rhs, N)                               \
- do                                                                    \
-   if (N)                                                              \
-     {                                                                 \
-       (Current).begin = YYRHSLOC (Rhs, 1).begin;                      \
-       (Current).end   = YYRHSLOC (Rhs, N).end;                        \
-     }                                                                 \
-   else                                                                \
-     {                                                                 \
-       (Current).begin = (Current).end = YYRHSLOC (Rhs, 0).end;        \
-     }                                                                 \
- while (false)
-#endif
+# ifndef YYLLOC_DEFAULT
+#  define YYLLOC_DEFAULT(Current, Rhs, N)                               \
+    do                                                                  \
+      if (N)                                                            \
+        {                                                               \
+          (Current).begin  = YYRHSLOC (Rhs, 1).begin;                   \
+          (Current).end    = YYRHSLOC (Rhs, N).end;                     \
+        }                                                               \
+      else                                                              \
+        {                                                               \
+          (Current).begin = (Current).end = YYRHSLOC (Rhs, 0).end;      \
+        }                                                               \
+    while (/*CONSTCOND*/ false)
+# endif
 
-/* Suppress unused-variable warnings by "using" E.  */
-#define YYUSE(e) ((void) (e))
 
-/* Enable debugging if requested.  */
+// Suppress unused-variable warnings by "using" E.
+#define YYUSE(E) ((void) (E))
+
+// Enable debugging if requested.
 #if YYDEBUG
 
-/* A pseudo ostream that takes yydebug_ into account.  */
+// A pseudo ostream that takes yydebug_ into account.
 # define YYCDEBUG if (yydebug_) (*yycdebug_)
 
 # define YY_SYMBOL_PRINT(Title, Symbol)         \
@@ -178,33 +192,33 @@
     {                                           \
       *yycdebug_ << Title << ' ';               \
       yy_print_ (*yycdebug_, Symbol);           \
-      *yycdebug_ << std::endl;                  \
+      *yycdebug_ << '\n';                       \
     }                                           \
   } while (false)
 
-# define YY_REDUCE_PRINT(Rule)		\
-  do {					\
+# define YY_REDUCE_PRINT(Rule)          \
+  do {                                  \
     if (yydebug_)                       \
-      yy_reduce_print_ (Rule);		\
+      yy_reduce_print_ (Rule);          \
   } while (false)
 
-# define YY_STACK_PRINT()		\
-  do {					\
+# define YY_STACK_PRINT()               \
+  do {                                  \
     if (yydebug_)                       \
       yystack_print_ ();                \
   } while (false)
 
-#else /* !YYDEBUG */
+#else // !YYDEBUG
 
 # define YYCDEBUG if (false) std::cerr
-# define YY_SYMBOL_PRINT(Title, Symbol)  static_cast<void>(0)
-# define YY_REDUCE_PRINT(Rule)           static_cast<void>(0)
-# define YY_STACK_PRINT()                static_cast<void>(0)
+# define YY_SYMBOL_PRINT(Title, Symbol)  YYUSE (Symbol)
+# define YY_REDUCE_PRINT(Rule)           static_cast<void> (0)
+# define YY_STACK_PRINT()                static_cast<void> (0)
 
-#endif /* !YYDEBUG */
+#endif // !YYDEBUG
 
 #define yyerrok         (yyerrstatus_ = 0)
-#define yyclearin       (yyempty = true)
+#define yyclearin       (yyla.clear ())
 
 #define YYACCEPT        goto yyacceptlab
 #define YYABORT         goto yyabortlab
@@ -213,8 +227,7 @@
 
 
 namespace yy {
-/* Line 458 of lalr1.cc  */
-#line 218 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 231 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:491
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -239,7 +252,7 @@ namespace yy {
             case '\\':
               if (*++yyp != '\\')
                 goto do_not_strip_quotes;
-              /* Fall through.  */
+              // Fall through.
             default:
               yyr += *yyp;
               break;
@@ -262,12 +275,10 @@ namespace yy {
       yycdebug_ (&std::cerr),
 #endif
       up (up_yyarg)
-  {
-  }
+  {}
 
   parser::~parser ()
-  {
-  }
+  {}
 
 
   /*---------------.
@@ -276,46 +287,108 @@ namespace yy {
 
 
 
-  // stack_symbol_type.
-  parser::stack_symbol_type::stack_symbol_type ()
-    : super_type ()
-    , state ()
-  {
-  }
+  // by_state.
+  parser::by_state::by_state ()
+    : state (empty_state)
+  {}
 
-  parser::stack_symbol_type::stack_symbol_type (state_type s, const semantic_type& v, const location_type& l)
-    : super_type (v, l)
-    , state (s)
-  {
-  }
+  parser::by_state::by_state (const by_state& other)
+    : state (other.state)
+  {}
 
-  int
-  parser::stack_symbol_type::type_get_ () const
-  {
-    return yystos_[state];
-  }
-
-
-  template <typename Exact>
   void
-  parser::yy_destroy_ (const char* yymsg,
-                                       symbol_base_type<Exact>& yysym) const
+  parser::by_state::clear ()
   {
-    int yytype = yysym.type_get ();
-    YYUSE (yymsg);
-    if (yymsg)
-      YY_SYMBOL_PRINT (yymsg, yysym);
+    state = empty_state;
+  }
 
-    // User destructor.
-    switch (yytype)
-      {
-       default:
-          break;
-      }
+  void
+  parser::by_state::move (by_state& that)
+  {
+    state = that.state;
+    that.clear ();
+  }
 
-    // Type destructor.
-    switch (yytype)
+  parser::by_state::by_state (state_type s)
+    : state (s)
+  {}
+
+  parser::symbol_number_type
+  parser::by_state::type_get () const
+  {
+    if (state == empty_state)
+      return empty_symbol;
+    else
+      return yystos_[state];
+  }
+
+  parser::stack_symbol_type::stack_symbol_type ()
+  {}
+
+  parser::stack_symbol_type::stack_symbol_type (const stack_symbol_type& that)
+    : super_type (that.state, that.location)
+  {
+    switch (that.type_get ())
     {
+      case 168: // event_match
+        value.copy< ast::EventMatch > (that.value);
+        break;
+
+      case 143: // case
+        value.copy< ast::Factory::case_type > (that.value);
+        break;
+
+      case 142: // cases
+        value.copy< ast::Factory::cases_type > (that.value);
+        break;
+
+      case 136: // modifier
+        value.copy< ast::Factory::modifier_type > (that.value);
+        break;
+
+      case 174: // rel-ops
+        value.copy< ast::Factory::relations_type > (that.value);
+        break;
+
+      case 187: // formal
+        value.copy< ast::Formal > (that.value);
+        break;
+
+      case 188: // formals.1
+      case 189: // formals.0
+      case 190: // formals
+        value.copy< ast::Formals* > (that.value);
+        break;
+
+      case 144: // catches.1
+        value.copy< ast::catches_type > (that.value);
+        break;
+
+      case 158: // assoc
+        value.copy< ast::dictionary_elt_type > (that.value);
+        break;
+
+      case 159: // assocs.1
+      case 160: // assocs
+        value.copy< ast::dictionary_elts_type > (that.value);
+        break;
+
+      case 127: // protos.1
+      case 128: // protos
+      case 162: // tuple.exps
+      case 163: // tuple
+      case 164: // bitor-exps
+      case 165: // bitor-exps.1
+      case 177: // claims
+      case 178: // claims.1
+      case 179: // exps
+      case 180: // exps.1
+      case 181: // exps.2
+      case 182: // args
+      case 183: // args.opt
+        value.copy< ast::exps_type* > (that.value);
+        break;
+
       case 41: // ","
       case 42: // ";"
       case 43: // "&"
@@ -325,8 +398,78 @@ namespace yy {
       case 47: // "loop"
       case 48: // "while"
       case 49: // "at"
-        yysym.value.template destroy< ast::flavor_type >();
-	break;
+        value.copy< ast::flavor_type > (that.value);
+        break;
+
+      case 137: // modifiers
+        value.copy< ast::modifiers_type > (that.value);
+        break;
+
+      case 135: // k1_id
+        value.copy< ast::rCall > (that.value);
+        break;
+
+      case 147: // catch
+        value.copy< ast::rCatch > (that.value);
+        break;
+
+      case 161: // dictionary
+        value.copy< ast::rDictionary > (that.value);
+        break;
+
+      case 116: // root
+      case 117: // root_exp
+      case 118: // root_exps
+      case 120: // cstmt.opt
+      case 121: // cstmt
+      case 122: // stmt.opt
+      case 123: // stmt
+      case 124: // block
+      case 126: // proto
+      case 129: // exp
+      case 138: // primary-exp
+      case 140: // else.opt
+      case 141: // onleave.opt
+      case 148: // catch.opt
+      case 149: // finally.opt
+      case 154: // bitor-exp
+      case 155: // new
+      case 156: // float-exp
+      case 166: // literal-exp
+      case 169: // guard.opt
+      case 170: // tilda.opt
+      case 171: // unary-exp
+      case 173: // rel-exp
+      case 175: // exp.opt
+      case 185: // typespec
+      case 186: // typespec.opt
+        value.copy< ast::rExp > (that.value);
+        break;
+
+      case 152: // lvalue
+        value.copy< ast::rLValue > (that.value);
+        break;
+
+      case 145: // match
+      case 146: // match.opt
+        value.copy< ast::rMatch > (that.value);
+        break;
+
+      case 119: // stmts
+      case 139: // default.opt
+        value.copy< ast::rNary > (that.value);
+        break;
+
+      case 130: // id.0
+      case 131: // id.1
+      case 184: // identifiers
+        value.copy< ast::symbols_type > (that.value);
+        break;
+
+      case 134: // routine
+      case 151: // detach
+        value.copy< bool > (that.value);
+        break;
 
       case 50: // "identifier"
       case 62: // "^="
@@ -364,8 +507,122 @@ namespace yy {
       case 133: // event_or_function
       case 153: // id
       case 172: // rel-op
-        yysym.value.template destroy< libport::Symbol >();
-	break;
+        value.copy< libport::Symbol > (that.value);
+        break;
+
+      case 76: // "angle"
+      case 77: // "duration"
+      case 78: // "float"
+      case 157: // duration
+        value.copy< libport::ufloat > (that.value);
+        break;
+
+      case 80: // "string"
+      case 167: // string
+        value.copy< std::string > (that.value);
+        break;
+
+      case 176: // unsigned
+        value.copy< unsigned > (that.value);
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
+  parser::stack_symbol_type::stack_symbol_type (state_type s, symbol_type& that)
+    : super_type (s, that.location)
+  {
+    switch (that.type_get ())
+    {
+      case 168: // event_match
+        value.move< ast::EventMatch > (that.value);
+        break;
+
+      case 143: // case
+        value.move< ast::Factory::case_type > (that.value);
+        break;
+
+      case 142: // cases
+        value.move< ast::Factory::cases_type > (that.value);
+        break;
+
+      case 136: // modifier
+        value.move< ast::Factory::modifier_type > (that.value);
+        break;
+
+      case 174: // rel-ops
+        value.move< ast::Factory::relations_type > (that.value);
+        break;
+
+      case 187: // formal
+        value.move< ast::Formal > (that.value);
+        break;
+
+      case 188: // formals.1
+      case 189: // formals.0
+      case 190: // formals
+        value.move< ast::Formals* > (that.value);
+        break;
+
+      case 144: // catches.1
+        value.move< ast::catches_type > (that.value);
+        break;
+
+      case 158: // assoc
+        value.move< ast::dictionary_elt_type > (that.value);
+        break;
+
+      case 159: // assocs.1
+      case 160: // assocs
+        value.move< ast::dictionary_elts_type > (that.value);
+        break;
+
+      case 127: // protos.1
+      case 128: // protos
+      case 162: // tuple.exps
+      case 163: // tuple
+      case 164: // bitor-exps
+      case 165: // bitor-exps.1
+      case 177: // claims
+      case 178: // claims.1
+      case 179: // exps
+      case 180: // exps.1
+      case 181: // exps.2
+      case 182: // args
+      case 183: // args.opt
+        value.move< ast::exps_type* > (that.value);
+        break;
+
+      case 41: // ","
+      case 42: // ";"
+      case 43: // "&"
+      case 44: // "|"
+      case 45: // "every"
+      case 46: // "for"
+      case 47: // "loop"
+      case 48: // "while"
+      case 49: // "at"
+        value.move< ast::flavor_type > (that.value);
+        break;
+
+      case 137: // modifiers
+        value.move< ast::modifiers_type > (that.value);
+        break;
+
+      case 135: // k1_id
+        value.move< ast::rCall > (that.value);
+        break;
+
+      case 147: // catch
+        value.move< ast::rCatch > (that.value);
+        break;
+
+      case 161: // dictionary
+        value.move< ast::rDictionary > (that.value);
+        break;
 
       case 116: // root
       case 117: // root_exp
@@ -391,21 +648,147 @@ namespace yy {
       case 171: // unary-exp
       case 173: // rel-exp
       case 175: // exp.opt
-        yysym.value.template destroy< ast::rExp >();
-	break;
+      case 185: // typespec
+      case 186: // typespec.opt
+        value.move< ast::rExp > (that.value);
+        break;
 
-      case 136: // modifier
-        yysym.value.template destroy< ::ast::Factory::modifier_type >();
-	break;
+      case 152: // lvalue
+        value.move< ast::rLValue > (that.value);
+        break;
 
-      case 135: // k1_id
-        yysym.value.template destroy< ast::rCall >();
-	break;
+      case 145: // match
+      case 146: // match.opt
+        value.move< ast::rMatch > (that.value);
+        break;
 
       case 119: // stmts
       case 139: // default.opt
-        yysym.value.template destroy< ast::rNary >();
-	break;
+        value.move< ast::rNary > (that.value);
+        break;
+
+      case 130: // id.0
+      case 131: // id.1
+      case 184: // identifiers
+        value.move< ast::symbols_type > (that.value);
+        break;
+
+      case 134: // routine
+      case 151: // detach
+        value.move< bool > (that.value);
+        break;
+
+      case 50: // "identifier"
+      case 62: // "^="
+      case 63: // "-="
+      case 64: // "%="
+      case 65: // "+="
+      case 66: // "/="
+      case 67: // "*="
+      case 75: // "new"
+      case 84: // "!"
+      case 85: // "bitand"
+      case 86: // "bitor"
+      case 87: // "^"
+      case 88: // "compl"
+      case 89: // ">>"
+      case 90: // "<<"
+      case 91: // "-"
+      case 92: // "%"
+      case 93: // "+"
+      case 94: // "/"
+      case 95: // "*"
+      case 96: // "**"
+      case 97: // "=~="
+      case 98: // "=="
+      case 99: // "==="
+      case 100: // ">="
+      case 101: // ">"
+      case 102: // "<="
+      case 103: // "<"
+      case 104: // "!="
+      case 105: // "!=="
+      case 106: // "~="
+      case 107: // "&&"
+      case 108: // "||"
+      case 133: // event_or_function
+      case 153: // id
+      case 172: // rel-op
+        value.move< libport::Symbol > (that.value);
+        break;
+
+      case 76: // "angle"
+      case 77: // "duration"
+      case 78: // "float"
+      case 157: // duration
+        value.move< libport::ufloat > (that.value);
+        break;
+
+      case 80: // "string"
+      case 167: // string
+        value.move< std::string > (that.value);
+        break;
+
+      case 176: // unsigned
+        value.move< unsigned > (that.value);
+        break;
+
+      default:
+        break;
+    }
+
+    // that is emptied.
+    that.type = empty_symbol;
+  }
+
+  parser::stack_symbol_type&
+  parser::stack_symbol_type::operator= (const stack_symbol_type& that)
+  {
+    state = that.state;
+    switch (that.type_get ())
+    {
+      case 168: // event_match
+        value.copy< ast::EventMatch > (that.value);
+        break;
+
+      case 143: // case
+        value.copy< ast::Factory::case_type > (that.value);
+        break;
+
+      case 142: // cases
+        value.copy< ast::Factory::cases_type > (that.value);
+        break;
+
+      case 136: // modifier
+        value.copy< ast::Factory::modifier_type > (that.value);
+        break;
+
+      case 174: // rel-ops
+        value.copy< ast::Factory::relations_type > (that.value);
+        break;
+
+      case 187: // formal
+        value.copy< ast::Formal > (that.value);
+        break;
+
+      case 188: // formals.1
+      case 189: // formals.0
+      case 190: // formals
+        value.copy< ast::Formals* > (that.value);
+        break;
+
+      case 144: // catches.1
+        value.copy< ast::catches_type > (that.value);
+        break;
+
+      case 158: // assoc
+        value.copy< ast::dictionary_elt_type > (that.value);
+        break;
+
+      case 159: // assocs.1
+      case 160: // assocs
+        value.copy< ast::dictionary_elts_type > (that.value);
+        break;
 
       case 127: // protos.1
       case 128: // protos
@@ -420,1406 +803,1020 @@ namespace yy {
       case 181: // exps.2
       case 182: // args
       case 183: // args.opt
-        yysym.value.template destroy< ast::exps_type* >();
-	break;
+        value.copy< ast::exps_type* > (that.value);
+        break;
 
-      case 130: // id.0
-      case 131: // id.1
-        yysym.value.template destroy< ast::symbols_type >();
-	break;
-
-      case 176: // unsigned
-        yysym.value.template destroy< unsigned >();
-	break;
-
-      case 134: // routine
-      case 151: // detach
-        yysym.value.template destroy< bool >();
-	break;
+      case 41: // ","
+      case 42: // ";"
+      case 43: // "&"
+      case 44: // "|"
+      case 45: // "every"
+      case 46: // "for"
+      case 47: // "loop"
+      case 48: // "while"
+      case 49: // "at"
+        value.copy< ast::flavor_type > (that.value);
+        break;
 
       case 137: // modifiers
-        yysym.value.template destroy< ast::modifiers_type >();
-	break;
+        value.copy< ast::modifiers_type > (that.value);
+        break;
 
-      case 142: // cases
-        yysym.value.template destroy< ::ast::Factory::cases_type >();
-	break;
+      case 135: // k1_id
+        value.copy< ast::rCall > (that.value);
+        break;
 
-      case 143: // case
-        yysym.value.template destroy< ::ast::Factory::case_type >();
-	break;
+      case 147: // catch
+        value.copy< ast::rCatch > (that.value);
+        break;
 
-      case 144: // catches.1
-        yysym.value.template destroy< ast::catches_type >();
-	break;
+      case 161: // dictionary
+        value.copy< ast::rDictionary > (that.value);
+        break;
+
+      case 116: // root
+      case 117: // root_exp
+      case 118: // root_exps
+      case 120: // cstmt.opt
+      case 121: // cstmt
+      case 122: // stmt.opt
+      case 123: // stmt
+      case 124: // block
+      case 126: // proto
+      case 129: // exp
+      case 138: // primary-exp
+      case 140: // else.opt
+      case 141: // onleave.opt
+      case 148: // catch.opt
+      case 149: // finally.opt
+      case 154: // bitor-exp
+      case 155: // new
+      case 156: // float-exp
+      case 166: // literal-exp
+      case 169: // guard.opt
+      case 170: // tilda.opt
+      case 171: // unary-exp
+      case 173: // rel-exp
+      case 175: // exp.opt
+      case 185: // typespec
+      case 186: // typespec.opt
+        value.copy< ast::rExp > (that.value);
+        break;
+
+      case 152: // lvalue
+        value.copy< ast::rLValue > (that.value);
+        break;
 
       case 145: // match
       case 146: // match.opt
-        yysym.value.template destroy< ast::rMatch >();
-	break;
+        value.copy< ast::rMatch > (that.value);
+        break;
 
-      case 147: // catch
-        yysym.value.template destroy< ast::rCatch >();
-	break;
+      case 119: // stmts
+      case 139: // default.opt
+        value.copy< ast::rNary > (that.value);
+        break;
 
-      case 152: // lvalue
-        yysym.value.template destroy< ast::rLValue >();
-	break;
+      case 130: // id.0
+      case 131: // id.1
+      case 184: // identifiers
+        value.copy< ast::symbols_type > (that.value);
+        break;
+
+      case 134: // routine
+      case 151: // detach
+        value.copy< bool > (that.value);
+        break;
+
+      case 50: // "identifier"
+      case 62: // "^="
+      case 63: // "-="
+      case 64: // "%="
+      case 65: // "+="
+      case 66: // "/="
+      case 67: // "*="
+      case 75: // "new"
+      case 84: // "!"
+      case 85: // "bitand"
+      case 86: // "bitor"
+      case 87: // "^"
+      case 88: // "compl"
+      case 89: // ">>"
+      case 90: // "<<"
+      case 91: // "-"
+      case 92: // "%"
+      case 93: // "+"
+      case 94: // "/"
+      case 95: // "*"
+      case 96: // "**"
+      case 97: // "=~="
+      case 98: // "=="
+      case 99: // "==="
+      case 100: // ">="
+      case 101: // ">"
+      case 102: // "<="
+      case 103: // "<"
+      case 104: // "!="
+      case 105: // "!=="
+      case 106: // "~="
+      case 107: // "&&"
+      case 108: // "||"
+      case 133: // event_or_function
+      case 153: // id
+      case 172: // rel-op
+        value.copy< libport::Symbol > (that.value);
+        break;
 
       case 76: // "angle"
       case 77: // "duration"
       case 78: // "float"
       case 157: // duration
-        yysym.value.template destroy< libport::ufloat >();
-	break;
-
-      case 158: // assoc
-        yysym.value.template destroy< ast::dictionary_elt_type >();
-	break;
-
-      case 159: // assocs.1
-      case 160: // assocs
-        yysym.value.template destroy< ast::dictionary_elts_type >();
-	break;
-
-      case 161: // dictionary
-        yysym.value.template destroy< ast::rDictionary >();
-	break;
+        value.copy< libport::ufloat > (that.value);
+        break;
 
       case 80: // "string"
       case 167: // string
-        yysym.value.template destroy< std::string >();
-	break;
+        value.copy< std::string > (that.value);
+        break;
 
-      case 168: // event_match
-        yysym.value.template destroy< ast::EventMatch >();
-	break;
-
-      case 174: // rel-ops
-        yysym.value.template destroy< ::ast::Factory::relations_type >();
-	break;
-
-      case 184: // identifiers
-        yysym.value.template destroy< ::ast::symbols_type >();
-	break;
-
-      case 185: // typespec
-      case 186: // typespec.opt
-        yysym.value.template destroy< ::ast::rExp >();
-	break;
-
-      case 187: // formal
-        yysym.value.template destroy< ::ast::Formal >();
-	break;
-
-      case 188: // formals.1
-      case 189: // formals.0
-      case 190: // formals
-        yysym.value.template destroy< ::ast::Formals* >();
-	break;
+      case 176: // unsigned
+        value.copy< unsigned > (that.value);
+        break;
 
       default:
         break;
     }
 
+    location = that.location;
+    return *this;
+  }
+
+
+  template <typename Base>
+  void
+  parser::yy_destroy_ (const char* yymsg, basic_symbol<Base>& yysym) const
+  {
+    if (yymsg)
+      YY_SYMBOL_PRINT (yymsg, yysym);
   }
 
 #if YYDEBUG
-  template <typename Exact>
+  template <typename Base>
   void
   parser::yy_print_ (std::ostream& yyo,
-                                     const symbol_base_type<Exact>& yysym) const
+                                     const basic_symbol<Base>& yysym) const
   {
-    int yytype = yysym.type_get ();
+    std::ostream& yyoutput = yyo;
+    YYUSE (yyoutput);
+    symbol_number_type yytype = yysym.type_get ();
+    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
+    // below array bounds".
+    if (yysym.empty ())
+      std::abort ();
     yyo << (yytype < yyntokens_ ? "token" : "nterm")
         << ' ' << yytname_[yytype] << " ("
         << yysym.location << ": ";
     switch (yytype)
-      {
+    {
             case 41: // ","
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 546 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 986 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 42: // ";"
+      case 42: // ";"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 555 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 993 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 43: // "&"
+      case 43: // "&"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 564 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1000 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 44: // "|"
+      case 44: // "|"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 573 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1007 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 45: // "every"
+      case 45: // "every"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 582 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1014 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 46: // "for"
+      case 46: // "for"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 591 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1021 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 47: // "loop"
+      case 47: // "loop"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 600 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1028 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 48: // "while"
+      case 48: // "while"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 609 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1035 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 49: // "at"
+      case 49: // "at"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 618 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::flavor_type > (); }
+#line 1042 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 50: // "identifier"
+      case 50: // "identifier"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 627 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1049 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 62: // "^="
+      case 62: // "^="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 636 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1056 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 63: // "-="
+      case 63: // "-="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 645 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1063 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 64: // "%="
+      case 64: // "%="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 654 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1070 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 65: // "+="
+      case 65: // "+="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 663 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1077 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 66: // "/="
+      case 66: // "/="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 672 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1084 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 67: // "*="
+      case 67: // "*="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 681 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1091 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 75: // "new"
+      case 75: // "new"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 690 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1098 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 76: // "angle"
+      case 76: // "angle"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat >(); }
-/* Line 576 of lalr1.cc  */
-#line 699 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat > (); }
+#line 1105 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 77: // "duration"
+      case 77: // "duration"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat >(); }
-/* Line 576 of lalr1.cc  */
-#line 708 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat > (); }
+#line 1112 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 78: // "float"
+      case 78: // "float"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat >(); }
-/* Line 576 of lalr1.cc  */
-#line 717 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat > (); }
+#line 1119 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 80: // "string"
+      case 80: // "string"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< std::string >(); }
-/* Line 576 of lalr1.cc  */
-#line 726 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< std::string > (); }
+#line 1126 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 84: // "!"
+      case 84: // "!"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 735 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1133 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 85: // "bitand"
+      case 85: // "bitand"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 744 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1140 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 86: // "bitor"
+      case 86: // "bitor"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 753 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1147 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 87: // "^"
+      case 87: // "^"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 762 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1154 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 88: // "compl"
+      case 88: // "compl"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 771 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1161 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 89: // ">>"
+      case 89: // ">>"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 780 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1168 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 90: // "<<"
+      case 90: // "<<"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 789 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1175 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 91: // "-"
+      case 91: // "-"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 798 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1182 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 92: // "%"
+      case 92: // "%"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 807 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1189 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 93: // "+"
+      case 93: // "+"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 816 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1196 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 94: // "/"
+      case 94: // "/"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 825 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1203 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 95: // "*"
+      case 95: // "*"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 834 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1210 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 96: // "**"
+      case 96: // "**"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 843 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1217 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 97: // "=~="
+      case 97: // "=~="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 852 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1224 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 98: // "=="
+      case 98: // "=="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 861 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1231 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 99: // "==="
+      case 99: // "==="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 870 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1238 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 100: // ">="
+      case 100: // ">="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 879 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1245 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 101: // ">"
+      case 101: // ">"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 888 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1252 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 102: // "<="
+      case 102: // "<="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 897 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1259 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 103: // "<"
+      case 103: // "<"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 906 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1266 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 104: // "!="
+      case 104: // "!="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 915 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1273 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 105: // "!=="
+      case 105: // "!=="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 924 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1280 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 106: // "~="
+      case 106: // "~="
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 933 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1287 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 107: // "&&"
+      case 107: // "&&"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 942 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1294 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 108: // "||"
+      case 108: // "||"
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 951 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1301 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 116: // root
+      case 116: // root
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 960 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1308 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 117: // root_exp
+      case 117: // root_exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 969 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1315 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 118: // root_exps
+      case 118: // root_exps
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 978 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1322 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 119: // stmts
+      case 119: // stmts
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rNary >(); }
-/* Line 576 of lalr1.cc  */
-#line 987 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rNary > (); }
+#line 1329 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 120: // cstmt.opt
+      case 120: // cstmt.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 996 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1336 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 121: // cstmt
+      case 121: // cstmt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1005 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1343 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 122: // stmt.opt
+      case 122: // stmt.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1014 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1350 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 123: // stmt
+      case 123: // stmt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1023 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1357 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 124: // block
+      case 124: // block
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1032 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1364 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 126: // proto
+      case 126: // proto
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1041 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1371 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 127: // protos.1
+      case 127: // protos.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1050 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1378 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 128: // protos
+      case 128: // protos
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1059 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1385 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 129: // exp
+      case 129: // exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1068 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1392 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 130: // id.0
+      case 130: // id.0
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::symbols_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1077 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::symbols_type > (); }
+#line 1399 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 131: // id.1
+      case 131: // id.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::symbols_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1086 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::symbols_type > (); }
+#line 1406 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 133: // event_or_function
+      case 133: // event_or_function
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 1095 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1413 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 134: // routine
+      case 134: // routine
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< bool >(); }
-/* Line 576 of lalr1.cc  */
-#line 1104 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< bool > (); }
+#line 1420 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 135: // k1_id
+      case 135: // k1_id
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rCall >(); }
-/* Line 576 of lalr1.cc  */
-#line 1113 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rCall > (); }
+#line 1427 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 136: // modifier
+      case 136: // modifier
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Factory::modifier_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1122 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Factory::modifier_type > (); }
+#line 1434 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 137: // modifiers
+      case 137: // modifiers
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::modifiers_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1131 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::modifiers_type > (); }
+#line 1441 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 138: // primary-exp
+      case 138: // primary-exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1140 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1448 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 139: // default.opt
+      case 139: // default.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rNary >(); }
-/* Line 576 of lalr1.cc  */
-#line 1149 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rNary > (); }
+#line 1455 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 140: // else.opt
+      case 140: // else.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1158 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1462 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 141: // onleave.opt
+      case 141: // onleave.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1167 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1469 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 142: // cases
+      case 142: // cases
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Factory::cases_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1176 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Factory::cases_type > (); }
+#line 1476 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 143: // case
+      case 143: // case
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Factory::case_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1185 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Factory::case_type > (); }
+#line 1483 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 144: // catches.1
+      case 144: // catches.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::catches_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1194 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::catches_type > (); }
+#line 1490 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 145: // match
+      case 145: // match
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rMatch >(); }
-/* Line 576 of lalr1.cc  */
-#line 1203 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rMatch > (); }
+#line 1497 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 146: // match.opt
+      case 146: // match.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rMatch >(); }
-/* Line 576 of lalr1.cc  */
-#line 1212 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rMatch > (); }
+#line 1504 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 147: // catch
+      case 147: // catch
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rCatch >(); }
-/* Line 576 of lalr1.cc  */
-#line 1221 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rCatch > (); }
+#line 1511 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 148: // catch.opt
+      case 148: // catch.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1230 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1518 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 149: // finally.opt
+      case 149: // finally.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1239 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1525 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 151: // detach
+      case 151: // detach
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< bool >(); }
-/* Line 576 of lalr1.cc  */
-#line 1248 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< bool > (); }
+#line 1532 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 152: // lvalue
+      case 152: // lvalue
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rLValue >(); }
-/* Line 576 of lalr1.cc  */
-#line 1257 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rLValue > (); }
+#line 1539 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 153: // id
+      case 153: // id
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 1266 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1546 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 154: // bitor-exp
+      case 154: // bitor-exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1275 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1553 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 155: // new
+      case 155: // new
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1284 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1560 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 156: // float-exp
+      case 156: // float-exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1293 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1567 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 157: // duration
+      case 157: // duration
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat >(); }
-/* Line 576 of lalr1.cc  */
-#line 1302 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::ufloat > (); }
+#line 1574 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 158: // assoc
+      case 158: // assoc
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::dictionary_elt_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1311 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::dictionary_elt_type > (); }
+#line 1581 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 159: // assocs.1
+      case 159: // assocs.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::dictionary_elts_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1320 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::dictionary_elts_type > (); }
+#line 1588 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 160: // assocs
+      case 160: // assocs
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::dictionary_elts_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1329 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::dictionary_elts_type > (); }
+#line 1595 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 161: // dictionary
+      case 161: // dictionary
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rDictionary >(); }
-/* Line 576 of lalr1.cc  */
-#line 1338 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rDictionary > (); }
+#line 1602 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 162: // tuple.exps
+      case 162: // tuple.exps
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1347 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1609 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 163: // tuple
+      case 163: // tuple
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1356 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1616 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 164: // bitor-exps
+      case 164: // bitor-exps
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1365 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1623 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 165: // bitor-exps.1
+      case 165: // bitor-exps.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1374 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1630 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 166: // literal-exp
+      case 166: // literal-exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1383 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1637 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 167: // string
+      case 167: // string
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< std::string >(); }
-/* Line 576 of lalr1.cc  */
-#line 1392 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< std::string > (); }
+#line 1644 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 168: // event_match
+      case 168: // event_match
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::EventMatch >(); }
-/* Line 576 of lalr1.cc  */
-#line 1401 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::EventMatch > (); }
+#line 1651 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 169: // guard.opt
+      case 169: // guard.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1410 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1658 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 170: // tilda.opt
+      case 170: // tilda.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1419 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1665 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 171: // unary-exp
+      case 171: // unary-exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1428 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1672 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 172: // rel-op
+      case 172: // rel-op
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol >(); }
-/* Line 576 of lalr1.cc  */
-#line 1437 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< libport::Symbol > (); }
+#line 1679 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 173: // rel-exp
+      case 173: // rel-exp
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1446 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1686 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 174: // rel-ops
+      case 174: // rel-ops
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Factory::relations_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1455 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Factory::relations_type > (); }
+#line 1693 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 175: // exp.opt
+      case 175: // exp.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1464 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1700 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 176: // unsigned
+      case 176: // unsigned
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< unsigned >(); }
-/* Line 576 of lalr1.cc  */
-#line 1473 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< unsigned > (); }
+#line 1707 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 177: // claims
+      case 177: // claims
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1482 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1714 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 178: // claims.1
+      case 178: // claims.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1491 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1721 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 179: // exps
+      case 179: // exps
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1500 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1728 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 180: // exps.1
+      case 180: // exps.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1509 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1735 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 181: // exps.2
+      case 181: // exps.2
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1518 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1742 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 182: // args
+      case 182: // args
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1527 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1749 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 183: // args.opt
+      case 183: // args.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1536 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::exps_type* > (); }
+#line 1756 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 184: // identifiers
+      case 184: // identifiers
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::symbols_type >(); }
-/* Line 576 of lalr1.cc  */
-#line 1545 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::symbols_type > (); }
+#line 1763 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 185: // typespec
+      case 185: // typespec
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1554 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1770 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 186: // typespec.opt
+      case 186: // typespec.opt
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::rExp >(); }
-/* Line 576 of lalr1.cc  */
-#line 1563 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::rExp > (); }
+#line 1777 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 187: // formal
+      case 187: // formal
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Formal >(); }
-/* Line 576 of lalr1.cc  */
-#line 1572 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Formal > (); }
+#line 1784 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 188: // formals.1
+      case 188: // formals.1
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Formals* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1581 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Formals* > (); }
+#line 1791 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 189: // formals.0
+      case 189: // formals.0
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Formals* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1590 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Formals* > (); }
+#line 1798 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-            case 190: // formals
+      case 190: // formals
 
-/* Line 576 of lalr1.cc  */
-#line 205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-        { debug_stream() << libport::deref << yysym.value.template as< ::ast::Formals* >(); }
-/* Line 576 of lalr1.cc  */
-#line 1599 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:644
+        { debug_stream() << libport::deref << yysym.value.template as< ast::Formals* > (); }
+#line 1805 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:644
         break;
 
-       default:
-	  break;
-      }
+
+      default:
+        break;
+    }
     yyo << ')';
   }
 #endif
 
   void
-  parser::yypush_ (const char* m, state_type s,
-                                   symbol_type& sym)
+  parser::yypush_ (const char* m, state_type s, symbol_type& sym)
   {
-    if (m)
-      YY_SYMBOL_PRINT (m, sym);
-    yystack_.push (stack_symbol_type (s, semantic_type(), sym.location));
-      switch (yystos_[s])
-    {
-      case 41: // ","
-      case 42: // ";"
-      case 43: // "&"
-      case 44: // "|"
-      case 45: // "every"
-      case 46: // "for"
-      case 47: // "loop"
-      case 48: // "while"
-      case 49: // "at"
-        yystack_[0].value.build< ast::flavor_type >(sym.value);
-	break;
-
-      case 50: // "identifier"
-      case 62: // "^="
-      case 63: // "-="
-      case 64: // "%="
-      case 65: // "+="
-      case 66: // "/="
-      case 67: // "*="
-      case 75: // "new"
-      case 84: // "!"
-      case 85: // "bitand"
-      case 86: // "bitor"
-      case 87: // "^"
-      case 88: // "compl"
-      case 89: // ">>"
-      case 90: // "<<"
-      case 91: // "-"
-      case 92: // "%"
-      case 93: // "+"
-      case 94: // "/"
-      case 95: // "*"
-      case 96: // "**"
-      case 97: // "=~="
-      case 98: // "=="
-      case 99: // "==="
-      case 100: // ">="
-      case 101: // ">"
-      case 102: // "<="
-      case 103: // "<"
-      case 104: // "!="
-      case 105: // "!=="
-      case 106: // "~="
-      case 107: // "&&"
-      case 108: // "||"
-      case 133: // event_or_function
-      case 153: // id
-      case 172: // rel-op
-        yystack_[0].value.build< libport::Symbol >(sym.value);
-	break;
-
-      case 116: // root
-      case 117: // root_exp
-      case 118: // root_exps
-      case 120: // cstmt.opt
-      case 121: // cstmt
-      case 122: // stmt.opt
-      case 123: // stmt
-      case 124: // block
-      case 126: // proto
-      case 129: // exp
-      case 138: // primary-exp
-      case 140: // else.opt
-      case 141: // onleave.opt
-      case 148: // catch.opt
-      case 149: // finally.opt
-      case 154: // bitor-exp
-      case 155: // new
-      case 156: // float-exp
-      case 166: // literal-exp
-      case 169: // guard.opt
-      case 170: // tilda.opt
-      case 171: // unary-exp
-      case 173: // rel-exp
-      case 175: // exp.opt
-        yystack_[0].value.build< ast::rExp >(sym.value);
-	break;
-
-      case 136: // modifier
-        yystack_[0].value.build< ::ast::Factory::modifier_type >(sym.value);
-	break;
-
-      case 135: // k1_id
-        yystack_[0].value.build< ast::rCall >(sym.value);
-	break;
-
-      case 119: // stmts
-      case 139: // default.opt
-        yystack_[0].value.build< ast::rNary >(sym.value);
-	break;
-
-      case 127: // protos.1
-      case 128: // protos
-      case 162: // tuple.exps
-      case 163: // tuple
-      case 164: // bitor-exps
-      case 165: // bitor-exps.1
-      case 177: // claims
-      case 178: // claims.1
-      case 179: // exps
-      case 180: // exps.1
-      case 181: // exps.2
-      case 182: // args
-      case 183: // args.opt
-        yystack_[0].value.build< ast::exps_type* >(sym.value);
-	break;
-
-      case 130: // id.0
-      case 131: // id.1
-        yystack_[0].value.build< ast::symbols_type >(sym.value);
-	break;
-
-      case 176: // unsigned
-        yystack_[0].value.build< unsigned >(sym.value);
-	break;
-
-      case 134: // routine
-      case 151: // detach
-        yystack_[0].value.build< bool >(sym.value);
-	break;
-
-      case 137: // modifiers
-        yystack_[0].value.build< ast::modifiers_type >(sym.value);
-	break;
-
-      case 142: // cases
-        yystack_[0].value.build< ::ast::Factory::cases_type >(sym.value);
-	break;
-
-      case 143: // case
-        yystack_[0].value.build< ::ast::Factory::case_type >(sym.value);
-	break;
-
-      case 144: // catches.1
-        yystack_[0].value.build< ast::catches_type >(sym.value);
-	break;
-
-      case 145: // match
-      case 146: // match.opt
-        yystack_[0].value.build< ast::rMatch >(sym.value);
-	break;
-
-      case 147: // catch
-        yystack_[0].value.build< ast::rCatch >(sym.value);
-	break;
-
-      case 152: // lvalue
-        yystack_[0].value.build< ast::rLValue >(sym.value);
-	break;
-
-      case 76: // "angle"
-      case 77: // "duration"
-      case 78: // "float"
-      case 157: // duration
-        yystack_[0].value.build< libport::ufloat >(sym.value);
-	break;
-
-      case 158: // assoc
-        yystack_[0].value.build< ast::dictionary_elt_type >(sym.value);
-	break;
-
-      case 159: // assocs.1
-      case 160: // assocs
-        yystack_[0].value.build< ast::dictionary_elts_type >(sym.value);
-	break;
-
-      case 161: // dictionary
-        yystack_[0].value.build< ast::rDictionary >(sym.value);
-	break;
-
-      case 80: // "string"
-      case 167: // string
-        yystack_[0].value.build< std::string >(sym.value);
-	break;
-
-      case 168: // event_match
-        yystack_[0].value.build< ast::EventMatch >(sym.value);
-	break;
-
-      case 174: // rel-ops
-        yystack_[0].value.build< ::ast::Factory::relations_type >(sym.value);
-	break;
-
-      case 184: // identifiers
-        yystack_[0].value.build< ::ast::symbols_type >(sym.value);
-	break;
-
-      case 185: // typespec
-      case 186: // typespec.opt
-        yystack_[0].value.build< ::ast::rExp >(sym.value);
-	break;
-
-      case 187: // formal
-        yystack_[0].value.build< ::ast::Formal >(sym.value);
-	break;
-
-      case 188: // formals.1
-      case 189: // formals.0
-      case 190: // formals
-        yystack_[0].value.build< ::ast::Formals* >(sym.value);
-	break;
-
-      default:
-        break;
-    }
-
+    stack_symbol_type t (s, sym);
+    yypush_ (m, t);
   }
 
   void
@@ -1827,219 +1824,11 @@ namespace yy {
   {
     if (m)
       YY_SYMBOL_PRINT (m, s);
-    yystack_.push (stack_symbol_type (s.state, semantic_type(), s.location));
-      switch (yystos_[s.state])
-    {
-      case 41: // ","
-      case 42: // ";"
-      case 43: // "&"
-      case 44: // "|"
-      case 45: // "every"
-      case 46: // "for"
-      case 47: // "loop"
-      case 48: // "while"
-      case 49: // "at"
-        yystack_[0].value.build< ast::flavor_type >(s.value);
-	break;
-
-      case 50: // "identifier"
-      case 62: // "^="
-      case 63: // "-="
-      case 64: // "%="
-      case 65: // "+="
-      case 66: // "/="
-      case 67: // "*="
-      case 75: // "new"
-      case 84: // "!"
-      case 85: // "bitand"
-      case 86: // "bitor"
-      case 87: // "^"
-      case 88: // "compl"
-      case 89: // ">>"
-      case 90: // "<<"
-      case 91: // "-"
-      case 92: // "%"
-      case 93: // "+"
-      case 94: // "/"
-      case 95: // "*"
-      case 96: // "**"
-      case 97: // "=~="
-      case 98: // "=="
-      case 99: // "==="
-      case 100: // ">="
-      case 101: // ">"
-      case 102: // "<="
-      case 103: // "<"
-      case 104: // "!="
-      case 105: // "!=="
-      case 106: // "~="
-      case 107: // "&&"
-      case 108: // "||"
-      case 133: // event_or_function
-      case 153: // id
-      case 172: // rel-op
-        yystack_[0].value.build< libport::Symbol >(s.value);
-	break;
-
-      case 116: // root
-      case 117: // root_exp
-      case 118: // root_exps
-      case 120: // cstmt.opt
-      case 121: // cstmt
-      case 122: // stmt.opt
-      case 123: // stmt
-      case 124: // block
-      case 126: // proto
-      case 129: // exp
-      case 138: // primary-exp
-      case 140: // else.opt
-      case 141: // onleave.opt
-      case 148: // catch.opt
-      case 149: // finally.opt
-      case 154: // bitor-exp
-      case 155: // new
-      case 156: // float-exp
-      case 166: // literal-exp
-      case 169: // guard.opt
-      case 170: // tilda.opt
-      case 171: // unary-exp
-      case 173: // rel-exp
-      case 175: // exp.opt
-        yystack_[0].value.build< ast::rExp >(s.value);
-	break;
-
-      case 136: // modifier
-        yystack_[0].value.build< ::ast::Factory::modifier_type >(s.value);
-	break;
-
-      case 135: // k1_id
-        yystack_[0].value.build< ast::rCall >(s.value);
-	break;
-
-      case 119: // stmts
-      case 139: // default.opt
-        yystack_[0].value.build< ast::rNary >(s.value);
-	break;
-
-      case 127: // protos.1
-      case 128: // protos
-      case 162: // tuple.exps
-      case 163: // tuple
-      case 164: // bitor-exps
-      case 165: // bitor-exps.1
-      case 177: // claims
-      case 178: // claims.1
-      case 179: // exps
-      case 180: // exps.1
-      case 181: // exps.2
-      case 182: // args
-      case 183: // args.opt
-        yystack_[0].value.build< ast::exps_type* >(s.value);
-	break;
-
-      case 130: // id.0
-      case 131: // id.1
-        yystack_[0].value.build< ast::symbols_type >(s.value);
-	break;
-
-      case 176: // unsigned
-        yystack_[0].value.build< unsigned >(s.value);
-	break;
-
-      case 134: // routine
-      case 151: // detach
-        yystack_[0].value.build< bool >(s.value);
-	break;
-
-      case 137: // modifiers
-        yystack_[0].value.build< ast::modifiers_type >(s.value);
-	break;
-
-      case 142: // cases
-        yystack_[0].value.build< ::ast::Factory::cases_type >(s.value);
-	break;
-
-      case 143: // case
-        yystack_[0].value.build< ::ast::Factory::case_type >(s.value);
-	break;
-
-      case 144: // catches.1
-        yystack_[0].value.build< ast::catches_type >(s.value);
-	break;
-
-      case 145: // match
-      case 146: // match.opt
-        yystack_[0].value.build< ast::rMatch >(s.value);
-	break;
-
-      case 147: // catch
-        yystack_[0].value.build< ast::rCatch >(s.value);
-	break;
-
-      case 152: // lvalue
-        yystack_[0].value.build< ast::rLValue >(s.value);
-	break;
-
-      case 76: // "angle"
-      case 77: // "duration"
-      case 78: // "float"
-      case 157: // duration
-        yystack_[0].value.build< libport::ufloat >(s.value);
-	break;
-
-      case 158: // assoc
-        yystack_[0].value.build< ast::dictionary_elt_type >(s.value);
-	break;
-
-      case 159: // assocs.1
-      case 160: // assocs
-        yystack_[0].value.build< ast::dictionary_elts_type >(s.value);
-	break;
-
-      case 161: // dictionary
-        yystack_[0].value.build< ast::rDictionary >(s.value);
-	break;
-
-      case 80: // "string"
-      case 167: // string
-        yystack_[0].value.build< std::string >(s.value);
-	break;
-
-      case 168: // event_match
-        yystack_[0].value.build< ast::EventMatch >(s.value);
-	break;
-
-      case 174: // rel-ops
-        yystack_[0].value.build< ::ast::Factory::relations_type >(s.value);
-	break;
-
-      case 184: // identifiers
-        yystack_[0].value.build< ::ast::symbols_type >(s.value);
-	break;
-
-      case 185: // typespec
-      case 186: // typespec.opt
-        yystack_[0].value.build< ::ast::rExp >(s.value);
-	break;
-
-      case 187: // formal
-        yystack_[0].value.build< ::ast::Formal >(s.value);
-	break;
-
-      case 188: // formals.1
-      case 189: // formals.0
-      case 190: // formals
-        yystack_[0].value.build< ::ast::Formals* >(s.value);
-	break;
-
-      default:
-        break;
-    }
-
+    yystack_.push (s);
   }
 
   void
-  parser::yypop_ (unsigned int n)
+  parser::yypop_ (unsigned n)
   {
     yystack_.pop (n);
   }
@@ -2069,25 +1858,25 @@ namespace yy {
   {
     yydebug_ = l;
   }
-#endif
+#endif // YYDEBUG
 
-  inline parser::state_type
-  parser::yy_lr_goto_state_ (state_type yystate, int yylhs)
+  parser::state_type
+  parser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yylhs - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yylhs - yyntokens_];
+      return yydefgoto_[yysym - yyntokens_];
   }
 
-  inline bool
+  bool
   parser::yy_pact_value_is_default_ (int yyvalue)
   {
     return yyvalue == yypact_ninf_;
   }
 
-  inline bool
+  bool
   parser::yy_table_value_is_error_ (int yyvalue)
   {
     return yyvalue == yytable_ninf_;
@@ -2096,14 +1885,12 @@ namespace yy {
   int
   parser::parse ()
   {
-    /// Whether yyla contains a lookahead.
-    bool yyempty = true;
-
-    /* State.  */
+    // State.
     int yyn;
+    /// Length of the RHS of the rule being reduced.
     int yylen = 0;
 
-    /* Error handling.  */
+    // Error handling.
     int yynerrs_ = 0;
     int yyerrstatus_ = 0;
 
@@ -2113,92 +1900,91 @@ namespace yy {
     /// The locations where the error started and ended.
     stack_symbol_type yyerror_range[3];
 
-    /// $$ and @$.
-    stack_symbol_type yylhs;
-
-    /// The return value of parse().
+    /// The return value of parse ().
     int yyresult;
 
-    YYCDEBUG << "Starting parse" << std::endl;
+#if YY_EXCEPTIONS
+    try
+#endif // YY_EXCEPTIONS
+      {
+    YYCDEBUG << "Starting parse\n";
 
 
-    /* User initialization code.  */
-    /* Line 701 of lalr1.cc  */
-#line 55 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+    // User initialization code.
+    #line 55 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:746
 {
   // Saved when exiting the start symbol.
   up.scanner_.loc = up.loc_;
 }
-/* Line 701 of lalr1.cc  */
-#line 2134 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+
+#line 1921 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:746
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
        location values to have been already stored, initialize these
        stacks with a primary value.  */
-    yystack_ = stack_type (0);
-    yypush_ (0, 0, yyla);
+    yystack_.clear ();
+    yypush_ (YY_NULLPTR, 0, yyla);
 
     // A new symbol was pushed on the stack.
   yynewstate:
-    YYCDEBUG << "Entering state " << yystack_[0].state << std::endl;
+    YYCDEBUG << "Entering state " << yystack_[0].state << '\n';
 
-    /* Accept?  */
+    // Accept?
     if (yystack_[0].state == yyfinal_)
       goto yyacceptlab;
 
     goto yybackup;
 
-    /* Backup.  */
+    // Backup.
   yybackup:
-
-    /* Try to take a decision without lookahead.  */
+    // Try to take a decision without lookahead.
     yyn = yypact_[yystack_[0].state];
     if (yy_pact_value_is_default_ (yyn))
       goto yydefault;
 
-    /* Read a lookahead token.  */
-    if (yyempty)
+    // Read a lookahead token.
+    if (yyla.empty ())
       {
         YYCDEBUG << "Reading a token: ";
+#if YY_EXCEPTIONS
         try
-        {
-          yyla = yylex (up);
-        }
+#endif // YY_EXCEPTIONS
+          {
+            symbol_type yylookahead (yylex (up));
+            yyla.move (yylookahead);
+          }
+#if YY_EXCEPTIONS
         catch (const syntax_error& yyexc)
-        {
-          error (yyexc.location, yyexc.what());
-          goto yyerrlab1;
-        }
-        yyempty = false;
+          {
+            error (yyexc);
+            goto yyerrlab1;
+          }
+#endif // YY_EXCEPTIONS
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type;
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type)
+    yyn += yyla.type_get ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
       goto yydefault;
 
-    /* Reduce or error.  */
+    // Reduce or error.
     yyn = yytable_[yyn];
     if (yyn <= 0)
       {
-	if (yy_table_value_is_error_ (yyn))
-	  goto yyerrlab;
-	yyn = -yyn;
-	goto yyreduce;
+        if (yy_table_value_is_error_ (yyn))
+          goto yyerrlab;
+        yyn = -yyn;
+        goto yyreduce;
       }
 
-    /* Discard the token being shifted.  */
-    yyempty = true;
-
-    /* Count tokens shifted since error; after three, turn off error
-       status.  */
+    // Count tokens shifted since error; after three, turn off error status.
     if (yyerrstatus_)
       --yyerrstatus_;
 
-    /* Shift the lookahead token.  */
+    // Shift the lookahead token.
     yypush_ ("Shifting", yyn, yyla);
     goto yynewstate;
 
@@ -2216,12 +2002,73 @@ namespace yy {
   `-----------------------------*/
   yyreduce:
     yylen = yyr2_[yyn];
-    yylhs.state = yy_lr_goto_state_(yystack_[yylen].state, yyr1_[yyn]);
-    /* Variants are always initialized to an empty instance of the
-       correct type. The default $$=$1 action is NOT applied when using
-       variants.  */
+    {
+      stack_symbol_type yylhs;
+      yylhs.state = yy_lr_goto_state_ (yystack_[yylen].state, yyr1_[yyn]);
+      /* Variants are always initialized to an empty instance of the
+         correct type. The default '$$ = $1' action is NOT applied
+         when using variants.  */
       switch (yyr1_[yyn])
     {
+      case 168: // event_match
+        yylhs.value.build< ast::EventMatch > ();
+        break;
+
+      case 143: // case
+        yylhs.value.build< ast::Factory::case_type > ();
+        break;
+
+      case 142: // cases
+        yylhs.value.build< ast::Factory::cases_type > ();
+        break;
+
+      case 136: // modifier
+        yylhs.value.build< ast::Factory::modifier_type > ();
+        break;
+
+      case 174: // rel-ops
+        yylhs.value.build< ast::Factory::relations_type > ();
+        break;
+
+      case 187: // formal
+        yylhs.value.build< ast::Formal > ();
+        break;
+
+      case 188: // formals.1
+      case 189: // formals.0
+      case 190: // formals
+        yylhs.value.build< ast::Formals* > ();
+        break;
+
+      case 144: // catches.1
+        yylhs.value.build< ast::catches_type > ();
+        break;
+
+      case 158: // assoc
+        yylhs.value.build< ast::dictionary_elt_type > ();
+        break;
+
+      case 159: // assocs.1
+      case 160: // assocs
+        yylhs.value.build< ast::dictionary_elts_type > ();
+        break;
+
+      case 127: // protos.1
+      case 128: // protos
+      case 162: // tuple.exps
+      case 163: // tuple
+      case 164: // bitor-exps
+      case 165: // bitor-exps.1
+      case 177: // claims
+      case 178: // claims.1
+      case 179: // exps
+      case 180: // exps.1
+      case 181: // exps.2
+      case 182: // args
+      case 183: // args.opt
+        yylhs.value.build< ast::exps_type* > ();
+        break;
+
       case 41: // ","
       case 42: // ";"
       case 43: // "&"
@@ -2231,8 +2078,78 @@ namespace yy {
       case 47: // "loop"
       case 48: // "while"
       case 49: // "at"
-        yylhs.value.build< ast::flavor_type >();
-	break;
+        yylhs.value.build< ast::flavor_type > ();
+        break;
+
+      case 137: // modifiers
+        yylhs.value.build< ast::modifiers_type > ();
+        break;
+
+      case 135: // k1_id
+        yylhs.value.build< ast::rCall > ();
+        break;
+
+      case 147: // catch
+        yylhs.value.build< ast::rCatch > ();
+        break;
+
+      case 161: // dictionary
+        yylhs.value.build< ast::rDictionary > ();
+        break;
+
+      case 116: // root
+      case 117: // root_exp
+      case 118: // root_exps
+      case 120: // cstmt.opt
+      case 121: // cstmt
+      case 122: // stmt.opt
+      case 123: // stmt
+      case 124: // block
+      case 126: // proto
+      case 129: // exp
+      case 138: // primary-exp
+      case 140: // else.opt
+      case 141: // onleave.opt
+      case 148: // catch.opt
+      case 149: // finally.opt
+      case 154: // bitor-exp
+      case 155: // new
+      case 156: // float-exp
+      case 166: // literal-exp
+      case 169: // guard.opt
+      case 170: // tilda.opt
+      case 171: // unary-exp
+      case 173: // rel-exp
+      case 175: // exp.opt
+      case 185: // typespec
+      case 186: // typespec.opt
+        yylhs.value.build< ast::rExp > ();
+        break;
+
+      case 152: // lvalue
+        yylhs.value.build< ast::rLValue > ();
+        break;
+
+      case 145: // match
+      case 146: // match.opt
+        yylhs.value.build< ast::rMatch > ();
+        break;
+
+      case 119: // stmts
+      case 139: // default.opt
+        yylhs.value.build< ast::rNary > ();
+        break;
+
+      case 130: // id.0
+      case 131: // id.1
+      case 184: // identifiers
+        yylhs.value.build< ast::symbols_type > ();
+        break;
+
+      case 134: // routine
+      case 151: // detach
+        yylhs.value.build< bool > ();
+        break;
 
       case 50: // "identifier"
       case 62: // "^="
@@ -2270,575 +2187,352 @@ namespace yy {
       case 133: // event_or_function
       case 153: // id
       case 172: // rel-op
-        yylhs.value.build< libport::Symbol >();
-	break;
-
-      case 116: // root
-      case 117: // root_exp
-      case 118: // root_exps
-      case 120: // cstmt.opt
-      case 121: // cstmt
-      case 122: // stmt.opt
-      case 123: // stmt
-      case 124: // block
-      case 126: // proto
-      case 129: // exp
-      case 138: // primary-exp
-      case 140: // else.opt
-      case 141: // onleave.opt
-      case 148: // catch.opt
-      case 149: // finally.opt
-      case 154: // bitor-exp
-      case 155: // new
-      case 156: // float-exp
-      case 166: // literal-exp
-      case 169: // guard.opt
-      case 170: // tilda.opt
-      case 171: // unary-exp
-      case 173: // rel-exp
-      case 175: // exp.opt
-        yylhs.value.build< ast::rExp >();
-	break;
-
-      case 136: // modifier
-        yylhs.value.build< ::ast::Factory::modifier_type >();
-	break;
-
-      case 135: // k1_id
-        yylhs.value.build< ast::rCall >();
-	break;
-
-      case 119: // stmts
-      case 139: // default.opt
-        yylhs.value.build< ast::rNary >();
-	break;
-
-      case 127: // protos.1
-      case 128: // protos
-      case 162: // tuple.exps
-      case 163: // tuple
-      case 164: // bitor-exps
-      case 165: // bitor-exps.1
-      case 177: // claims
-      case 178: // claims.1
-      case 179: // exps
-      case 180: // exps.1
-      case 181: // exps.2
-      case 182: // args
-      case 183: // args.opt
-        yylhs.value.build< ast::exps_type* >();
-	break;
-
-      case 130: // id.0
-      case 131: // id.1
-        yylhs.value.build< ast::symbols_type >();
-	break;
-
-      case 176: // unsigned
-        yylhs.value.build< unsigned >();
-	break;
-
-      case 134: // routine
-      case 151: // detach
-        yylhs.value.build< bool >();
-	break;
-
-      case 137: // modifiers
-        yylhs.value.build< ast::modifiers_type >();
-	break;
-
-      case 142: // cases
-        yylhs.value.build< ::ast::Factory::cases_type >();
-	break;
-
-      case 143: // case
-        yylhs.value.build< ::ast::Factory::case_type >();
-	break;
-
-      case 144: // catches.1
-        yylhs.value.build< ast::catches_type >();
-	break;
-
-      case 145: // match
-      case 146: // match.opt
-        yylhs.value.build< ast::rMatch >();
-	break;
-
-      case 147: // catch
-        yylhs.value.build< ast::rCatch >();
-	break;
-
-      case 152: // lvalue
-        yylhs.value.build< ast::rLValue >();
-	break;
+        yylhs.value.build< libport::Symbol > ();
+        break;
 
       case 76: // "angle"
       case 77: // "duration"
       case 78: // "float"
       case 157: // duration
-        yylhs.value.build< libport::ufloat >();
-	break;
-
-      case 158: // assoc
-        yylhs.value.build< ast::dictionary_elt_type >();
-	break;
-
-      case 159: // assocs.1
-      case 160: // assocs
-        yylhs.value.build< ast::dictionary_elts_type >();
-	break;
-
-      case 161: // dictionary
-        yylhs.value.build< ast::rDictionary >();
-	break;
+        yylhs.value.build< libport::ufloat > ();
+        break;
 
       case 80: // "string"
       case 167: // string
-        yylhs.value.build< std::string >();
-	break;
+        yylhs.value.build< std::string > ();
+        break;
 
-      case 168: // event_match
-        yylhs.value.build< ast::EventMatch >();
-	break;
-
-      case 174: // rel-ops
-        yylhs.value.build< ::ast::Factory::relations_type >();
-	break;
-
-      case 184: // identifiers
-        yylhs.value.build< ::ast::symbols_type >();
-	break;
-
-      case 185: // typespec
-      case 186: // typespec.opt
-        yylhs.value.build< ::ast::rExp >();
-	break;
-
-      case 187: // formal
-        yylhs.value.build< ::ast::Formal >();
-	break;
-
-      case 188: // formals.1
-      case 189: // formals.0
-      case 190: // formals
-        yylhs.value.build< ::ast::Formals* >();
-	break;
+      case 176: // unsigned
+        yylhs.value.build< unsigned > ();
+        break;
 
       default:
         break;
     }
 
 
-    // Compute the default @$.
-    {
-      slice<stack_symbol_type, stack_type> slice (yystack_, yylen);
-      YYLLOC_DEFAULT (yylhs.location, slice, yylen);
-    }
-
-    // Perform the reduction.
-    YY_REDUCE_PRINT (yyn);
-    try
-    {
-      switch (yyn)
+      // Default location.
       {
+        slice<stack_symbol_type, stack_type> slice (yystack_, yylen);
+        YYLLOC_DEFAULT (yylhs.location, slice, yylen);
+        yyerror_range[1].location = yylhs.location;
+      }
+
+      // Perform the reduction.
+      YY_REDUCE_PRINT (yyn);
+#if YY_EXCEPTIONS
+      try
+#endif // YY_EXCEPTIONS
+        {
+          switch (yyn)
+            {
   case 2:
-/* Line 828 of lalr1.cc  */
-#line 314 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 314 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
     // Remove the reference from yystack by swaping with a 0 intrusive
     // pointer.
     aver(up.result_.get() == 0);
-    std::swap(up.result_, yystack_[0].value.as< ast::rExp >());
+    std::swap(up.result_, yystack_[0].value.as< ast::rExp > ());
     up.loc_ = yylhs.location;
     YYACCEPT;
   }
-/* Line 828 of lalr1.cc  */
-#line 2457 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2240 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 3:
-/* Line 828 of lalr1.cc  */
-#line 328 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 2465 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 328 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 2246 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 4:
-/* Line 828 of lalr1.cc  */
-#line 329 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2473 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 329 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2252 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 5:
-/* Line 828 of lalr1.cc  */
-#line 330 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2481 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 330 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2258 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 6:
-/* Line 828 of lalr1.cc  */
-#line 336 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Stmt(yylhs.location, yystack_[0].value.as< ast::flavor_type >(), yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2489 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 336 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Stmt(yylhs.location, yystack_[0].value.as< ast::flavor_type > (), yystack_[1].value.as< ast::rExp > ()); }
+#line 2264 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 7:
-/* Line 828 of lalr1.cc  */
-#line 337 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Stmt(yylhs.location, yystack_[0].value.as< ast::flavor_type >(), yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2497 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 337 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Stmt(yylhs.location, yystack_[0].value.as< ast::flavor_type > (), yystack_[1].value.as< ast::rExp > ()); }
+#line 2270 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 8:
-/* Line 828 of lalr1.cc  */
-#line 338 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Stmt(yylhs.location, ast::flavor_none, yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2505 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 338 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Stmt(yylhs.location, ast::flavor_none, yystack_[1].value.as< ast::rExp > ()); }
+#line 2276 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 9:
-/* Line 828 of lalr1.cc  */
-#line 339 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 2513 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 339 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 2282 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 10:
-/* Line 828 of lalr1.cc  */
-#line 340 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 2521 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 340 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 2288 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 11:
-/* Line 828 of lalr1.cc  */
-#line 341 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 2529 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 341 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 2294 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 12:
-/* Line 828 of lalr1.cc  */
-#line 346 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = yystack_[0].value.as< ast::rNary >(); }
-/* Line 828 of lalr1.cc  */
-#line 2537 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 346 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = yystack_[0].value.as< ast::rNary > (); }
+#line 2300 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 13:
-/* Line 828 of lalr1.cc  */
-#line 358 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rNary >() = MAKE(nary, yylhs.location, yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2545 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 358 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rNary > () = MAKE(nary, yylhs.location, yystack_[0].value.as< ast::rExp > ()); }
+#line 2306 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 14:
-/* Line 828 of lalr1.cc  */
-#line 359 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rNary >() = MAKE(nary, yylhs.location, yystack_[2].value.as< ast::rNary >(), yystack_[1].location, yystack_[1].value.as< ast::flavor_type >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2553 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 359 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rNary > () = MAKE(nary, yylhs.location, yystack_[2].value.as< ast::rNary > (), yystack_[1].location, yystack_[1].value.as< ast::flavor_type > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2312 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 15:
-/* Line 828 of lalr1.cc  */
-#line 360 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rNary >() = MAKE(nary, yylhs.location, yystack_[2].value.as< ast::rNary >(), yystack_[1].location, yystack_[1].value.as< ast::flavor_type >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2561 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 360 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rNary > () = MAKE(nary, yylhs.location, yystack_[2].value.as< ast::rNary > (), yystack_[1].location, yystack_[1].value.as< ast::flavor_type > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2318 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 16:
-/* Line 828 of lalr1.cc  */
-#line 368 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(noop, yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 2569 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 368 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(noop, yylhs.location); }
+#line 2324 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 17:
-/* Line 828 of lalr1.cc  */
-#line 369 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2577 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 369 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2330 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 18:
-/* Line 828 of lalr1.cc  */
-#line 370 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(bin, yylhs.location, yystack_[0].value.as< ast::flavor_type >(), yystack_[1].value.as< ast::rExp >(), MAKE(noop, yystack_[0].location)); }
-/* Line 828 of lalr1.cc  */
-#line 2585 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 370 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(bin, yylhs.location, yystack_[0].value.as< ast::flavor_type > (), yystack_[1].value.as< ast::rExp > (), MAKE(noop, yystack_[0].location)); }
+#line 2336 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 19:
-/* Line 828 of lalr1.cc  */
-#line 375 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { assert(yystack_[0].value.as< ast::rExp >()); std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2593 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 375 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { assert(yystack_[0].value.as< ast::rExp > ()); std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2342 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 20:
-/* Line 828 of lalr1.cc  */
-#line 376 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(bin, yylhs.location, yystack_[1].value.as< ast::flavor_type >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2601 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 376 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(bin, yylhs.location, yystack_[1].value.as< ast::flavor_type > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2348 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 21:
-/* Line 828 of lalr1.cc  */
-#line 377 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(bin, yylhs.location, yystack_[1].value.as< ast::flavor_type >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2609 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 377 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(bin, yylhs.location, yystack_[1].value.as< ast::flavor_type > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2354 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 22:
-/* Line 828 of lalr1.cc  */
-#line 387 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(noop, yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 2617 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 387 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(noop, yylhs.location); }
+#line 2360 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 23:
-/* Line 828 of lalr1.cc  */
-#line 388 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2625 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 388 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2366 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 24:
-/* Line 828 of lalr1.cc  */
-#line 394 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 394 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = new ast::TaggedStmt(yylhs.location, yystack_[2].value.as< ast::rExp >(), MAKE(scope, yylhs.location, yystack_[0].value.as< ast::rExp >()));
+    yylhs.value.as< ast::rExp > () = new ast::TaggedStmt(yylhs.location, yystack_[2].value.as< ast::rExp > (), MAKE(scope, yylhs.location, yystack_[0].value.as< ast::rExp > ()));
   }
-/* Line 828 of lalr1.cc  */
-#line 2635 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2374 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 25:
-/* Line 828 of lalr1.cc  */
-#line 404 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2643 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 404 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2380 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 26:
-/* Line 828 of lalr1.cc  */
-#line 408 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(strip, yystack_[1].value.as< ast::rNary >()); }
-/* Line 828 of lalr1.cc  */
-#line 2651 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 408 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(strip, yystack_[1].value.as< ast::rNary > ()); }
+#line 2386 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 27:
-/* Line 828 of lalr1.cc  */
-#line 409 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(noop, yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 2659 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 409 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(noop, yylhs.location); }
+#line 2392 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 28:
-/* Line 828 of lalr1.cc  */
-#line 413 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(noop, yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 2667 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 413 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(noop, yylhs.location); }
+#line 2398 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 33:
-/* Line 828 of lalr1.cc  */
-#line 435 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2675 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 435 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2404 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 34:
-/* Line 828 of lalr1.cc  */
-#line 441 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type(1, yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 2683 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 441 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type(1, yystack_[0].value.as< ast::rExp > ()); }
+#line 2410 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 35:
-/* Line 828 of lalr1.cc  */
-#line 442 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[2].value.as< ast::exps_type* >()); *yylhs.value.as< ast::exps_type* >() << yystack_[0].value.as< ast::rExp >(); }
-/* Line 828 of lalr1.cc  */
-#line 2691 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 442 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[2].value.as< ast::exps_type* > ()); *yylhs.value.as< ast::exps_type* > () << yystack_[0].value.as< ast::rExp > (); }
+#line 2416 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 36:
-/* Line 828 of lalr1.cc  */
-#line 447 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 2699 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 447 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = 0; }
+#line 2422 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 37:
-/* Line 828 of lalr1.cc  */
-#line 448 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[0].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 2707 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 448 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[0].value.as< ast::exps_type* > ()); }
+#line 2428 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 38:
-/* Line 828 of lalr1.cc  */
-#line 454 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 454 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(class, yylhs.location, yystack_[2].value.as< ast::rLValue >(), yystack_[1].value.as< ast::exps_type* >(), yystack_[0].value.as< ast::rExp >(), false);
+      yylhs.value.as< ast::rExp > () = MAKE(class, yylhs.location, yystack_[2].value.as< ast::rLValue > (), yystack_[1].value.as< ast::exps_type* > (), yystack_[0].value.as< ast::rExp > (), false);
     }
-/* Line 828 of lalr1.cc  */
-#line 2717 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2436 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 39:
-/* Line 828 of lalr1.cc  */
-#line 463 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 463 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      ast::rClass c = MAKE(class, yylhs.location, yystack_[2].value.as< ast::rLValue >(), yystack_[1].value.as< ast::exps_type* >(), yystack_[0].value.as< ast::rExp >(), true).unsafe_cast<ast::Class>();
+      ast::rClass c = MAKE(class, yylhs.location, yystack_[2].value.as< ast::rLValue > (), yystack_[1].value.as< ast::exps_type* > (), yystack_[0].value.as< ast::rExp > (), true).unsafe_cast<ast::Class>();
       c->is_package_set(true);
-      yylhs.value.as< ast::rExp >() = c;
+      yylhs.value.as< ast::rExp > () = c;
     }
-/* Line 828 of lalr1.cc  */
-#line 2729 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2446 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 40:
-/* Line 828 of lalr1.cc  */
-#line 478 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 478 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {}
-/* Line 828 of lalr1.cc  */
-#line 2737 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2452 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 41:
-/* Line 828 of lalr1.cc  */
-#line 479 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::symbols_type >(), yystack_[1].value.as< ast::symbols_type >()); }
-/* Line 828 of lalr1.cc  */
-#line 2745 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 479 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::symbols_type > (), yystack_[1].value.as< ast::symbols_type > ()); }
+#line 2458 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 42:
-/* Line 828 of lalr1.cc  */
-#line 483 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::symbols_type >() << yystack_[0].value.as< libport::Symbol >(); }
-/* Line 828 of lalr1.cc  */
-#line 2753 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 483 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::symbols_type > () << yystack_[0].value.as< libport::Symbol > (); }
+#line 2464 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 43:
-/* Line 828 of lalr1.cc  */
-#line 484 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::symbols_type >(), yystack_[2].value.as< ast::symbols_type >()); yylhs.value.as< ast::symbols_type >() << yystack_[0].value.as< libport::Symbol >(); }
-/* Line 828 of lalr1.cc  */
-#line 2761 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 484 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::symbols_type > (), yystack_[2].value.as< ast::symbols_type > ()); yylhs.value.as< ast::symbols_type > () << yystack_[0].value.as< libport::Symbol > (); }
+#line 2470 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 44:
-/* Line 828 of lalr1.cc  */
-#line 490 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 490 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(enum, yylhs.location, yystack_[3].value.as< libport::Symbol >(), yystack_[1].value.as< ast::symbols_type >());
+    yylhs.value.as< ast::rExp > () = MAKE(enum, yylhs.location, yystack_[3].value.as< libport::Symbol > (), yystack_[1].value.as< ast::symbols_type > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2771 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2478 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 45:
-/* Line 828 of lalr1.cc  */
-#line 501 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 501 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    REQUIRE_IDENTIFIER(yystack_[0].location, yystack_[0].value.as< libport::Symbol >(), "from");
+    REQUIRE_IDENTIFIER(yystack_[0].location, yystack_[0].value.as< libport::Symbol > (), "from");
   }
-/* Line 828 of lalr1.cc  */
-#line 2781 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2486 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 46:
-/* Line 828 of lalr1.cc  */
-#line 510 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 510 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< libport::Symbol >() = SYMBOL(function);
+    yylhs.value.as< libport::Symbol > () = SYMBOL(function);
   }
-/* Line 828 of lalr1.cc  */
-#line 2791 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2494 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 47:
-/* Line 828 of lalr1.cc  */
-#line 514 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 514 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    REQUIRE_IDENTIFIER(yystack_[0].location, yystack_[0].value.as< libport::Symbol >(), "event");
-    yylhs.value.as< libport::Symbol >() = SYMBOL(event);
+    REQUIRE_IDENTIFIER(yystack_[0].location, yystack_[0].value.as< libport::Symbol > (), "event");
+    yylhs.value.as< libport::Symbol > () = SYMBOL(event);
   }
-/* Line 828 of lalr1.cc  */
-#line 2802 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2503 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 48:
-/* Line 828 of lalr1.cc  */
-#line 524 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 524 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    REQUIRE_IDENTIFIER(yystack_[1].location, yystack_[1].value.as< libport::Symbol >(), "object");
-    yylhs.value.as< ast::rExp >() = MAKE(external_object, yylhs.location, yystack_[0].value.as< libport::Symbol >());
+    REQUIRE_IDENTIFIER(yystack_[1].location, yystack_[1].value.as< libport::Symbol > (), "object");
+    yylhs.value.as< ast::rExp > () = MAKE(external_object, yylhs.location, yystack_[0].value.as< libport::Symbol > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2813 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2512 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 49:
-/* Line 828 of lalr1.cc  */
-#line 530 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 530 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(external_var, yylhs.location, yystack_[4].value.as< libport::Symbol >(), yystack_[2].value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >());
+    yylhs.value.as< ast::rExp > () = MAKE(external_var, yylhs.location, yystack_[4].value.as< libport::Symbol > (), yystack_[2].value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2823 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2520 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 50:
-/* Line 828 of lalr1.cc  */
-#line 536 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 536 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(external_event_or_function,
-              yylhs.location, yystack_[8].value.as< libport::Symbol >(), yystack_[6].value.as< unsigned >(), yystack_[4].value.as< libport::Symbol >(), yystack_[2].value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >());
+    yylhs.value.as< ast::rExp > () = MAKE(external_event_or_function,
+              yylhs.location, yystack_[8].value.as< libport::Symbol > (), yystack_[6].value.as< unsigned > (), yystack_[4].value.as< libport::Symbol > (), yystack_[2].value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2834 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2529 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 51:
-/* Line 828 of lalr1.cc  */
-#line 547 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 547 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    ast::rExp e = yystack_[0].value.as< ast::rLValue >();
-    ast::rCall c = yystack_[0].value.as< ast::rLValue >().unsafe_cast<ast::Call>();
+    ast::rExp e = yystack_[0].value.as< ast::rLValue > ();
+    ast::rCall c = yystack_[0].value.as< ast::rLValue > ().unsafe_cast<ast::Call>();
     libport::Symbol s = c->name_get();
     bool isStar = (s==SYMBOL(STAR));
     if (isStar)
@@ -2859,1823 +2553,1403 @@ namespace yy {
       = new ast::LocalDeclaration(yylhs.location, s, e);
     ae->is_star_set(isStar);
     ae->is_import_set(true);
-    yylhs.value.as< ast::rExp >() = ae;
+    yylhs.value.as< ast::rExp > () = ae;
   }
-/* Line 828 of lalr1.cc  */
-#line 2866 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2559 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 52:
-/* Line 828 of lalr1.cc  */
-#line 588 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 588 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = new ast::Emit(yylhs.location, yystack_[3].value.as< ast::rExp >(), yystack_[1].value.as< ast::exps_type* >(), yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = new ast::Emit(yylhs.location, yystack_[3].value.as< ast::rExp > (), yystack_[1].value.as< ast::exps_type* > (), yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2876 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2567 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 53:
-/* Line 828 of lalr1.cc  */
-#line 600 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< bool >() = true; }
-/* Line 828 of lalr1.cc  */
-#line 2884 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 600 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< bool > () = true; }
+#line 2573 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 54:
-/* Line 828 of lalr1.cc  */
-#line 601 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< bool >() = false; }
-/* Line 828 of lalr1.cc  */
-#line 2892 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 601 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< bool > () = false; }
+#line 2579 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 55:
-/* Line 828 of lalr1.cc  */
-#line 608 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 608 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
       // Compiled as "var name = function args stmt".
-      yylhs.value.as< ast::rExp >() = new ast::Declaration(yylhs.location, yystack_[2].value.as< ast::rCall >(),
-                                MAKE(routine, yylhs.location, yystack_[3].value.as< bool >(), yystack_[1].location, yystack_[1].value.as< ::ast::Formals* >(), yystack_[0].value.as< ast::rExp >()));
+      yylhs.value.as< ast::rExp > () = new ast::Declaration(yylhs.location, yystack_[2].value.as< ast::rCall > (),
+                                MAKE(routine, yylhs.location, yystack_[3].value.as< bool > (), yystack_[1].location, yystack_[1].value.as< ast::Formals* > (), yystack_[0].value.as< ast::rExp > ()));
     }
-/* Line 828 of lalr1.cc  */
-#line 2904 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2589 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 56:
-/* Line 828 of lalr1.cc  */
-#line 614 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 614 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      if (yystack_[3].value.as< libport::Symbol >() == SYMBOL(get) || yystack_[3].value.as< libport::Symbol >() == SYMBOL(set))
+      if (yystack_[3].value.as< libport::Symbol > () == SYMBOL(get) || yystack_[3].value.as< libport::Symbol > () == SYMBOL(set))
       {
-        yylhs.value.as< ast::rExp >() = MAKE(define_setter_getter, yylhs.location,
-          libport::Symbol("o" + std::string(yystack_[3].value.as< libport::Symbol >())), yystack_[2].value.as< libport::Symbol >(),
-          MAKE(routine, yylhs.location, false, yystack_[1].location, yystack_[1].value.as< ::ast::Formals* >(), yystack_[0].value.as< ast::rExp >()));
+        yylhs.value.as< ast::rExp > () = MAKE(define_setter_getter, yylhs.location,
+          libport::Symbol("o" + std::string(yystack_[3].value.as< libport::Symbol > ())), yystack_[2].value.as< libport::Symbol > (),
+          MAKE(routine, yylhs.location, false, yystack_[1].location, yystack_[1].value.as< ast::Formals* > (), yystack_[0].value.as< ast::rExp > ()));
       }
       else
       {
-        REQUIRE_IDENTIFIER(yylhs.location, yystack_[3].value.as< libport::Symbol >(), "get or set");
-        yylhs.value.as< ast::rExp >() = MAKE(nil);
+        REQUIRE_IDENTIFIER(yylhs.location, yystack_[3].value.as< libport::Symbol > (), "get or set");
+        yylhs.value.as< ast::rExp > () = MAKE(nil);
       }
     }
-/* Line 828 of lalr1.cc  */
-#line 2924 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2607 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 57:
-/* Line 828 of lalr1.cc  */
-#line 660 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rCall >() = MAKE(call, yylhs.location, yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 2932 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 660 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rCall > () = MAKE(call, yylhs.location, yystack_[0].value.as< libport::Symbol > ()); }
+#line 2613 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 58:
-/* Line 828 of lalr1.cc  */
-#line 661 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rCall >() = MAKE(call, yylhs.location, new ast::This(yystack_[2].location), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 2940 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 661 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rCall > () = MAKE(call, yylhs.location, new ast::This(yystack_[2].location), yystack_[0].value.as< libport::Symbol > ()); }
+#line 2619 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 59:
-/* Line 828 of lalr1.cc  */
-#line 662 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rCall >() = MAKE(call, yylhs.location, ast::rExp(yystack_[2].value.as< ast::rCall >()), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 2948 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 662 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rCall > () = MAKE(call, yylhs.location, ast::rExp(yystack_[2].value.as< ast::rCall > ()), yystack_[0].value.as< libport::Symbol > ()); }
+#line 2625 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 60:
-/* Line 828 of lalr1.cc  */
-#line 674 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 674 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ::ast::Factory::modifier_type >().first = yystack_[2].value.as< libport::Symbol >();
-    yylhs.value.as< ::ast::Factory::modifier_type >().second = yystack_[0].value.as< ast::rExp >();
+    yylhs.value.as< ast::Factory::modifier_type > ().first = yystack_[2].value.as< libport::Symbol > ();
+    yylhs.value.as< ast::Factory::modifier_type > ().second = yystack_[0].value.as< ast::rExp > ();
   }
-/* Line 828 of lalr1.cc  */
-#line 2959 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2634 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 61:
-/* Line 828 of lalr1.cc  */
-#line 683 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 683 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    modifiers_add(up, yystack_[0].location, yylhs.value.as< ast::modifiers_type >(), yystack_[0].value.as< ::ast::Factory::modifier_type >());
+    modifiers_add(up, yystack_[0].location, yylhs.value.as< ast::modifiers_type > (), yystack_[0].value.as< ast::Factory::modifier_type > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2969 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2642 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 62:
-/* Line 828 of lalr1.cc  */
-#line 687 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 687 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    std::swap(yylhs.value.as< ast::modifiers_type >(), yystack_[1].value.as< ast::modifiers_type >());
-    modifiers_add(up, yystack_[0].location, yylhs.value.as< ast::modifiers_type >(), yystack_[0].value.as< ::ast::Factory::modifier_type >());
+    std::swap(yylhs.value.as< ast::modifiers_type > (), yystack_[1].value.as< ast::modifiers_type > ());
+    modifiers_add(up, yystack_[0].location, yylhs.value.as< ast::modifiers_type > (), yystack_[0].value.as< ast::Factory::modifier_type > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2980 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2651 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 63:
-/* Line 828 of lalr1.cc  */
-#line 704 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 704 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(assign, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(assign, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 2990 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2659 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 64:
-/* Line 828 of lalr1.cc  */
-#line 708 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 708 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(assign, yylhs.location, yystack_[3].value.as< ast::rExp >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::modifiers_type >());
+    yylhs.value.as< ast::rExp > () = MAKE(assign, yylhs.location, yystack_[3].value.as< ast::rExp > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::modifiers_type > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3000 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2667 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 65:
-/* Line 828 of lalr1.cc  */
-#line 723 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue >(), yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3008 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 723 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue > (), yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > ()); }
+#line 2673 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 66:
-/* Line 828 of lalr1.cc  */
-#line 724 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue >(), yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3016 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 724 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue > (), yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > ()); }
+#line 2679 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 67:
-/* Line 828 of lalr1.cc  */
-#line 725 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue >(), yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3024 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 725 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue > (), yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > ()); }
+#line 2685 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 68:
-/* Line 828 of lalr1.cc  */
-#line 726 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue >(), yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3032 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 726 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue > (), yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > ()); }
+#line 2691 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 69:
-/* Line 828 of lalr1.cc  */
-#line 727 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue >(), yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3040 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 727 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue > (), yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > ()); }
+#line 2697 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 70:
-/* Line 828 of lalr1.cc  */
-#line 728 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue >(), yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3048 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 728 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::OpAssignment(yystack_[1].location, yystack_[2].value.as< ast::rLValue > (), yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > ()); }
+#line 2703 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 71:
-/* Line 828 of lalr1.cc  */
-#line 736 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Decrementation(yylhs.location, yystack_[1].value.as< ast::rLValue >(), true); }
-/* Line 828 of lalr1.cc  */
-#line 3056 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 736 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Decrementation(yylhs.location, yystack_[1].value.as< ast::rLValue > (), true); }
+#line 2709 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 72:
-/* Line 828 of lalr1.cc  */
-#line 737 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Incrementation(yylhs.location, yystack_[1].value.as< ast::rLValue >(), true); }
-/* Line 828 of lalr1.cc  */
-#line 3064 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 737 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Incrementation(yylhs.location, yystack_[1].value.as< ast::rLValue > (), true); }
+#line 2715 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 73:
-/* Line 828 of lalr1.cc  */
-#line 749 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 749 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = new ast::Property(yylhs.location, yystack_[2].value.as< ast::rLValue >()->call(), yystack_[0].value.as< libport::Symbol >());
+    yylhs.value.as< ast::rExp > () = new ast::Property(yylhs.location, yystack_[2].value.as< ast::rLValue > ()->call(), yystack_[0].value.as< libport::Symbol > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3074 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2723 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 74:
-/* Line 828 of lalr1.cc  */
-#line 760 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 760 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(at, yylhs.location, yystack_[7].location, yystack_[7].value.as< ast::flavor_type >(), yystack_[6].value.as< ::ast::symbols_type >(), yystack_[4].value.as< ast::rExp >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >(), yystack_[3].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(at, yylhs.location, yystack_[7].location, yystack_[7].value.as< ast::flavor_type > (), yystack_[6].value.as< ast::symbols_type > (), yystack_[4].value.as< ast::rExp > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > (), yystack_[3].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3084 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2731 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 75:
-/* Line 828 of lalr1.cc  */
-#line 764 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 764 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(at_event, yylhs.location, yystack_[6].location, yystack_[6].value.as< ast::flavor_type >(), yystack_[5].value.as< ::ast::symbols_type >(), yystack_[3].value.as< ast::EventMatch >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(at_event, yylhs.location, yystack_[6].location, yystack_[6].value.as< ast::flavor_type > (), yystack_[5].value.as< ast::symbols_type > (), yystack_[3].value.as< ast::EventMatch > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3094 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2739 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 76:
-/* Line 828 of lalr1.cc  */
-#line 768 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 768 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(every, yylhs.location, yystack_[4].location, yystack_[4].value.as< ast::flavor_type >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(every, yylhs.location, yystack_[4].location, yystack_[4].value.as< ast::flavor_type > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3104 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2747 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 77:
-/* Line 828 of lalr1.cc  */
-#line 772 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 772 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(if, yylhs.location, yystack_[3].value.as< ast::rNary >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(if, yylhs.location, yystack_[3].value.as< ast::rNary > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3114 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2755 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 78:
-/* Line 828 of lalr1.cc  */
-#line 776 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 776 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(freezeif, yylhs.location, yystack_[3].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >(), yystack_[2].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(freezeif, yylhs.location, yystack_[3].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > (), yystack_[2].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3124 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2763 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 79:
-/* Line 828 of lalr1.cc  */
-#line 780 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 780 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(freezeif_event, yylhs.location, yystack_[2].value.as< ast::EventMatch >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(freezeif_event, yylhs.location, yystack_[2].value.as< ast::EventMatch > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3134 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2771 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 80:
-/* Line 828 of lalr1.cc  */
-#line 784 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 784 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(stopif, yylhs.location, yystack_[3].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >(), yystack_[2].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(stopif, yylhs.location, yystack_[3].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > (), yystack_[2].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3144 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2779 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 81:
-/* Line 828 of lalr1.cc  */
-#line 788 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 788 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(stopif_event, yylhs.location, yystack_[2].value.as< ast::EventMatch >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(stopif_event, yylhs.location, yystack_[2].value.as< ast::EventMatch > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3154 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2787 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 82:
-/* Line 828 of lalr1.cc  */
-#line 792 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 792 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(switch, yystack_[5].location, yystack_[5].value.as< ast::rExp >(), yystack_[2].value.as< ::ast::Factory::cases_type >(), yystack_[1].value.as< ast::rNary >());
+      yylhs.value.as< ast::rExp > () = MAKE(switch, yystack_[5].location, yystack_[5].value.as< ast::rExp > (), yystack_[2].value.as< ast::Factory::cases_type > (), yystack_[1].value.as< ast::rNary > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3164 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2795 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 83:
-/* Line 828 of lalr1.cc  */
-#line 796 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 796 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(timeout, yylhs.location,
-                yystack_[5].value.as< ast::rExp >(), yystack_[3].value.as< ast::rExp >(), yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(timeout, yylhs.location,
+                yystack_[5].value.as< ast::rExp > (), yystack_[3].value.as< ast::rExp > (), yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3175 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2804 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 84:
-/* Line 828 of lalr1.cc  */
-#line 801 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 801 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = new ast::Return(yylhs.location, yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = new ast::Return(yylhs.location, yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3185 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2812 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 85:
-/* Line 828 of lalr1.cc  */
-#line 805 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 805 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = new ast::Break(yylhs.location);
+      yylhs.value.as< ast::rExp > () = new ast::Break(yylhs.location);
     }
-/* Line 828 of lalr1.cc  */
-#line 3195 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2820 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 86:
-/* Line 828 of lalr1.cc  */
-#line 809 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 809 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = new ast::Continue(yylhs.location);
+      yylhs.value.as< ast::rExp > () = new ast::Continue(yylhs.location);
     }
-/* Line 828 of lalr1.cc  */
-#line 3205 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2828 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 87:
-/* Line 828 of lalr1.cc  */
-#line 813 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 813 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(waituntil, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(waituntil, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3215 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2836 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 88:
-/* Line 828 of lalr1.cc  */
-#line 817 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 817 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(waituntil_event, yylhs.location, yystack_[1].value.as< ast::EventMatch >());
+      yylhs.value.as< ast::rExp > () = MAKE(waituntil_event, yylhs.location, yystack_[1].value.as< ast::EventMatch > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3225 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2844 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 89:
-/* Line 828 of lalr1.cc  */
-#line 821 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 821 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(whenever, yylhs.location, yystack_[4].value.as< ast::rExp >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >(), yystack_[3].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(whenever, yylhs.location, yystack_[4].value.as< ast::rExp > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > (), yystack_[3].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3235 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2852 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 90:
-/* Line 828 of lalr1.cc  */
-#line 825 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 825 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(whenever_event, yylhs.location, yystack_[3].value.as< ast::EventMatch >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(whenever_event, yylhs.location, yystack_[3].value.as< ast::EventMatch > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3245 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2860 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 91:
-/* Line 828 of lalr1.cc  */
-#line 841 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rNary >() = 0;            }
-/* Line 828 of lalr1.cc  */
-#line 3253 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 841 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rNary > () = 0;            }
+#line 2866 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 92:
-/* Line 828 of lalr1.cc  */
-#line 842 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rNary >(), yystack_[0].value.as< ast::rNary >()); }
-/* Line 828 of lalr1.cc  */
-#line 3261 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 842 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rNary > (), yystack_[0].value.as< ast::rNary > ()); }
+#line 2872 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 93:
-/* Line 828 of lalr1.cc  */
-#line 847 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0;            }
-/* Line 828 of lalr1.cc  */
-#line 3269 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 847 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0;            }
+#line 2878 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 94:
-/* Line 828 of lalr1.cc  */
-#line 848 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3277 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 848 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2884 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 95:
-/* Line 828 of lalr1.cc  */
-#line 854 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0;            }
-/* Line 828 of lalr1.cc  */
-#line 3285 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 854 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0;            }
+#line 2890 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 96:
-/* Line 828 of lalr1.cc  */
-#line 855 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3293 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 855 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2896 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 97:
-/* Line 828 of lalr1.cc  */
-#line 865 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 865 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {}
-/* Line 828 of lalr1.cc  */
-#line 3301 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2902 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 98:
-/* Line 828 of lalr1.cc  */
-#line 866 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::Factory::cases_type >(), yystack_[1].value.as< ::ast::Factory::cases_type >()); yylhs.value.as< ::ast::Factory::cases_type >() << yystack_[0].value.as< ::ast::Factory::case_type >(); }
-/* Line 828 of lalr1.cc  */
-#line 3309 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 866 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::Factory::cases_type > (), yystack_[1].value.as< ast::Factory::cases_type > ()); yylhs.value.as< ast::Factory::cases_type > () << yystack_[0].value.as< ast::Factory::case_type > (); }
+#line 2908 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 99:
-/* Line 828 of lalr1.cc  */
-#line 872 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Factory::case_type >() = ::ast::Factory::case_type(yystack_[2].value.as< ast::rMatch >(), yystack_[0].value.as< ast::rNary >()); }
-/* Line 828 of lalr1.cc  */
-#line 3317 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 872 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Factory::case_type > () = ::ast::Factory::case_type(yystack_[2].value.as< ast::rMatch > (), yystack_[0].value.as< ast::rNary > ()); }
+#line 2914 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 100:
-/* Line 828 of lalr1.cc  */
-#line 881 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::catches_type >() = ast::catches_type(); yylhs.value.as< ast::catches_type >() << yystack_[0].value.as< ast::rCatch >(); }
-/* Line 828 of lalr1.cc  */
-#line 3325 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 881 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::catches_type > () = ast::catches_type(); yylhs.value.as< ast::catches_type > () << yystack_[0].value.as< ast::rCatch > (); }
+#line 2920 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 101:
-/* Line 828 of lalr1.cc  */
-#line 882 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::catches_type >(), yystack_[1].value.as< ast::catches_type >());        yylhs.value.as< ast::catches_type >() << yystack_[0].value.as< ast::rCatch >(); }
-/* Line 828 of lalr1.cc  */
-#line 3333 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 882 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::catches_type > (), yystack_[1].value.as< ast::catches_type > ());        yylhs.value.as< ast::catches_type > () << yystack_[0].value.as< ast::rCatch > (); }
+#line 2926 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 102:
-/* Line 828 of lalr1.cc  */
-#line 887 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rMatch >() = new ast::Match(yylhs.location, yystack_[0].value.as< ast::rExp >(), 0);  }
-/* Line 828 of lalr1.cc  */
-#line 3341 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 887 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rMatch > () = new ast::Match(yylhs.location, yystack_[0].value.as< ast::rExp > (), 0);  }
+#line 2932 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 103:
-/* Line 828 of lalr1.cc  */
-#line 888 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rMatch >() = new ast::Match(yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3349 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 888 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rMatch > () = new ast::Match(yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2938 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 104:
-/* Line 828 of lalr1.cc  */
-#line 891 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rMatch >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 3357 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 891 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rMatch > () = 0; }
+#line 2944 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 105:
-/* Line 828 of lalr1.cc  */
-#line 892 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rMatch >(), yystack_[1].value.as< ast::rMatch >()); }
-/* Line 828 of lalr1.cc  */
-#line 3365 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 892 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rMatch > (), yystack_[1].value.as< ast::rMatch > ()); }
+#line 2950 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 106:
-/* Line 828 of lalr1.cc  */
-#line 896 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rCatch >() = MAKE(catch, yylhs.location, yystack_[1].value.as< ast::rMatch >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3373 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 896 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rCatch > () = MAKE(catch, yylhs.location, yystack_[1].value.as< ast::rMatch > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 2956 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 107:
-/* Line 828 of lalr1.cc  */
-#line 903 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 3381 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 903 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 2962 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 108:
-/* Line 828 of lalr1.cc  */
-#line 904 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = yystack_[0].value.as< ast::rExp >(); }
-/* Line 828 of lalr1.cc  */
-#line 3389 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 904 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = yystack_[0].value.as< ast::rExp > (); }
+#line 2968 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 109:
-/* Line 828 of lalr1.cc  */
-#line 910 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0;  }
-/* Line 828 of lalr1.cc  */
-#line 3397 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 910 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0;  }
+#line 2974 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 110:
-/* Line 828 of lalr1.cc  */
-#line 911 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = yystack_[0].value.as< ast::rExp >(); }
-/* Line 828 of lalr1.cc  */
-#line 3405 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 911 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = yystack_[0].value.as< ast::rExp > (); }
+#line 2980 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 111:
-/* Line 828 of lalr1.cc  */
-#line 916 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 916 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(try, yylhs.location, yystack_[3].value.as< ast::rExp >(), yystack_[2].value.as< ast::catches_type >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(try, yylhs.location, yystack_[3].value.as< ast::rExp > (), yystack_[2].value.as< ast::catches_type > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3415 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2988 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 112:
-/* Line 828 of lalr1.cc  */
-#line 920 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 920 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(finally, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(finally, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3425 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 2996 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 113:
-/* Line 828 of lalr1.cc  */
-#line 924 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 924 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(throw, yylhs.location, yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(throw, yylhs.location, yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3435 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3004 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 114:
-/* Line 828 of lalr1.cc  */
-#line 953 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 953 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(loop, yylhs.location, yystack_[1].location, yystack_[1].value.as< ast::flavor_type >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(loop, yylhs.location, yystack_[1].location, yystack_[1].value.as< ast::flavor_type > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3445 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3012 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 115:
-/* Line 828 of lalr1.cc  */
-#line 957 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 957 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(for, yylhs.location, yystack_[4].location, yystack_[4].value.as< ast::flavor_type >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(for, yylhs.location, yystack_[4].location, yystack_[4].value.as< ast::flavor_type > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3455 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3020 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 116:
-/* Line 828 of lalr1.cc  */
-#line 961 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 961 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(for, yylhs.location, yystack_[8].location, yystack_[8].value.as< ast::flavor_type >(), yystack_[6].value.as< ast::rExp >(), yystack_[4].value.as< ast::rExp >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(for, yylhs.location, yystack_[8].location, yystack_[8].value.as< ast::flavor_type > (), yystack_[6].value.as< ast::rExp > (), yystack_[4].value.as< ast::rExp > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3465 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3028 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 117:
-/* Line 828 of lalr1.cc  */
-#line 965 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 965 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(for, yylhs.location, yystack_[7].location, yystack_[7].value.as< ast::flavor_type >(), yystack_[4].location, yystack_[4].value.as< libport::Symbol >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(for, yylhs.location, yystack_[7].location, yystack_[7].value.as< ast::flavor_type > (), yystack_[4].location, yystack_[4].value.as< libport::Symbol > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3475 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3036 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 118:
-/* Line 828 of lalr1.cc  */
-#line 969 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 969 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-      yylhs.value.as< ast::rExp >() = MAKE(while, yylhs.location, yystack_[4].location, yystack_[4].value.as< ast::flavor_type >(), yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+      yylhs.value.as< ast::rExp > () = MAKE(while, yylhs.location, yystack_[4].location, yystack_[4].value.as< ast::flavor_type > (), yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
     }
-/* Line 828 of lalr1.cc  */
-#line 3485 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3044 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 121:
-/* Line 828 of lalr1.cc  */
-#line 984 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(scope, yylhs.location, 0, yystack_[0].value.as< ast::rExp >());  }
-/* Line 828 of lalr1.cc  */
-#line 3493 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 984 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(scope, yylhs.location, 0, yystack_[0].value.as< ast::rExp > ());  }
+#line 3050 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 122:
-/* Line 828 of lalr1.cc  */
-#line 985 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(scope, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3501 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 985 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(scope, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3056 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 123:
-/* Line 828 of lalr1.cc  */
-#line 997 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< bool >() = true; }
-/* Line 828 of lalr1.cc  */
-#line 3509 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 997 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< bool > () = true; }
+#line 3062 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 124:
-/* Line 828 of lalr1.cc  */
-#line 998 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< bool >() = false; }
-/* Line 828 of lalr1.cc  */
-#line 3517 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 998 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< bool > () = false; }
+#line 3068 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 125:
-/* Line 828 of lalr1.cc  */
-#line 1002 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(assert, yylhs.location, yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3525 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1002 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(assert, yylhs.location, yystack_[1].value.as< ast::rExp > ()); }
+#line 3074 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 126:
-/* Line 828 of lalr1.cc  */
-#line 1003 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(assert, yylhs.location, yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3533 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1003 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(assert, yylhs.location, yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3080 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 127:
-/* Line 828 of lalr1.cc  */
-#line 1004 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(detach, yylhs.location, yystack_[3].value.as< bool >(), yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3541 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1004 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(detach, yylhs.location, yystack_[3].value.as< bool > (), yystack_[1].value.as< ast::rExp > ()); }
+#line 3086 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 128:
-/* Line 828 of lalr1.cc  */
-#line 1005 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(detach, yylhs.location, yystack_[1].value.as< bool >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3549 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1005 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(detach, yylhs.location, yystack_[1].value.as< bool > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3092 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 129:
-/* Line 828 of lalr1.cc  */
-#line 1006 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(isdef, yylhs.location, yystack_[1].value.as< ast::rCall >()); }
-/* Line 828 of lalr1.cc  */
-#line 3557 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1006 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(isdef, yylhs.location, yystack_[1].value.as< ast::rCall > ()); }
+#line 3098 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 130:
-/* Line 828 of lalr1.cc  */
-#line 1007 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(watch, yylhs.location, yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3565 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1007 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(watch, yylhs.location, yystack_[1].value.as< ast::rExp > ()); }
+#line 3104 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 131:
-/* Line 828 of lalr1.cc  */
-#line 1017 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rLValue >() = MAKE(call, yylhs.location, yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3573 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1017 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rLValue > () = MAKE(call, yylhs.location, yystack_[0].value.as< libport::Symbol > ()); }
+#line 3110 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 132:
-/* Line 828 of lalr1.cc  */
-#line 1018 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rLValue >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3581 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1018 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rLValue > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3116 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 133:
-/* Line 828 of lalr1.cc  */
-#line 1019 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rLValue >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3589 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1019 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rLValue > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3122 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 134:
-/* Line 828 of lalr1.cc  */
-#line 1023 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(get_slot, yylhs.location, yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3597 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1023 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(get_slot, yylhs.location, yystack_[0].value.as< libport::Symbol > ()); }
+#line 3128 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 135:
-/* Line 828 of lalr1.cc  */
-#line 1024 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(get_slot, yylhs.location, yystack_[3].value.as< ast::rExp >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3605 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1024 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(get_slot, yylhs.location, yystack_[3].value.as< ast::rExp > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3134 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 136:
-/* Line 828 of lalr1.cc  */
-#line 1028 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3613 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1028 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3140 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 137:
-/* Line 828 of lalr1.cc  */
-#line 1033 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1033 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(binding, yylhs.location, false, yystack_[0].location, yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(binding, yylhs.location, false, yystack_[0].location, yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3623 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3148 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 138:
-/* Line 828 of lalr1.cc  */
-#line 1037 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1037 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(binding, yylhs.location, true, yystack_[0].location, yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(binding, yylhs.location, true, yystack_[0].location, yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3633 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3156 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 139:
-/* Line 828 of lalr1.cc  */
-#line 1044 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1044 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = yystack_[0].value.as< ast::rLValue >();
+    yylhs.value.as< ast::rExp > () = yystack_[0].value.as< ast::rLValue > ();
   }
-/* Line 828 of lalr1.cc  */
-#line 3643 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3164 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 140:
-/* Line 828 of lalr1.cc  */
-#line 1048 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1048 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = yystack_[1].value.as< ast::rLValue >();
-    yylhs.value.as< ast::rExp >().unchecked_cast<ast::LValueArgs>()->arguments_set(yystack_[0].value.as< ast::exps_type* >());
-    yylhs.value.as< ast::rExp >()->location_set(yylhs.location);
+    yylhs.value.as< ast::rExp > () = yystack_[1].value.as< ast::rLValue > ();
+    yylhs.value.as< ast::rExp > ().unchecked_cast<ast::LValueArgs>()->arguments_set(yystack_[0].value.as< ast::exps_type* > ());
+    yylhs.value.as< ast::rExp > ()->location_set(yylhs.location);
   }
-/* Line 828 of lalr1.cc  */
-#line 3655 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3174 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 141:
-/* Line 828 of lalr1.cc  */
-#line 1061 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1061 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
     // Compiled as "id . new (args)".
-    ast::exps_type* args = yystack_[0].value.as< ast::exps_type* >();
+    ast::exps_type* args = yystack_[0].value.as< ast::exps_type* > ();
     if (!args)
       args = new ast::exps_type();
-    yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, MAKE(call, yylhs.location, yystack_[1].value.as< libport::Symbol >()), SYMBOL(new), args);
+    yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, MAKE(call, yylhs.location, yystack_[1].value.as< libport::Symbol > ()), SYMBOL(new), args);
     up.deprecated(yylhs.location, "new Obj(x)", "Obj.new(x)");
   }
-/* Line 828 of lalr1.cc  */
-#line 3670 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3187 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 142:
-/* Line 828 of lalr1.cc  */
-#line 1072 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3678 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1072 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3193 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 143:
-/* Line 828 of lalr1.cc  */
-#line 1077 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 3686 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1077 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3199 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 144:
-/* Line 828 of lalr1.cc  */
-#line 1088 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1088 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = MAKE(routine, yylhs.location, yystack_[2].value.as< bool >(), yystack_[1].location, yystack_[1].value.as< ::ast::Formals* >(), yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::rExp > () = MAKE(routine, yylhs.location, yystack_[2].value.as< bool > (), yystack_[1].location, yystack_[1].value.as< ast::Formals* > (), yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3696 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3207 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 145:
-/* Line 828 of lalr1.cc  */
-#line 1104 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(float, yylhs.location, yystack_[0].value.as< libport::ufloat >()); }
-/* Line 828 of lalr1.cc  */
-#line 3704 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1104 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(float, yylhs.location, yystack_[0].value.as< libport::ufloat > ()); }
+#line 3213 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 146:
-/* Line 828 of lalr1.cc  */
-#line 1114 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< libport::ufloat >() = yystack_[0].value.as< libport::ufloat >();      }
-/* Line 828 of lalr1.cc  */
-#line 3712 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1114 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< libport::ufloat > () = yystack_[0].value.as< libport::ufloat > ();      }
+#line 3219 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 147:
-/* Line 828 of lalr1.cc  */
-#line 1115 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< libport::ufloat >() = yystack_[1].value.as< libport::ufloat >() + yystack_[0].value.as< libport::ufloat >(); }
-/* Line 828 of lalr1.cc  */
-#line 3720 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1115 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< libport::ufloat > () = yystack_[1].value.as< libport::ufloat > () + yystack_[0].value.as< libport::ufloat > (); }
+#line 3225 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 148:
-/* Line 828 of lalr1.cc  */
-#line 1129 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1129 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::dictionary_elt_type >().first = yystack_[2].value.as< ast::rExp >();
-    yylhs.value.as< ast::dictionary_elt_type >().second = yystack_[0].value.as< ast::rExp >();
+    yylhs.value.as< ast::dictionary_elt_type > ().first = yystack_[2].value.as< ast::rExp > ();
+    yylhs.value.as< ast::dictionary_elt_type > ().second = yystack_[0].value.as< ast::rExp > ();
   }
-/* Line 828 of lalr1.cc  */
-#line 3731 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3234 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 149:
-/* Line 828 of lalr1.cc  */
-#line 1137 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1137 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    assocs_add(up, yystack_[0].location, yylhs.value.as< ast::dictionary_elts_type >(), yystack_[0].value.as< ast::dictionary_elt_type >());
+    assocs_add(up, yystack_[0].location, yylhs.value.as< ast::dictionary_elts_type > (), yystack_[0].value.as< ast::dictionary_elt_type > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3741 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3242 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 150:
-/* Line 828 of lalr1.cc  */
-#line 1141 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1141 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    std::swap(yylhs.value.as< ast::dictionary_elts_type >(), yystack_[2].value.as< ast::dictionary_elts_type >());
-    assocs_add(up, yystack_[0].location, yylhs.value.as< ast::dictionary_elts_type >(), yystack_[0].value.as< ast::dictionary_elt_type >());
+    std::swap(yylhs.value.as< ast::dictionary_elts_type > (), yystack_[2].value.as< ast::dictionary_elts_type > ());
+    assocs_add(up, yystack_[0].location, yylhs.value.as< ast::dictionary_elts_type > (), yystack_[0].value.as< ast::dictionary_elt_type > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3752 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3251 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 151:
-/* Line 828 of lalr1.cc  */
-#line 1148 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1148 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     { /* nothing */ }
-/* Line 828 of lalr1.cc  */
-#line 3760 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3257 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 152:
-/* Line 828 of lalr1.cc  */
-#line 1149 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::dictionary_elts_type >(), yystack_[1].value.as< ast::dictionary_elts_type >()); }
-/* Line 828 of lalr1.cc  */
-#line 3768 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1149 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::dictionary_elts_type > (), yystack_[1].value.as< ast::dictionary_elts_type > ()); }
+#line 3263 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 153:
-/* Line 828 of lalr1.cc  */
-#line 1154 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rDictionary >() = new ast::Dictionary(yylhs.location, yystack_[1].value.as< ast::dictionary_elts_type >()); }
-/* Line 828 of lalr1.cc  */
-#line 3776 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1154 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rDictionary > () = new ast::Dictionary(yylhs.location, yystack_[1].value.as< ast::dictionary_elts_type > ()); }
+#line 3269 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 154:
-/* Line 828 of lalr1.cc  */
-#line 1165 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type; }
-/* Line 828 of lalr1.cc  */
-#line 3784 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1165 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type; }
+#line 3275 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 155:
-/* Line 828 of lalr1.cc  */
-#line 1166 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3792 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1166 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3281 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 156:
-/* Line 828 of lalr1.cc  */
-#line 1167 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[0].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3800 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1167 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[0].value.as< ast::exps_type* > ()); }
+#line 3287 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 157:
-/* Line 828 of lalr1.cc  */
-#line 1171 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = yystack_[1].value.as< ast::exps_type* >(); }
-/* Line 828 of lalr1.cc  */
-#line 3808 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1171 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = yystack_[1].value.as< ast::exps_type* > (); }
+#line 3293 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 158:
-/* Line 828 of lalr1.cc  */
-#line 1185 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type; }
-/* Line 828 of lalr1.cc  */
-#line 3816 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1185 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type; }
+#line 3299 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 159:
-/* Line 828 of lalr1.cc  */
-#line 1186 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3824 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1186 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3305 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 160:
-/* Line 828 of lalr1.cc  */
-#line 1190 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type(1, yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3832 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1190 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type(1, yystack_[0].value.as< ast::rExp > ()); }
+#line 3311 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 161:
-/* Line 828 of lalr1.cc  */
-#line 1191 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[2].value.as< ast::exps_type* >()); *yylhs.value.as< ast::exps_type* >() << yystack_[0].value.as< ast::rExp >();}
-/* Line 828 of lalr1.cc  */
-#line 3840 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1191 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[2].value.as< ast::exps_type* > ()); *yylhs.value.as< ast::exps_type* > () << yystack_[0].value.as< ast::rExp > ();}
+#line 3317 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 162:
-/* Line 828 of lalr1.cc  */
-#line 1199 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());  }
-/* Line 828 of lalr1.cc  */
-#line 3848 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1199 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());  }
+#line 3323 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 163:
-/* Line 828 of lalr1.cc  */
-#line 1200 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(float, yylhs.location, yystack_[0].value.as< libport::ufloat >());  }
-/* Line 828 of lalr1.cc  */
-#line 3856 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1200 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(float, yylhs.location, yystack_[0].value.as< libport::ufloat > ());  }
+#line 3329 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 164:
-/* Line 828 of lalr1.cc  */
-#line 1201 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(float, yylhs.location, yystack_[0].value.as< libport::ufloat >());  }
-/* Line 828 of lalr1.cc  */
-#line 3864 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1201 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(float, yylhs.location, yystack_[0].value.as< libport::ufloat > ());  }
+#line 3335 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 165:
-/* Line 828 of lalr1.cc  */
-#line 1202 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(string, yylhs.location, yystack_[0].value.as< std::string >()); }
-/* Line 828 of lalr1.cc  */
-#line 3872 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1202 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(string, yylhs.location, yystack_[0].value.as< std::string > ()); }
+#line 3341 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 166:
-/* Line 828 of lalr1.cc  */
-#line 1203 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(list, yylhs.location, yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3880 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1203 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(list, yylhs.location, yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3347 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 167:
-/* Line 828 of lalr1.cc  */
-#line 1204 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(vector, yylhs.location, yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3888 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1204 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(vector, yylhs.location, yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3353 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 168:
-/* Line 828 of lalr1.cc  */
-#line 1205 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = yystack_[0].value.as< ast::rDictionary >(); }
-/* Line 828 of lalr1.cc  */
-#line 3896 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1205 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = yystack_[0].value.as< ast::rDictionary > (); }
+#line 3359 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 169:
-/* Line 828 of lalr1.cc  */
-#line 1206 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(tuple, yylhs.location, yystack_[0].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 3904 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1206 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(tuple, yylhs.location, yystack_[0].value.as< ast::exps_type* > ()); }
+#line 3365 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 170:
-/* Line 828 of lalr1.cc  */
-#line 1212 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< std::string >(), yystack_[0].value.as< std::string >());  }
-/* Line 828 of lalr1.cc  */
-#line 3912 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1212 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< std::string > (), yystack_[0].value.as< std::string > ());  }
+#line 3371 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 171:
-/* Line 828 of lalr1.cc  */
-#line 1213 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< std::string >(), yystack_[1].value.as< std::string >()); yylhs.value.as< std::string >() += yystack_[0].value.as< std::string >(); }
-/* Line 828 of lalr1.cc  */
-#line 3920 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1213 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< std::string > (), yystack_[1].value.as< std::string > ()); yylhs.value.as< std::string > () += yystack_[0].value.as< std::string > (); }
+#line 3377 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 172:
-/* Line 828 of lalr1.cc  */
-#line 1221 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(position, yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 3928 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1221 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(position, yylhs.location); }
+#line 3383 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 173:
-/* Line 828 of lalr1.cc  */
-#line 1232 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1232 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::EventMatch >() = MAKE(event_match, yylhs.location, yystack_[4].value.as< ast::rExp >(), yystack_[2].value.as< ast::exps_type* >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >());
+    yylhs.value.as< ast::EventMatch > () = MAKE(event_match, yylhs.location, yystack_[4].value.as< ast::rExp > (), yystack_[2].value.as< ast::exps_type* > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3938 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3391 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 174:
-/* Line 828 of lalr1.cc  */
-#line 1239 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 3946 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1239 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 3397 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 175:
-/* Line 828 of lalr1.cc  */
-#line 1240 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3954 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1240 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3403 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 176:
-/* Line 828 of lalr1.cc  */
-#line 1245 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 3962 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1245 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 3409 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 177:
-/* Line 828 of lalr1.cc  */
-#line 1246 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 3970 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1246 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3415 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 178:
-/* Line 828 of lalr1.cc  */
-#line 1256 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1256 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rLValue >() = new ast::Subscript(yylhs.location, yystack_[1].value.as< ast::exps_type* >(), yystack_[3].value.as< ast::rExp >());
+    yylhs.value.as< ast::rLValue > () = new ast::Subscript(yylhs.location, yystack_[1].value.as< ast::exps_type* > (), yystack_[3].value.as< ast::rExp > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 3980 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3423 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 179:
-/* Line 828 of lalr1.cc  */
-#line 1271 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::This(yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 3988 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1271 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::This(yylhs.location); }
+#line 3429 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 180:
-/* Line 828 of lalr1.cc  */
-#line 1272 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::CallMsg(yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 3996 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1272 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::CallMsg(yylhs.location); }
+#line 3435 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 181:
-/* Line 828 of lalr1.cc  */
-#line 1276 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4004 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1276 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3441 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 182:
-/* Line 828 of lalr1.cc  */
-#line 1277 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[1].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4012 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1277 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[1].value.as< ast::rExp > ()); }
+#line 3447 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 183:
-/* Line 828 of lalr1.cc  */
-#line 1278 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(noop, yylhs.location); }
-/* Line 828 of lalr1.cc  */
-#line 4020 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1278 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(noop, yylhs.location); }
+#line 3453 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 184:
-/* Line 828 of lalr1.cc  */
-#line 1279 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4028 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1279 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3459 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 185:
-/* Line 828 of lalr1.cc  */
-#line 1284 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4036 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1284 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3465 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 186:
-/* Line 828 of lalr1.cc  */
-#line 1285 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Decrementation(yylhs.location, yystack_[0].value.as< ast::rLValue >(), false); }
-/* Line 828 of lalr1.cc  */
-#line 4044 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1285 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Decrementation(yylhs.location, yystack_[0].value.as< ast::rLValue > (), false); }
+#line 3471 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 187:
-/* Line 828 of lalr1.cc  */
-#line 1286 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = new ast::Incrementation(yylhs.location, yystack_[0].value.as< ast::rLValue >(), false); }
-/* Line 828 of lalr1.cc  */
-#line 4052 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1286 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = new ast::Incrementation(yylhs.location, yystack_[0].value.as< ast::rLValue > (), false); }
+#line 3477 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 188:
-/* Line 828 of lalr1.cc  */
-#line 1287 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), new ast::exps_type()); }
-/* Line 828 of lalr1.cc  */
-#line 4060 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1287 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), new ast::exps_type()); }
+#line 3483 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 189:
-/* Line 828 of lalr1.cc  */
-#line 1288 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), new ast::exps_type()); }
-/* Line 828 of lalr1.cc  */
-#line 4068 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1288 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), new ast::exps_type()); }
+#line 3489 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 190:
-/* Line 828 of lalr1.cc  */
-#line 1289 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), new ast::exps_type()); }
-/* Line 828 of lalr1.cc  */
-#line 4076 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1289 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), new ast::exps_type()); }
+#line 3495 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 191:
-/* Line 828 of lalr1.cc  */
-#line 1290 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), new ast::exps_type()); }
-/* Line 828 of lalr1.cc  */
-#line 4084 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1290 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), new ast::exps_type()); }
+#line 3501 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 192:
-/* Line 828 of lalr1.cc  */
-#line 1315 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4092 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1315 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3507 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 193:
-/* Line 828 of lalr1.cc  */
-#line 1316 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4100 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1316 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3513 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 194:
-/* Line 828 of lalr1.cc  */
-#line 1317 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4108 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1317 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3519 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 195:
-/* Line 828 of lalr1.cc  */
-#line 1318 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4116 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1318 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3525 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 196:
-/* Line 828 of lalr1.cc  */
-#line 1319 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4124 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1319 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3531 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 197:
-/* Line 828 of lalr1.cc  */
-#line 1320 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4132 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1320 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3537 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 198:
-/* Line 828 of lalr1.cc  */
-#line 1321 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4140 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1321 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3543 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 199:
-/* Line 828 of lalr1.cc  */
-#line 1322 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4148 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1322 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3549 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 200:
-/* Line 828 of lalr1.cc  */
-#line 1323 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4156 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1323 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3555 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 201:
-/* Line 828 of lalr1.cc  */
-#line 1324 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4164 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1324 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3561 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 202:
-/* Line 828 of lalr1.cc  */
-#line 1325 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4172 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1325 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3567 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 203:
-/* Line 828 of lalr1.cc  */
-#line 1351 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4180 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1351 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3573 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 204:
-/* Line 828 of lalr1.cc  */
-#line 1352 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4188 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1352 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3579 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 205:
-/* Line 828 of lalr1.cc  */
-#line 1353 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4196 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1353 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3585 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 206:
-/* Line 828 of lalr1.cc  */
-#line 1354 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4204 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1354 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3591 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 207:
-/* Line 828 of lalr1.cc  */
-#line 1355 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4212 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1355 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3597 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 208:
-/* Line 828 of lalr1.cc  */
-#line 1356 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4220 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1356 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3603 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 209:
-/* Line 828 of lalr1.cc  */
-#line 1357 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4228 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1357 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3609 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 210:
-/* Line 828 of lalr1.cc  */
-#line 1358 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4236 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1358 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3615 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 211:
-/* Line 828 of lalr1.cc  */
-#line 1359 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4244 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1359 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3621 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 212:
-/* Line 828 of lalr1.cc  */
-#line 1360 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< libport::Symbol >(), yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4252 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1360 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< libport::Symbol > (), yystack_[0].value.as< libport::Symbol > ()); }
+#line 3627 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 213:
-/* Line 828 of lalr1.cc  */
-#line 1364 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(relation, yylhs.location, yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ::ast::Factory::relations_type >()); }
-/* Line 828 of lalr1.cc  */
-#line 4260 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1364 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(relation, yylhs.location, yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::Factory::relations_type > ()); }
+#line 3633 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 214:
-/* Line 828 of lalr1.cc  */
-#line 1369 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1369 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     { /* empty */ }
-/* Line 828 of lalr1.cc  */
-#line 4268 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3639 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 215:
-/* Line 828 of lalr1.cc  */
-#line 1370 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::Factory::relations_type >(), MAKE(relation, yystack_[2].value.as< ::ast::Factory::relations_type >(), yystack_[1].value.as< libport::Symbol >(), yystack_[0].value.as< ast::rExp >())); }
-/* Line 828 of lalr1.cc  */
-#line 4276 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1370 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::Factory::relations_type > (), MAKE(relation, yystack_[2].value.as< ast::Factory::relations_type > (), yystack_[1].value.as< libport::Symbol > (), yystack_[0].value.as< ast::rExp > ())); }
+#line 3645 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 216:
-/* Line 828 of lalr1.cc  */
-#line 1384 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4284 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1384 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3651 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 217:
-/* Line 828 of lalr1.cc  */
-#line 1385 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(and, yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4292 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1385 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(and, yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3657 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 218:
-/* Line 828 of lalr1.cc  */
-#line 1386 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(or,  yylhs.location, yystack_[2].value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4300 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1386 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(or,  yylhs.location, yystack_[2].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3663 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 219:
-/* Line 828 of lalr1.cc  */
-#line 1391 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp >(), SYMBOL(has),    yystack_[2].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4308 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1391 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp > (), SYMBOL(has),    yystack_[2].value.as< ast::rExp > ()); }
+#line 3669 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 220:
-/* Line 828 of lalr1.cc  */
-#line 1392 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp >(), SYMBOL(hasNot), yystack_[3].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4316 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1392 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = MAKE(call, yylhs.location, yystack_[0].value.as< ast::rExp > (), SYMBOL(hasNot), yystack_[3].value.as< ast::rExp > ()); }
+#line 3675 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 221:
-/* Line 828 of lalr1.cc  */
-#line 1396 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::rExp >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 4324 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1396 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = 0; }
+#line 3681 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 222:
-/* Line 828 of lalr1.cc  */
-#line 1397 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::rExp >(), yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4332 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1397 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3687 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 223:
-/* Line 828 of lalr1.cc  */
-#line 1408 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< unsigned >() = static_cast<unsigned int>(yystack_[0].value.as< libport::ufloat >()); }
-/* Line 828 of lalr1.cc  */
-#line 4340 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1408 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< unsigned > () = static_cast<unsigned int>(yystack_[0].value.as< libport::ufloat > ()); }
+#line 3693 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 224:
-/* Line 828 of lalr1.cc  */
-#line 1417 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1417 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = new ast::Unscope(yylhs.location, yystack_[0].value.as< unsigned >());
+    yylhs.value.as< ast::rExp > () = new ast::Unscope(yylhs.location, yystack_[0].value.as< unsigned > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 4350 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3701 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 225:
-/* Line 828 of lalr1.cc  */
-#line 1429 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1429 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rExp >() = new ast::MetaExp(yylhs.location, yystack_[0].value.as< unsigned >());
+    yylhs.value.as< ast::rExp > () = new ast::MetaExp(yylhs.location, yystack_[0].value.as< unsigned > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 4360 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3709 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 226:
-/* Line 828 of lalr1.cc  */
-#line 1437 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1437 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rLValue >() = new ast::MetaLValue(yylhs.location, new ast::exps_type(), yystack_[0].value.as< unsigned >());
+    yylhs.value.as< ast::rLValue > () = new ast::MetaLValue(yylhs.location, new ast::exps_type(), yystack_[0].value.as< unsigned > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 4370 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3717 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 227:
-/* Line 828 of lalr1.cc  */
-#line 1445 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1445 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rLValue >() = new ast::MetaId(yylhs.location, 0, yystack_[0].value.as< unsigned >());
+    yylhs.value.as< ast::rLValue > () = new ast::MetaId(yylhs.location, 0, yystack_[0].value.as< unsigned > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 4380 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3725 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 228:
-/* Line 828 of lalr1.cc  */
-#line 1449 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1449 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    yylhs.value.as< ast::rLValue >() = new ast::MetaCall(yylhs.location, 0, yystack_[3].value.as< ast::rExp >(), yystack_[0].value.as< unsigned >());
+    yylhs.value.as< ast::rLValue > () = new ast::MetaCall(yylhs.location, 0, yystack_[3].value.as< ast::rExp > (), yystack_[0].value.as< unsigned > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 4390 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3733 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 229:
-/* Line 828 of lalr1.cc  */
-#line 1457 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1457 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     {
-    assert(yystack_[4].value.as< ast::rLValue >().unsafe_cast<ast::LValueArgs>());
-    assert(!yystack_[4].value.as< ast::rLValue >().unsafe_cast<ast::LValueArgs>()->arguments_get());
-    yylhs.value.as< ast::rExp >() = new ast::MetaArgs(yylhs.location, yystack_[4].value.as< ast::rLValue >(), yystack_[1].value.as< unsigned >());
+    assert(yystack_[4].value.as< ast::rLValue > ().unsafe_cast<ast::LValueArgs>());
+    assert(!yystack_[4].value.as< ast::rLValue > ().unsafe_cast<ast::LValueArgs>()->arguments_get());
+    yylhs.value.as< ast::rExp > () = new ast::MetaArgs(yylhs.location, yystack_[4].value.as< ast::rLValue > (), yystack_[1].value.as< unsigned > ());
   }
-/* Line 828 of lalr1.cc  */
-#line 4402 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3743 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 230:
-/* Line 828 of lalr1.cc  */
-#line 1473 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type; }
-/* Line 828 of lalr1.cc  */
-#line 4410 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1473 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type; }
+#line 3749 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 231:
-/* Line 828 of lalr1.cc  */
-#line 1474 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 4418 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1474 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3755 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 232:
-/* Line 828 of lalr1.cc  */
-#line 1478 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type(1, yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4426 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1478 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type(1, yystack_[0].value.as< ast::rExp > ()); }
+#line 3761 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 233:
-/* Line 828 of lalr1.cc  */
-#line 1479 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[2].value.as< ast::exps_type* >()); *yylhs.value.as< ast::exps_type* >() << yystack_[0].value.as< ast::rExp >(); }
-/* Line 828 of lalr1.cc  */
-#line 4434 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1479 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[2].value.as< ast::exps_type* > ()); *yylhs.value.as< ast::exps_type* > () << yystack_[0].value.as< ast::rExp > (); }
+#line 3767 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 234:
-/* Line 828 of lalr1.cc  */
-#line 1485 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type; }
-/* Line 828 of lalr1.cc  */
-#line 4442 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1485 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type; }
+#line 3773 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 235:
-/* Line 828 of lalr1.cc  */
-#line 1486 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 4450 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1486 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3779 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 236:
-/* Line 828 of lalr1.cc  */
-#line 1490 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = new ast::exps_type(1, yystack_[0].value.as< ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4458 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1490 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = new ast::exps_type(1, yystack_[0].value.as< ast::rExp > ()); }
+#line 3785 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 237:
-/* Line 828 of lalr1.cc  */
-#line 1491 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[2].value.as< ast::exps_type* >()); *yylhs.value.as< ast::exps_type* >() << yystack_[0].value.as< ast::rExp >(); }
-/* Line 828 of lalr1.cc  */
-#line 4466 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1491 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[2].value.as< ast::exps_type* > ()); *yylhs.value.as< ast::exps_type* > () << yystack_[0].value.as< ast::rExp > (); }
+#line 3791 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 238:
-/* Line 828 of lalr1.cc  */
-#line 1495 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[2].value.as< ast::exps_type* >()); *yylhs.value.as< ast::exps_type* >() << yystack_[0].value.as< ast::rExp >(); }
-/* Line 828 of lalr1.cc  */
-#line 4474 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1495 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[2].value.as< ast::exps_type* > ()); *yylhs.value.as< ast::exps_type* > () << yystack_[0].value.as< ast::rExp > (); }
+#line 3797 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 239:
-/* Line 828 of lalr1.cc  */
-#line 1500 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[1].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 4482 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1500 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[1].value.as< ast::exps_type* > ()); }
+#line 3803 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 240:
-/* Line 828 of lalr1.cc  */
-#line 1504 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ast::exps_type* >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 4490 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1504 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::exps_type* > () = 0; }
+#line 3809 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 241:
-/* Line 828 of lalr1.cc  */
-#line 1505 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ast::exps_type* >(), yystack_[0].value.as< ast::exps_type* >()); }
-/* Line 828 of lalr1.cc  */
-#line 4498 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1505 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::exps_type* > (), yystack_[0].value.as< ast::exps_type* > ()); }
+#line 3815 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 242:
-/* Line 828 of lalr1.cc  */
-#line 1515 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 1515 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
     { /* empty */ }
-/* Line 828 of lalr1.cc  */
-#line 4506 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 3821 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 243:
-/* Line 828 of lalr1.cc  */
-#line 1516 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::symbols_type >(), yystack_[1].value.as< ::ast::symbols_type >()); yylhs.value.as< ::ast::symbols_type >().push_back(yystack_[0].value.as< libport::Symbol >()); }
-/* Line 828 of lalr1.cc  */
-#line 4514 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1516 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::symbols_type > (), yystack_[1].value.as< ast::symbols_type > ()); yylhs.value.as< ast::symbols_type > ().push_back(yystack_[0].value.as< libport::Symbol > ()); }
+#line 3827 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 244:
-/* Line 828 of lalr1.cc  */
-#line 1521 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::rExp >() = yystack_[0].value.as< ast::rExp >();}
-/* Line 828 of lalr1.cc  */
-#line 4522 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1521 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > () = yystack_[0].value.as< ast::rExp > ();}
+#line 3833 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 245:
-/* Line 828 of lalr1.cc  */
-#line 1526 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::rExp >()=0;}
-/* Line 828 of lalr1.cc  */
-#line 4530 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1526 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::rExp > ()=0;}
+#line 3839 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 246:
-/* Line 828 of lalr1.cc  */
-#line 1527 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::rExp >(), yystack_[0].value.as< ::ast::rExp >());}
-/* Line 828 of lalr1.cc  */
-#line 4538 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1527 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ());}
+#line 3845 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 247:
-/* Line 828 of lalr1.cc  */
-#line 1532 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Formal >() = ::ast::Formal(yystack_[1].value.as< libport::Symbol >(), 0, yystack_[0].value.as< ::ast::rExp >());  }
-/* Line 828 of lalr1.cc  */
-#line 4546 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1532 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Formal > () = ast::Formal(yystack_[1].value.as< libport::Symbol > (), 0, yystack_[0].value.as< ast::rExp > ());  }
+#line 3851 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 248:
-/* Line 828 of lalr1.cc  */
-#line 1533 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Formal >() = ::ast::Formal(yystack_[3].value.as< libport::Symbol >(), yystack_[1].value.as< ast::rExp >(), yystack_[0].value.as< ::ast::rExp >()); }
-/* Line 828 of lalr1.cc  */
-#line 4554 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1533 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Formal > () = ast::Formal(yystack_[3].value.as< libport::Symbol > (), yystack_[1].value.as< ast::rExp > (), yystack_[0].value.as< ast::rExp > ()); }
+#line 3857 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 249:
-/* Line 828 of lalr1.cc  */
-#line 1534 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Formal >() = ::ast::Formal(yystack_[2].value.as< libport::Symbol >(), true); }
-/* Line 828 of lalr1.cc  */
-#line 4562 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1534 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Formal > () = ast::Formal(yystack_[2].value.as< libport::Symbol > (), true); }
+#line 3863 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 250:
-/* Line 828 of lalr1.cc  */
-#line 1540 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Formals* >() = new ::ast::Formals(1, yystack_[0].value.as< ::ast::Formal >()); }
-/* Line 828 of lalr1.cc  */
-#line 4570 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1540 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Formals* > () = new ast::Formals(1, yystack_[0].value.as< ast::Formal > ()); }
+#line 3869 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 251:
-/* Line 828 of lalr1.cc  */
-#line 1541 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::Formals* >(), yystack_[2].value.as< ::ast::Formals* >()); *yylhs.value.as< ::ast::Formals* >() << yystack_[0].value.as< ::ast::Formal >(); }
-/* Line 828 of lalr1.cc  */
-#line 4578 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1541 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::Formals* > (), yystack_[2].value.as< ast::Formals* > ()); *yylhs.value.as< ast::Formals* > () << yystack_[0].value.as< ast::Formal > (); }
+#line 3875 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 252:
-/* Line 828 of lalr1.cc  */
-#line 1546 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Formals* >() = new ::ast::Formals; }
-/* Line 828 of lalr1.cc  */
-#line 4586 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1546 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Formals* > () = new ast::Formals; }
+#line 3881 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 253:
-/* Line 828 of lalr1.cc  */
-#line 1547 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::Formals* >(), yystack_[1].value.as< ::ast::Formals* >()); }
-/* Line 828 of lalr1.cc  */
-#line 4594 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1547 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::Formals* > (), yystack_[1].value.as< ast::Formals* > ()); }
+#line 3887 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 254:
-/* Line 828 of lalr1.cc  */
-#line 1552 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { yylhs.value.as< ::ast::Formals* >() = 0; }
-/* Line 828 of lalr1.cc  */
-#line 4602 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1552 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { yylhs.value.as< ast::Formals* > () = 0; }
+#line 3893 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
   case 255:
-/* Line 828 of lalr1.cc  */
-#line 1553 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
-    { std::swap(yylhs.value.as< ::ast::Formals* >(), yystack_[1].value.as< ::ast::Formals* >()); }
-/* Line 828 of lalr1.cc  */
-#line 4610 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
+#line 1553 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:870
+    { std::swap(yylhs.value.as< ast::Formals* > (), yystack_[1].value.as< ast::Formals* > ()); }
+#line 3899 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
     break;
 
 
-/* Line 828 of lalr1.cc  */
-#line 4615 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
-	default:
-          break;
-      }
+#line 3903 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:870
+            default:
+              break;
+            }
+        }
+#if YY_EXCEPTIONS
+      catch (const syntax_error& yyexc)
+        {
+          error (yyexc);
+          YYERROR;
+        }
+#endif // YY_EXCEPTIONS
+      YY_SYMBOL_PRINT ("-> $$ =", yylhs);
+      yypop_ (yylen);
+      yylen = 0;
+      YY_STACK_PRINT ();
+
+      // Shift the result of the reduction.
+      yypush_ (YY_NULLPTR, yylhs);
     }
-    catch (const syntax_error& yyexc)
-    {
-      error (yyexc.location, yyexc.what());
-      YYERROR;
-    }
-    YY_SYMBOL_PRINT ("-> $$ =", yylhs);
-
-    // Destroy the rhs symbols.
-    for (int i = 0; i < yylen; ++i)
-      // Destroy a variant which value may have been swapped with
-      // yylhs.value (for instance if the action was "std::swap($$,
-      // $1)").  The value of yylhs.value (hence possibly one of these
-      // rhs symbols) depends on the default contruction for this
-      // type.  In the case of pointers for instance, no
-      // initialization is done, so the value is junk.  Therefore do
-      // not try to report the value of symbols about to be destroyed
-      // in the debug trace, it's possibly junk.  Hence yymsg = 0.
-      // Besides, that keeps exactly the same traces as with the other
-      // Bison skeletons.
-      yy_destroy_ (0, yystack_[i]);
-
-    yypop_ (yylen);
-    yylen = 0;
-    YY_STACK_PRINT ();
-
-    /* Shift the result of the reduction.  */
-    yypush_ (0, yylhs);
     goto yynewstate;
 
   /*--------------------------------------.
   | yyerrlab -- here on detecting error.  |
   `--------------------------------------*/
   yyerrlab:
-    /* If not already recovering from an error, report this error.  */
+    // If not already recovering from an error, report this error.
     if (!yyerrstatus_)
       {
-	++yynerrs_;
-	error (yyla.location, yysyntax_error_ (yystack_[0].state,
-                                           yyempty ? yyempty_ : yyla.type));
+        ++yynerrs_;
+        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
       }
 
 
     yyerror_range[1].location = yyla.location;
     if (yyerrstatus_ == 3)
       {
-	/* If just tried and failed to reuse lookahead token after an
+        /* If just tried and failed to reuse lookahead token after an
            error, discard it.  */
 
-        /* Return failure if at end of input.  */
-        if (yyla.type == yyeof_)
+        // Return failure if at end of input.
+        if (yyla.type_get () == yyeof_)
           YYABORT;
-        else if (!yyempty)
+        else if (!yyla.empty ())
           {
             yy_destroy_ ("Error: discarding", yyla);
-            yyempty = true;
-	  }
+            yyla.clear ();
+          }
       }
 
-    /* Else will try to reuse lookahead token after shifting the error
-       token.  */
+    // Else will try to reuse lookahead token after shifting the error token.
     goto yyerrlab1;
 
 
@@ -4689,10 +3963,7 @@ namespace yy {
        code.  */
     if (false)
       goto yyerrorlab;
-    yyerror_range[1].location = yystack_[yylen - 1].location;
-    /* $$ was initialized before running the user action.  */
-    yy_destroy_ ("Error: discarding", yylhs);
-    /* Do not reclaim the symbols of the rule which action triggered
+    /* Do not reclaim the symbols of the rule whose action triggered
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
@@ -4702,7 +3973,7 @@ namespace yy {
   | yyerrlab1 -- common code for both syntax error and YYERROR.  |
   `-------------------------------------------------------------*/
   yyerrlab1:
-    yyerrstatus_ = 3;	/* Each real token shifted decrements this.  */
+    yyerrstatus_ = 3;   // Each real token shifted decrements this.
     {
       stack_symbol_type error_token;
       for (;;)
@@ -4732,43 +4003,66 @@ namespace yy {
       yyerror_range[2].location = yyla.location;
       YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
 
-      /* Shift the error token.  */
+      // Shift the error token.
       error_token.state = yyn;
       yypush_ ("Shifting", error_token);
     }
     goto yynewstate;
 
-    /* Accept.  */
+    // Accept.
   yyacceptlab:
     yyresult = 0;
     goto yyreturn;
 
-    /* Abort.  */
+    // Abort.
   yyabortlab:
     yyresult = 1;
     goto yyreturn;
 
   yyreturn:
-    if (!yyempty)
+    if (!yyla.empty ())
       yy_destroy_ ("Cleanup: discarding lookahead", yyla);
 
-    /* Do not reclaim the symbols of the rule which action triggered
+    /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
-    while (yystack_.size () != 1)
+    while (1 < yystack_.size ())
       {
-	yy_destroy_ ("Cleanup: popping", yystack_[0]);
-	yypop_ ();
+        yy_destroy_ ("Cleanup: popping", yystack_[0]);
+        yypop_ ();
       }
 
     return yyresult;
   }
+#if YY_EXCEPTIONS
+    catch (...)
+      {
+        YYCDEBUG << "Exception caught: cleaning lookahead and stack\n";
+        // Do not try to display the values of the reclaimed symbols,
+        // as their printers might throw an exception.
+        if (!yyla.empty ())
+          yy_destroy_ (YY_NULLPTR, yyla);
+
+        while (1 < yystack_.size ())
+          {
+            yy_destroy_ (YY_NULLPTR, yystack_[0]);
+            yypop_ ();
+          }
+        throw;
+      }
+#endif // YY_EXCEPTIONS
+  }
+
+  void
+  parser::error (const syntax_error& yyexc)
+  {
+    error (yyexc.location, yyexc.what ());
+  }
 
   // Generate an error message.
   std::string
-  parser::yysyntax_error_ (state_type yystate, int yytoken)
+  parser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
   {
-    std::string yyres;
     // Number of reported tokens (one for the "unexpected", one per
     // "expected").
     size_t yycount = 0;
@@ -4782,7 +4076,7 @@ namespace yy {
          the only way this function was invoked is if the default action
          is an error action.  In that case, don't check for expected
          tokens because there are none.
-       - The only way there can be no lookahead present (in yytoken) is
+       - The only way there can be no lookahead present (in yyla) is
          if this state is a consistent state with a default action.
          Thus, detecting the absence of a lookahead is sufficient to
          determine that there is no unexpected or expected token to
@@ -4802,8 +4096,9 @@ namespace yy {
          token that will not be accepted due to an error action in a
          later state.
     */
-    if (yytoken != yyempty_)
+    if (!yyla.empty ())
       {
+        int yytoken = yyla.type_get ();
         yyarg[yycount++] = yytname_[yytoken];
         int yyn = yypact_[yystate];
         if (!yy_pact_value_is_default_ (yyn))
@@ -4812,7 +4107,7 @@ namespace yy {
                YYCHECK.  In other words, skip the first -YYN actions for
                this state because they are default actions.  */
             int yyxbegin = yyn < 0 ? -yyn : 0;
-            /* Stay within bounds of both yycheck and yytname.  */
+            // Stay within bounds of both yycheck and yytname.
             int yychecklim = yylast_ - yyn + 1;
             int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
             for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
@@ -4830,22 +4125,24 @@ namespace yy {
           }
       }
 
-    char const* yyformat = 0;
+    char const* yyformat = YY_NULLPTR;
     switch (yycount)
       {
 #define YYCASE_(N, S)                         \
         case N:                               \
           yyformat = S;                       \
         break
-        YYCASE_(0, YY_("syntax error"));
-        YYCASE_(1, YY_("syntax error, unexpected %s"));
-        YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
-        YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
-        YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
-        YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
+      default: // Avoid compiler warnings.
+        YYCASE_ (0, YY_("syntax error"));
+        YYCASE_ (1, YY_("syntax error, unexpected %s"));
+        YYCASE_ (2, YY_("syntax error, unexpected %s, expecting %s"));
+        YYCASE_ (3, YY_("syntax error, unexpected %s, expecting %s or %s"));
+        YYCASE_ (4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
+        YYCASE_ (5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
 #undef YYCASE_
       }
 
+    std::string yyres;
     // Argument number.
     size_t yyi = 0;
     for (char const* yyp = yyformat; *yyp; ++yyp)
@@ -4860,11 +4157,11 @@ namespace yy {
   }
 
 
-  const short int parser::yypact_ninf_ = -267;
+  const short parser::yypact_ninf_ = -267;
 
-  const short int parser::yytable_ninf_ = -261;
+  const short parser::yytable_ninf_ = -261;
 
-  const short int
+  const short
   parser::yypact_[] =
   {
      336,  -267,   690,  1162,    51,  -267,    32,  -267,  -267,  -267,
@@ -4920,7 +4217,7 @@ namespace yy {
      428,   173,  -267
   };
 
-  const unsigned short int
+  const unsigned short
   parser::yydefact_[] =
   {
        0,     3,     0,    16,     0,     2,     0,   172,    85,    53,
@@ -4976,7 +4273,7 @@ namespace yy {
        0,    99,    50
   };
 
-  const short int
+  const short
   parser::yypgoto_[] =
   {
     -267,  -267,  -267,  -267,  -267,   -13,     2,    71,     6,   184,
@@ -4989,7 +4286,7 @@ namespace yy {
     -267,  -267,    43,   128,  -267,  -267,  -125,  -105,  -267,  -267
   };
 
-  const short int
+  const short
   parser::yydefgoto_[] =
   {
       -1,     4,     5,    63,    84,    85,    86,    65,   242,    66,
@@ -5002,7 +4299,7 @@ namespace yy {
      131,   441,   442,   275,   276,   277,   173,   218,   375,   278
   };
 
-  const short int
+  const short
   parser::yytable_[] =
   {
       73,    73,   222,    96,    64,   261,   271,   156,   157,   158,
@@ -5188,7 +4485,7 @@ namespace yy {
        0,     0,    60,    61,    62
   };
 
-  const short int
+  const short
   parser::yycheck_[] =
   {
        2,     3,   107,    16,     2,   146,   166,    60,    61,    62,
@@ -5495,9 +4792,9 @@ namespace yy {
   };
 
 
-#if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
-  /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-     First, the terminals, then, starting at \a yyntokens_, nonterminals.  */
+
+  // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
+  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
   const char*
   const parser::yytname_[] =
   {
@@ -5533,12 +4830,11 @@ namespace yy {
   "tilda.opt", "unary-exp", "rel-op", "rel-exp", "rel-ops", "exp.opt",
   "unsigned", "claims", "claims.1", "exps", "exps.1", "exps.2", "args",
   "args.opt", "identifiers", "typespec", "typespec.opt", "formal",
-  "formals.1", "formals.0", "formals", "comma.opt", "semi.opt", "var.opt", 0
+  "formals.1", "formals.0", "formals", "comma.opt", "semi.opt", "var.opt", YY_NULLPTR
   };
-#endif
 
 #if YYDEBUG
-  const unsigned short int
+  const unsigned short
   parser::yyrline_[] =
   {
        0,   313,   313,   328,   329,   330,   336,   337,   338,   339,
@@ -5578,21 +4874,21 @@ namespace yy {
     for (stack_type::const_iterator
            i = yystack_.begin (),
            i_end = yystack_.end ();
-	 i != i_end; ++i)
+         i != i_end; ++i)
       *yycdebug_ << ' ' << i->state;
-    *yycdebug_ << std::endl;
+    *yycdebug_ << '\n';
   }
 
   // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
   parser::yy_reduce_print_ (int yyrule)
   {
-    unsigned int yylno = yyrline_[yyrule];
+    unsigned yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
-    /* Print the symbols being reduced, and their result.  */
+    // Print the symbols being reduced, and their result.
     *yycdebug_ << "Reducing stack by rule " << yyrule - 1
-	       << " (line " << yylno << "):" << std::endl;
-    /* The symbols being reduced.  */
+               << " (line " << yylno << "):\n";
+    // The symbols being reduced.
     for (int yyi = 0; yyi < yynrhs; yyi++)
       YY_SYMBOL_PRINT ("   $" << yyi + 1 << " =",
                        yystack_[(yynrhs) - (yyi + 1)]);
@@ -5602,10 +4898,8 @@ namespace yy {
 
 
 } // yy
-/* Line 1131 of lalr1.cc  */
-#line 5607 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/ugrammar.cc"
-/* Line 1132 of lalr1.cc  */
-#line 1560 "/home/bearclaw/qi-2/urbi/urbi/src/parser/ugrammar.y"
+#line 4902 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/ugrammar.cc" // lalr1.cc:1181
+#line 1560 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:1182
 
 
 // The error function that 'bison' calls.

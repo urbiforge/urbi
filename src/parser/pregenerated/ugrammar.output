@@ -26,7 +26,7 @@ Grammar
    13      | stmts ";" cstmt.opt
    14      | stmts "," cstmt.opt
 
-   15 cstmt.opt: /* empty */
+   15 cstmt.opt: %empty
    16          | cstmt
    17          | cstmt "|"
 
@@ -34,7 +34,7 @@ Grammar
    19      | cstmt "|" cstmt
    20      | cstmt "&" cstmt
 
-   21 stmt.opt: /* empty */
+   21 stmt.opt: %empty
    22         | stmt
 
    23 stmt: primary-exp ":" stmt
@@ -44,7 +44,7 @@ Grammar
    26      | "{" error "}"
    27      | "{" id "~" id "}"
 
-   28 visibility: /* empty */
+   28 visibility: %empty
    29           | "private"
    30           | "protected"
    31           | "public"
@@ -54,13 +54,13 @@ Grammar
    33 protos.1: proto
    34         | protos.1 "," proto
 
-   35 protos: /* empty */
+   35 protos: %empty
    36       | ":" protos.1
 
    37 exp: "class" lvalue protos block
    38    | "package" lvalue protos block
 
-   39 id.0: /* empty */
+   39 id.0: %empty
    40     | id.1 comma.opt
 
    41 id.1: id
@@ -125,16 +125,16 @@ Grammar
    88     | "whenever" "(" exp tilda.opt ")" stmt else.opt
    89     | "whenever" "(" event_match ")" stmt else.opt
 
-   90 default.opt: /* empty */
+   90 default.opt: %empty
    91            | "default" ":" stmts
 
-   92 else.opt: /* empty */
+   92 else.opt: %empty
    93         | "else" stmt
 
-   94 onleave.opt: /* empty */
+   94 onleave.opt: %empty
    95            | "onleave" stmt
 
-   96 cases: /* empty */
+   96 cases: %empty
    97      | cases case
 
    98 case: "case" match ":" stmts
@@ -145,15 +145,15 @@ Grammar
   101 match: exp
   102      | exp "if" exp
 
-  103 match.opt: /* empty */
+  103 match.opt: %empty
   104          | "(" match ")"
 
   105 catch: "catch" match.opt block
 
-  106 catch.opt: /* empty */
+  106 catch.opt: %empty
   107          | "catch" block
 
-  108 finally.opt: /* empty */
+  108 finally.opt: %empty
   109            | "finally" block
 
   110 stmt: "try" block catches.1 else.opt finally.opt
@@ -219,13 +219,13 @@ Grammar
 
   152 dictionary: "[" assocs "]"
 
-  153 tuple.exps: /* empty */
+  153 tuple.exps: %empty
   154           | exps.1 ","
   155           | exps.2
 
   156 tuple: "(" tuple.exps ")"
 
-  157 bitor-exps: /* empty */
+  157 bitor-exps: %empty
   158           | bitor-exps.1 comma.opt
 
   159 bitor-exps.1: bitor-exp
@@ -247,10 +247,10 @@ Grammar
 
   172 event_match: exp "?" args.opt tilda.opt guard.opt
 
-  173 guard.opt: /* empty */
+  173 guard.opt: %empty
   174          | "if" exp
 
-  175 tilda.opt: /* empty */
+  175 tilda.opt: %empty
   176          | "~" exp
 
   177 lvalue: primary-exp "[" exps "]"
@@ -296,7 +296,7 @@ Grammar
 
   212 rel-exp: bitor-exp rel-ops
 
-  213 rel-ops: /* empty */
+  213 rel-ops: %empty
   214        | rel-ops rel-op bitor-exp
 
   215 exp: rel-exp
@@ -305,7 +305,7 @@ Grammar
   218    | exp "in" exp
   219    | exp "!" "in" exp
 
-  220 exp.opt: /* empty */
+  220 exp.opt: %empty
   221        | exp
 
   222 unsigned: "float"
@@ -320,13 +320,13 @@ Grammar
 
   228 primary-exp: lvalue "(" "%exps:" unsigned ")"
 
-  229 claims: /* empty */
+  229 claims: %empty
   230       | claims.1 semi.opt
 
   231 claims.1: exp
   232         | claims.1 ";" exp
 
-  233 exps: /* empty */
+  233 exps: %empty
   234     | exps.1 comma.opt
 
   235 exps.1: exp
@@ -336,15 +336,15 @@ Grammar
 
   238 args: "(" exps ")"
 
-  239 args.opt: /* empty */
+  239 args.opt: %empty
   240         | args
 
-  241 identifiers: /* empty */
+  241 identifiers: %empty
   242            | identifiers "identifier"
 
   243 typespec: ":" exp
 
-  244 typespec.opt: /* empty */
+  244 typespec.opt: %empty
   245             | typespec
 
   246 formal: var.opt "identifier" typespec.opt
@@ -354,19 +354,19 @@ Grammar
   249 formals.1: formal
   250          | formals.1 "," formal
 
-  251 formals.0: /* empty */
+  251 formals.0: %empty
   252          | formals.1 comma.opt
 
-  253 formals: /* empty */
+  253 formals: %empty
   254        | "(" formals.0 ")"
 
-  255 comma.opt: /* empty */
+  255 comma.opt: %empty
   256          | ","
 
-  257 semi.opt: /* empty */
+  257 semi.opt: %empty
   258         | ";"
 
-  259 var.opt: /* empty */
+  259 var.opt: %empty
   260        | "var"
 
 
@@ -414,17 +414,17 @@ MODE_EXPS (259) 4
 "waituntil" (293) 86 87
 "watch" (294) 129
 "whenever" (295) 88 89
-"," (296) 6 9 14 34 42 149 154 160 236 237 250 256
-";" (297) 5 8 13 115 232 258
-"&" (298) 20 133 134
-"|" (299) 17 19
-"every" (300) 75
-"for" (301) 114 115 116
-"loop" (302) 113
-"while" (303) 117
-"at" (304) 73 74
-"identifier" (305) 44 46 47 48 49 56 57 58 59 116 135 140 242 246 247
-    248
+"," <ast::flavor_type> (296) 6 9 14 34 42 149 154 160 236 237 250 256
+";" <ast::flavor_type> (297) 5 8 13 115 232 258
+"&" <ast::flavor_type> (298) 20 133 134
+"|" <ast::flavor_type> (299) 17 19
+"every" <ast::flavor_type> (300) 75
+"for" <ast::flavor_type> (301) 114 115 116
+"loop" <ast::flavor_type> (302) 113
+"while" <ast::flavor_type> (303) 117
+"at" <ast::flavor_type> (304) 73 74
+"identifier" <libport::Symbol> (305) 44 46 47 48 49 56 57 58 59 116
+    135 140 242 246 247 248
 ASSIGN (306)
 EMPTY (307)
 UNARY (308)
@@ -436,12 +436,12 @@ UNARY (308)
 "enum" (314) 43
 "external" (315) 47 48 49
 "import" (316) 50
-"^=" (317) 68
-"-=" (318) 65
-"%=" (319) 69
-"+=" (320) 64
-"/=" (321) 67
-"*=" (322) 66
+"^=" <libport::Symbol> (317) 68
+"-=" <libport::Symbol> (318) 65
+"%=" <libport::Symbol> (319) 69
+"+=" <libport::Symbol> (320) 64
+"/=" <libport::Symbol> (321) 67
+"*=" <libport::Symbol> (322) 66
 "--" (323) 70 185
 "++" (324) 71 186
 "->" (325) 72
@@ -449,40 +449,40 @@ UNARY (308)
 "assert" (327) 124 125
 "detach" (328) 122
 "disown" (329) 123
-"new" (330) 140 142
-"angle" (331) 162
-"duration" (332) 145 146
-"float" (333) 144 222
+"new" <libport::Symbol> (330) 140 142
+"angle" <libport::ufloat> (331) 162
+"duration" <libport::ufloat> (332) 145 146
+"float" <libport::ufloat> (333) 144 222
 "=>" (334) 147 150
-"string" (335) 169 170
+"string" <std::string> (335) 169 170
 "?" (336) 172
 "call" (337) 179
 "this" (338) 57 178
-"!" (339) 51 189 219
-"bitand" (340) 199
-"bitor" (341) 200
-"^" (342) 197
-"compl" (343) 190
-">>" (344) 201
-"<<" (345) 198
-"-" (346) 188 193
-"%" (347) 196
-"+" (348) 187 192
-"/" (349) 195
-"*" (350) 132 194
-"**" (351) 183
-"=~=" (352) 208
-"==" (353) 206
-"===" (354) 207
-">=" (355) 210
-">" (356) 166 209
-"<=" (357) 205
-"<" (358) 166 204
-"!=" (359) 202
-"!==" (360) 203
-"~=" (361) 211
-"&&" (362) 216
-"||" (363) 217
+"!" <libport::Symbol> (339) 51 189 219
+"bitand" <libport::Symbol> (340) 199
+"bitor" <libport::Symbol> (341) 200
+"^" <libport::Symbol> (342) 197
+"compl" <libport::Symbol> (343) 190
+">>" <libport::Symbol> (344) 201
+"<<" <libport::Symbol> (345) 198
+"-" <libport::Symbol> (346) 188 193
+"%" <libport::Symbol> (347) 196
+"+" <libport::Symbol> (348) 187 192
+"/" <libport::Symbol> (349) 195
+"*" <libport::Symbol> (350) 132 194
+"**" <libport::Symbol> (351) 183
+"=~=" <libport::Symbol> (352) 208
+"==" <libport::Symbol> (353) 206
+"===" <libport::Symbol> (354) 207
+">=" <libport::Symbol> (355) 210
+">" <libport::Symbol> (356) 166 209
+"<=" <libport::Symbol> (357) 205
+"<" <libport::Symbol> (358) 166 204
+"!=" <libport::Symbol> (359) 202
+"!==" <libport::Symbol> (360) 203
+"~=" <libport::Symbol> (361) 211
+"&&" <libport::Symbol> (362) 216
+"||" <libport::Symbol> (363) 217
 "%unscope:" (364) 223
 "%exp:" (365) 224
 "%lvalue:" (366) 225
@@ -496,169 +496,169 @@ $accept (114)
     on left: 0
 start (115)
     on left: 1, on right: 0
-root (116)
+root <ast::rExp> (116)
     on left: 2 3 4, on right: 1
-root_exp (117)
+root_exp <ast::rExp> (117)
     on left: 5 6 7 8 9 10, on right: 3
-root_exps (118)
+root_exps <ast::rExp> (118)
     on left: 11, on right: 4
-stmts (119)
+stmts <ast::rNary> (119)
     on left: 12 13 14, on right: 11 13 14 25 76 91 98
-cstmt.opt (120)
+cstmt.opt <ast::rExp> (120)
     on left: 15 16 17, on right: 5 6 7 12 13 14
-cstmt (121)
+cstmt <ast::rExp> (121)
     on left: 18 19 20, on right: 16 17 19 20
-stmt.opt (122)
+stmt.opt <ast::rExp> (122)
     on left: 21 22, on right: 115
-stmt (123)
+stmt <ast::rExp> (123)
     on left: 23 24 43 47 48 49 50 51 54 55 73 74 75 76 77 78 79 80
     81 82 83 84 85 86 87 88 89 110 111 112 113 114 115 116 117, on right:
     18 22 23 73 74 75 76 77 78 79 80 82 88 89 93 95 113 114 115 116
     117
-block (124)
+block <ast::rExp> (124)
     on left: 25 26 27, on right: 37 38 54 55 105 107 109 110 111 120
     121 127 143
 visibility (125)
     on left: 28 29 30 31, on right: 32
-proto (126)
+proto <ast::rExp> (126)
     on left: 32, on right: 33 34
-protos.1 (127)
+protos.1 <ast::exps_type*> (127)
     on left: 33 34, on right: 34 36
-protos (128)
+protos <ast::exps_type*> (128)
     on left: 35 36, on right: 37 38
-exp (129)
+exp <ast::rExp> (129)
     on left: 37 38 62 63 64 65 66 67 68 69 215 216 217 218 219 223,
     on right: 24 32 51 59 62 63 64 65 66 67 68 69 73 75 77 79 81 82
     86 88 101 102 114 115 116 117 121 124 126 129 147 172 174 176 181
     216 217 218 219 221 231 232 235 236 237 243 247
-id.0 (130)
+id.0 <ast::symbols_type> (130)
     on left: 39 40, on right: 43
-id.1 (131)
+id.1 <ast::symbols_type> (131)
     on left: 41 42, on right: 40 42
 from (132)
     on left: 44, on right: 48 49
-event_or_function (133)
+event_or_function <libport::Symbol> (133)
     on left: 45 46, on right: 49
-routine (134)
+routine <bool> (134)
     on left: 52 53, on right: 54 143
-k1_id (135)
+k1_id <ast::rCall> (135)
     on left: 56 57 58, on right: 54 58 128
-modifier (136)
+modifier <ast::Factory::modifier_type> (136)
     on left: 59, on right: 60 61
-modifiers (137)
+modifiers <ast::modifiers_type> (137)
     on left: 60 61, on right: 61 63
-primary-exp (138)
+primary-exp <ast::rExp> (138)
     on left: 70 71 72 120 121 124 125 126 127 128 129 133 134 138 139
     143 180 181 182 183 224 228, on right: 23 131 132 134 177 183 184
     227
-default.opt (139)
+default.opt <ast::rNary> (139)
     on left: 90 91, on right: 81
-else.opt (140)
+else.opt <ast::rExp> (140)
     on left: 92 93, on right: 76 82 88 89 110
-onleave.opt (141)
+onleave.opt <ast::rExp> (141)
     on left: 94 95, on right: 73 74
-cases (142)
+cases <ast::Factory::cases_type> (142)
     on left: 96 97, on right: 81 97
-case (143)
+case <ast::Factory::case_type> (143)
     on left: 98, on right: 97
-catches.1 (144)
+catches.1 <ast::catches_type> (144)
     on left: 99 100, on right: 100 110
-match (145)
+match <ast::rMatch> (145)
     on left: 101 102, on right: 98 104
-match.opt (146)
+match.opt <ast::rMatch> (146)
     on left: 103 104, on right: 105
-catch (147)
+catch <ast::rCatch> (147)
     on left: 105, on right: 99 100
-catch.opt (148)
+catch.opt <ast::rExp> (148)
     on left: 106 107, on right: 82
-finally.opt (149)
+finally.opt <ast::rExp> (149)
     on left: 108 109, on right: 82 110
 in_or_colon (150)
     on left: 118 119, on right: 116
-detach (151)
+detach <bool> (151)
     on left: 122 123, on right: 126 127
-lvalue (152)
+lvalue <ast::rLValue> (152)
     on left: 130 131 132 177 225 226 227, on right: 37 38 50 64 65
     66 67 68 69 70 71 72 138 139 185 186 228
-id (153)
+id <libport::Symbol> (153)
     on left: 135 142, on right: 27 41 42 43 55 72 130 131 133 134
-bitor-exp (154)
+bitor-exp <ast::rExp> (154)
     on left: 136 137 141 191 192 193 194 195 196 197 198 199 200 201,
     on right: 136 137 159 160 192 193 194 195 196 197 198 199 200 201
     212 214
-new (155)
+new <ast::rExp> (155)
     on left: 140, on right: 141
-float-exp (156)
+float-exp <ast::rExp> (156)
     on left: 144, on right: 161
-duration (157)
+duration <libport::ufloat> (157)
     on left: 145 146, on right: 146 163
-assoc (158)
+assoc <ast::dictionary_elt_type> (158)
     on left: 147, on right: 148 149
-assocs.1 (159)
+assocs.1 <ast::dictionary_elts_type> (159)
     on left: 148 149, on right: 149 151
-assocs (160)
+assocs <ast::dictionary_elts_type> (160)
     on left: 150 151, on right: 152
-dictionary (161)
+dictionary <ast::rDictionary> (161)
     on left: 152, on right: 167
-tuple.exps (162)
+tuple.exps <ast::exps_type*> (162)
     on left: 153 154 155, on right: 156
-tuple (163)
+tuple <ast::exps_type*> (163)
     on left: 156, on right: 168
-bitor-exps (164)
+bitor-exps <ast::exps_type*> (164)
     on left: 157 158, on right: 166
-bitor-exps.1 (165)
+bitor-exps.1 <ast::exps_type*> (165)
     on left: 159 160, on right: 158 160
-literal-exp (166)
+literal-exp <ast::rExp> (166)
     on left: 161 162 163 164 165 166 167 168 171 178 179, on right:
     180
-string (167)
+string <std::string> (167)
     on left: 169 170, on right: 164 170
-event_match (168)
+event_match <ast::EventMatch> (168)
     on left: 172, on right: 74 78 80 87 89
-guard.opt (169)
+guard.opt <ast::rExp> (169)
     on left: 173 174, on right: 172
-tilda.opt (170)
+tilda.opt <ast::rExp> (170)
     on left: 175 176, on right: 51 73 77 79 86 88 172
-unary-exp (171)
+unary-exp <ast::rExp> (171)
     on left: 184 185 186 187 188 189 190, on right: 187 188 189 190
     191
-rel-op (172)
+rel-op <libport::Symbol> (172)
     on left: 202 203 204 205 206 207 208 209 210 211, on right: 214
-rel-exp (173)
+rel-exp <ast::rExp> (173)
     on left: 212, on right: 215
-rel-ops (174)
+rel-ops <ast::Factory::relations_type> (174)
     on left: 213 214, on right: 212 214
-exp.opt (175)
+exp.opt <ast::rExp> (175)
     on left: 220 221, on right: 83 112
-unsigned (176)
+unsigned <unsigned> (176)
     on left: 222, on right: 49 223 224 225 226 227 228
-claims (177)
+claims <ast::exps_type*> (177)
     on left: 229 230, on right: 125
-claims.1 (178)
+claims.1 <ast::exps_type*> (178)
     on left: 231 232, on right: 230 232
-exps (179)
+exps <ast::exps_type*> (179)
     on left: 233 234, on right: 165 177 238
-exps.1 (180)
+exps.1 <ast::exps_type*> (180)
     on left: 235 236, on right: 154 234 236 237
-exps.2 (181)
+exps.2 <ast::exps_type*> (181)
     on left: 237, on right: 155
-args (182)
+args <ast::exps_type*> (182)
     on left: 238, on right: 139 240
-args.opt (183)
+args.opt <ast::exps_type*> (183)
     on left: 239 240, on right: 51 140 172
-identifiers (184)
+identifiers <ast::symbols_type> (184)
     on left: 241 242, on right: 73 74 242
-typespec (185)
+typespec <ast::rExp> (185)
     on left: 243, on right: 245
-typespec.opt (186)
+typespec.opt <ast::rExp> (186)
     on left: 244 245, on right: 246 247
-formal (187)
+formal <ast::Formal> (187)
     on left: 246 247 248, on right: 249 250
-formals.1 (188)
+formals.1 <ast::Formals*> (188)
     on left: 249 250, on right: 250 252
-formals.0 (189)
+formals.0 <ast::Formals*> (189)
     on left: 251 252, on right: 254
-formals (190)
+formals <ast::Formals*> (190)
     on left: 253 254, on right: 54 55 143
 comma.opt (191)
     on left: 255 256, on right: 40 151 158 234 252
@@ -668,7 +668,7 @@ var.opt (193)
     on left: 259 260, on right: 246 247 248
 
 
-state 0
+State 0
 
     0 $accept: . start "end of command"
     1 start: . root
@@ -684,14 +684,14 @@ state 0
     root   go to state 5
 
 
-state 1
+State 1
 
     2 root: error .
 
     $default  reduce using rule 2 (root)
 
 
-state 2
+State 2
 
     3 root: MODE_EXP . root_exp
     5 root_exp: . cstmt.opt ";"
@@ -700,7 +700,7 @@ state 2
     8         | . error ";"
     9         | . error ","
    10         | . error "end of command"
-   15 cstmt.opt: .  ["end of command", ",", ";"]
+   15 cstmt.opt: . %empty  ["end of command", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -922,14 +922,14 @@ state 2
     rel-exp      go to state 83
 
 
-state 3
+State 3
 
     4 root: MODE_EXPS . root_exps
    11 root_exps: . stmts
    12 stmts: . cstmt.opt
    13      | . stmts ";" cstmt.opt
    14      | . stmts "," cstmt.opt
-   15 cstmt.opt: .  ["end of command", ",", ";"]
+   15 cstmt.opt: . %empty  ["end of command", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -1149,21 +1149,21 @@ state 3
     rel-exp      go to state 83
 
 
-state 4
+State 4
 
     0 $accept: start . "end of command"
 
     "end of command"  shift, and go to state 87
 
 
-state 5
+State 5
 
     1 start: root .
 
     $default  reduce using rule 1 (start)
 
 
-state 6
+State 6
 
     8 root_exp: error . ";"
     9         | error . ","
@@ -1174,42 +1174,42 @@ state 6
     ";"               shift, and go to state 90
 
 
-state 7
+State 7
 
   171 literal-exp: "__HERE__" .
 
     $default  reduce using rule 171 (literal-exp)
 
 
-state 8
+State 8
 
    84 stmt: "break" .
 
     $default  reduce using rule 84 (stmt)
 
 
-state 9
+State 9
 
    52 routine: "closure" .
 
     $default  reduce using rule 52 (routine)
 
 
-state 10
+State 10
 
   137 bitor-exp: "const" . "var" bitor-exp
 
     "var"  shift, and go to state 91
 
 
-state 11
+State 11
 
    85 stmt: "continue" .
 
     $default  reduce using rule 85 (stmt)
 
 
-state 12
+State 12
 
    77 stmt: "freezeif" . "(" exp tilda.opt ")" stmt
    78     | "freezeif" . "(" event_match ")" stmt
@@ -1217,33 +1217,33 @@ state 12
     "("  shift, and go to state 92
 
 
-state 13
+State 13
 
    53 routine: "function" .
 
     $default  reduce using rule 53 (routine)
 
 
-state 14
+State 14
 
    76 stmt: "if" . "(" stmts ")" stmt else.opt
 
     "("  shift, and go to state 93
 
 
-state 15
+State 15
 
   128 primary-exp: "isdef" . "(" k1_id ")"
 
     "("  shift, and go to state 94
 
 
-state 16
+State 16
 
    12 stmts: . cstmt.opt
    13      | . stmts ";" cstmt.opt
    14      | . stmts "," cstmt.opt
-   15 cstmt.opt: .  ["}", ",", ";"]
+   15 cstmt.opt: . %empty  ["}", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -1468,7 +1468,7 @@ state 16
     rel-exp      go to state 83
 
 
-state 17
+State 17
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -1572,7 +1572,7 @@ state 17
   226       | . "%id:" unsigned
   227       | . primary-exp "." "%id:" unsigned
   228 primary-exp: . lvalue "(" "%exps:" unsigned ")"
-  233 exps: .  ["]"]
+  233 exps: . %empty  ["]"]
   234     | . exps.1 comma.opt
   235 exps.1: . exp
   236       | . exps.1 "," exp
@@ -1641,7 +1641,7 @@ state 17
     exps.1       go to state 107
 
 
-state 18
+State 18
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -1689,7 +1689,7 @@ state 18
   145 duration: . "duration"
   146         | . duration "duration"
   152 dictionary: . "[" assocs "]"
-  153 tuple.exps: .  [")"]
+  153 tuple.exps: . %empty  [")"]
   154           | . exps.1 ","
   155           | . exps.2
   156 tuple: . "(" tuple.exps ")"
@@ -1810,7 +1810,7 @@ state 18
     exps.2       go to state 112
 
 
-state 19
+State 19
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -1902,7 +1902,7 @@ state 19
   217    | . exp "||" exp
   218    | . exp "in" exp
   219    | . exp "!" "in" exp
-  220 exp.opt: .  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+  220 exp.opt: . %empty  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
   221        | . exp
   223 exp: . "%unscope:" unsigned
   224 primary-exp: . "%exp:" unsigned
@@ -1971,7 +1971,7 @@ state 19
     Conflict between rule 220 and token "&" resolved as reduce ("&" < EMPTY).
 
 
-state 20
+State 20
 
    79 stmt: "stopif" . "(" exp tilda.opt ")" stmt
    80     | "stopif" . "(" event_match ")" stmt
@@ -1979,14 +1979,14 @@ state 20
     "("  shift, and go to state 115
 
 
-state 21
+State 21
 
    81 stmt: "switch" . "(" exp ")" "{" cases default.opt "}"
 
     "("  shift, and go to state 116
 
 
-state 22
+State 22
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -2078,7 +2078,7 @@ state 22
   217    | . exp "||" exp
   218    | . exp "in" exp
   219    | . exp "!" "in" exp
-  220 exp.opt: .  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+  220 exp.opt: . %empty  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
   221        | . exp
   223 exp: . "%unscope:" unsigned
   224 primary-exp: . "%exp:" unsigned
@@ -2147,14 +2147,14 @@ state 22
     Conflict between rule 220 and token "&" resolved as reduce ("&" < EMPTY).
 
 
-state 23
+State 23
 
    82 stmt: "timeout" . "(" exp ")" stmt catch.opt else.opt finally.opt
 
     "("  shift, and go to state 118
 
 
-state 24
+State 24
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -2167,7 +2167,7 @@ state 24
     block  go to state 119
 
 
-state 25
+State 25
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -2300,7 +2300,7 @@ state 25
     unary-exp    go to state 82
 
 
-state 26
+State 26
 
    86 stmt: "waituntil" . "(" exp tilda.opt ")"
    87     | "waituntil" . "(" event_match ")"
@@ -2308,14 +2308,14 @@ state 26
     "("  shift, and go to state 122
 
 
-state 27
+State 27
 
   129 primary-exp: "watch" . "(" exp ")"
 
     "("  shift, and go to state 123
 
 
-state 28
+State 28
 
    88 stmt: "whenever" . "(" exp tilda.opt ")" stmt else.opt
    89     | "whenever" . "(" event_match ")" stmt else.opt
@@ -2323,7 +2323,7 @@ state 28
     "("  shift, and go to state 124
 
 
-state 29
+State 29
 
   133 primary-exp: "&" . id
   135 id: . "identifier"
@@ -2335,14 +2335,14 @@ state 29
     id  go to state 126
 
 
-state 30
+State 30
 
    75 stmt: "every" . "(" exp ")" stmt
 
     "("  shift, and go to state 127
 
 
-state 31
+State 31
 
   114 stmt: "for" . "(" exp ")" stmt
   115     | "for" . "(" stmt.opt ";" exp ";" stmt.opt ")" stmt
@@ -2351,7 +2351,7 @@ state 31
     "("  shift, and go to state 128
 
 
-state 32
+State 32
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -2562,18 +2562,18 @@ state 32
     rel-exp      go to state 83
 
 
-state 33
+State 33
 
   117 stmt: "while" . "(" exp ")" stmt
 
     "("  shift, and go to state 130
 
 
-state 34
+State 34
 
    73 stmt: "at" . identifiers "(" exp tilda.opt ")" stmt onleave.opt
    74     | "at" . identifiers "(" event_match ")" stmt onleave.opt
-  241 identifiers: .
+  241 identifiers: . %empty
   242            | . identifiers "identifier"
 
     $default  reduce using rule 241 (identifiers)
@@ -2581,14 +2581,14 @@ state 34
     identifiers  go to state 131
 
 
-state 35
+State 35
 
   135 id: "identifier" .
 
     $default  reduce using rule 135 (id)
 
 
-state 36
+State 36
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -2688,7 +2688,7 @@ state 36
     string       go to state 81
 
 
-state 37
+State 37
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -2788,7 +2788,7 @@ state 37
     string       go to state 81
 
 
-state 38
+State 38
 
    43 stmt: "enum" . id "{" id.0 "}"
   135 id: . "identifier"
@@ -2800,7 +2800,7 @@ state 38
     id  go to state 135
 
 
-state 39
+State 39
 
    45 event_or_function: . "function"
    46                  | . "identifier"
@@ -2815,7 +2815,7 @@ state 39
     event_or_function  go to state 139
 
 
-state 40
+State 40
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -2915,7 +2915,7 @@ state 40
     string       go to state 81
 
 
-state 41
+State 41
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3015,7 +3015,7 @@ state 41
     string       go to state 81
 
 
-state 42
+State 42
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3115,14 +3115,14 @@ state 42
     string       go to state 81
 
 
-state 43
+State 43
 
   121 primary-exp: "do" . "(" exp ")" block
 
     "("  shift, and go to state 143
 
 
-state 44
+State 44
 
   124 primary-exp: "assert" . "(" exp ")"
   125            | "assert" . "{" claims "}"
@@ -3131,21 +3131,21 @@ state 44
     "("  shift, and go to state 145
 
 
-state 45
+State 45
 
   122 detach: "detach" .
 
     $default  reduce using rule 122 (detach)
 
 
-state 46
+State 46
 
   123 detach: "disown" .
 
     $default  reduce using rule 123 (detach)
 
 
-state 47
+State 47
 
   140 new: "new" . "identifier" args.opt
   142 id: "new" .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "[", "(", "onleave", ".", "}", "]", ")", "~", ",", ";", "&", "|", "^=", "-=", "%=", "+=", "/=", "*=", "--", "++", "->", "new", "=>", "?", "!", "bitand", "bitor", "^", ">>", "<<", "-", "%", "+", "/", "*", "**", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
@@ -3157,49 +3157,49 @@ state 47
     Conflict between rule 142 and token "identifier" resolved as shift ("new" < "identifier").
 
 
-state 48
+State 48
 
   162 literal-exp: "angle" .
 
     $default  reduce using rule 162 (literal-exp)
 
 
-state 49
+State 49
 
   145 duration: "duration" .
 
     $default  reduce using rule 145 (duration)
 
 
-state 50
+State 50
 
   144 float-exp: "float" .
 
     $default  reduce using rule 144 (float-exp)
 
 
-state 51
+State 51
 
   169 string: "string" .
 
     $default  reduce using rule 169 (string)
 
 
-state 52
+State 52
 
   179 literal-exp: "call" .
 
     $default  reduce using rule 179 (literal-exp)
 
 
-state 53
+State 53
 
   178 literal-exp: "this" .
 
     $default  reduce using rule 178 (literal-exp)
 
 
-state 54
+State 54
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3313,7 +3313,7 @@ state 54
     unary-exp    go to state 147
 
 
-state 55
+State 55
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3427,7 +3427,7 @@ state 55
     unary-exp    go to state 148
 
 
-state 56
+State 56
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3541,7 +3541,7 @@ state 56
     unary-exp    go to state 149
 
 
-state 57
+State 57
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3655,7 +3655,7 @@ state 57
     unary-exp    go to state 150
 
 
-state 58
+State 58
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3694,7 +3694,7 @@ state 58
   146         | . duration "duration"
   152 dictionary: . "[" assocs "]"
   156 tuple: . "(" tuple.exps ")"
-  157 bitor-exps: .  [">"]
+  157 bitor-exps: . %empty  [">"]
   158           | . bitor-exps.1 comma.opt
   159 bitor-exps.1: . bitor-exp
   160             | . bitor-exps.1 "," bitor-exp
@@ -3796,7 +3796,7 @@ state 58
     unary-exp     go to state 82
 
 
-state 59
+State 59
 
   222 unsigned: . "float"
   223 exp: "%unscope:" . unsigned
@@ -3806,7 +3806,7 @@ state 59
     unsigned  go to state 155
 
 
-state 60
+State 60
 
   222 unsigned: . "float"
   224 primary-exp: "%exp:" . unsigned
@@ -3816,7 +3816,7 @@ state 60
     unsigned  go to state 156
 
 
-state 61
+State 61
 
   222 unsigned: . "float"
   225 lvalue: "%lvalue:" . unsigned
@@ -3826,7 +3826,7 @@ state 61
     unsigned  go to state 157
 
 
-state 62
+State 62
 
   222 unsigned: . "float"
   226 lvalue: "%id:" . unsigned
@@ -3836,14 +3836,14 @@ state 62
     unsigned  go to state 158
 
 
-state 63
+State 63
 
     3 root: MODE_EXP root_exp .
 
     $default  reduce using rule 3 (root)
 
 
-state 64
+State 64
 
     5 root_exp: cstmt.opt . ";"
     6         | cstmt.opt . ","
@@ -3854,7 +3854,7 @@ state 64
     ";"               shift, and go to state 161
 
 
-state 65
+State 65
 
    16 cstmt.opt: cstmt .  ["end of command", "case", "default", "}", ")", ",", ";"]
    17          | cstmt . "|"
@@ -3867,21 +3867,21 @@ state 65
     $default  reduce using rule 16 (cstmt.opt)
 
 
-state 66
+State 66
 
    18 cstmt: stmt .
 
     $default  reduce using rule 18 (cstmt)
 
 
-state 67
+State 67
 
   120 primary-exp: block .
 
     $default  reduce using rule 120 (primary-exp)
 
 
-state 68
+State 68
 
    24 stmt: exp .  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    51     | exp . "!" args.opt tilda.opt
@@ -3901,14 +3901,14 @@ state 68
     $default  reduce using rule 24 (stmt)
 
 
-state 69
+State 69
 
    54 stmt: routine . k1_id formals block
    56 k1_id: . "identifier"
    57      | . "this" "." "identifier"
    58      | . k1_id "." "identifier"
   143 primary-exp: routine . formals block
-  253 formals: .  ["{"]
+  253 formals: . %empty  ["{"]
   254        | . "(" formals.0 ")"
 
     "("           shift, and go to state 169
@@ -3921,7 +3921,7 @@ state 69
     formals  go to state 173
 
 
-state 70
+State 70
 
    23 stmt: primary-exp . ":" stmt
   131 lvalue: primary-exp . "." id
@@ -3940,7 +3940,7 @@ state 70
     $default  reduce using rule 184 (unary-exp)
 
 
-state 71
+State 71
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -3954,7 +3954,7 @@ state 71
     block  go to state 179
 
 
-state 72
+State 72
 
    64 exp: lvalue . "+=" exp
    65    | lvalue . "-=" exp
@@ -3986,7 +3986,7 @@ state 72
     args  go to state 190
 
 
-state 73
+State 73
 
    55 stmt: id . id formals block
   130 lvalue: id .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "in", "[", "(", "onleave", ".", "}", ")", ",", ";", "&", "|", "^=", "-=", "%=", "+=", "/=", "*=", "--", "++", "->", "!", "bitand", "bitor", "^", ">>", "<<", "-", "%", "+", "/", "*", "**", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
@@ -4001,7 +4001,7 @@ state 73
     id  go to state 191
 
 
-state 74
+State 74
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -4014,7 +4014,7 @@ state 74
   200          | bitor-exp . "bitor" bitor-exp
   201          | bitor-exp . ">>" bitor-exp
   212 rel-exp: bitor-exp . rel-ops
-  213 rel-ops: .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
+  213 rel-ops: . %empty  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
   214        | . rel-ops rel-op bitor-exp
 
     "bitand"  shift, and go to state 192
@@ -4033,21 +4033,21 @@ state 74
     rel-ops  go to state 202
 
 
-state 75
+State 75
 
   141 bitor-exp: new .
 
     $default  reduce using rule 141 (bitor-exp)
 
 
-state 76
+State 76
 
   161 literal-exp: float-exp .
 
     $default  reduce using rule 161 (literal-exp)
 
 
-state 77
+State 77
 
   146 duration: duration . "duration"
   163 literal-exp: duration .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "[", "onleave", ".", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "bitand", "bitor", "^", ">>", "<<", "-", "%", "+", "/", "*", "**", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
@@ -4057,28 +4057,28 @@ state 77
     $default  reduce using rule 163 (literal-exp)
 
 
-state 78
+State 78
 
   167 literal-exp: dictionary .
 
     $default  reduce using rule 167 (literal-exp)
 
 
-state 79
+State 79
 
   168 literal-exp: tuple .
 
     $default  reduce using rule 168 (literal-exp)
 
 
-state 80
+State 80
 
   180 primary-exp: literal-exp .
 
     $default  reduce using rule 180 (primary-exp)
 
 
-state 81
+State 81
 
   164 literal-exp: string .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "[", "onleave", ".", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "bitand", "bitor", "^", ">>", "<<", "-", "%", "+", "/", "*", "**", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
   170 string: string . "string"
@@ -4088,28 +4088,28 @@ state 81
     $default  reduce using rule 164 (literal-exp)
 
 
-state 82
+State 82
 
   191 bitor-exp: unary-exp .
 
     $default  reduce using rule 191 (bitor-exp)
 
 
-state 83
+State 83
 
   215 exp: rel-exp .
 
     $default  reduce using rule 215 (exp)
 
 
-state 84
+State 84
 
     4 root: MODE_EXPS root_exps .
 
     $default  reduce using rule 4 (root)
 
 
-state 85
+State 85
 
    11 root_exps: stmts .  ["end of command"]
    13 stmts: stmts . ";" cstmt.opt
@@ -4121,42 +4121,42 @@ state 85
     $default  reduce using rule 11 (root_exps)
 
 
-state 86
+State 86
 
    12 stmts: cstmt.opt .
 
     $default  reduce using rule 12 (stmts)
 
 
-state 87
+State 87
 
     0 $accept: start "end of command" .
 
     $default  accept
 
 
-state 88
+State 88
 
    10 root_exp: error "end of command" .
 
     $default  reduce using rule 10 (root_exp)
 
 
-state 89
+State 89
 
     9 root_exp: error "," .
 
     $default  reduce using rule 9 (root_exp)
 
 
-state 90
+State 90
 
     8 root_exp: error ";" .
 
     $default  reduce using rule 8 (root_exp)
 
 
-state 91
+State 91
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -4289,7 +4289,7 @@ state 91
     unary-exp    go to state 82
 
 
-state 92
+State 92
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -4447,12 +4447,12 @@ state 92
     rel-exp      go to state 83
 
 
-state 93
+State 93
 
    12 stmts: . cstmt.opt
    13      | . stmts ";" cstmt.opt
    14      | . stmts "," cstmt.opt
-   15 cstmt.opt: .  [")", ",", ";"]
+   15 cstmt.opt: . %empty  [")", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -4672,7 +4672,7 @@ state 93
     rel-exp      go to state 83
 
 
-state 94
+State 94
 
    56 k1_id: . "identifier"
    57      | . "this" "." "identifier"
@@ -4685,14 +4685,14 @@ state 94
     k1_id  go to state 211
 
 
-state 95
+State 95
 
    26 block: "{" error . "}"
 
     "}"  shift, and go to state 212
 
 
-state 96
+State 96
 
    13 stmts: stmts . ";" cstmt.opt
    14      | stmts . "," cstmt.opt
@@ -4703,7 +4703,7 @@ state 96
     ";"  shift, and go to state 206
 
 
-state 97
+State 97
 
    27 block: "{" id . "~" id "}"
    55 stmt: id . id formals block
@@ -4720,14 +4720,14 @@ state 97
     id  go to state 191
 
 
-state 98
+State 98
 
   150 assocs: "=>" .
 
     $default  reduce using rule 150 (assocs)
 
 
-state 99
+State 99
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -4748,10 +4748,10 @@ state 99
     $default  reduce using rule 235 (exps.1)
 
 
-state 100
+State 100
 
   143 primary-exp: routine . formals block
-  253 formals: .  ["{"]
+  253 formals: . %empty  ["{"]
   254        | . "(" formals.0 ")"
 
     "("  shift, and go to state 169
@@ -4761,7 +4761,7 @@ state 100
     formals  go to state 173
 
 
-state 101
+State 101
 
   131 lvalue: primary-exp . "." id
   132       | primary-exp . "." "*"
@@ -4778,25 +4778,25 @@ state 101
     $default  reduce using rule 184 (unary-exp)
 
 
-state 102
+State 102
 
   130 lvalue: id .
 
     $default  reduce using rule 130 (lvalue)
 
 
-state 103
+State 103
 
   148 assocs.1: assoc .
 
     $default  reduce using rule 148 (assocs.1)
 
 
-state 104
+State 104
 
   149 assocs.1: assocs.1 . "," assoc
   151 assocs: assocs.1 . comma.opt
-  255 comma.opt: .  ["]"]
+  255 comma.opt: . %empty  ["]"]
   256          | . ","
 
     ","  shift, and go to state 217
@@ -4806,25 +4806,25 @@ state 104
     comma.opt  go to state 218
 
 
-state 105
+State 105
 
   152 dictionary: "[" assocs . "]"
 
     "]"  shift, and go to state 219
 
 
-state 106
+State 106
 
   165 literal-exp: "[" exps . "]"
 
     "]"  shift, and go to state 220
 
 
-state 107
+State 107
 
   234 exps: exps.1 . comma.opt
   236 exps.1: exps.1 . "," exp
-  255 comma.opt: .  ["]", ")"]
+  255 comma.opt: . %empty  ["]", ")"]
   256          | . ","
 
     ","  shift, and go to state 221
@@ -4834,14 +4834,14 @@ state 107
     comma.opt  go to state 222
 
 
-state 108
+State 108
 
   182 primary-exp: "(" error . ")"
 
     ")"  shift, and go to state 223
 
 
-state 109
+State 109
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -4862,14 +4862,14 @@ state 109
     $default  reduce using rule 235 (exps.1)
 
 
-state 110
+State 110
 
   156 tuple: "(" tuple.exps . ")"
 
     ")"  shift, and go to state 225
 
 
-state 111
+State 111
 
   154 tuple.exps: exps.1 . ","
   236 exps.1: exps.1 . "," exp
@@ -4878,14 +4878,14 @@ state 111
     ","  shift, and go to state 226
 
 
-state 112
+State 112
 
   155 tuple.exps: exps.2 .
 
     $default  reduce using rule 155 (tuple.exps)
 
 
-state 113
+State 113
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -4904,14 +4904,14 @@ state 113
     $default  reduce using rule 221 (exp.opt)
 
 
-state 114
+State 114
 
    83 stmt: "return" exp.opt .
 
     $default  reduce using rule 83 (stmt)
 
 
-state 115
+State 115
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -5069,7 +5069,7 @@ state 115
     rel-exp      go to state 83
 
 
-state 116
+State 116
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -5224,14 +5224,14 @@ state 116
     rel-exp      go to state 83
 
 
-state 117
+State 117
 
   112 stmt: "throw" exp.opt .
 
     $default  reduce using rule 112 (stmt)
 
 
-state 118
+State 118
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -5386,7 +5386,7 @@ state 118
     rel-exp      go to state 83
 
 
-state 119
+State 119
 
    99 catches.1: . catch
   100          | . catches.1 catch
@@ -5401,7 +5401,7 @@ state 119
     catch      go to state 234
 
 
-state 120
+State 120
 
    70 primary-exp: lvalue . "--"
    71            | lvalue . "++"
@@ -5421,7 +5421,7 @@ state 120
     args  go to state 190
 
 
-state 121
+State 121
 
   136 bitor-exp: "var" bitor-exp .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
   192          | bitor-exp . "+" bitor-exp
@@ -5460,7 +5460,7 @@ state 121
     Conflict between rule 136 and token "*" resolved as shift ("var" < "*").
 
 
-state 122
+State 122
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -5618,7 +5618,7 @@ state 122
     rel-exp      go to state 83
 
 
-state 123
+State 123
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -5773,7 +5773,7 @@ state 123
     rel-exp      go to state 83
 
 
-state 124
+State 124
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -5931,21 +5931,21 @@ state 124
     rel-exp      go to state 83
 
 
-state 125
+State 125
 
   142 id: "new" .
 
     $default  reduce using rule 142 (id)
 
 
-state 126
+State 126
 
   133 primary-exp: "&" id .
 
     $default  reduce using rule 133 (primary-exp)
 
 
-state 127
+State 127
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -6100,9 +6100,9 @@ state 127
     rel-exp      go to state 83
 
 
-state 128
+State 128
 
-   21 stmt.opt: .  [";"]
+   21 stmt.opt: . %empty  [";"]
    22         | . stmt
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -6318,14 +6318,14 @@ state 128
     rel-exp      go to state 83
 
 
-state 129
+State 129
 
   113 stmt: "loop" stmt .
 
     $default  reduce using rule 113 (stmt)
 
 
-state 130
+State 130
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -6480,7 +6480,7 @@ state 130
     rel-exp      go to state 83
 
 
-state 131
+State 131
 
    73 stmt: "at" identifiers . "(" exp tilda.opt ")" stmt onleave.opt
    74     | "at" identifiers . "(" event_match ")" stmt onleave.opt
@@ -6490,7 +6490,7 @@ state 131
     "identifier"  shift, and go to state 247
 
 
-state 132
+State 132
 
   131 lvalue: primary-exp . "." id
   132       | primary-exp . "." "*"
@@ -6504,9 +6504,9 @@ state 132
     "**"  shift, and go to state 177
 
 
-state 133
+State 133
 
-   35 protos: .  ["{"]
+   35 protos: . %empty  ["{"]
    36       | . ":" protos.1
    37 exp: "class" lvalue . protos block
    70 primary-exp: lvalue . "--"
@@ -6530,9 +6530,9 @@ state 133
     args    go to state 190
 
 
-state 134
+State 134
 
-   35 protos: .  ["{"]
+   35 protos: . %empty  ["{"]
    36       | . ":" protos.1
    38 exp: "package" lvalue . protos block
    70 primary-exp: lvalue . "--"
@@ -6556,28 +6556,28 @@ state 134
     args    go to state 190
 
 
-state 135
+State 135
 
    43 stmt: "enum" id . "{" id.0 "}"
 
     "{"  shift, and go to state 251
 
 
-state 136
+State 136
 
    45 event_or_function: "function" .
 
     $default  reduce using rule 45 (event_or_function)
 
 
-state 137
+State 137
 
    48 stmt: "external" "var" . "identifier" "." "identifier" from "identifier"
 
     "identifier"  shift, and go to state 252
 
 
-state 138
+State 138
 
    46 event_or_function: "identifier" .  ["("]
    47 stmt: "external" "identifier" . "identifier"
@@ -6587,14 +6587,14 @@ state 138
     $default  reduce using rule 46 (event_or_function)
 
 
-state 139
+State 139
 
    49 stmt: "external" event_or_function . "(" unsigned ")" "identifier" "." "identifier" from "identifier"
 
     "("  shift, and go to state 254
 
 
-state 140
+State 140
 
    50 stmt: "import" lvalue .  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    70 primary-exp: lvalue . "--"
@@ -6618,7 +6618,7 @@ state 140
     args  go to state 190
 
 
-state 141
+State 141
 
    70 primary-exp: lvalue . "--"
    71            | lvalue . "++"
@@ -6642,7 +6642,7 @@ state 141
     args  go to state 190
 
 
-state 142
+State 142
 
    70 primary-exp: lvalue . "--"
    71            | lvalue . "++"
@@ -6666,7 +6666,7 @@ state 142
     args  go to state 190
 
 
-state 143
+State 143
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -6821,7 +6821,7 @@ state 143
     rel-exp      go to state 83
 
 
-state 144
+State 144
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -6919,7 +6919,7 @@ state 144
   226       | . "%id:" unsigned
   227       | . primary-exp "." "%id:" unsigned
   228 primary-exp: . lvalue "(" "%exps:" unsigned ")"
-  229 claims: .  ["}"]
+  229 claims: . %empty  ["}"]
   230       | . claims.1 semi.opt
   231 claims.1: . exp
   232         | . claims.1 ";" exp
@@ -6984,7 +6984,7 @@ state 144
     claims.1     go to state 258
 
 
-state 145
+State 145
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -7139,11 +7139,11 @@ state 145
     rel-exp      go to state 83
 
 
-state 146
+State 146
 
   140 new: "new" "identifier" . args.opt
   238 args: . "(" exps ")"
-  239 args.opt: .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "bitand", "bitor", "^", ">>", "<<", "-", "%", "+", "/", "*", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
+  239 args.opt: . %empty  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "bitand", "bitor", "^", ">>", "<<", "-", "%", "+", "/", "*", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
   240         | . args
 
     "("  shift, and go to state 260
@@ -7154,35 +7154,35 @@ state 146
     args.opt  go to state 262
 
 
-state 147
+State 147
 
   189 unary-exp: "!" unary-exp .
 
     $default  reduce using rule 189 (unary-exp)
 
 
-state 148
+State 148
 
   190 unary-exp: "compl" unary-exp .
 
     $default  reduce using rule 190 (unary-exp)
 
 
-state 149
+State 149
 
   188 unary-exp: "-" unary-exp .
 
     $default  reduce using rule 188 (unary-exp)
 
 
-state 150
+State 150
 
   187 unary-exp: "+" unary-exp .
 
     $default  reduce using rule 187 (unary-exp)
 
 
-state 151
+State 151
 
   159 bitor-exps.1: bitor-exp .  [",", ">"]
   192 bitor-exp: bitor-exp . "+" bitor-exp
@@ -7210,18 +7210,18 @@ state 151
     $default  reduce using rule 159 (bitor-exps.1)
 
 
-state 152
+State 152
 
   166 literal-exp: "<" bitor-exps . ">"
 
     ">"  shift, and go to state 263
 
 
-state 153
+State 153
 
   158 bitor-exps: bitor-exps.1 . comma.opt
   160 bitor-exps.1: bitor-exps.1 . "," bitor-exp
-  255 comma.opt: .  [">"]
+  255 comma.opt: . %empty  [">"]
   256          | . ","
 
     ","  shift, and go to state 264
@@ -7231,63 +7231,63 @@ state 153
     comma.opt  go to state 265
 
 
-state 154
+State 154
 
   222 unsigned: "float" .
 
     $default  reduce using rule 222 (unsigned)
 
 
-state 155
+State 155
 
   223 exp: "%unscope:" unsigned .
 
     $default  reduce using rule 223 (exp)
 
 
-state 156
+State 156
 
   224 primary-exp: "%exp:" unsigned .
 
     $default  reduce using rule 224 (primary-exp)
 
 
-state 157
+State 157
 
   225 lvalue: "%lvalue:" unsigned .
 
     $default  reduce using rule 225 (lvalue)
 
 
-state 158
+State 158
 
   226 lvalue: "%id:" unsigned .
 
     $default  reduce using rule 226 (lvalue)
 
 
-state 159
+State 159
 
     7 root_exp: cstmt.opt "end of command" .
 
     $default  reduce using rule 7 (root_exp)
 
 
-state 160
+State 160
 
     6 root_exp: cstmt.opt "," .
 
     $default  reduce using rule 6 (root_exp)
 
 
-state 161
+State 161
 
     5 root_exp: cstmt.opt ";" .
 
     $default  reduce using rule 5 (root_exp)
 
 
-state 162
+State 162
 
    18 cstmt: . stmt
    19      | . cstmt "|" cstmt
@@ -7502,7 +7502,7 @@ state 162
     rel-exp      go to state 83
 
 
-state 163
+State 163
 
    17 cstmt.opt: cstmt "|" .  ["end of command", "case", "default", "}", ")", ",", ";"]
    18 cstmt: . stmt
@@ -7720,7 +7720,7 @@ state 163
     rel-exp      go to state 83
 
 
-state 164
+State 164
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -7876,7 +7876,7 @@ state 164
     rel-exp      go to state 83
 
 
-state 165
+State 165
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -8031,12 +8031,12 @@ state 165
     rel-exp      go to state 83
 
 
-state 166
+State 166
 
    51 stmt: exp "!" . args.opt tilda.opt
   219 exp: exp "!" . "in" exp
   238 args: . "(" exps ")"
-  239 args.opt: .  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", "~", ",", ";", "&", "|"]
+  239 args.opt: . %empty  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", "~", ",", ";", "&", "|"]
   240         | . args
 
     "in"  shift, and go to state 270
@@ -8048,7 +8048,7 @@ state 166
     args.opt  go to state 271
 
 
-state 167
+State 167
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -8203,7 +8203,7 @@ state 167
     rel-exp      go to state 83
 
 
-state 168
+State 168
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -8358,17 +8358,17 @@ state 168
     rel-exp      go to state 83
 
 
-state 169
+State 169
 
   246 formal: . var.opt "identifier" typespec.opt
   247       | . var.opt "identifier" "=" exp typespec.opt
   248       | . var.opt "identifier" "[" "]"
   249 formals.1: . formal
   250          | . formals.1 "," formal
-  251 formals.0: .  [")"]
+  251 formals.0: . %empty  [")"]
   252          | . formals.1 comma.opt
   254 formals: "(" . formals.0 ")"
-  259 var.opt: .  ["identifier"]
+  259 var.opt: . %empty  ["identifier"]
   260        | . "var"
 
     "var"  shift, and go to state 274
@@ -8382,25 +8382,25 @@ state 169
     var.opt    go to state 278
 
 
-state 170
+State 170
 
    56 k1_id: "identifier" .
 
     $default  reduce using rule 56 (k1_id)
 
 
-state 171
+State 171
 
    57 k1_id: "this" . "." "identifier"
 
     "."  shift, and go to state 279
 
 
-state 172
+State 172
 
    54 stmt: routine k1_id . formals block
    58 k1_id: k1_id . "." "identifier"
-  253 formals: .  ["{"]
+  253 formals: . %empty  ["{"]
   254        | . "(" formals.0 ")"
 
     "("  shift, and go to state 169
@@ -8411,7 +8411,7 @@ state 172
     formals  go to state 281
 
 
-state 173
+State 173
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -8423,7 +8423,7 @@ state 173
     block  go to state 282
 
 
-state 174
+State 174
 
    23 stmt: . primary-exp ":" stmt
    23     | primary-exp ":" . stmt
@@ -8634,7 +8634,7 @@ state 174
     rel-exp      go to state 83
 
 
-state 175
+State 175
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -8732,7 +8732,7 @@ state 175
   226       | . "%id:" unsigned
   227       | . primary-exp "." "%id:" unsigned
   228 primary-exp: . lvalue "(" "%exps:" unsigned ")"
-  233 exps: .  ["]"]
+  233 exps: . %empty  ["]"]
   234     | . exps.1 comma.opt
   235 exps.1: . exp
   236       | . exps.1 "," exp
@@ -8797,7 +8797,7 @@ state 175
     exps.1       go to state 107
 
 
-state 176
+State 176
 
   131 lvalue: primary-exp "." . id
   132       | primary-exp "." . "*"
@@ -8815,7 +8815,7 @@ state 176
     id  go to state 289
 
 
-state 177
+State 177
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -8915,7 +8915,7 @@ state 177
     string       go to state 81
 
 
-state 178
+State 178
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -9070,14 +9070,14 @@ state 178
     rel-exp      go to state 83
 
 
-state 179
+State 179
 
   127 primary-exp: detach block .
 
     $default  reduce using rule 127 (primary-exp)
 
 
-state 180
+State 180
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -9175,7 +9175,7 @@ state 180
   227       | . primary-exp "." "%id:" unsigned
   228 primary-exp: . lvalue "(" "%exps:" unsigned ")"
   228            | lvalue "(" . "%exps:" unsigned ")"
-  233 exps: .  [")"]
+  233 exps: . %empty  [")"]
   234     | . exps.1 comma.opt
   235 exps.1: . exp
   236       | . exps.1 "," exp
@@ -9242,7 +9242,7 @@ state 180
     exps.1       go to state 107
 
 
-state 181
+State 181
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -9397,7 +9397,7 @@ state 181
     rel-exp      go to state 83
 
 
-state 182
+State 182
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -9552,7 +9552,7 @@ state 182
     rel-exp      go to state 83
 
 
-state 183
+State 183
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -9707,7 +9707,7 @@ state 183
     rel-exp      go to state 83
 
 
-state 184
+State 184
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -9862,7 +9862,7 @@ state 184
     rel-exp      go to state 83
 
 
-state 185
+State 185
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10017,7 +10017,7 @@ state 185
     rel-exp      go to state 83
 
 
-state 186
+State 186
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10172,21 +10172,21 @@ state 186
     rel-exp      go to state 83
 
 
-state 187
+State 187
 
    70 primary-exp: lvalue "--" .
 
     $default  reduce using rule 70 (primary-exp)
 
 
-state 188
+State 188
 
    71 primary-exp: lvalue "++" .
 
     $default  reduce using rule 71 (primary-exp)
 
 
-state 189
+State 189
 
    72 primary-exp: lvalue "->" . id
   135 id: . "identifier"
@@ -10198,17 +10198,17 @@ state 189
     id  go to state 300
 
 
-state 190
+State 190
 
   139 primary-exp: lvalue args .
 
     $default  reduce using rule 139 (primary-exp)
 
 
-state 191
+State 191
 
    55 stmt: id id . formals block
-  253 formals: .  ["{"]
+  253 formals: . %empty  ["{"]
   254        | . "(" formals.0 ")"
 
     "("  shift, and go to state 169
@@ -10218,7 +10218,7 @@ state 191
     formals  go to state 301
 
 
-state 192
+State 192
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10351,7 +10351,7 @@ state 192
     unary-exp    go to state 82
 
 
-state 193
+State 193
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10484,7 +10484,7 @@ state 193
     unary-exp    go to state 82
 
 
-state 194
+State 194
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10617,7 +10617,7 @@ state 194
     unary-exp    go to state 82
 
 
-state 195
+State 195
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10750,7 +10750,7 @@ state 195
     unary-exp    go to state 82
 
 
-state 196
+State 196
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -10883,7 +10883,7 @@ state 196
     unary-exp    go to state 82
 
 
-state 197
+State 197
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -11016,7 +11016,7 @@ state 197
     unary-exp    go to state 82
 
 
-state 198
+State 198
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -11149,7 +11149,7 @@ state 198
     unary-exp    go to state 82
 
 
-state 199
+State 199
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -11282,7 +11282,7 @@ state 199
     unary-exp    go to state 82
 
 
-state 200
+State 200
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -11415,7 +11415,7 @@ state 200
     unary-exp    go to state 82
 
 
-state 201
+State 201
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -11548,7 +11548,7 @@ state 201
     unary-exp    go to state 82
 
 
-state 202
+State 202
 
   202 rel-op: . "!="
   203       | . "!=="
@@ -11579,24 +11579,24 @@ state 202
     rel-op  go to state 322
 
 
-state 203
+State 203
 
   146 duration: duration "duration" .
 
     $default  reduce using rule 146 (duration)
 
 
-state 204
+State 204
 
   170 string: string "string" .
 
     $default  reduce using rule 170 (string)
 
 
-state 205
+State 205
 
    14 stmts: stmts "," . cstmt.opt
-   15 cstmt.opt: .  ["end of command", "case", "default", "}", ")", ",", ";"]
+   15 cstmt.opt: . %empty  ["end of command", "case", "default", "}", ")", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -11814,10 +11814,10 @@ state 205
     rel-exp      go to state 83
 
 
-state 206
+State 206
 
    13 stmts: stmts ";" . cstmt.opt
-   15 cstmt.opt: .  ["end of command", "case", "default", "}", ")", ",", ";"]
+   15 cstmt.opt: . %empty  ["end of command", "case", "default", "}", ")", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -12035,7 +12035,7 @@ state 206
     rel-exp      go to state 83
 
 
-state 207
+State 207
 
   137 bitor-exp: "const" "var" bitor-exp .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
   192          | bitor-exp . "+" bitor-exp
@@ -12074,13 +12074,13 @@ state 207
     Conflict between rule 137 and token "*" resolved as shift ("var" < "*").
 
 
-state 208
+State 208
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
    77 stmt: "freezeif" "(" exp . tilda.opt ")" stmt
   172 event_match: exp . "?" args.opt tilda.opt guard.opt
-  175 tilda.opt: .  [")"]
+  175 tilda.opt: . %empty  [")"]
   176          | . "~" exp
   216 exp: exp . "&&" exp
   217    | exp . "||" exp
@@ -12100,14 +12100,14 @@ state 208
     tilda.opt  go to state 327
 
 
-state 209
+State 209
 
    78 stmt: "freezeif" "(" event_match . ")" stmt
 
     ")"  shift, and go to state 328
 
 
-state 210
+State 210
 
    13 stmts: stmts . ";" cstmt.opt
    14      | stmts . "," cstmt.opt
@@ -12118,7 +12118,7 @@ state 210
     ";"  shift, and go to state 206
 
 
-state 211
+State 211
 
    58 k1_id: k1_id . "." "identifier"
   128 primary-exp: "isdef" "(" k1_id . ")"
@@ -12127,21 +12127,21 @@ state 211
     ")"  shift, and go to state 330
 
 
-state 212
+State 212
 
    26 block: "{" error "}" .
 
     $default  reduce using rule 26 (block)
 
 
-state 213
+State 213
 
    25 block: "{" stmts "}" .
 
     $default  reduce using rule 25 (block)
 
 
-state 214
+State 214
 
    27 block: "{" id "~" . id "}"
   135 id: . "identifier"
@@ -12153,7 +12153,7 @@ state 214
     id  go to state 331
 
 
-state 215
+State 215
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -12308,14 +12308,14 @@ state 215
     rel-exp      go to state 83
 
 
-state 216
+State 216
 
   219 exp: exp "!" . "in" exp
 
     "in"  shift, and go to state 270
 
 
-state 217
+State 217
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -12475,28 +12475,28 @@ state 217
     rel-exp      go to state 83
 
 
-state 218
+State 218
 
   151 assocs: assocs.1 comma.opt .
 
     $default  reduce using rule 151 (assocs)
 
 
-state 219
+State 219
 
   152 dictionary: "[" assocs "]" .
 
     $default  reduce using rule 152 (dictionary)
 
 
-state 220
+State 220
 
   165 literal-exp: "[" exps "]" .
 
     $default  reduce using rule 165 (literal-exp)
 
 
-state 221
+State 221
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -12654,35 +12654,35 @@ state 221
     rel-exp      go to state 83
 
 
-state 222
+State 222
 
   234 exps: exps.1 comma.opt .
 
     $default  reduce using rule 234 (exps)
 
 
-state 223
+State 223
 
   182 primary-exp: "(" error ")" .
 
     $default  reduce using rule 182 (primary-exp)
 
 
-state 224
+State 224
 
   181 primary-exp: "(" exp ")" .
 
     $default  reduce using rule 181 (primary-exp)
 
 
-state 225
+State 225
 
   156 tuple: "(" tuple.exps ")" .
 
     $default  reduce using rule 156 (tuple)
 
 
-state 226
+State 226
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -12841,13 +12841,13 @@ state 226
     rel-exp      go to state 83
 
 
-state 227
+State 227
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
    79 stmt: "stopif" "(" exp . tilda.opt ")" stmt
   172 event_match: exp . "?" args.opt tilda.opt guard.opt
-  175 tilda.opt: .  [")"]
+  175 tilda.opt: . %empty  [")"]
   176          | . "~" exp
   216 exp: exp . "&&" exp
   217    | exp . "||" exp
@@ -12867,14 +12867,14 @@ state 227
     tilda.opt  go to state 337
 
 
-state 228
+State 228
 
    80 stmt: "stopif" "(" event_match . ")" stmt
 
     ")"  shift, and go to state 338
 
 
-state 229
+State 229
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -12892,7 +12892,7 @@ state 229
     "||"  shift, and go to state 168
 
 
-state 230
+State 230
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -12910,9 +12910,9 @@ state 230
     "||"  shift, and go to state 168
 
 
-state 231
+State 231
 
-  103 match.opt: .  ["{"]
+  103 match.opt: . %empty  ["{"]
   104          | . "(" match ")"
   105 catch: "catch" . match.opt block
 
@@ -12923,7 +12923,7 @@ state 231
     match.opt  go to state 342
 
 
-state 232
+State 232
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -12935,9 +12935,9 @@ state 232
     block  go to state 343
 
 
-state 233
+State 233
 
-   92 else.opt: .  ["end of command", "case", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+   92 else.opt: . %empty  ["end of command", "case", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    93         | . "else" stmt
   100 catches.1: catches.1 . catch
   105 catch: . "catch" match.opt block
@@ -12955,20 +12955,20 @@ state 233
     Conflict between rule 92 and token "else" resolved as shift (EMPTY < "else").
 
 
-state 234
+State 234
 
    99 catches.1: catch .
 
     $default  reduce using rule 99 (catches.1)
 
 
-state 235
+State 235
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
    86 stmt: "waituntil" "(" exp . tilda.opt ")"
   172 event_match: exp . "?" args.opt tilda.opt guard.opt
-  175 tilda.opt: .  [")"]
+  175 tilda.opt: . %empty  [")"]
   176          | . "~" exp
   216 exp: exp . "&&" exp
   217    | exp . "||" exp
@@ -12988,14 +12988,14 @@ state 235
     tilda.opt  go to state 347
 
 
-state 236
+State 236
 
    87 stmt: "waituntil" "(" event_match . ")"
 
     ")"  shift, and go to state 348
 
 
-state 237
+State 237
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13013,13 +13013,13 @@ state 237
     "||"  shift, and go to state 168
 
 
-state 238
+State 238
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
    88 stmt: "whenever" "(" exp . tilda.opt ")" stmt else.opt
   172 event_match: exp . "?" args.opt tilda.opt guard.opt
-  175 tilda.opt: .  [")"]
+  175 tilda.opt: . %empty  [")"]
   176          | . "~" exp
   216 exp: exp . "&&" exp
   217    | exp . "||" exp
@@ -13039,14 +13039,14 @@ state 238
     tilda.opt  go to state 350
 
 
-state 239
+State 239
 
    89 stmt: "whenever" "(" event_match . ")" stmt else.opt
 
     ")"  shift, and go to state 351
 
 
-state 240
+State 240
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13064,7 +13064,7 @@ state 240
     "||"  shift, and go to state 168
 
 
-state 241
+State 241
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -13198,21 +13198,21 @@ state 241
     unary-exp    go to state 82
 
 
-state 242
+State 242
 
   115 stmt: "for" "(" stmt.opt . ";" exp ";" stmt.opt ")" stmt
 
     ";"  shift, and go to state 354
 
 
-state 243
+State 243
 
    22 stmt.opt: stmt .
 
     $default  reduce using rule 22 (stmt.opt)
 
 
-state 244
+State 244
 
    24 stmt: exp .  [";"]
    51     | exp . "!" args.opt tilda.opt
@@ -13234,7 +13234,7 @@ state 244
     $default  reduce using rule 24 (stmt)
 
 
-state 245
+State 245
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13252,7 +13252,7 @@ state 245
     "||"  shift, and go to state 168
 
 
-state 246
+State 246
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -13410,16 +13410,16 @@ state 246
     rel-exp      go to state 83
 
 
-state 247
+State 247
 
   242 identifiers: identifiers "identifier" .
 
     $default  reduce using rule 242 (identifiers)
 
 
-state 248
+State 248
 
-   28 visibility: .  ["__HERE__", "closure", "const", "function", "isdef", "{", "[", "(", "var", "watch", "&", "identifier", "class", "package", "--", "++", "do", "assert", "detach", "disown", "new", "angle", "duration", "float", "string", "call", "this", "!", "compl", "-", "+", "<", "%unscope:", "%exp:", "%lvalue:", "%id:"]
+   28 visibility: . %empty  ["__HERE__", "closure", "const", "function", "isdef", "{", "[", "(", "var", "watch", "&", "identifier", "class", "package", "--", "++", "do", "assert", "detach", "disown", "new", "angle", "duration", "float", "string", "call", "this", "!", "compl", "-", "+", "<", "%unscope:", "%exp:", "%lvalue:", "%id:"]
    29           | . "private"
    30           | . "protected"
    31           | . "public"
@@ -13439,7 +13439,7 @@ state 248
     protos.1    go to state 364
 
 
-state 249
+State 249
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -13451,7 +13451,7 @@ state 249
     block  go to state 365
 
 
-state 250
+State 250
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -13463,9 +13463,9 @@ state 250
     block  go to state 366
 
 
-state 251
+State 251
 
-   39 id.0: .  ["}"]
+   39 id.0: . %empty  ["}"]
    40     | . id.1 comma.opt
    41 id.1: . id
    42     | . id.1 "," id
@@ -13483,21 +13483,21 @@ state 251
     id    go to state 369
 
 
-state 252
+State 252
 
    48 stmt: "external" "var" "identifier" . "." "identifier" from "identifier"
 
     "."  shift, and go to state 370
 
 
-state 253
+State 253
 
    47 stmt: "external" "identifier" "identifier" .
 
     $default  reduce using rule 47 (stmt)
 
 
-state 254
+State 254
 
    49 stmt: "external" event_or_function "(" . unsigned ")" "identifier" "." "identifier" from "identifier"
   222 unsigned: . "float"
@@ -13507,7 +13507,7 @@ state 254
     unsigned  go to state 371
 
 
-state 255
+State 255
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13525,7 +13525,7 @@ state 255
     "||"  shift, and go to state 168
 
 
-state 256
+State 256
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13544,18 +13544,18 @@ state 256
     $default  reduce using rule 231 (claims.1)
 
 
-state 257
+State 257
 
   125 primary-exp: "assert" "{" claims . "}"
 
     "}"  shift, and go to state 373
 
 
-state 258
+State 258
 
   230 claims: claims.1 . semi.opt
   232 claims.1: claims.1 . ";" exp
-  257 semi.opt: .  ["}"]
+  257 semi.opt: . %empty  ["}"]
   258         | . ";"
 
     ";"  shift, and go to state 374
@@ -13565,7 +13565,7 @@ state 258
     semi.opt  go to state 375
 
 
-state 259
+State 259
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13583,7 +13583,7 @@ state 259
     "||"  shift, and go to state 168
 
 
-state 260
+State 260
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -13680,7 +13680,7 @@ state 260
   226       | . "%id:" unsigned
   227       | . primary-exp "." "%id:" unsigned
   228 primary-exp: . lvalue "(" "%exps:" unsigned ")"
-  233 exps: .  [")"]
+  233 exps: . %empty  [")"]
   234     | . exps.1 comma.opt
   235 exps.1: . exp
   236       | . exps.1 "," exp
@@ -13746,28 +13746,28 @@ state 260
     exps.1       go to state 107
 
 
-state 261
+State 261
 
   240 args.opt: args .
 
     $default  reduce using rule 240 (args.opt)
 
 
-state 262
+State 262
 
   140 new: "new" "identifier" args.opt .
 
     $default  reduce using rule 140 (new)
 
 
-state 263
+State 263
 
   166 literal-exp: "<" bitor-exps ">" .
 
     $default  reduce using rule 166 (literal-exp)
 
 
-state 264
+State 264
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -13903,14 +13903,14 @@ state 264
     unary-exp    go to state 82
 
 
-state 265
+State 265
 
   158 bitor-exps: bitor-exps.1 comma.opt .
 
     $default  reduce using rule 158 (bitor-exps)
 
 
-state 266
+State 266
 
    19 cstmt: cstmt . "|" cstmt
    20      | cstmt . "&" cstmt
@@ -13922,7 +13922,7 @@ state 266
     Conflict between rule 20 and token "|" resolved as reduce ("|" < "&").
 
 
-state 267
+State 267
 
    19 cstmt: cstmt . "|" cstmt
    19      | cstmt "|" cstmt .  ["end of command", "case", "default", "}", ")", ",", ";", "|"]
@@ -13936,7 +13936,7 @@ state 267
     Conflict between rule 19 and token "|" resolved as reduce (%left "|").
 
 
-state 268
+State 268
 
    59 modifier: . "identifier" ":" exp
    60 modifiers: . modifier
@@ -13970,7 +13970,7 @@ state 268
     Conflict between rule 62 and token "||" resolved as shift (ASSIGN < "||").
 
 
-state 269
+State 269
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -13993,7 +13993,7 @@ state 269
     Conflict between rule 218 and token "||" resolved as reduce ("||" < "in").
 
 
-state 270
+State 270
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -14148,10 +14148,10 @@ state 270
     rel-exp      go to state 83
 
 
-state 271
+State 271
 
    51 stmt: exp "!" args.opt . tilda.opt
-  175 tilda.opt: .  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+  175 tilda.opt: . %empty  ["end of command", "case", "catch", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
   176          | . "~" exp
 
     "~"  shift, and go to state 325
@@ -14161,7 +14161,7 @@ state 271
     tilda.opt  go to state 382
 
 
-state 272
+State 272
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14183,7 +14183,7 @@ state 272
     Conflict between rule 216 and token "||" resolved as reduce ("||" < "&&").
 
 
-state 273
+State 273
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14206,25 +14206,25 @@ state 273
     Conflict between rule 217 and token "||" resolved as reduce (%left "||").
 
 
-state 274
+State 274
 
   260 var.opt: "var" .
 
     $default  reduce using rule 260 (var.opt)
 
 
-state 275
+State 275
 
   249 formals.1: formal .
 
     $default  reduce using rule 249 (formals.1)
 
 
-state 276
+State 276
 
   250 formals.1: formals.1 . "," formal
   252 formals.0: formals.1 . comma.opt
-  255 comma.opt: .  [")"]
+  255 comma.opt: . %empty  [")"]
   256          | . ","
 
     ","  shift, and go to state 383
@@ -14234,14 +14234,14 @@ state 276
     comma.opt  go to state 384
 
 
-state 277
+State 277
 
   254 formals: "(" formals.0 . ")"
 
     ")"  shift, and go to state 385
 
 
-state 278
+State 278
 
   246 formal: var.opt . "identifier" typespec.opt
   247       | var.opt . "identifier" "=" exp typespec.opt
@@ -14250,21 +14250,21 @@ state 278
     "identifier"  shift, and go to state 386
 
 
-state 279
+State 279
 
    57 k1_id: "this" "." . "identifier"
 
     "identifier"  shift, and go to state 387
 
 
-state 280
+State 280
 
    58 k1_id: k1_id "." . "identifier"
 
     "identifier"  shift, and go to state 388
 
 
-state 281
+State 281
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -14276,21 +14276,21 @@ state 281
     block  go to state 389
 
 
-state 282
+State 282
 
   143 primary-exp: routine formals block .
 
     $default  reduce using rule 143 (primary-exp)
 
 
-state 283
+State 283
 
    23 stmt: primary-exp ":" stmt .
 
     $default  reduce using rule 23 (stmt)
 
 
-state 284
+State 284
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14309,14 +14309,14 @@ state 284
     $default  reduce using rule 235 (exps.1)
 
 
-state 285
+State 285
 
   177 lvalue: primary-exp "[" exps . "]"
 
     "]"  shift, and go to state 390
 
 
-state 286
+State 286
 
   134 primary-exp: primary-exp "." "&" . id
   135 id: . "identifier"
@@ -14328,14 +14328,14 @@ state 286
     id  go to state 391
 
 
-state 287
+State 287
 
   132 lvalue: primary-exp "." "*" .
 
     $default  reduce using rule 132 (lvalue)
 
 
-state 288
+State 288
 
   222 unsigned: . "float"
   227 lvalue: primary-exp "." "%id:" . unsigned
@@ -14345,14 +14345,14 @@ state 288
     unsigned  go to state 392
 
 
-state 289
+State 289
 
   131 lvalue: primary-exp "." id .
 
     $default  reduce using rule 131 (lvalue)
 
 
-state 290
+State 290
 
   131 lvalue: primary-exp . "." id
   132       | primary-exp . "." "*"
@@ -14373,7 +14373,7 @@ state 290
     Conflict between rule 183 and token "**" resolved as shift (%right "**").
 
 
-state 291
+State 291
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14391,7 +14391,7 @@ state 291
     "||"  shift, and go to state 168
 
 
-state 292
+State 292
 
   222 unsigned: . "float"
   228 primary-exp: lvalue "(" "%exps:" . unsigned ")"
@@ -14401,14 +14401,14 @@ state 292
     unsigned  go to state 394
 
 
-state 293
+State 293
 
   238 args: "(" exps . ")"
 
     ")"  shift, and go to state 395
 
 
-state 294
+State 294
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14433,7 +14433,7 @@ state 294
     Conflict between rule 68 and token "||" resolved as shift ("^=" < "||").
 
 
-state 295
+State 295
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14458,7 +14458,7 @@ state 295
     Conflict between rule 65 and token "||" resolved as shift ("-=" < "||").
 
 
-state 296
+State 296
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14483,7 +14483,7 @@ state 296
     Conflict between rule 69 and token "||" resolved as shift ("%=" < "||").
 
 
-state 297
+State 297
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14508,7 +14508,7 @@ state 297
     Conflict between rule 64 and token "||" resolved as shift ("+=" < "||").
 
 
-state 298
+State 298
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14533,7 +14533,7 @@ state 298
     Conflict between rule 67 and token "||" resolved as shift ("/=" < "||").
 
 
-state 299
+State 299
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -14558,14 +14558,14 @@ state 299
     Conflict between rule 66 and token "||" resolved as shift ("*=" < "||").
 
 
-state 300
+State 300
 
    72 primary-exp: lvalue "->" id .
 
     $default  reduce using rule 72 (primary-exp)
 
 
-state 301
+State 301
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -14577,7 +14577,7 @@ state 301
     block  go to state 396
 
 
-state 302
+State 302
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14613,7 +14613,7 @@ state 302
     Conflict between rule 199 and token "*" resolved as shift ("bitand" < "*").
 
 
-state 303
+State 303
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14651,7 +14651,7 @@ state 303
     Conflict between rule 200 and token "*" resolved as shift ("bitor" < "*").
 
 
-state 304
+State 304
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14688,7 +14688,7 @@ state 304
     Conflict between rule 197 and token "*" resolved as shift ("^" < "*").
 
 
-state 305
+State 305
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14722,7 +14722,7 @@ state 305
     Conflict between rule 201 and token "*" resolved as shift (">>" < "*").
 
 
-state 306
+State 306
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14756,7 +14756,7 @@ state 306
     Conflict between rule 198 and token "*" resolved as shift ("<<" < "*").
 
 
-state 307
+State 307
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14788,7 +14788,7 @@ state 307
     Conflict between rule 193 and token "*" resolved as shift ("-" < "*").
 
 
-state 308
+State 308
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14816,7 +14816,7 @@ state 308
     Conflict between rule 196 and token "*" resolved as reduce (%left "*").
 
 
-state 309
+State 309
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   192          | bitor-exp "+" bitor-exp .  ["end of command", "=", "case", "catch", ":", "default", "else", "finally", "if", "in", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?", "!", "bitand", "bitor", "^", ">>", "<<", "-", "+", "=~=", "==", "===", ">=", ">", "<=", "<", "!=", "!==", "~=", "&&", "||"]
@@ -14848,7 +14848,7 @@ state 309
     Conflict between rule 192 and token "*" resolved as shift ("+" < "*").
 
 
-state 310
+State 310
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14876,7 +14876,7 @@ state 310
     Conflict between rule 195 and token "*" resolved as reduce (%left "*").
 
 
-state 311
+State 311
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -14904,77 +14904,77 @@ state 311
     Conflict between rule 194 and token "*" resolved as reduce (%left "*").
 
 
-state 312
+State 312
 
   208 rel-op: "=~=" .
 
     $default  reduce using rule 208 (rel-op)
 
 
-state 313
+State 313
 
   206 rel-op: "==" .
 
     $default  reduce using rule 206 (rel-op)
 
 
-state 314
+State 314
 
   207 rel-op: "===" .
 
     $default  reduce using rule 207 (rel-op)
 
 
-state 315
+State 315
 
   210 rel-op: ">=" .
 
     $default  reduce using rule 210 (rel-op)
 
 
-state 316
+State 316
 
   209 rel-op: ">" .
 
     $default  reduce using rule 209 (rel-op)
 
 
-state 317
+State 317
 
   205 rel-op: "<=" .
 
     $default  reduce using rule 205 (rel-op)
 
 
-state 318
+State 318
 
   204 rel-op: "<" .
 
     $default  reduce using rule 204 (rel-op)
 
 
-state 319
+State 319
 
   202 rel-op: "!=" .
 
     $default  reduce using rule 202 (rel-op)
 
 
-state 320
+State 320
 
   203 rel-op: "!==" .
 
     $default  reduce using rule 203 (rel-op)
 
 
-state 321
+State 321
 
   211 rel-op: "~=" .
 
     $default  reduce using rule 211 (rel-op)
 
 
-state 322
+State 322
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -15107,21 +15107,21 @@ state 322
     unary-exp    go to state 82
 
 
-state 323
+State 323
 
    14 stmts: stmts "," cstmt.opt .
 
     $default  reduce using rule 14 (stmts)
 
 
-state 324
+State 324
 
    13 stmts: stmts ";" cstmt.opt .
 
     $default  reduce using rule 13 (stmts)
 
 
-state 325
+State 325
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -15276,11 +15276,11 @@ state 325
     rel-exp      go to state 83
 
 
-state 326
+State 326
 
   172 event_match: exp "?" . args.opt tilda.opt guard.opt
   238 args: . "(" exps ")"
-  239 args.opt: .  ["if", ")", "~"]
+  239 args.opt: . %empty  ["if", ")", "~"]
   240         | . args
 
     "("  shift, and go to state 260
@@ -15291,14 +15291,14 @@ state 326
     args.opt  go to state 399
 
 
-state 327
+State 327
 
    77 stmt: "freezeif" "(" exp tilda.opt . ")" stmt
 
     ")"  shift, and go to state 400
 
 
-state 328
+State 328
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -15509,7 +15509,7 @@ state 328
     rel-exp      go to state 83
 
 
-state 329
+State 329
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -15720,21 +15720,21 @@ state 329
     rel-exp      go to state 83
 
 
-state 330
+State 330
 
   128 primary-exp: "isdef" "(" k1_id ")" .
 
     $default  reduce using rule 128 (primary-exp)
 
 
-state 331
+State 331
 
    27 block: "{" id "~" id . "}"
 
     "}"  shift, and go to state 403
 
 
-state 332
+State 332
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -15753,7 +15753,7 @@ state 332
     $default  reduce using rule 147 (assoc)
 
 
-state 333
+State 333
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -15771,14 +15771,14 @@ state 333
     "||"  shift, and go to state 168
 
 
-state 334
+State 334
 
   149 assocs.1: assocs.1 "," assoc .
 
     $default  reduce using rule 149 (assocs.1)
 
 
-state 335
+State 335
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -15797,7 +15797,7 @@ state 335
     $default  reduce using rule 236 (exps.1)
 
 
-state 336
+State 336
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -15818,14 +15818,14 @@ state 336
     $default  reduce using rule 236 (exps.1)
 
 
-state 337
+State 337
 
    79 stmt: "stopif" "(" exp tilda.opt . ")" stmt
 
     ")"  shift, and go to state 404
 
 
-state 338
+State 338
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -16036,14 +16036,14 @@ state 338
     rel-exp      go to state 83
 
 
-state 339
+State 339
 
    81 stmt: "switch" "(" exp ")" . "{" cases default.opt "}"
 
     "{"  shift, and go to state 406
 
 
-state 340
+State 340
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -16254,7 +16254,7 @@ state 340
     rel-exp      go to state 83
 
 
-state 341
+State 341
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -16412,7 +16412,7 @@ state 341
     rel-exp      go to state 83
 
 
-state 342
+State 342
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -16424,14 +16424,14 @@ state 342
     block  go to state 410
 
 
-state 343
+State 343
 
   111 stmt: "try" block "finally" block .
 
     $default  reduce using rule 111 (stmt)
 
 
-state 344
+State 344
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -16642,9 +16642,9 @@ state 344
     rel-exp      go to state 83
 
 
-state 345
+State 345
 
-  108 finally.opt: .  ["end of command", "case", "catch", "default", "else", "onleave", "}", ")", ",", ";", "&", "|"]
+  108 finally.opt: . %empty  ["end of command", "case", "catch", "default", "else", "onleave", "}", ")", ",", ";", "&", "|"]
   109            | . "finally" block
   110 stmt: "try" block catches.1 else.opt . finally.opt
 
@@ -16657,42 +16657,42 @@ state 345
     Conflict between rule 108 and token "finally" resolved as shift (EMPTY < "finally").
 
 
-state 346
+State 346
 
   100 catches.1: catches.1 catch .
 
     $default  reduce using rule 100 (catches.1)
 
 
-state 347
+State 347
 
    86 stmt: "waituntil" "(" exp tilda.opt . ")"
 
     ")"  shift, and go to state 414
 
 
-state 348
+State 348
 
    87 stmt: "waituntil" "(" event_match ")" .
 
     $default  reduce using rule 87 (stmt)
 
 
-state 349
+State 349
 
   129 primary-exp: "watch" "(" exp ")" .
 
     $default  reduce using rule 129 (primary-exp)
 
 
-state 350
+State 350
 
    88 stmt: "whenever" "(" exp tilda.opt . ")" stmt else.opt
 
     ")"  shift, and go to state 415
 
 
-state 351
+State 351
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -16903,7 +16903,7 @@ state 351
     rel-exp      go to state 83
 
 
-state 352
+State 352
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -17114,7 +17114,7 @@ state 352
     rel-exp      go to state 83
 
 
-state 353
+State 353
 
   116 stmt: "for" "(" "var" "identifier" . in_or_colon exp ")" stmt
   118 in_or_colon: . "in"
@@ -17131,7 +17131,7 @@ state 353
     Conflict between rule 135 and token "in" resolved as shift ("identifier" < "in").
 
 
-state 354
+State 354
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -17286,7 +17286,7 @@ state 354
     rel-exp      go to state 83
 
 
-state 355
+State 355
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -17497,7 +17497,7 @@ state 355
     rel-exp      go to state 83
 
 
-state 356
+State 356
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -17708,13 +17708,13 @@ state 356
     rel-exp      go to state 83
 
 
-state 357
+State 357
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
    73 stmt: "at" identifiers "(" exp . tilda.opt ")" stmt onleave.opt
   172 event_match: exp . "?" args.opt tilda.opt guard.opt
-  175 tilda.opt: .  [")"]
+  175 tilda.opt: . %empty  [")"]
   176          | . "~" exp
   216 exp: exp . "&&" exp
   217    | exp . "||" exp
@@ -17734,35 +17734,35 @@ state 357
     tilda.opt  go to state 424
 
 
-state 358
+State 358
 
    74 stmt: "at" identifiers "(" event_match . ")" stmt onleave.opt
 
     ")"  shift, and go to state 425
 
 
-state 359
+State 359
 
    29 visibility: "private" .
 
     $default  reduce using rule 29 (visibility)
 
 
-state 360
+State 360
 
    30 visibility: "protected" .
 
     $default  reduce using rule 30 (visibility)
 
 
-state 361
+State 361
 
    31 visibility: "public" .
 
     $default  reduce using rule 31 (visibility)
 
 
-state 362
+State 362
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -17917,14 +17917,14 @@ state 362
     rel-exp      go to state 83
 
 
-state 363
+State 363
 
    33 protos.1: proto .
 
     $default  reduce using rule 33 (protos.1)
 
 
-state 364
+State 364
 
    34 protos.1: protos.1 . "," proto
    36 protos: ":" protos.1 .  ["{"]
@@ -17934,32 +17934,32 @@ state 364
     $default  reduce using rule 36 (protos)
 
 
-state 365
+State 365
 
    37 exp: "class" lvalue protos block .
 
     $default  reduce using rule 37 (exp)
 
 
-state 366
+State 366
 
    38 exp: "package" lvalue protos block .
 
     $default  reduce using rule 38 (exp)
 
 
-state 367
+State 367
 
    43 stmt: "enum" id "{" id.0 . "}"
 
     "}"  shift, and go to state 428
 
 
-state 368
+State 368
 
    40 id.0: id.1 . comma.opt
    42 id.1: id.1 . "," id
-  255 comma.opt: .  ["}"]
+  255 comma.opt: . %empty  ["}"]
   256          | . ","
 
     ","  shift, and go to state 429
@@ -17969,28 +17969,28 @@ state 368
     comma.opt  go to state 430
 
 
-state 369
+State 369
 
    41 id.1: id .
 
     $default  reduce using rule 41 (id.1)
 
 
-state 370
+State 370
 
    48 stmt: "external" "var" "identifier" "." . "identifier" from "identifier"
 
     "identifier"  shift, and go to state 431
 
 
-state 371
+State 371
 
    49 stmt: "external" event_or_function "(" unsigned . ")" "identifier" "." "identifier" from "identifier"
 
     ")"  shift, and go to state 432
 
 
-state 372
+State 372
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -18002,14 +18002,14 @@ state 372
     block  go to state 433
 
 
-state 373
+State 373
 
   125 primary-exp: "assert" "{" claims "}" .
 
     $default  reduce using rule 125 (primary-exp)
 
 
-state 374
+State 374
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -18167,21 +18167,21 @@ state 374
     rel-exp      go to state 83
 
 
-state 375
+State 375
 
   230 claims: claims.1 semi.opt .
 
     $default  reduce using rule 230 (claims)
 
 
-state 376
+State 376
 
   124 primary-exp: "assert" "(" exp ")" .
 
     $default  reduce using rule 124 (primary-exp)
 
 
-state 377
+State 377
 
   160 bitor-exps.1: bitor-exps.1 "," bitor-exp .  [",", ">"]
   192 bitor-exp: bitor-exp . "+" bitor-exp
@@ -18209,21 +18209,21 @@ state 377
     $default  reduce using rule 160 (bitor-exps.1)
 
 
-state 378
+State 378
 
    59 modifier: "identifier" . ":" exp
 
     ":"  shift, and go to state 435
 
 
-state 379
+State 379
 
    60 modifiers: modifier .
 
     $default  reduce using rule 60 (modifiers)
 
 
-state 380
+State 380
 
    59 modifier: . "identifier" ":" exp
    61 modifiers: modifiers . modifier
@@ -18238,7 +18238,7 @@ state 380
     Conflict between rule 63 and token "identifier" resolved as shift (ASSIGN < "identifier").
 
 
-state 381
+State 381
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -18261,21 +18261,21 @@ state 381
     Conflict between rule 219 and token "||" resolved as reduce ("||" < "in").
 
 
-state 382
+State 382
 
    51 stmt: exp "!" args.opt tilda.opt .
 
     $default  reduce using rule 51 (stmt)
 
 
-state 383
+State 383
 
   246 formal: . var.opt "identifier" typespec.opt
   247       | . var.opt "identifier" "=" exp typespec.opt
   248       | . var.opt "identifier" "[" "]"
   250 formals.1: formals.1 "," . formal
   256 comma.opt: "," .  [")"]
-  259 var.opt: .  ["identifier"]
+  259 var.opt: . %empty  ["identifier"]
   260        | . "var"
 
     "var"  shift, and go to state 274
@@ -18287,24 +18287,24 @@ state 383
     var.opt  go to state 278
 
 
-state 384
+State 384
 
   252 formals.0: formals.1 comma.opt .
 
     $default  reduce using rule 252 (formals.0)
 
 
-state 385
+State 385
 
   254 formals: "(" formals.0 ")" .
 
     $default  reduce using rule 254 (formals)
 
 
-state 386
+State 386
 
   243 typespec: . ":" exp
-  244 typespec.opt: .  [")", ","]
+  244 typespec.opt: . %empty  [")", ","]
   245             | . typespec
   246 formal: var.opt "identifier" . typespec.opt
   247       | var.opt "identifier" . "=" exp typespec.opt
@@ -18320,77 +18320,77 @@ state 386
     typespec.opt  go to state 442
 
 
-state 387
+State 387
 
    57 k1_id: "this" "." "identifier" .
 
     $default  reduce using rule 57 (k1_id)
 
 
-state 388
+State 388
 
    58 k1_id: k1_id "." "identifier" .
 
     $default  reduce using rule 58 (k1_id)
 
 
-state 389
+State 389
 
    54 stmt: routine k1_id formals block .
 
     $default  reduce using rule 54 (stmt)
 
 
-state 390
+State 390
 
   177 lvalue: primary-exp "[" exps "]" .
 
     $default  reduce using rule 177 (lvalue)
 
 
-state 391
+State 391
 
   134 primary-exp: primary-exp "." "&" id .
 
     $default  reduce using rule 134 (primary-exp)
 
 
-state 392
+State 392
 
   227 lvalue: primary-exp "." "%id:" unsigned .
 
     $default  reduce using rule 227 (lvalue)
 
 
-state 393
+State 393
 
   126 primary-exp: detach "(" exp ")" .
 
     $default  reduce using rule 126 (primary-exp)
 
 
-state 394
+State 394
 
   228 primary-exp: lvalue "(" "%exps:" unsigned . ")"
 
     ")"  shift, and go to state 443
 
 
-state 395
+State 395
 
   238 args: "(" exps ")" .
 
     $default  reduce using rule 238 (args)
 
 
-state 396
+State 396
 
    55 stmt: id id formals block .
 
     $default  reduce using rule 55 (stmt)
 
 
-state 397
+State 397
 
   192 bitor-exp: bitor-exp . "+" bitor-exp
   193          | bitor-exp . "-" bitor-exp
@@ -18418,7 +18418,7 @@ state 397
     $default  reduce using rule 214 (rel-ops)
 
 
-state 398
+State 398
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -18437,10 +18437,10 @@ state 398
     $default  reduce using rule 176 (tilda.opt)
 
 
-state 399
+State 399
 
   172 event_match: exp "?" args.opt . tilda.opt guard.opt
-  175 tilda.opt: .  ["if", ")"]
+  175 tilda.opt: . %empty  ["if", ")"]
   176          | . "~" exp
 
     "~"  shift, and go to state 325
@@ -18450,7 +18450,7 @@ state 399
     tilda.opt  go to state 444
 
 
-state 400
+State 400
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -18661,17 +18661,17 @@ state 400
     rel-exp      go to state 83
 
 
-state 401
+State 401
 
    78 stmt: "freezeif" "(" event_match ")" stmt .
 
     $default  reduce using rule 78 (stmt)
 
 
-state 402
+State 402
 
    76 stmt: "if" "(" stmts ")" stmt . else.opt
-   92 else.opt: .  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+   92 else.opt: . %empty  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    93         | . "else" stmt
 
     "else"  shift, and go to state 344
@@ -18683,14 +18683,14 @@ state 402
     Conflict between rule 92 and token "else" resolved as shift (EMPTY < "else").
 
 
-state 403
+State 403
 
    27 block: "{" id "~" id "}" .
 
     $default  reduce using rule 27 (block)
 
 
-state 404
+State 404
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -18901,17 +18901,17 @@ state 404
     rel-exp      go to state 83
 
 
-state 405
+State 405
 
    80 stmt: "stopif" "(" event_match ")" stmt .
 
     $default  reduce using rule 80 (stmt)
 
 
-state 406
+State 406
 
    81 stmt: "switch" "(" exp ")" "{" . cases default.opt "}"
-   96 cases: .
+   96 cases: . %empty
    97      | . cases case
 
     $default  reduce using rule 96 (cases)
@@ -18919,10 +18919,10 @@ state 406
     cases  go to state 448
 
 
-state 407
+State 407
 
    82 stmt: "timeout" "(" exp ")" stmt . catch.opt else.opt finally.opt
-  106 catch.opt: .  ["end of command", "case", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+  106 catch.opt: . %empty  ["end of command", "case", "default", "else", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
   107          | . "catch" block
 
     "catch"  shift, and go to state 449
@@ -18934,7 +18934,7 @@ state 407
     Conflict between rule 106 and token "catch" resolved as shift (EMPTY < "catch").
 
 
-state 408
+State 408
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -18955,28 +18955,28 @@ state 408
     $default  reduce using rule 101 (match)
 
 
-state 409
+State 409
 
   104 match.opt: "(" match . ")"
 
     ")"  shift, and go to state 452
 
 
-state 410
+State 410
 
   105 catch: "catch" match.opt block .
 
     $default  reduce using rule 105 (catch)
 
 
-state 411
+State 411
 
    93 else.opt: "else" stmt .
 
     $default  reduce using rule 93 (else.opt)
 
 
-state 412
+State 412
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -18988,21 +18988,21 @@ state 412
     block  go to state 453
 
 
-state 413
+State 413
 
   110 stmt: "try" block catches.1 else.opt finally.opt .
 
     $default  reduce using rule 110 (stmt)
 
 
-state 414
+State 414
 
    86 stmt: "waituntil" "(" exp tilda.opt ")" .
 
     $default  reduce using rule 86 (stmt)
 
 
-state 415
+State 415
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -19213,10 +19213,10 @@ state 415
     rel-exp      go to state 83
 
 
-state 416
+State 416
 
    89 stmt: "whenever" "(" event_match ")" stmt . else.opt
-   92 else.opt: .  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+   92 else.opt: . %empty  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    93         | . "else" stmt
 
     "else"  shift, and go to state 344
@@ -19228,28 +19228,28 @@ state 416
     Conflict between rule 92 and token "else" resolved as shift (EMPTY < "else").
 
 
-state 417
+State 417
 
    75 stmt: "every" "(" exp ")" stmt .
 
     $default  reduce using rule 75 (stmt)
 
 
-state 418
+State 418
 
   119 in_or_colon: ":" .
 
     $default  reduce using rule 119 (in_or_colon)
 
 
-state 419
+State 419
 
   118 in_or_colon: "in" .
 
     $default  reduce using rule 118 (in_or_colon)
 
 
-state 420
+State 420
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -19404,7 +19404,7 @@ state 420
     rel-exp      go to state 83
 
 
-state 421
+State 421
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -19422,28 +19422,28 @@ state 421
     "||"  shift, and go to state 168
 
 
-state 422
+State 422
 
   114 stmt: "for" "(" exp ")" stmt .
 
     $default  reduce using rule 114 (stmt)
 
 
-state 423
+State 423
 
   117 stmt: "while" "(" exp ")" stmt .
 
     $default  reduce using rule 117 (stmt)
 
 
-state 424
+State 424
 
    73 stmt: "at" identifiers "(" exp tilda.opt . ")" stmt onleave.opt
 
     ")"  shift, and go to state 458
 
 
-state 425
+State 425
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -19654,7 +19654,7 @@ state 425
     rel-exp      go to state 83
 
 
-state 426
+State 426
 
    32 proto: visibility exp .  ["{", ","]
    62 exp: exp . "=" exp
@@ -19673,9 +19673,9 @@ state 426
     $default  reduce using rule 32 (proto)
 
 
-state 427
+State 427
 
-   28 visibility: .  ["__HERE__", "closure", "const", "function", "isdef", "{", "[", "(", "var", "watch", "&", "identifier", "class", "package", "--", "++", "do", "assert", "detach", "disown", "new", "angle", "duration", "float", "string", "call", "this", "!", "compl", "-", "+", "<", "%unscope:", "%exp:", "%lvalue:", "%id:"]
+   28 visibility: . %empty  ["__HERE__", "closure", "const", "function", "isdef", "{", "[", "(", "var", "watch", "&", "identifier", "class", "package", "--", "++", "do", "assert", "detach", "disown", "new", "angle", "duration", "float", "string", "call", "this", "!", "compl", "-", "+", "<", "%unscope:", "%exp:", "%lvalue:", "%id:"]
    29           | . "private"
    30           | . "protected"
    31           | . "public"
@@ -19692,14 +19692,14 @@ state 427
     proto       go to state 460
 
 
-state 428
+State 428
 
    43 stmt: "enum" id "{" id.0 "}" .
 
     $default  reduce using rule 43 (stmt)
 
 
-state 429
+State 429
 
    42 id.1: id.1 "," . id
   135 id: . "identifier"
@@ -19714,14 +19714,14 @@ state 429
     id  go to state 461
 
 
-state 430
+State 430
 
    40 id.0: id.1 comma.opt .
 
     $default  reduce using rule 40 (id.0)
 
 
-state 431
+State 431
 
    44 from: . "identifier"
    48 stmt: "external" "var" "identifier" "." "identifier" . from "identifier"
@@ -19731,21 +19731,21 @@ state 431
     from  go to state 463
 
 
-state 432
+State 432
 
    49 stmt: "external" event_or_function "(" unsigned ")" . "identifier" "." "identifier" from "identifier"
 
     "identifier"  shift, and go to state 464
 
 
-state 433
+State 433
 
   121 primary-exp: "do" "(" exp ")" block .
 
     $default  reduce using rule 121 (primary-exp)
 
 
-state 434
+State 434
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -19764,7 +19764,7 @@ state 434
     $default  reduce using rule 232 (claims.1)
 
 
-state 435
+State 435
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -19919,21 +19919,21 @@ state 435
     rel-exp      go to state 83
 
 
-state 436
+State 436
 
    61 modifiers: modifiers modifier .
 
     $default  reduce using rule 61 (modifiers)
 
 
-state 437
+State 437
 
   250 formals.1: formals.1 "," formal .
 
     $default  reduce using rule 250 (formals.1)
 
 
-state 438
+State 438
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -20088,7 +20088,7 @@ state 438
     rel-exp      go to state 83
 
 
-state 439
+State 439
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -20243,38 +20243,38 @@ state 439
     rel-exp      go to state 83
 
 
-state 440
+State 440
 
   248 formal: var.opt "identifier" "[" . "]"
 
     "]"  shift, and go to state 468
 
 
-state 441
+State 441
 
   245 typespec.opt: typespec .
 
     $default  reduce using rule 245 (typespec.opt)
 
 
-state 442
+State 442
 
   246 formal: var.opt "identifier" typespec.opt .
 
     $default  reduce using rule 246 (formal)
 
 
-state 443
+State 443
 
   228 primary-exp: lvalue "(" "%exps:" unsigned ")" .
 
     $default  reduce using rule 228 (primary-exp)
 
 
-state 444
+State 444
 
   172 event_match: exp "?" args.opt tilda.opt . guard.opt
-  173 guard.opt: .  [")"]
+  173 guard.opt: . %empty  [")"]
   174          | . "if" exp
 
     "if"  shift, and go to state 469
@@ -20284,31 +20284,31 @@ state 444
     guard.opt  go to state 470
 
 
-state 445
+State 445
 
    77 stmt: "freezeif" "(" exp tilda.opt ")" stmt .
 
     $default  reduce using rule 77 (stmt)
 
 
-state 446
+State 446
 
    76 stmt: "if" "(" stmts ")" stmt else.opt .
 
     $default  reduce using rule 76 (stmt)
 
 
-state 447
+State 447
 
    79 stmt: "stopif" "(" exp tilda.opt ")" stmt .
 
     $default  reduce using rule 79 (stmt)
 
 
-state 448
+State 448
 
    81 stmt: "switch" "(" exp ")" "{" cases . default.opt "}"
-   90 default.opt: .  ["}"]
+   90 default.opt: . %empty  ["}"]
    91            | . "default" ":" stmts
    97 cases: cases . case
    98 case: . "case" match ":" stmts
@@ -20322,7 +20322,7 @@ state 448
     case         go to state 474
 
 
-state 449
+State 449
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -20334,10 +20334,10 @@ state 449
     block  go to state 475
 
 
-state 450
+State 450
 
    82 stmt: "timeout" "(" exp ")" stmt catch.opt . else.opt finally.opt
-   92 else.opt: .  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+   92 else.opt: . %empty  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    93         | . "else" stmt
 
     "else"  shift, and go to state 344
@@ -20349,7 +20349,7 @@ state 450
     Conflict between rule 92 and token "else" resolved as shift (EMPTY < "else").
 
 
-state 451
+State 451
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -20504,24 +20504,24 @@ state 451
     rel-exp      go to state 83
 
 
-state 452
+State 452
 
   104 match.opt: "(" match ")" .
 
     $default  reduce using rule 104 (match.opt)
 
 
-state 453
+State 453
 
   109 finally.opt: "finally" block .
 
     $default  reduce using rule 109 (finally.opt)
 
 
-state 454
+State 454
 
    88 stmt: "whenever" "(" exp tilda.opt ")" stmt . else.opt
-   92 else.opt: .  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
+   92 else.opt: . %empty  ["end of command", "case", "catch", "default", "finally", "onleave", "}", ")", ",", ";", "&", "|"]
    93         | . "else" stmt
 
     "else"  shift, and go to state 344
@@ -20533,14 +20533,14 @@ state 454
     Conflict between rule 92 and token "else" resolved as shift (EMPTY < "else").
 
 
-state 455
+State 455
 
    89 stmt: "whenever" "(" event_match ")" stmt else.opt .
 
     $default  reduce using rule 89 (stmt)
 
 
-state 456
+State 456
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -20558,9 +20558,9 @@ state 456
     "||"  shift, and go to state 168
 
 
-state 457
+State 457
 
-   21 stmt.opt: .  [")"]
+   21 stmt.opt: . %empty  [")"]
    22         | . stmt
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -20774,7 +20774,7 @@ state 457
     rel-exp      go to state 83
 
 
-state 458
+State 458
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -20985,10 +20985,10 @@ state 458
     rel-exp      go to state 83
 
 
-state 459
+State 459
 
    74 stmt: "at" identifiers "(" event_match ")" stmt . onleave.opt
-   94 onleave.opt: .  ["end of command", "case", "catch", "default", "else", "finally", "}", ")", ",", ";", "&", "|"]
+   94 onleave.opt: . %empty  ["end of command", "case", "catch", "default", "else", "finally", "}", ")", ",", ";", "&", "|"]
    95            | . "onleave" stmt
 
     "onleave"  shift, and go to state 482
@@ -21000,42 +21000,42 @@ state 459
     Conflict between rule 94 and token "onleave" resolved as shift (EMPTY < "onleave").
 
 
-state 460
+State 460
 
    34 protos.1: protos.1 "," proto .
 
     $default  reduce using rule 34 (protos.1)
 
 
-state 461
+State 461
 
    42 id.1: id.1 "," id .
 
     $default  reduce using rule 42 (id.1)
 
 
-state 462
+State 462
 
    44 from: "identifier" .
 
     $default  reduce using rule 44 (from)
 
 
-state 463
+State 463
 
    48 stmt: "external" "var" "identifier" "." "identifier" from . "identifier"
 
     "identifier"  shift, and go to state 484
 
 
-state 464
+State 464
 
    49 stmt: "external" event_or_function "(" unsigned ")" "identifier" . "." "identifier" from "identifier"
 
     "."  shift, and go to state 485
 
 
-state 465
+State 465
 
    59 modifier: "identifier" ":" exp .  ["end of command", "case", "catch", ":", "default", "else", "finally", "if", "{", "onleave", "}", "]", ")", "~", ",", ";", "&", "|", "identifier", "=>", "?"]
    62 exp: exp . "=" exp
@@ -21060,7 +21060,7 @@ state 465
     Conflict between rule 59 and token "||" resolved as shift (":" < "||").
 
 
-state 466
+State 466
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -21069,7 +21069,7 @@ state 466
   218    | exp . "in" exp
   219    | exp . "!" "in" exp
   243 typespec: . ":" exp
-  244 typespec.opt: .  [")", ","]
+  244 typespec.opt: . %empty  [")", ","]
   245             | . typespec
   247 formal: var.opt "identifier" "=" exp . typespec.opt
 
@@ -21086,7 +21086,7 @@ state 466
     typespec.opt  go to state 486
 
 
-state 467
+State 467
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -21105,14 +21105,14 @@ state 467
     $default  reduce using rule 243 (typespec)
 
 
-state 468
+State 468
 
   248 formal: var.opt "identifier" "[" "]" .
 
     $default  reduce using rule 248 (formal)
 
 
-state 469
+State 469
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -21267,14 +21267,14 @@ state 469
     rel-exp      go to state 83
 
 
-state 470
+State 470
 
   172 event_match: exp "?" args.opt tilda.opt guard.opt .
 
     $default  reduce using rule 172 (event_match)
 
 
-state 471
+State 471
 
    25 block: . "{" stmts "}"
    26      | . "{" error "}"
@@ -21432,38 +21432,38 @@ state 471
     rel-exp      go to state 83
 
 
-state 472
+State 472
 
    91 default.opt: "default" . ":" stmts
 
     ":"  shift, and go to state 489
 
 
-state 473
+State 473
 
    81 stmt: "switch" "(" exp ")" "{" cases default.opt . "}"
 
     "}"  shift, and go to state 490
 
 
-state 474
+State 474
 
    97 cases: cases case .
 
     $default  reduce using rule 97 (cases)
 
 
-state 475
+State 475
 
   107 catch.opt: "catch" block .
 
     $default  reduce using rule 107 (catch.opt)
 
 
-state 476
+State 476
 
    82 stmt: "timeout" "(" exp ")" stmt catch.opt else.opt . finally.opt
-  108 finally.opt: .  ["end of command", "case", "catch", "default", "else", "onleave", "}", ")", ",", ";", "&", "|"]
+  108 finally.opt: . %empty  ["end of command", "case", "catch", "default", "else", "onleave", "}", ")", ",", ";", "&", "|"]
   109            | . "finally" block
 
     "finally"  shift, and go to state 412
@@ -21475,7 +21475,7 @@ state 476
     Conflict between rule 108 and token "finally" resolved as shift (EMPTY < "finally").
 
 
-state 477
+State 477
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -21494,14 +21494,14 @@ state 477
     $default  reduce using rule 102 (match)
 
 
-state 478
+State 478
 
    88 stmt: "whenever" "(" exp tilda.opt ")" stmt else.opt .
 
     $default  reduce using rule 88 (stmt)
 
 
-state 479
+State 479
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -21712,17 +21712,17 @@ state 479
     rel-exp      go to state 83
 
 
-state 480
+State 480
 
   115 stmt: "for" "(" stmt.opt ";" exp ";" stmt.opt . ")" stmt
 
     ")"  shift, and go to state 493
 
 
-state 481
+State 481
 
    73 stmt: "at" identifiers "(" exp tilda.opt ")" stmt . onleave.opt
-   94 onleave.opt: .  ["end of command", "case", "catch", "default", "else", "finally", "}", ")", ",", ";", "&", "|"]
+   94 onleave.opt: . %empty  ["end of command", "case", "catch", "default", "else", "finally", "}", ")", ",", ";", "&", "|"]
    95            | . "onleave" stmt
 
     "onleave"  shift, and go to state 482
@@ -21734,7 +21734,7 @@ state 481
     Conflict between rule 94 and token "onleave" resolved as shift (EMPTY < "onleave").
 
 
-state 482
+State 482
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -21945,35 +21945,35 @@ state 482
     rel-exp      go to state 83
 
 
-state 483
+State 483
 
    74 stmt: "at" identifiers "(" event_match ")" stmt onleave.opt .
 
     $default  reduce using rule 74 (stmt)
 
 
-state 484
+State 484
 
    48 stmt: "external" "var" "identifier" "." "identifier" from "identifier" .
 
     $default  reduce using rule 48 (stmt)
 
 
-state 485
+State 485
 
    49 stmt: "external" event_or_function "(" unsigned ")" "identifier" "." . "identifier" from "identifier"
 
     "identifier"  shift, and go to state 496
 
 
-state 486
+State 486
 
   247 formal: var.opt "identifier" "=" exp typespec.opt .
 
     $default  reduce using rule 247 (formal)
 
 
-state 487
+State 487
 
    62 exp: exp . "=" exp
    63    | exp . "=" exp modifiers
@@ -21992,19 +21992,19 @@ state 487
     $default  reduce using rule 174 (guard.opt)
 
 
-state 488
+State 488
 
    98 case: "case" match . ":" stmts
 
     ":"  shift, and go to state 497
 
 
-state 489
+State 489
 
    12 stmts: . cstmt.opt
    13      | . stmts ";" cstmt.opt
    14      | . stmts "," cstmt.opt
-   15 cstmt.opt: .  ["}", ",", ";"]
+   15 cstmt.opt: . %empty  ["}", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -22224,28 +22224,28 @@ state 489
     rel-exp      go to state 83
 
 
-state 490
+State 490
 
    81 stmt: "switch" "(" exp ")" "{" cases default.opt "}" .
 
     $default  reduce using rule 81 (stmt)
 
 
-state 491
+State 491
 
    82 stmt: "timeout" "(" exp ")" stmt catch.opt else.opt finally.opt .
 
     $default  reduce using rule 82 (stmt)
 
 
-state 492
+State 492
 
   116 stmt: "for" "(" "var" "identifier" in_or_colon exp ")" stmt .
 
     $default  reduce using rule 116 (stmt)
 
 
-state 493
+State 493
 
    23 stmt: . primary-exp ":" stmt
    24     | . exp
@@ -22456,21 +22456,21 @@ state 493
     rel-exp      go to state 83
 
 
-state 494
+State 494
 
    73 stmt: "at" identifiers "(" exp tilda.opt ")" stmt onleave.opt .
 
     $default  reduce using rule 73 (stmt)
 
 
-state 495
+State 495
 
    95 onleave.opt: "onleave" stmt .
 
     $default  reduce using rule 95 (onleave.opt)
 
 
-state 496
+State 496
 
    44 from: . "identifier"
    49 stmt: "external" event_or_function "(" unsigned ")" "identifier" "." "identifier" . from "identifier"
@@ -22480,12 +22480,12 @@ state 496
     from  go to state 500
 
 
-state 497
+State 497
 
    12 stmts: . cstmt.opt
    13      | . stmts ";" cstmt.opt
    14      | . stmts "," cstmt.opt
-   15 cstmt.opt: .  ["case", "default", "}", ",", ";"]
+   15 cstmt.opt: . %empty  ["case", "default", "}", ",", ";"]
    16          | . cstmt
    17          | . cstmt "|"
    18 cstmt: . stmt
@@ -22705,7 +22705,7 @@ state 497
     rel-exp      go to state 83
 
 
-state 498
+State 498
 
    13 stmts: stmts . ";" cstmt.opt
    14      | stmts . "," cstmt.opt
@@ -22717,21 +22717,21 @@ state 498
     $default  reduce using rule 91 (default.opt)
 
 
-state 499
+State 499
 
   115 stmt: "for" "(" stmt.opt ";" exp ";" stmt.opt ")" stmt .
 
     $default  reduce using rule 115 (stmt)
 
 
-state 500
+State 500
 
    49 stmt: "external" event_or_function "(" unsigned ")" "identifier" "." "identifier" from . "identifier"
 
     "identifier"  shift, and go to state 502
 
 
-state 501
+State 501
 
    13 stmts: stmts . ";" cstmt.opt
    14      | stmts . "," cstmt.opt
@@ -22743,7 +22743,7 @@ state 501
     $default  reduce using rule 98 (case)
 
 
-state 502
+State 502
 
    49 stmt: "external" event_or_function "(" unsigned ")" "identifier" "." "identifier" from "identifier" .
 

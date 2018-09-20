@@ -1,6 +1,6 @@
-#line 2 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/utoken.cc.raw"
+#line 2 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/utoken.cc.raw"
 
-#line 4 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/utoken.cc.raw"
+#line 4 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/utoken.cc.raw"
 
 #define  YY_INT_ALIGNED short int
 
@@ -320,6 +320,7 @@ typedef unsigned char YY_CHAR;
 #define YY_INTERACTIVE
 
 #include "parser/flex-lexer.hh"
+#include <ast/nary.hh>
 
 /* Done after the current pattern has been matched and before the
  * corresponding action - sets up yytext.
@@ -1105,7 +1106,7 @@ static yyconst flex_int16_t yy_chk[1946] =
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
-#line 1 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 1 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 /*
  * Copyright (C) 2005-2012, Gostai S.A.S.
  *
@@ -1115,7 +1116,7 @@ static yyconst flex_int16_t yy_chk[1946] =
  *
  * See the LICENSE file for more information.
  */
-#line 11 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 11 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
   /// \file parser/utoken.l
   /// \brief The scanner.
 
@@ -1378,7 +1379,7 @@ static Out lexical_cast(parser::ParserImpl* up, const yy::location& loc,
 // Identifier.
 // Identifier suffix for magic derivation (K1 syntax).
 /* See [over.oper] in the C++ standard. */
-#line 1382 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/utoken.cc.raw"
+#line 1382 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/utoken.cc.raw"
 
 #define INITIAL 0
 #define SC_C_COMMENT 1
@@ -1490,7 +1491,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 302 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 302 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 
 
   // The first delimiter of a string or a symbol : ' or ".
@@ -1511,7 +1512,7 @@ YY_DECL
   | Internal rules for generated code. |
   `-----------------------------------*/
 
-#line 1515 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/utoken.cc.raw"
+#line 1515 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/utoken.cc.raw"
 
 	if ( !(yy_init) )
 		{
@@ -1598,7 +1599,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 322 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 322 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
 
   /* synclines are mainly made to get correct locations when loading a
@@ -1654,7 +1655,7 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 374 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 374 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
   if (parser_impl_->synclines_.empty())
   {
@@ -1675,12 +1676,12 @@ YY_RULE_SETUP
 
 case 3:
 YY_RULE_SETUP
-#line 393 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 393 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 /* ignore the "[timestamp:tags] whatever" messages */;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 394 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 394 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 /* ignore the "[:] whatever" messages */;
 	YY_BREAK
 
@@ -1690,75 +1691,75 @@ YY_RULE_SETUP
 /* Durations. */
 case 5:
 YY_RULE_SETUP
-#line 403 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 403 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_DURATION(1, 60*60*24);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 404 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 404 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_DURATION(1, 60*60);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 405 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 405 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 DEPRECATED(std::string(yytext) + "in");
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 406 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 406 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_DURATION(2, 60);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 407 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 407 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_DURATION(3, 60);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 408 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 408 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_DURATION(1, 1);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 409 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 409 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_DURATION(2, 0.001);
 	YY_BREAK
 /* Angles. */
 case 12:
 YY_RULE_SETUP
-#line 412 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 412 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_ANGLE(3,   1,    1);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 413 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 413 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_ANGLE(3, 180, M_PI);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 414 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 414 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_ANGLE(4, 200, M_PI);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 416 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 416 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_VALUE(FLOAT, hexadecimal(yytext + 2));
 	YY_BREAK
 case 16:
-#line 418 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 418 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 17:
 YY_RULE_SETUP
-#line 418 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 418 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_VALUE(FLOAT, lexical_cast<ufloat>(parser_impl_, loc, yytext));
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 420 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 420 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 SCAN_FATAL("invalid token: `%s'", yytext);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 422 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 422 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
                 grown_string.clear();
                 delimiter = *yytext;
@@ -1768,602 +1769,602 @@ YY_RULE_SETUP
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 428 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 428 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 LINES(1);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 430 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 430 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(EXTERNAL);
 	YY_BREAK
 
 case 22:
 YY_RULE_SETUP
-#line 433 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 433 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_PERCENT(EXP);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 434 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 434 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_PERCENT(EXPS);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 435 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 435 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_PERCENT(ID);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 436 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 436 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_PERCENT(LVALUE);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 437 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 437 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_PERCENT(UNSCOPE);
 	YY_BREAK
 
 case 27:
 YY_RULE_SETUP
-#line 440 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 440 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(ASSERT);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 441 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 441 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(BREAK);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 442 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 442 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CALL);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 443 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 443 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CASE);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 444 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 444 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CLASS);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 445 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 445 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CLOSURE);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 446 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 446 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CONST);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 447 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 447 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CONTINUE);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 448 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 448 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(DEFAULT);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 449 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 449 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(DETACH);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 450 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 450 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(DISOWN);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 451 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 451 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(DO);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 452 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 452 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(ELSE);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 453 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 453 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(ENUM);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 454 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 454 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(FINALLY);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 455 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 455 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(FREEZEIF);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 456 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 456 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(FUNCTION);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 457 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 457 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(IF);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 458 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 458 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(IMPORT);
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 459 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 459 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(IN);
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 460 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 460 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(ISDEF);
 	YY_BREAK
 /*<no-space< New.*/
 case 48:
 YY_RULE_SETUP
-#line 462 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 462 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_SYMBOL(NEW);
 	YY_BREAK
 /*>no-space>*/
 case 49:
 YY_RULE_SETUP
-#line 464 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 464 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(ONLEAVE);
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 465 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 465 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(PACKAGE);
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 466 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 466 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(RETURN);
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 467 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 467 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(STOPIF);
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 468 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 468 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(SWITCH);
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 469 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 469 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(THIS);
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 470 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 470 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(TIMEOUT);
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 471 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 471 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(VAR);
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 472 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 472 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(WAITUNTIL);
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 473 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 473 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(WATCH);
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 474 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 474 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(WHENEVER);
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 476 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 476 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVORED_KEYWORD(EVERY);
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 477 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 477 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVORED_KEYWORD(FOR);
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 478 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 478 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVORED_KEYWORD(LOOP);
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 479 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 479 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVORED_KEYWORD(WHILE);
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 480 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 480 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVORED_KEYWORD(AT);
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 482 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 482 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(BANG);
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 483 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 483 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(PERCENT);
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 484 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 484 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(STAR);
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 485 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 485 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(PLUS);
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 486 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 486 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(PLUS_PLUS);
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 487 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 487 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(MINUS);
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 488 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 488 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(MINUS_MINUS);
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 489 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 489 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(SLASH);
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 491 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 491 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(PERCENT_EQ);
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 492 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 492 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(STAR_EQ);
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 493 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 493 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(PLUS_EQ);
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 494 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 494 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(MINUS_EQ);
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 495 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 495 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(SLASH_EQ);
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 496 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 496 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(CARET_EQ);
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 498 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 498 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(LT);
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 499 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 499 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(LT_EQ);
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 500 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 500 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(LT_LT);
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 501 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 501 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(EQ_EQ);
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 502 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 502 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(EQ_GT);
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 503 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 503 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(EQ_EQ_EQ);
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 504 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 504 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(BANG_EQ);
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 505 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 505 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(BANG_EQ_EQ);
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 506 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 506 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(EQ_TILDA_EQ);
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 507 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 507 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(TILDA_EQ);
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 508 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 508 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(GT);
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 509 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 509 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(GT_EQ);
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 510 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 510 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(GT_GT);
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 511 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 511 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(CARET);
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 512 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 512 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(STAR_STAR);
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 513 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 513 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(AMPERSAND_AMPERSAND);
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 514 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 514 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_OP(PIPE_PIPE);
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 516 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 516 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(QUEST_MARK);
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 518 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 518 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(EQ);
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 520 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 520 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(MINUS_GT);
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 521 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 521 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(POINT);
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 522 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 522 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(COLON);
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 523 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 523 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(TILDA);
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
-#line 525 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 525 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(LPAREN);
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 526 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 526 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(RPAREN);
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 527 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 527 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(LBRACKET);
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
-#line 528 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 528 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(RBRACKET);
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
-#line 529 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 529 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(LBRACE);
 	YY_BREAK
 case 107:
 YY_RULE_SETUP
-#line 530 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 530 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(RBRACE);
 	YY_BREAK
 case 108:
 YY_RULE_SETUP
-#line 532 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 532 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVOR(AMPERSAND, and);
 	YY_BREAK
 case 109:
 YY_RULE_SETUP
-#line 533 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 533 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVOR(PIPE, pipe);
 	YY_BREAK
 case 110:
 YY_RULE_SETUP
-#line 534 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 534 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVOR(SEMICOLON, semicolon);
 	YY_BREAK
 case 111:
 YY_RULE_SETUP
-#line 535 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 535 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_FLAVOR(COMMA, comma);
 	YY_BREAK
 case 112:
 YY_RULE_SETUP
-#line 537 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 537 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_SYMBOL(BITAND);
 	YY_BREAK
 case 113:
 YY_RULE_SETUP
-#line 538 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 538 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_SYMBOL(BITOR);
 	YY_BREAK
 case 114:
 YY_RULE_SETUP
-#line 539 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 539 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_SYMBOL(COMPL);
 	YY_BREAK
 case 115:
 YY_RULE_SETUP
-#line 541 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 541 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(PRIVATE);
 	YY_BREAK
 case 116:
 YY_RULE_SETUP
-#line 542 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 542 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(PROTECTED);
 	YY_BREAK
 case 117:
 YY_RULE_SETUP
-#line 543 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 543 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(PUBLIC);
 	YY_BREAK
 case 118:
 YY_RULE_SETUP
-#line 545 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 545 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(CATCH);
 	YY_BREAK
 case 119:
 YY_RULE_SETUP
-#line 546 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 546 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(THROW);
 	YY_BREAK
 case 120:
 YY_RULE_SETUP
-#line 547 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 547 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(TRY);
 	YY_BREAK
 case 121:
 YY_RULE_SETUP
-#line 549 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 549 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN(__HERE__);
 	YY_BREAK
 /*<no-space< Reserved keywords.*/
 case 122:
-#line 553 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 553 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 123:
-#line 554 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 554 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 124:
-#line 555 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 555 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 125:
-#line 556 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 556 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 126:
-#line 557 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 557 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 127:
-#line 558 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 558 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 128:
-#line 559 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 559 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 129:
-#line 560 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 560 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 130:
-#line 561 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 561 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 131:
-#line 562 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 562 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 132:
-#line 563 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 563 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 133:
-#line 564 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 564 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 134:
-#line 565 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 565 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 135:
-#line 566 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 566 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 136:
-#line 567 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 567 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 137:
-#line 568 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 568 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 138:
-#line 569 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 569 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 139:
-#line 570 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 570 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 140:
-#line 571 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 571 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 141:
-#line 572 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 572 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 142:
-#line 573 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 573 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 143:
-#line 574 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 574 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 144:
-#line 575 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 575 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 145:
-#line 576 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 576 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 146:
-#line 577 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 577 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 147:
-#line 578 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 578 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 148:
-#line 579 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 579 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 149:
-#line 580 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 580 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 150:
-#line 581 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 581 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 151:
-#line 582 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 582 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 152:
-#line 583 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 583 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 153:
-#line 584 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 584 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 154:
-#line 585 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 585 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 155:
-#line 586 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 586 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 156:
-#line 587 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 587 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 157:
-#line 588 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 588 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 158:
-#line 589 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 589 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 159:
-#line 590 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 590 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 160:
-#line 591 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 591 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 161:
-#line 592 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 592 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 162:
 YY_RULE_SETUP
-#line 592 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 592 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RESERVED_ERROR;
 	YY_BREAK
 /*>no-space>*/
@@ -2379,7 +2380,7 @@ RESERVED_ERROR;
 case 163:
 /* rule 163 can match eol */
 YY_RULE_SETUP
-#line 605 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 605 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
   char* keywords;
   size_t size = bin_split (yytext, yyleng, keywords);
@@ -2408,27 +2409,27 @@ YY_RULE_SETUP
   `------------------------*/
 case 164:
 YY_RULE_SETUP
-#line 633 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 633 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 DEPRECATED("for");
 	YY_BREAK
 case 165:
 YY_RULE_SETUP
-#line 634 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 634 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 DEPRECATED("");
 	YY_BREAK
 case 166:
 YY_RULE_SETUP
-#line 635 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 635 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 DEPRECATED("this");
 	YY_BREAK
 case 167:
 YY_RULE_SETUP
-#line 636 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 636 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 DEPRECATED("");
 	YY_BREAK
 case 168:
 YY_RULE_SETUP
-#line 638 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 638 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 { // Treat "n'x" as "n->x".
   // Push back "n.'\''" in the stream.
   char* quote = strchr(yytext, '\'');
@@ -2445,7 +2446,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 169:
 YY_RULE_SETUP
-#line 651 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 651 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
   SCAN_FATAL("invalid quote: `%s'", strchr(yytext, '\''));
 }
@@ -2454,7 +2455,7 @@ YY_RULE_SETUP
 /* operator XXX -> 'XXX'. */
 case 170:
 YY_RULE_SETUP
-#line 657 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 657 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
                 yytext += strlen("operator");
                 SKIP_SPACES();
@@ -2463,7 +2464,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 171:
 YY_RULE_SETUP
-#line 663 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 663 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 RETURN_SYMBOL(IDENTIFIER);
 	YY_BREAK
 /*--------------------.
@@ -2472,7 +2473,7 @@ RETURN_SYMBOL(IDENTIFIER);
 /* Handling of the strings and symbols. */
 case 172:
 YY_RULE_SETUP
-#line 671 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 671 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
        if (*yytext == delimiter)
        {
@@ -2488,7 +2489,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 173:
 YY_RULE_SETUP
-#line 684 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 684 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
        long c = strtol (yytext + 1, 0, 8);
        if (c < 256)
@@ -2499,52 +2500,52 @@ YY_RULE_SETUP
 	YY_BREAK
 case 174:
 YY_RULE_SETUP
-#line 692 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 692 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL(strtol (yytext + 2, 0, 16));
 	YY_BREAK
 case 175:
 YY_RULE_SETUP
-#line 694 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 694 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\a');
 	YY_BREAK
 case 176:
 YY_RULE_SETUP
-#line 695 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 695 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\b');
 	YY_BREAK
 case 177:
 YY_RULE_SETUP
-#line 696 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 696 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\f');
 	YY_BREAK
 case 178:
 YY_RULE_SETUP
-#line 697 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 697 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\n');
 	YY_BREAK
 case 179:
 YY_RULE_SETUP
-#line 698 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 698 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\r');
 	YY_BREAK
 case 180:
 YY_RULE_SETUP
-#line 699 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 699 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\t');
 	YY_BREAK
 case 181:
 YY_RULE_SETUP
-#line 700 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 700 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL('\v');
 	YY_BREAK
 case 182:
 YY_RULE_SETUP
-#line 701 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 701 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 GROW_VAL(yytext[1]);
 	YY_BREAK
 case 183:
 YY_RULE_SETUP
-#line 702 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 702 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
                   SCAN_ERROR("invalid character after \\-escape: `%s'",
                              libport::escape(yytext + 1));
@@ -2552,17 +2553,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 184:
 /* rule 184 can match eol */
-#line 709 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 709 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 185:
 /* rule 185 can match eol */
-#line 710 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 710 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 186:
 /* rule 186 can match eol */
-#line 711 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 711 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 187:
 /* rule 187 can match eol */
 YY_RULE_SETUP
-#line 711 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 711 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
            SCAN_ERROR("invalid \\B(SIZE)(CONTENTS) escape: `\\%s'",
                       libport::escape(yytext + 1));
@@ -2570,7 +2571,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 188:
 YY_RULE_SETUP
-#line 716 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 716 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
        // Binary escape.
        size_t len = strtol(yytext+3, 0, 0);
@@ -2634,17 +2635,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 189:
 YY_RULE_SETUP
-#line 777 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 777 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 APPEND_VAL(yytext, yyleng);
 	YY_BREAK
 case 190:
 /* rule 190 can match eol */
 YY_RULE_SETUP
-#line 779 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 779 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 LINES(yyleng); APPEND_VAL(yyleng, '\n');
 	YY_BREAK
 case YY_STATE_EOF(SC_STRING_OR_SYMBOL):
-#line 781 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 781 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
        EOF_ERROR(delimiter + "..." + delimiter);
        unput(delimiter);
@@ -2656,28 +2657,28 @@ case YY_STATE_EOF(SC_STRING_OR_SYMBOL):
     `----------------------------*/
 case 191:
 YY_RULE_SETUP
-#line 792 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 792 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 STEP(); // One-line comment.
 	YY_BREAK
 case 192:
 YY_RULE_SETUP
-#line 793 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 793 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 ++comment_level; BEGIN SC_C_COMMENT;
 	YY_BREAK
 case 193:
 YY_RULE_SETUP
-#line 795 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 795 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 STEP();
 	YY_BREAK
 case 194:
 /* rule 194 can match eol */
 YY_RULE_SETUP
-#line 796 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 796 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 LINES(1); STEP();
 	YY_BREAK
 /* Comments. */
 case YY_STATE_EOF(SC_C_COMMENT):
-#line 799 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 799 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
     EOF_ERROR("a comment");
     STEP();
@@ -2687,26 +2688,26 @@ case YY_STATE_EOF(SC_C_COMMENT):
 
 /* Comments. */
 case 195:
-#line 808 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 808 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 case 196:
 YY_RULE_SETUP
-#line 808 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 808 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 continue;
 	YY_BREAK
 case 197:
 /* rule 197 can match eol */
 YY_RULE_SETUP
-#line 809 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 809 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 LINES(1);
 	YY_BREAK
 case 198:
 YY_RULE_SETUP
-#line 810 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 810 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 ++comment_level;
 	YY_BREAK
 case 199:
 YY_RULE_SETUP
-#line 811 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 811 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 {
                   if (!--comment_level)
                   {
@@ -2719,16 +2720,16 @@ YY_RULE_SETUP
 
 case 200:
 YY_RULE_SETUP
-#line 821 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 821 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 SCAN_FATAL("invalid character: `%s'", libport::escape(yytext));
 	YY_BREAK
 
 case 201:
 YY_RULE_SETUP
-#line 824 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 824 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 2732 "/home/bearclaw/qi-2/urbi/urbi/build-sys-linux-i686/src/parser/utoken.cc.raw"
+#line 2732 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/build-sys-linux-x86_64/src/parser/utoken.cc.raw"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(SC_URBI_CHECK):
 case YY_STATE_EOF(SC_META):
@@ -3633,7 +3634,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 824 "/home/bearclaw/qi-2/urbi/urbi/src/parser/utoken.l"
+#line 824 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/utoken.l"
 
 
 
