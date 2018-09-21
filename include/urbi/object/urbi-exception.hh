@@ -26,7 +26,7 @@
 # include <boost/circular_buffer.hpp>
 
 # include <urbi/object/fwd.hh>
-# include <urbi/parser/location.hh>
+# include <parser/location.hh>
 # include <sched/exception.hh>
 
 

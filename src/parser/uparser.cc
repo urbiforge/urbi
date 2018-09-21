@@ -14,6 +14,7 @@
 
 #include <parser/uparser.hh>
 #include <parser/parser-impl.hh>
+#include <ast/nary.hh>
 
 namespace parser
 {

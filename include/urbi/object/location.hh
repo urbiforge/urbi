@@ -13,7 +13,7 @@
 
 # include <urbi/object/cxx-object.hh>
 # include <urbi/object/position.hh>
-# include <urbi/parser/location.hh>
+# include <parser/location.hh>
 
 namespace urbi
 {

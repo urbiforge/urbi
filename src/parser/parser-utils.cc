@@ -11,6 +11,7 @@
 #include <sstream>
 
 #include <parser/parser-utils.hh>
+#include <ast/nary.hh>
 
 namespace parser
 {

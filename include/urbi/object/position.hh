@@ -12,7 +12,7 @@
 # define OBJECT_POSITION_HH
 
 # include <urbi/object/cxx-object.hh>
-# include <urbi/parser/position.hh>
+# include <parser/position.hh>
 
 namespace urbi
 {

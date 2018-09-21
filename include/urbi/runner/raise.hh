@@ -17,7 +17,7 @@
 # include <libport/ufloat.hh>
 
 # include <urbi/object/fwd.hh>
-# include <urbi/parser/location.hh>
+# include <parser/location.hh>
 
 // Do not leak yy::loc in K2 headers.
 namespace yy
