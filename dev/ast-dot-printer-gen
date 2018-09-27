@@ -27,6 +27,9 @@ print >> dot_printer_hh, """\
 # include <ast/ast.hh>
 # include <ast/visitor.hh>
 # include <ast/symbols-type.hh>
+# if BOOST_VERSION >= 106100
+#  include <boost/optional/optional_io.hpp>
+# endif
 
 namespace %(ns)s
 {

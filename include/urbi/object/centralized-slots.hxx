@@ -42,8 +42,36 @@ namespace urbi
     inline void
     CentralizedSlots::finalize(Object* owner)
     {
+#if BOOST_VERSION <= 105500
       if (owner->slots_.size_)
         obj_index_.erase(owner);
+#else
+      // boost::multi_index_container with boost > 1.55 does not seem to support reentrency into erase,
+      // so we remove this reentrency by appending objects to finalize into delayed_finalize_.
+      // delayed_finalize_ is immediately handled so this should not have any impact on the language semantic.
+      if (owner->slots_.size_)
+      {
+        if (in_finalize_)
+        {
+          delayed_finalize_.push_back(owner);
+          return;
+        }
+        {
+          libport::Finally finally;
+          finally << libport::scoped_set(in_finalize_, true);
+          obj_index_.erase(owner);
+        }
+        while (!delayed_finalize_.empty())
+        {
+          std::vector<Object*> copy;
+          std::swap(copy, delayed_finalize_);
+          for (auto o: copy)
+          {
+            finalize(o);
+          }
+        }
+      }
+#endif
     }
 
     inline CentralizedSlots::iterator

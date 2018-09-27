@@ -25,5 +25,8 @@ namespace urbi
 
     CentralizedSlots::obj_index_type&
     CentralizedSlots::obj_index_ = CentralizedSlots::content_->get<1>();
+
+    bool CentralizedSlots::in_finalize_ = false;
+    std::vector<Object*> CentralizedSlots::delayed_finalize_;
   }
 }
