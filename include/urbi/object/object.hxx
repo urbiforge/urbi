@@ -20,7 +20,7 @@
 # include <typeinfo>
 
 # include <boost/bind.hpp>
-# include <boost/tr1/type_traits.hpp>
+# include <libport/tr1/type_traits>
 
 # include <libport/containers.hh>
 # include <libport/debug.hh>
@@ -200,7 +200,7 @@ namespace urbi
     inline void
     Object::bind(const std::string& name, T p)
     {
-      DispatchBind_<std::tr1::is_member_object_pointer<T>::value, T>
+      DispatchBind_<LIBPORT_TRAIT_NAMESPACE::is_member_object_pointer<T>::value, T>
         ::res(this, name, p);
     }
 
