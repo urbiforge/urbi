@@ -19,6 +19,9 @@
 #include <libport/lexical-cast.hh>
 #include <ast/dot-printer.hh>
 #include <ast/all.hh>
+#if BOOST_VERSION >= 106100
+# include <boost/optional/optional_io.hpp>
+#endif
 
 namespace ast
 {

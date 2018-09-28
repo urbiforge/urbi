@@ -101,7 +101,9 @@
 // from cloner.hh saves cycles.
 #include "ast/cloner.hxx"
 #include "libport/symbol.hh"
-
+#if BOOST_VERSION >= 106100
+# include <boost/optional/optional_io.hpp>
+#endif
 namespace ast
 {
   using namespace ast;

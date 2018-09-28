@@ -159,6 +159,10 @@ namespace urbi
       static loc_index_type& loc_index_;
       /// The owner-wise index.
       static obj_index_type& obj_index_;
+      /// Marker to detect finalize() reentrency
+      static bool in_finalize_;
+      /// Delayed calls to finalize that must be made asap
+      static std::vector<Object*> delayed_finalize_;
       /// The number of slots in the Object owning the CentralizedSlot instance.
       int size_;
     };
