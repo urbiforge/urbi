@@ -365,9 +365,9 @@ stmts:
 // Optional composite statement: separated with "|" and "&", possibly
 // terminated by one "|".
 cstmt.opt:
-  /* empty */  { $$ = MAKE(noop, @$); }
-| cstmt        { std::swap($$, $1); }
-| cstmt "|"    { $$ = MAKE(bin, @$, $2, $1, MAKE(noop, @2)); }
+  %empty     { $$ = MAKE(noop, @$); }
+| cstmt      { std::swap($$, $1); }
+| cstmt "|"  { $$ = MAKE(bin, @$, $2, $1, MAKE(noop, @2)); }
 ;
 
 // Composite statement: separated with "|" and "&".
@@ -384,8 +384,8 @@ cstmt:
 // non-empty-statement: A statement that triggers a warning if empty.
 %type <ast::rExp> stmt.opt;
 stmt.opt:
-  /* empty */   %prec EMPTY  { $$ = MAKE(noop, @$); }
-| stmt                       { std::swap($$, $1); }
+  %empty  %prec EMPTY  { $$ = MAKE(noop, @$); }
+| stmt                 { std::swap($$, $1); }
 ;
 
 
@@ -424,7 +424,7 @@ block:
 
 // A useless optional visibility.
 visibility:
-  /* empty */
+  %empty
 | "private"
 | "protected"
 | "public"
@@ -444,8 +444,8 @@ protos.1:
 
 // A list of parents to derive from.
 protos:
-  /* empty */     { $$ = 0; }
-| ":" protos.1    { std::swap($$, $2); }
+  %empty         { $$ = 0; }
+| ":" protos.1   { std::swap($$, $2); }
 ;
 
 %token CLASS "class";
@@ -475,7 +475,7 @@ exp:
 %type <ast::symbols_type> id.0 id.1;
 
 id.0:
-  /* empty */    {}
+  %empty         {}
 | id.1 comma.opt { std::swap($$, $1); }
 ;
 
@@ -838,21 +838,21 @@ stmt:
 
 %type <ast::rNary> default.opt;
 default.opt:
-  /* empty */ %prec EMPTY   { $$ = 0;            }
-|  "default" ":" stmts      { std::swap($$, $3); }
+  %empty  %prec EMPTY   { $$ = 0;            }
+|  "default" ":" stmts  { std::swap($$, $3); }
 ;
 
 %type <ast::rExp> else.opt;
 else.opt:
-  /* empty */ %prec EMPTY  { $$ = 0;            }
-| "else" stmt              { std::swap($$, $2); }
+  %empty %prec EMPTY  { $$ = 0;            }
+| "else" stmt         { std::swap($$, $2); }
 ;
 
 // An optional onleave clause.
 %type <ast::rExp> onleave.opt;
 onleave.opt:
-  /* empty */ %prec EMPTY  { $$ = 0;            }
-| "onleave" stmt           { std::swap($$, $2); }
+  %empty %prec EMPTY  { $$ = 0;            }
+| "onleave" stmt      { std::swap($$, $2); }
 ;
 
 /*--------.
@@ -862,7 +862,7 @@ onleave.opt:
 %type <ast::Factory::cases_type> cases;
 
 cases:
-  /* empty */  {}
+  %empty       {}
 | cases case   { std::swap($$, $1); $$ << $2; }
 ;
 
@@ -888,7 +888,7 @@ match:
 | exp "if" exp  { $$ = new ast::Match(@$, $1, $3); }
 
 match.opt:
-  /* empty */   { $$ = 0; }
+  %empty        { $$ = 0; }
 | "(" match ")" { std::swap($$, $2); }
 
 %type <ast::rCatch> catch;
@@ -900,15 +900,15 @@ catch:
 // BEWARE: return the body of the clause, not a Catch AST node.
 %type <ast::rExp> catch.opt;
 catch.opt:
-  /* empty */ %prec EMPTY  { $$ = 0; }
-| "catch" block            { $$ = $block; }
+  %empty %prec EMPTY  { $$ = 0; }
+| "catch" block       { $$ = $block; }
 ;
 
 
 %type <ast::rExp> finally.opt;
 finally.opt:
-  /* empty */ %prec EMPTY  { $$ = 0;  }
-| "finally" block          { $$ = $2; }
+  %empty %prec EMPTY  { $$ = 0;  }
+| "finally" block     { $$ = $2; }
 ;
 
 stmt:
@@ -1162,7 +1162,7 @@ dictionary:
 // %type <ast::rExp> tuple tuple.exps;
 
 tuple.exps:
-  /* empty */ { $$ = new ast::exps_type; }
+  %empty      { $$ = new ast::exps_type; }
 | exps.1 ","  { std::swap($$, $1); }
 | exps.2      { std::swap($$, $1); }
 ;
@@ -1182,12 +1182,12 @@ tuple:
 %type <ast::exps_type*> bitor-exps bitor-exps.1;
 
 bitor-exps:
- /* */ { $$ = new ast::exps_type; }
+  %empty                 { $$ = new ast::exps_type; }
 | bitor-exps.1 comma.opt { std::swap($$, $1); }
 ;
 
 bitor-exps.1:
-  bitor-exp { $$ = new ast::exps_type(1, $1); }
+  bitor-exp                  { $$ = new ast::exps_type(1, $1); }
 | bitor-exps.1 "," bitor-exp { std::swap($$, $1); *$$ << $3;}
 ;
 
@@ -1236,14 +1236,14 @@ event_match:
 
 %type <ast::rExp> guard.opt;
 guard.opt:
-  /* empty */  { $$ = 0; }
-| "if" exp     { std::swap($$, $2); }
+  %empty     { $$ = 0; }
+| "if" exp   { std::swap($$, $2); }
 ;
 
 %type<ast::rExp> tilda.opt;
 tilda.opt:
-  /* empty */ { $$ = 0; }
-| "~" exp     { std::swap($$, $2); }
+  %empty    { $$ = 0; }
+| "~" exp   { std::swap($$, $2); }
 ;
 
 
@@ -1366,7 +1366,7 @@ rel-exp:
 
 %type <ast::Factory::relations_type> rel-ops;
 rel-ops:
-  /* empty */              { /* empty */ }
+  %empty                   { /* empty */ }
 | rel-ops rel-op bitor-exp { std::swap($$, MAKE(relation, $1, $2, $3)); }
 ;
 
@@ -1393,8 +1393,8 @@ exp:
 ;
 
 exp.opt:
-  /* empty */  %prec EMPTY   { $$ = 0; }
-| exp                        { std::swap($$, $1); }
+  %empty %prec EMPTY   { $$ = 0; }
+| exp                  { std::swap($$, $1); }
 ;
 
 
@@ -1470,7 +1470,7 @@ primary-exp:
 
 // claims: a list of "exp"s separated/terminated with semicolons.
 claims:
-  /* empty */        { $$ = new ast::exps_type; }
+  %empty             { $$ = new ast::exps_type; }
 | claims.1 semi.opt  { std::swap($$, $1); }
 ;
 
@@ -1482,7 +1482,7 @@ claims.1:
 
 // exps: a list of "exp"s separated/terminated with colons.
 exps:
-  /* empty */       { $$ = new ast::exps_type; }
+  %empty            { $$ = new ast::exps_type; }
 | exps.1 comma.opt  { std::swap($$, $1); }
 ;
 
@@ -1501,8 +1501,8 @@ args:
 ;
 
 args.opt:
-  /* empty */  { $$ = 0; }
-| args         { std::swap($$, $1); }
+  %empty  { $$ = 0; }
+| args    { std::swap($$, $1); }
 ;
 
 
@@ -1512,7 +1512,7 @@ args.opt:
 
 %type <ast::symbols_type> identifiers;
 identifiers:
-  /* empty */ { /* empty */ }
+  %empty                   {}
 | identifiers "identifier" { std::swap($$, $1); $$.push_back($2); }
 ;
 
@@ -1523,15 +1523,15 @@ typespec:
 
 %type <ast::rExp> typespec.opt;
 typespec.opt:
-  /* empty */ { $$=0;}
-| typespec { std::swap($$, $1);}
+  %empty   { $$ = 0; }
+| typespec { std::swap($$, $1); }
 ;
 
 %type <ast::Formal> formal;
 formal:
- var.opt "identifier" typespec.opt  { $$ = ast::Formal($2, 0, $3);  }
+  var.opt "identifier" typespec.opt          { $$ = ast::Formal($2, 0, $3);  }
 | var.opt "identifier" "=" exp typespec.opt  { $$ = ast::Formal($2, $4, $5); }
-| var.opt "identifier" "[" "]"  { $$ = ast::Formal($2, true); }
+| var.opt "identifier" "[" "]"               { $$ = ast::Formal($2, true); }
 ;
 
 // One or several comma-separated identifiers.
@@ -1543,19 +1543,19 @@ formals.1:
 
 // Zero or several comma-separated identifiers.
 formals.0:
-  /* empty */          { $$ = new ast::Formals; }
+  %empty               { $$ = new ast::Formals; }
 | formals.1 comma.opt  { std::swap($$, $1); }
 ;
 
 // Function formal arguments.
 formals:
-  /* empty */         { $$ = 0; }
+  %empty              { $$ = 0; }
 | "(" formals.0 ")"   { std::swap($$, $2); }
 ;
 
-comma.opt: /* empty */ | ",";
-semi.opt:  /* empty */ | ";";
-var.opt:   /* empty */ | "var";
+comma.opt: %empty | ",";
+semi.opt:  %empty | ";";
+var.opt:   %empty | "var";
 
 %%
 
