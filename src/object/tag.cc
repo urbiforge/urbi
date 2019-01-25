@@ -70,6 +70,7 @@ namespace urbi
       BINDG(blocked);
       BINDG(enter);
       BIND(freeze);
+      BIND(frize, freeze);
       BINDG(frozen);
       BIND(getParent, parent_get);
       BINDG(leave);
@@ -77,6 +78,7 @@ namespace urbi
       BINDG(scope);
       BIND(setPriority, priority_set);
       BIND(unblock);
+      BIND(unb, unblock);
       BIND(unfreeze);
     }
 

@@ -373,6 +373,7 @@ namespace urbi
       DECLARE(updateSlot         , &Object::urbi_updateSlot);
       DECLARE(setSlotValue       , &Object::setSlotValue);
       DECLARE(getSlotValue       , &Object::getSlotValue);
+      DECLARE(getSVal            , &Object::getSlotValue);
 #undef DECLARE
 
       Object::proto->bind(SYMBOL(uid),          &Object::uid);

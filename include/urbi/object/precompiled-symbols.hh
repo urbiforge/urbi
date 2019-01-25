@@ -339,6 +339,7 @@
   Macro(flush, "flush");                          \
   Macro(format, "format");                        \
   Macro(freeze, "freeze");                        \
+  Macro(frize, "frize");                          \
   Macro(fresh, "fresh");                          \
   Macro(fromAscii, "fromAscii");                  \
   Macro(front, "front");                          \
@@ -358,6 +359,7 @@
   Macro(getProperty, "getProperty");              \
   Macro(getSlot, "getSlot");                      \
   Macro(getSlotValue, "getSlotValue");            \
+  Macro(getSVal,      "getSVal");                 \
   Macro(getStats, "getStats");                    \
   Macro(get_get, "get_get");                      \
   Macro(getenv, "getenv");                        \
@@ -639,6 +641,7 @@
   Macro(type, "type");                            \
   Macro(uid, "uid");                              \
   Macro(unblock, "unblock");                      \
+  Macro(unb, "unb");                              \
   Macro(unfreeze, "unfreeze");                    \
   Macro(unsetenv, "unsetenv");                    \
   Macro(unsubscribeFaultySubscriber, "unsubscribeFaultySubscriber");\
