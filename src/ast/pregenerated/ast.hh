@@ -20,7 +20,6 @@
 
 # include <libport/ref-counted.hh>
 # include <ast/loc.hh>
-# include <libport/hierarchy.hh>
 // At least OS X's GCC does not actually export functions that
 // are flagged as exported, but use types that are not exported.
 // So we need to export these, for sake of binder::bind.
@@ -41,7 +40,7 @@ namespace ast
 {
 
   /// Ast.
-  class URBI_SDK_API Ast : public libport::RefCounted, public libport::meta::Hierarchy<Ast, Nodes>
+  class URBI_SDK_API Ast : public libport::RefCounted
   {
   public:
     /// Store a reference onto the original node.
