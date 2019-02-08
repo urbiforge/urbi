@@ -1,0 +1,1062 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="dir68B9BCF6132CF919BBBE4B8C2481A832">
+            <Directory Id="dir6C08D077075744E66DC6E24059E70B67" Name="libport">
+                <Component Id="cmp171C85758DF022958A63AC5C9F87C072" Guid="{B90C1DF9-E983-4871-B9FB-F2A4016A3713}">
+                    <File Id="fil63FB87A781F94804A26F9EB7C666CC1C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\algorithm" />
+                </Component>
+                <Component Id="cmpFDF660DB129D95AC9F786005EEBA4628" Guid="{5259F34B-4E0C-4245-A277-FCD37A90C4CD}">
+                    <File Id="filF3466C6090B3E1DFD08D3C44CD361DED" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\algorithm.hxx" />
+                </Component>
+                <Component Id="cmpC2A3D005C7B3E14C6276F266B9019660" Guid="{C1AB843D-BA8C-4A95-A90F-3D495642F63D}">
+                    <File Id="filF5A817074594695C3718CCEACDCB2E1F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\allocator-static.hh" />
+                </Component>
+                <Component Id="cmp1DB9F88FF51DB51A5997EB19CACF4798" Guid="{79165C47-942F-4591-B73F-5CFFE236E029}">
+                    <File Id="fil03749883FB603AAA87E2C2AF32E9523B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\allocator-static.hxx" />
+                </Component>
+                <Component Id="cmp3A517D77409388C6EB81A1D2D397174F" Guid="{FCC9B74C-E4D7-40C5-8B11-0073B58BE91B}">
+                    <File Id="filCB5B68DA8E0822248E631B05FFD5492D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\asio.hh" />
+                </Component>
+                <Component Id="cmpB1A92BFF109A7B87CECF4AD6513FC64F" Guid="{DE4B1648-7A4F-4B8F-BA56-CDFE4194D2D2}">
+                    <File Id="filE76A459E6EB9AD6D6F770D1E4D67D8D2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\asio.hxx" />
+                </Component>
+                <Component Id="cmpA15254F694A47821CD5708FFB9434D7E" Guid="{71450788-5516-4CE3-8F39-07098A25912F}">
+                    <File Id="fil49DC95A6183973DF2D1F7200BE901B12" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\atomic.hh" />
+                </Component>
+                <Component Id="cmp679D93A608DA957D97897BED027FC0C8" Guid="{78B4898D-589E-4C34-94F6-433F19DFE7DA}">
+                    <File Id="fil8C7C5AE6D0F371F5A10FC9D1CAD98020" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\attributes.hh" />
+                </Component>
+                <Component Id="cmpF2E6989E8E46A05D556D944CD5F874EB" Guid="{30287782-54DE-431F-91B6-8334F46C3F8D}">
+                    <File Id="filD07D10E9D4CA6E66D60A8A43901A3737" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\backtrace.hh" />
+                </Component>
+                <Component Id="cmp171C418A361E6F11238D84275C5FE86E" Guid="{1FAB00E3-64B3-467A-96F6-0C56DB0450F2}">
+                    <File Id="filD983779CF28C08F6D4505FF158F70F57" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\backtrace.hxx" />
+                </Component>
+                <Component Id="cmp7601EC1267CC66410FE4870C3BEB0205" Guid="{686B45C8-2C29-4C26-9ACE-8360E24ED7B4}">
+                    <File Id="fil2266F4B84673759CFE021FD8AF14BC4C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\base64.hh" />
+                </Component>
+                <Component Id="cmp65471FF640CB8917234E06A39917125D" Guid="{15EA021F-126B-44D3-9A98-33E6DCBBB8FC}">
+                    <File Id="filD4D695998D23F35436A753CA142E6C23" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\bench.hh" />
+                </Component>
+                <Component Id="cmp8317B8CECD5E8F0AC38AC9277398BBD5" Guid="{ACDC8C32-50AE-45B4-AC22-42F08CD5FEE6}">
+                    <File Id="filACADBDBAAF7805E0360726C58124A28C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\bind.hh" />
+                </Component>
+                <Component Id="cmp3ECC9F7107AC32278CE8965A68A13C92" Guid="{DF08B6D8-9689-40F7-9375-6C941FF55F4E}">
+                    <File Id="fil655C6CBC56511DF90F5DF712C5E58A69" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\boost-error.hh" />
+                </Component>
+                <Component Id="cmp93DEEEE8402E5152CFA0626DA1A50472" Guid="{0D56A162-43FF-4049-A507-01BEC341ACBD}">
+                    <File Id="filD5201363382A20525633939ED5F8CB92" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\boost-error.hxx" />
+                </Component>
+                <Component Id="cmp14BB738EA1DC91DB93FC901936A37D7F" Guid="{57A25CC4-9BD6-43F8-B1A1-EB5E6683534E}">
+                    <File Id="fil0EC2D762E43D665FCF9F9B1EB02822FF" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\buffer-stream.hh" />
+                </Component>
+                <Component Id="cmp16C0A3368F717E7ACE56E9C6CA57A6BF" Guid="{D2CFFC59-2579-4308-B8BA-F96D0F975996}">
+                    <File Id="filE3AF7B95A9565620A545E96C49A4D328" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cassert" />
+                </Component>
+                <Component Id="cmp3F996FF557ACA1592B075D0BDD5843C9" Guid="{78D3CFA4-7C9B-4275-A04B-5AC5F3F42350}">
+                    <File Id="fil83B915075035F5B4679E8BAEE7F15690" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cast.hh" />
+                </Component>
+                <Component Id="cmp582899F566DD7B1ABA67D9BD7A68105A" Guid="{3C11C965-CFDC-4E45-ABDD-E6CFB4173A4A}">
+                    <File Id="filBCD8FDA8D1671BBE4BF0DE6F88CC9B7D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cast.hxx" />
+                </Component>
+                <Component Id="cmp08A3B697D9D617EB30BE92EDB425C5EF" Guid="{FF6F1C7B-45AB-4F2F-8FE4-44803B8D05F4}">
+                    <File Id="filF72E40389B27FCCF6989B8DDBF701A65" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cctype" />
+                </Component>
+                <Component Id="cmpDC1E2766523AE3E6F5D5C050FF7516EE" Guid="{1BFD56E4-EA72-4390-80B0-AC6C870E0265}">
+                    <File Id="filBFA97D66C21919B2AF1836C14CC21E56" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cctype.hxx" />
+                </Component>
+                <Component Id="cmp6F277A08FB17115AFB096807A4699E5C" Guid="{2B43783D-FFB0-4523-AACE-B92FF48F6D1C}">
+                    <File Id="fil12B4A3FC7CE25D1F9A66C642B336AAFC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cerrno" />
+                </Component>
+                <Component Id="cmpE399FB6ACE84A21223247803275C7D1E" Guid="{EEA94BCC-4C7F-4094-AAB8-406FFE4B7406}">
+                    <File Id="fil261716DB7E0DFB9EA83BCAAEE31700A0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cli.hh" />
+                </Component>
+                <Component Id="cmp055446E0E9099E491D5693C791612FF8" Guid="{DA74B474-0B36-4688-A416-E8541FEB6947}">
+                    <File Id="filF39F83464C828761A66BFEA376CA4114" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cli.hxx" />
+                </Component>
+                <Component Id="cmp95ED07FDF8F6A0DB8CFC7F35938AA74B" Guid="{C1AE6F6A-8DC3-475F-8D8C-8BBB98D650A7}">
+                    <File Id="filE4AC99FB01A26F69EB99D2FB6CD53853" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cmath" />
+                </Component>
+                <Component Id="cmp535E8E3FA91C07F50E687F67BD907F72" Guid="{FE7B7435-8596-4310-B6D5-AE71FBADBF3D}">
+                    <File Id="fil859C7BCF27AFAEFFBD906E5605D5D3DB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cmath.hxx" />
+                </Component>
+                <Component Id="cmpACF90923CB5AAE663D07FC021D7DB5E4" Guid="{44B9CDAB-9F4B-4DAA-BDBC-C47170CB9422}">
+                    <File Id="fil61EE3E78AEB5C292D22A64C12EFAF252" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\compilation.hh" />
+                </Component>
+                <Component Id="cmp5DC73DBFE40EC5BF098917A8AA5D4951" Guid="{9D832150-C785-4D3E-9775-E7873AB96D27}">
+                    <File Id="fil6C34A5BE3412C865C5334A362EEDB1A4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\compiler-section.hh" />
+                </Component>
+                <Component Id="cmp11E0C92084F63F4BF6041AFC853B7EA5" Guid="{293728DD-26AB-437C-A0E9-AE223C74DCC0}">
+                    <File Id="filFF60C17F9F6106F547A20BA8643A17CD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\compiler.hh" />
+                </Component>
+                <Component Id="cmp345CC55CE1856FAB2837BEC7BF93412C" Guid="{AC16C9FD-8332-4F66-A8D2-687BBCDE0757}">
+                    <File Id="fil33C803C56AF4823B9E98D2076CBDCBA3" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\condition.hh" />
+                </Component>
+                <Component Id="cmpF67062550D85DD60233932E7990DA795" Guid="{AD03E83F-EF63-4EE5-83E8-AF47A070AF93}">
+                    <File Id="fil76269B63CFE5AEC30A03F0C7C12A51C1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\condition.hxx" />
+                </Component>
+                <Component Id="cmpEAC50989E714C6BD7F3E33445EAB5B87" Guid="{2A0D5C49-C848-4FD9-B906-C0E08F631734}">
+                    <File Id="fil7E95A6131C55D01005AE5FC20FF8B8E4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\config.h" />
+                </Component>
+                <Component Id="cmp44D4D948E3B3EE71A3005474C085F2DA" Guid="{866B6BA2-DA90-4ABD-BCFB-E2C4F670A9D1}">
+                    <File Id="fil218C7E64257ADD34C0647B58AFD0EEBF" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\containers.hh" />
+                </Component>
+                <Component Id="cmp3945F043285DFB392C66CDAE83C41156" Guid="{EA9807CB-7E26-4837-B1B0-B5C32465FA18}">
+                    <File Id="fil99D9C7779B4141C8F60648016BFEAF7E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\containers.hxx" />
+                </Component>
+                <Component Id="cmpA0365214C2920A1A04B86B3E77CA67B3" Guid="{51601043-BAAF-4B11-B266-51144E94F3AE}">
+                    <File Id="fil1D7B8D45035042FA5E8324711E3C8A05" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\csignal" />
+                </Component>
+                <Component Id="cmp33B0C0AFFA6537557179C60426C556E4" Guid="{F84057D9-4AFC-4ECE-8E03-D10974A61489}">
+                    <File Id="fil8F4FFBE045933285F504B41985FD6BB0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cstdint" />
+                </Component>
+                <Component Id="cmp5DA73BABFA011EB1A374AD822844E189" Guid="{DA7848CE-37F0-4317-B8BF-7B943D3596B4}">
+                    <File Id="filF62875959C13B6C9AAF4E633D84AB579" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cstdio" />
+                </Component>
+                <Component Id="cmp5193CC1C9A2C7B1B7D5E48F3596EBAF7" Guid="{D4958EA4-F00F-459E-BF99-989E390434AD}">
+                    <File Id="fil655DEBD2132DBB84FF97AC5C6D4A2DA6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cstdlib" />
+                </Component>
+                <Component Id="cmp6257E016AE9C0D18BF69E6664C3E3CA1" Guid="{02C8C6FB-54FE-4835-95D2-949FDF08CC06}">
+                    <File Id="filB2B5761EDB3D1D29DE23FAE2616A86CE" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cstdlib.hxx" />
+                </Component>
+                <Component Id="cmp047E2300DA8524D5E6E089C45CCB24E9" Guid="{AF3BE756-F360-488C-A737-01E619975C4E}">
+                    <File Id="fil155B387D2CA241521DC244F1EB8EF6FF" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cstring" />
+                </Component>
+                <Component Id="cmp5EAA4BE446D873F5B8E2135F5758D97B" Guid="{602D037E-AEBD-47A4-A07A-92B2F4F2306D}">
+                    <File Id="fil455C0485F8214A0D2E4994942CA1239A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\cstring.hxx" />
+                </Component>
+                <Component Id="cmpADD9F0E5D2787E6B8B1B544ED98D9798" Guid="{16774F1F-13A0-4351-A844-AAEA0FBA219C}">
+                    <File Id="filEC67875E00F6D1DE2C79DB9471B06552" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ctime" />
+                </Component>
+                <Component Id="cmpD20DD1CF84A86CCF4581D3B83D3CB126" Guid="{BEC20E58-84BA-43E8-A0C4-0BAFDB085CFE}">
+                    <File Id="fil5C1F6FB34302EBDCFFCE2CE00D5491C9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\damerau-levenshtein-distance.hh" />
+                </Component>
+                <Component Id="cmpFE371F5E85579EA9D59B1FE28C4F96D8" Guid="{95DDDBD5-0A68-4E85-863C-72B3EA675FB8}">
+                    <File Id="fil9A7C826EAF01B164A8EBBB45C6649EF7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\debug.hh" />
+                </Component>
+                <Component Id="cmpA487D0B9430F5D1A7476A0D2111C3991" Guid="{475D04D9-4F36-43A8-852D-4F2B9E409090}">
+                    <File Id="fil6D00015273D7667E776E472F4B8B7B38" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\debug.hxx" />
+                </Component>
+                <Component Id="cmp1B68B87860316E34EF0FB6C0561768FA" Guid="{BD4FE3D0-8D72-4B48-B2F2-552542F721BD}">
+                    <File Id="fil2DFA6264D7990B5E955B917EC03882F2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\deref.hh" />
+                </Component>
+                <Component Id="cmp586953DAB14C8693C938328680C5D1BD" Guid="{B941668E-05D6-4A70-85E1-C595D022D9D1}">
+                    <File Id="filC477BF7F9C1644E4328867345D04B260" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\deref.hxx" />
+                </Component>
+                <Component Id="cmp5D14C835F1DA7DA694438FDF617445A3" Guid="{C3023A20-5D61-4D60-A557-BA5BC2301EF3}">
+                    <File Id="fil5B20913C222ECF2B76DE378E3DED3D71" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\destructible.hh" />
+                </Component>
+                <Component Id="cmp9DF6F05EF21885DE89008F5141AF81FA" Guid="{590BBB95-29E5-4761-AA8B-A57FC5221C2D}">
+                    <File Id="filC4A60968D27C377AE5A4C746CADFF68B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\destructible.hxx" />
+                </Component>
+                <Component Id="cmpC3A440DB4388B7D16E6CF6EE78907F8E" Guid="{72940CA5-D4C0-4BB2-BBD5-122A514479D5}">
+                    <File Id="fil8A7660C1B7860D20641D49FF38FCA24E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\detect-win32.h" />
+                </Component>
+                <Component Id="cmpCCFB3216B0BB1098C27F527433DAF130" Guid="{A47AD374-D4DC-4CF9-AF3B-9DA978428322}">
+                    <File Id="fil39C2BB1AA3B8E9BE3EAF2598A05F1610" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\dirent.h" />
+                </Component>
+                <Component Id="cmp7B4DE28678844EFD4A9A8D4AF20CCE26" Guid="{93236A05-A134-496D-93B7-0B04028A1A43}">
+                    <File Id="fil738CF84F9C01D83DC16D9F7E3FA247A5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\dlfcn.h" />
+                </Component>
+                <Component Id="cmpCA5FE57532A4A628BE0F43A3686581EF" Guid="{074997E3-8F2E-4BD3-85BC-CED94855D321}">
+                    <File Id="fil723077C0AEDB51D02D3BB608412990AB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\echo.hh" />
+                </Component>
+                <Component Id="cmpF4B9C0BF3B574F2339F6ABAC74232AF5" Guid="{9CA47148-C85A-4B2A-8762-AB799ECD2E6A}">
+                    <File Id="fil46FAB4E20B0A2D6B228C2E8163D43FA2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\echo.hxx" />
+                </Component>
+                <Component Id="cmp18B48B12DE553B66FE75F8140CFE5CA7" Guid="{ECD97CCA-0FA9-4DB3-BFB4-019A28C8A56B}">
+                    <File Id="fil51BF13A44993842F73CE8A198E9A0DB4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\errors.hh" />
+                </Component>
+                <Component Id="cmpC28B6D51250E0966313B653D8AA17F45" Guid="{60AAA632-A88C-49D1-95DF-B3D41DD4AB68}">
+                    <File Id="filD89518221F4CC5C5E5B28C2A13B77048" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\escape.hh" />
+                </Component>
+                <Component Id="cmp19FED668A7E42AAEBEB980189D9CB249" Guid="{F541CA7A-495E-4870-8FBF-9EBC967577DB}">
+                    <File Id="filC6A3240319EE81DE30F6D3A93CD481A6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\escape.hxx" />
+                </Component>
+                <Component Id="cmp9CCBAB1970E5309D4474DF0300014BDD" Guid="{AB1ABFFD-8928-4BD6-83D7-6091EC477766}">
+                    <File Id="filD461A473364E730C5C4812950CB11F37" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\exception.hh" />
+                </Component>
+                <Component Id="cmp04795F15ECBC1B64FCEB8250DE05DC28" Guid="{4F3AC1D1-E856-4E17-AD20-11BF7EEA170E}">
+                    <File Id="fil01A9D6BE5A5C7980333C3EB7B2D7C848" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\exception.hxx" />
+                </Component>
+                <Component Id="cmpD8B78B357A69A00269D29F9232332626" Guid="{5118DAEE-B284-4314-83E7-A3463FCDE2E0}">
+                    <File Id="fil1AD600849AC8BD1305EC71C6706F5977" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\export.hh" />
+                </Component>
+                <Component Id="cmp80DF0A16FD1EEA1F487219A8016FE260" Guid="{14AC51EB-EF3E-496D-84C1-2484C38D1507}">
+                    <File Id="fil590BE11D5DF1127029BBF892F12C0B19" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fcntl.h" />
+                </Component>
+                <Component Id="cmpB7A486B0B29F7B55DCAA758FE4345412" Guid="{912B0B80-F38C-4228-BF65-AB51D0E45673}">
+                    <File Id="filAE1C4F4611C6DA7592744470AEA4AD17" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fd-stream.hh" />
+                </Component>
+                <Component Id="cmp091DB425F58FCD94DA0EAF8392158BD0" Guid="{95792293-9A0E-4E98-985A-F5D1B90A92A1}">
+                    <File Id="filEE9B413031B0914E95411830E4AE378C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fifo.hh" />
+                </Component>
+                <Component Id="cmp5D57DFDF45A1CBEF4D68EDAC270144EF" Guid="{99FD9F2C-DF29-4779-B07C-612C81D87B59}">
+                    <File Id="filD0FFA3E589B567D6FFEA0F753D4E7046" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fifo.hxx" />
+                </Component>
+                <Component Id="cmpFA794D72C0032A9B389A33A99D33DCDD" Guid="{E4204877-5F6B-4563-B44B-F63766E00131}">
+                    <File Id="fil4A4415D14B5B36D7517106400A43B8AB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\file-library.hh" />
+                </Component>
+                <Component Id="cmp75D4CBA337C597FA6F34643719D2CA4D" Guid="{51A56621-A119-416A-974B-C8E0CFF98D82}">
+                    <File Id="fil74377FE2A06268D0E2DAC5C71B4FD897" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\file-library.hxx" />
+                </Component>
+                <Component Id="cmp30D238F5FEF572924502EBCD0B0B1694" Guid="{A2B93258-A64B-4698-AA48-CA704EFEFF6F}">
+                    <File Id="filD6095D97F2CF1A03248FA5BE5314AF0D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\file-system.hh" />
+                </Component>
+                <Component Id="cmpD6F039FFCDE6D1008037A5C778CDE711" Guid="{AF3E64C6-59FD-420A-9BD7-86BDCD2FF411}">
+                    <File Id="fil54A1583B9DCF28CCE9485C5DC9E5A116" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\finally.hh" />
+                </Component>
+                <Component Id="cmp7A4C783F229A78E22D6434E0136020D7" Guid="{C1180F68-2EF8-47FA-B83B-75C08B22460C}">
+                    <File Id="fil3D692DE232B31245818D103A4B9EA4A9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\finally.hxx" />
+                </Component>
+                <Component Id="cmp8CE46878A3AB5990D5F8DBAD25EECA18" Guid="{731459D2-A626-4693-B650-2A52FDAF13AB}">
+                    <File Id="filAD0DEC3FBDB927A5DBC06D162B74ED5A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fnmatch.h" />
+                </Component>
+                <Component Id="cmp33FD79957FDD6D43172BEB5163BE6ADD" Guid="{4729F825-3856-4221-B16B-553579FED1B3}">
+                    <File Id="fil99BF197D9D994CBE59FD72382BCF7584" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fnmatch.hxx" />
+                </Component>
+                <Component Id="cmpAA436AF9E5D2854A27047BC9B2F018F7" Guid="{B6555E1E-A236-4720-83E0-B4B0830F814F}">
+                    <File Id="fil369F96826AC262F52EF1EB6932B1B419" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\foreach.hh" />
+                </Component>
+                <Component Id="cmpF368760EBF4C136E78A1DBD2BB6BB5B9" Guid="{1022FC33-D041-40BC-8873-0456A5FF4D07}">
+                    <File Id="filB40638D0E0D6F55B095CFB49A8B3A993" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\format.hh" />
+                </Component>
+                <Component Id="cmpA4629181C2D6651FF693FE2DFB00DFC2" Guid="{43F49E49-57EB-4FE6-A2E5-656406CC0A85}">
+                    <File Id="filE0DDF509E9A57EE0ACDC971D9B24FC3E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\format.hh.gen" />
+                </Component>
+                <Component Id="cmp4D3EAB5D92CFB0F73D69F9D46A87F7BD" Guid="{FD9CCE11-6658-4106-A353-32BFF8F85D7A}">
+                    <File Id="fil08E75541176F9827F60CB550C6F09B04" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\fwd.hh" />
+                </Component>
+                <Component Id="cmpB31695E3DE214274D2968400CAEBD9FD" Guid="{4445759D-C26E-4E0D-8D4B-F172F3E11086}">
+                    <File Id="fil487A222D24FE59F70BB44D3B3072773E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\hash.hh" />
+                </Component>
+                <Component Id="cmp23E25583A6E8E06F75A3DED07734F026" Guid="{DCA48DB9-8A3C-4B40-B0ED-8EF043653612}">
+                    <File Id="filFE80C0B9B4CC703E5B50364CFE3D399C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\hierarchy.hh" />
+                </Component>
+                <Component Id="cmp3F453E1C710C0362FE7630B325D0EADB" Guid="{1B07C467-CE7E-467C-867A-0554FA2D72BA}">
+                    <File Id="fil6F8617947D34D41EFDB995FC0071AEFE" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\hmac-sha1.hh" />
+                </Component>
+                <Component Id="cmp512A6E1A3DAC49E21DBC76B6BD881E1D" Guid="{D29DCE35-924F-41F2-9109-C26731C16070}">
+                    <File Id="filD780880430A58F79948B41BBDB710F90" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\indent.hh" />
+                </Component>
+                <Component Id="cmp801BFA1556555B1F749309EC10E49986" Guid="{CCAEEC68-CC2F-4B24-BC49-3B14AB49F95F}">
+                    <File Id="filA649801A464C5BB20832D76850B73470" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\input-arguments.hh" />
+                </Component>
+                <Component Id="cmp7DF3C01647D10E390039C8366C1EA086" Guid="{3D783B2A-71D8-410D-A1A1-53B3B8656C85}">
+                    <File Id="filBE46796E12F4988C4C1AC8EA4420DF00" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\input-arguments.hxx" />
+                </Component>
+                <Component Id="cmp333A81FD1392C7998BA7E4C2022A8D08" Guid="{E490445E-E3E6-404A-9FC1-B164ED481D1B}">
+                    <File Id="fil3F3F6528D9D32FBF4F0532D230E66330" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\instance-tracker.hh" />
+                </Component>
+                <Component Id="cmp302D34BF745309965953FF79F3A57AB6" Guid="{3EB9FFCC-880D-4750-B6D8-A332C4BA5D58}">
+                    <File Id="fil267A56E8A52E49EF5B5D34D287CFB6E9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\instance-tracker.hxx" />
+                </Component>
+                <Component Id="cmpB82D8F6043D94C0FB0D98006FAABEC50" Guid="{6E92DFFC-7A6C-4A96-AE92-2718C422F1AC}">
+                    <File Id="fil65C631FAC6F12F9AA5A5B83EAFBFFA01" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\instrument.hh" />
+                </Component>
+                <Component Id="cmp694496FC24E990B1EC7A1B5C7AD2ADFD" Guid="{693D2BAF-54EC-430C-88FA-276B713C1B72}">
+                    <File Id="filD5ABE92B661663A8BD586A816419D55F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\intrusive-ptr.hh" />
+                </Component>
+                <Component Id="cmp13A106B7731B6D5701129629B22A7913" Guid="{1C4B42A6-AA3D-4C8C-BD95-EAF9E3461FF6}">
+                    <File Id="fil23AD3B59CA3D82FEA8F75E07C2C6EE63" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\intrusive-ptr.hxx" />
+                </Component>
+                <Component Id="cmp55FB9CA25FAF2DAD12E96614D532F795" Guid="{7C490830-14AF-4EFF-94F8-7852FF666BA6}">
+                    <File Id="filDC967149DA18D441A49E03A1686C0153" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\io-stream.hh" />
+                </Component>
+                <Component Id="cmp7AA08531F6E3966A9E51E0B5B2034402" Guid="{9396EEBD-6B04-4EF0-9BAD-C829770229C1}">
+                    <File Id="filE8D8A652A5597CA95D7C280C45710986" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\iostream" />
+                </Component>
+                <Component Id="cmpD1FFB6E88A29EC69CD972EF02DF1832C" Guid="{1D6CB541-D9DD-4F52-AA7D-F1B6D880948C}">
+                    <File Id="filB7B4EFC59731D4DA5F5540849780C179" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ip-semaphore.hh" />
+                </Component>
+                <Component Id="cmpE56E5DFC3DE642D19FADCA54640BAA92" Guid="{3FD79335-B4C2-47A2-80D4-09A1CB209C1A}">
+                    <File Id="fil41F3F5F5069A5FA93182BA46EEA8539D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\lexical-cast.hh" />
+                </Component>
+                <Component Id="cmp81CE464F9A057977AFE30CE6616A41F8" Guid="{680D31D8-FAB0-4EA1-8315-3581D0566482}">
+                    <File Id="filE124993B00900C00FABCA618809B1D34" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\local-data.hh" />
+                </Component>
+                <Component Id="cmp508B3DECA24E07BBC7C86CA3379956DC" Guid="{8A894F78-E602-4921-BA6A-F30705CF6751}">
+                    <File Id="filF8501E5D52557470782673EDA4400A36" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\local-data.hxx" />
+                </Component>
+                <Component Id="cmpE26D6EB6854289ADE2A3990E92422063" Guid="{AEAEEFF7-0708-4846-B8EB-34A46BD41526}">
+                    <File Id="filCE5D7B506D7B857DED4CB970112D45A3" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\local.mk" />
+                </Component>
+                <Component Id="cmpE5D54357F6385B6CBCCD1DE6E08F4ED8" Guid="{E56D887D-4285-4F7C-92E6-FE1DF943C45B}">
+                    <File Id="fil8105E831FA6EF3DF81342A9E898ED483" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\locale.hh" />
+                </Component>
+                <Component Id="cmp342BEC11E55BD91F11C7AA4E2F97A749" Guid="{501F0E07-DBC5-49F1-B5D6-7C7EB6FA5299}">
+                    <File Id="filBA54E24B0DD5235FEAD4B52CDC2F165D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\locale.hxx" />
+                </Component>
+                <Component Id="cmp6E11E8A6ECB910D7DFD4EF25610ECADD" Guid="{F355DB8E-0580-4FF6-949A-374954557032}">
+                    <File Id="fil8618F9A08EF1F14F346BAB23F65D0F11" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\lockable.hh" />
+                </Component>
+                <Component Id="cmp4D3D07ADF8CB718C8B6E7C584DCE98A8" Guid="{06555F7A-1C54-4575-8BA4-58D4C1444860}">
+                    <File Id="fil4A902BB33F6C613F5C612C539BD82846" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\lockable.hxx" />
+                </Component>
+                <Component Id="cmp9AB002538180FB885C2E1AB40D5FD988" Guid="{5D574135-86F4-43C9-AF55-0F326ECFF3E2}">
+                    <File Id="fil8517DAC6FF4980071EB693DFB4F218C6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\map.hh" />
+                </Component>
+                <Component Id="cmp2B8E5FB220E59D921106A7AD21B43099" Guid="{7A01DD2C-F838-4D08-A975-DC665425D405}">
+                    <File Id="fil31FEE32BE07AE86B806E61B8603E8C26" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\map.hxx" />
+                </Component>
+                <Component Id="cmpE27A08357B228469374F8AB40D49A936" Guid="{D91A39FB-85A2-443B-A77D-5B42D0C19A05}">
+                    <File Id="filADFBC63320161A54A6FA97FAE445E74E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\markup-ostream.hh" />
+                </Component>
+                <Component Id="cmpBB65A9BC8B9063B6A926BB7CA2F40956" Guid="{08B508F9-55F0-41CC-8BC8-FECB31478226}">
+                    <File Id="fil76AC91AD2923FFF408F46056083FD134" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\meta.hh" />
+                </Component>
+                <Component Id="cmp2FBFA257CAF3DC89626C635D144DB792" Guid="{578A07B8-AD31-4E55-92B3-B34044A96BD5}">
+                    <File Id="fil3D9A50E2D9FCF48606CBF7079639AF88" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\netdb.h" />
+                </Component>
+                <Component Id="cmp7752E9459D7D8B016EDE797FFE3B4923" Guid="{344CE941-1BAE-4667-8C52-ACDB285E11DD}">
+                    <File Id="filA32AC8907DF17C7A3AC1F6A9B18E4FD2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\network.h" />
+                </Component>
+                <Component Id="cmp4AF65774E812699ECCCBA1649292B410" Guid="{357DBA4A-EFE4-4D41-8684-6B8D795E6A91}">
+                    <File Id="fil030ABD726C55C96DF1686E36E96236BD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\option-parser.hh" />
+                </Component>
+                <Component Id="cmpA34AF6845602DC7F7361D29E036CA1F9" Guid="{58B4B60E-2A1C-4EC9-8982-C3450C1F7602}">
+                    <File Id="fil18E653BAA34BD4AFF17052083AB930C7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\option-parser.hxx" />
+                </Component>
+                <Component Id="cmp372E927EFCBD49E0BF3FF2C39CE971CF" Guid="{3B24E3DD-7627-47DE-BC35-C7D71BDEDE40}">
+                    <File Id="filA0BE6BD86468BFDC7B922C1A8DEF19A9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\package-info.hh" />
+                </Component>
+                <Component Id="cmpC01CF6660E223F8037875A313302FE5F" Guid="{42DCDF58-EC55-409D-804E-22686DE5780D}">
+                    <File Id="fil6A4D8944CF38443C5862337CD7B23072" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pair.hh" />
+                </Component>
+                <Component Id="cmp5352D3B919591C4CB75D4C38610AE1FB" Guid="{7C6FBEF5-CFF8-478E-BA31-23B669F22C75}">
+                    <File Id="filA126EEA730F38597A679AACAC4809E56" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pair.hxx" />
+                </Component>
+                <Component Id="cmpC97E121293F695D08D3C713A2E1CBB43" Guid="{CE4D9FCA-0310-44B0-B8A3-686DCB54390D}">
+                    <File Id="filF233147FB8A3B4F4323744E1AC88EE0A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\path.hh" />
+                </Component>
+                <Component Id="cmp2D84E34354FE66ECE5788C6454D2CF64" Guid="{4428A9D5-4ED4-42F5-AF5C-422BCE6A104C}">
+                    <File Id="filCF75C7A111979FA13E4450908AEF638F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\path.hxx" />
+                </Component>
+                <Component Id="cmp20C18FB9147D307BE9C3D517AF72C01E" Guid="{B33FC9EF-0063-40A8-9840-F1903DDB4BE5}">
+                    <File Id="filD5298E46141A263C512674CBB35BC45D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pid-file.hh" />
+                </Component>
+                <Component Id="cmpCAD0155296585FDDB256DBE11AB75724" Guid="{C214B98F-41D5-42C7-94B8-4D698C49E2BB}">
+                    <File Id="filB4A758CBBC806264646143E601948E40" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pod-cast.hh" />
+                </Component>
+                <Component Id="cmp97816E253D3B975A333E442E1CE90BCB" Guid="{CA79E320-FBB6-4DE1-89FB-0A0DFF431018}">
+                    <File Id="filAC975691209AD5D059CE3B2FFB88DA02" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pod-cast.hxx" />
+                </Component>
+                <Component Id="cmp61AEB7A833995CD6D90153A9EC8C5781" Guid="{5F22CC9B-9C45-4908-9830-49CC5228474E}">
+                    <File Id="filE2D0218252E1636CCF7A9DA61B599E35" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\preproc.hh" />
+                </Component>
+                <Component Id="cmpB69E59FA4242218957DBFDE39BB35E33" Guid="{BBDF4BBD-FA39-4143-8335-96DDE320E069}">
+                    <File Id="fil661A5A3AD8031171A07DD0CD861E4865" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\program-name.hh" />
+                </Component>
+                <Component Id="cmp1999D5D74763A7B51D6EFD512E298DF0" Guid="{B08F9B0B-660E-4C2A-9DE3-FDD975BF14A1}">
+                    <File Id="filED27730B7AB32AE25BF504112FCD99DA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pthread.h" />
+                </Component>
+                <Component Id="cmp252A17C8C6C2EA9B0B19CF1F8B5606F1" Guid="{F8022BD8-1D8B-42D3-98E1-BC048B87DA06}">
+                    <File Id="fil6305F097DD76DC3DB0E876B7C88B26A0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\pthread.hxx" />
+                </Component>
+                <Component Id="cmpA5E85D2EA46AB41E61541A5AB9C7BD4E" Guid="{9254FDA8-DA40-47C0-BCD2-C0B67BC24C89}">
+                    <File Id="filD65ABE4848556E1CC21109FFADFE6F45" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\range.hh" />
+                </Component>
+                <Component Id="cmp68F358667698470748D135089623B359" Guid="{21544DA2-9BA9-419E-A02B-201D8B926EB3}">
+                    <File Id="filFE2BB3DB78F1EC8335AF741616AFECFC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\range.hxx" />
+                </Component>
+                <Component Id="cmp866ED2A5590DC618DB8A67832FDD1C78" Guid="{549172D5-5D95-4087-8198-051895DAA77C}">
+                    <File Id="fil321179E0630257597189326336D96040" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\read-stdin.hh" />
+                </Component>
+                <Component Id="cmp73C9C1B2E0D973AEDA1617536CDC22BC" Guid="{27FD0E0D-18EA-43F3-86E6-B416AE5143A1}">
+                    <File Id="fil475BF123252843A648F26A70589E3BC3" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ref-counted.hh" />
+                </Component>
+                <Component Id="cmpDDB49C00CB36CAD15133D506D3A5EACB" Guid="{0BB44376-EA58-4742-BB29-4A20E375C58E}">
+                    <File Id="filFDF8EEF7575038CE6A37B437892DAC79" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ref-counted.hxx" />
+                </Component>
+                <Component Id="cmp686ED743DA6BB8BB8F3866ABCDCAE835" Guid="{602EFAB3-3C16-47C9-A06E-832C7161B6EC}">
+                    <File Id="fil5F4F435861A054901F08FB5710FA449B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ref-pt.hh" />
+                </Component>
+                <Component Id="cmpC976665ABD1BA9970D25491753EEDD26" Guid="{85896110-07F1-4D41-B485-19470D02FC7E}">
+                    <File Id="fil74AD5A1CCA219D0DA8B0F52D1C446CF6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\reserved-vector.hh" />
+                </Component>
+                <Component Id="cmp3E031E763FE274E0ED7C382B4715E21B" Guid="{87A6D4F4-5A6E-45E8-AE79-451FFAF7EB58}">
+                    <File Id="filDD2FEA8D5FBA8A0BB28ED0D246153B92" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\reserved-vector.hxx" />
+                </Component>
+                <Component Id="cmp30FAE23537BBCF1ABF40846C329D3595" Guid="{9BCFED01-674B-43F2-BED3-A87BC2ABB7E5}">
+                    <File Id="filADED9070C0CBF2341DD2E640CEC1FB07" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\safe-container.hh" />
+                </Component>
+                <Component Id="cmpF8B58548ED0288BB3EA59B34DF653516" Guid="{0CA5FA8F-2DE9-4220-AEE5-BAEB601105AE}">
+                    <File Id="fil23F28CEE24D3A0D59BCDFDF2E7872244" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\safe-container.hxx" />
+                </Component>
+                <Component Id="cmp17D97C3BAFE15DA41855FC284FC5D4EA" Guid="{F9D7985E-F818-41EC-840D-FD2DACD2F099}">
+                    <File Id="fil9A4F46F017075BA1D7AA8705E4B9B671" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sched.hh" />
+                </Component>
+                <Component Id="cmp790A7F2BE7E541F90D4A49E525655CBF" Guid="{97B82E26-56DE-4111-B591-5B51F42A6C55}">
+                    <File Id="fil6EAA0D71A3C8A5B65F450A24745FF5B3" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\select-const.hh" />
+                </Component>
+                <Component Id="cmp43623C2CB3A084F86C036F62E5C7A268" Guid="{323F236F-34A1-49E9-AF5C-B66DB5259547}">
+                    <File Id="fil5D44B1BC7ADBE30B089C2E913BF04690" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\select-ref.hh" />
+                </Component>
+                <Component Id="cmp29D1A9C99FD74313EA33250529BD1E1B" Guid="{9C65536E-8BFB-4456-BA8D-47FE12448322}">
+                    <File Id="filF1C80323167CBEC367C41371D7170990" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\semaphore.h" />
+                </Component>
+                <Component Id="cmp68C58FC27734B581E14883C81B83EDE7" Guid="{08F246E7-7086-4FDC-B881-376703FB865F}">
+                    <File Id="fil2BE036AC0CD8407501F9386F2511E804" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\semaphore.hh" />
+                </Component>
+                <Component Id="cmp83A6F466A2D5EEB185F5BE0A956BA660" Guid="{CF581862-C2C5-49F9-AD5D-6CC8A6CD802D}">
+                    <File Id="fil284C3FFBB08FAA7103CF5A80A39CD293" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\semaphore.hxx" />
+                </Component>
+                <Component Id="cmpFA23F2825F23179E40D127A636A39A21" Guid="{32100880-2DCD-4546-A897-E83ABD69781A}">
+                    <File Id="filA91749DC17F13BE0F44BA778ECE973D0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\separate.hh" />
+                </Component>
+                <Component Id="cmp2C70A45A0F8FA01A9B37E52C7A3ECF2F" Guid="{FEE9DA56-CD3E-46BE-9EA2-5CAE95FCEC41}">
+                    <File Id="fil7A1D40EDA563D02A207A703A9426F610" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\separate.hxx" />
+                </Component>
+                <Component Id="cmpB5813FE93ABA57BB3AD1ED2EBD619C3D" Guid="{4374BC40-6994-4DB8-A979-F6140F354B84}">
+                    <File Id="filAB5265614342048B8C84B1AEE55283A4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\separator.hh" />
+                </Component>
+                <Component Id="cmpCCC04D835ACA4008FE6B2CA62B5D1534" Guid="{A7543D05-23EF-49C6-BDC6-A6CA851295CA}">
+                    <File Id="fil8A778556E7DDE69AF32779C6FA17FF76" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\singleton-ptr.hh" />
+                </Component>
+                <Component Id="cmp9B423DBDCA104F7AAA6CAB0208CD437C" Guid="{E778A408-B4A0-4CF7-9272-9A619CAC7135}">
+                    <File Id="fil56EB876CC112EF7FA6932C098E7CAC1A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\singleton-ptr.hxx" />
+                </Component>
+                <Component Id="cmp8E2D205B9338B1B5B219018EEF59CAFC" Guid="{22567D7A-699E-425D-999D-686421E27156}">
+                    <File Id="fil4288767394D13974AB8A67F9E50951BC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\smart-allocated.hh" />
+                </Component>
+                <Component Id="cmp4F78CCC3F881A078FC0AEDEDEA6DF18C" Guid="{5A22BC72-530D-4448-B9FE-28F9DF227E74}">
+                    <File Id="fil970BE984A7FAF37A1D431A1532F7A93D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\smart-allocated.hxx" />
+                </Component>
+                <Component Id="cmpF309E74F554B9F89759BFA5DE291FFE6" Guid="{CBF4B194-D2B4-40F7-AF5B-725F959D112D}">
+                    <File Id="fil1B18D3AFA7F63D7EAAB0FCE4DF7172C8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\specific-ptr.hh" />
+                </Component>
+                <Component Id="cmp29C2DA61DDBED4DDDEC69B59B1B70190" Guid="{A3A73F94-3E84-4D16-BF1F-563C0C1F826C}">
+                    <File Id="filA2616B007F4E7A012C1117F2400BABC6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\specific-ptr.hxx" />
+                </Component>
+                <Component Id="cmpEA796B7FEF049C65EA563EE4DDEBA44B" Guid="{09BAD2F7-F7DF-4954-8C7D-A19E6615574A}">
+                    <File Id="fil67BF8747AB5723C5B358862D09A8468F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sstream" />
+                </Component>
+                <Component Id="cmp7FDFD96089BDE51E744471B2FE0035CE" Guid="{2BDF3956-B27B-432F-A8D2-608A0C604971}">
+                    <File Id="fil90192AC7220AE92091E5A90DAB2F5C78" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sstream.hxx" />
+                </Component>
+                <Component Id="cmp630FED48855A1BDC5EF9FB4ED0EF9121" Guid="{FC2852E0-E0B0-4368-9C93-B66D7A8CE80F}">
+                    <File Id="fil4EAA30C95DC3E8D8576F79F871A52589" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\statistics.hh" />
+                </Component>
+                <Component Id="cmp6A4B24269378F2A4D1FD5B38B5580801" Guid="{F0BC5662-6A8F-42FD-A730-744C13C975E8}">
+                    <File Id="fil8F789A217A59C0F5BC58B1BAEF91C795" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\statistics.hxx" />
+                </Component>
+                <Component Id="cmp1C050B53A47DC93836749EC06B47BD47" Guid="{5D12310D-72FA-46BB-8505-EE72C2E8A4B9}">
+                    <File Id="fil8511973936E9800C311026A68D835127" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\symbol.hh" />
+                </Component>
+                <Component Id="cmp44CC8878DBEDB42367E46F9AD6DE2F78" Guid="{1634EE55-D981-47C4-8F27-3D367E9F02FD}">
+                    <File Id="fil46B58A32EA9D2470C6F1476391C39F91" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\symbol.hxx" />
+                </Component>
+                <Component Id="cmpD2BE974D2C9F05641A795AB3B977595C" Guid="{C6822A9E-52F1-49EF-97ED-92FBB1D7AAAE}">
+                    <File Id="fil5E97B2A9581ECF7CB0FB2FD19299C041" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\synchronizer.hh" />
+                </Component>
+                <Component Id="cmp0BB82BD55CB067F4B787F24FA2719290" Guid="{B923A915-932D-477F-9D2A-7C29CCF396DD}">
+                    <File Id="fil74F808508D205C7B6D15A7C79EF58302" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\synchronizer.hxx" />
+                </Component>
+                <Component Id="cmpE100A0CFF7315C6E9E327AB528368F24" Guid="{7C09FF36-480C-48BD-B50D-BE3DF233DCDD}">
+                    <File Id="filBF60F63C5E0B43D49881A6AF7E9AE62E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sysexits.hh" />
+                </Component>
+                <Component Id="cmpC5B5B0B88A00F5CE59B95FEF734763C0" Guid="{06113CB4-B06E-4718-BB7A-157164E8D7E5}">
+                    <File Id="fil3EC396E3616B3EBF95688C0207D24FB8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\system-warning-pop.hh" />
+                </Component>
+                <Component Id="cmp2A8A0F2655449FE5189E47226C099A0E" Guid="{76A2C0BD-028E-41A2-8E9F-C7A57B204FD6}">
+                    <File Id="fil76309BEDF312C5620F49825A3FDFB663" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\system-warning-push.hh" />
+                </Component>
+                <Component Id="cmp9FBF1B351DB9B8E52D4A5AA3F55FC84D" Guid="{254A96F0-18FC-4919-ABE9-0A2CEE66A947}">
+                    <File Id="filB298D0EBAD18A858E47F5106608257E1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\thread-data.hh" />
+                </Component>
+                <Component Id="cmp2D02946D588B403048ED56E1711A5A6C" Guid="{C75267FA-EDB1-4B0A-AB32-B1A479F4A03F}">
+                    <File Id="filEBD791416752ACA4EC5887A1CCAA11B8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\thread-pool.hh" />
+                </Component>
+                <Component Id="cmp35DFEF8CC142D9BC30FA72A2E7466978" Guid="{E09120C9-A996-4F48-9D92-CC76A787596A}">
+                    <File Id="filD7E766FB020C239184A955524C92C25D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\thread.hh" />
+                </Component>
+                <Component Id="cmpAEFAD533E49CC064DC3058D16A6A457C" Guid="{D5167EB1-BF9B-47BA-B89C-3B7FC6C9423D}">
+                    <File Id="filF0D14C2BB699FDFFC97F8E5A81AC6569" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\thread.hxx" />
+                </Component>
+                <Component Id="cmpDE8E17C7A19E2D4CD8A6F9D41951637E" Guid="{14E56D7B-F83E-4506-AC56-123D2DD0659D}">
+                    <File Id="fil847BFC90D1211C5570AA39206E474320" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\throw-exception.hh" />
+                </Component>
+                <Component Id="cmp9A90B1E39BB078DAF946E7BA429243C0" Guid="{E8A8D140-3619-46E4-AA83-EAF09D06BE12}">
+                    <File Id="fil2A45945BD7FD3F9C83AB219CE743D978" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\time.hh" />
+                </Component>
+                <Component Id="cmp942DE9DEDB8B5F68D872A242BAC64433" Guid="{85BA2A38-16E9-4371-B79B-2A49717DCF28}">
+                    <File Id="fil4406108DF587EE1CC60726EE699879E7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\time.hxx" />
+                </Component>
+                <Component Id="cmpCF4A207332DD8836EA1C7553C06E98BA" Guid="{EBCD2549-F890-4A4E-943A-817699A3F8CD}">
+                    <File Id="fil97FA9CF7AB80F21920F37B496C76536F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\timer.hh" />
+                </Component>
+                <Component Id="cmp1246C34294FB5B0AEEAF32C2C808EA1B" Guid="{021A2279-9F1D-47D6-A782-EED644DF8251}">
+                    <File Id="filCDFEB41FAD480AF00E0BCF53CD4A7D70" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\timer.hxx" />
+                </Component>
+                <Component Id="cmp546E0A241A6CE7B54A9D2B5F93952576" Guid="{38815718-A276-4DDA-B587-70FFD3755B34}">
+                    <File Id="filCE723F35613661840A531DD9429595B1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\tokenizer.hh" />
+                </Component>
+                <Component Id="cmp444758737F52B4B2EBF5498D592D8DBD" Guid="{5BFDF74F-E718-49BB-83F1-414977D76834}">
+                    <File Id="fil1878E495DC3E21103FE3393611F4BD82" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\traits.hh" />
+                </Component>
+                <Component Id="cmp776305590F806DAA4D8E635D25DB93B6" Guid="{39A92710-3931-4F33-8B30-9E8C8E792FC1}">
+                    <File Id="fil255E777C3DC9818345F6167EFD370953" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\type-info.hh" />
+                </Component>
+                <Component Id="cmpA2A8B5B06B37909A338E8D9F2A678900" Guid="{5C428818-6BDE-4809-A44B-99E4EDBE0C3C}">
+                    <File Id="fil34988EDB31A08917AC295787AA92EEE9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\type-info.hxx" />
+                </Component>
+                <Component Id="cmp3411B82FB90351CF23B2A6928D8BD07A" Guid="{585EB6A7-F9D2-4B5C-88A3-6AB2D9D224E4}">
+                    <File Id="fil1B287335BD0B9AC58623C38F41C59B57" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\typelist.hh" />
+                </Component>
+                <Component Id="cmp2A4995A2BD7534AFEBA4880F0DF4994F" Guid="{41894CF2-3D7C-496A-AEC6-7AB21A0379D5}">
+                    <File Id="fil382D720D99193F7BC2207BC8A8A80D6F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\type_traits" />
+                </Component>
+                <Component Id="cmp905D8E6301EDF9555B0600B86269729A" Guid="{41BE8251-6045-4CA9-95EA-C6443FBF1455}">
+                    <File Id="fil4C81000C74708D168CBF1A05B27A998F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\uffloat.hh" />
+                </Component>
+                <Component Id="cmp64E8FF4F9A13AFA484E65A7BC5B693C2" Guid="{01D3961F-DD72-4D52-8E22-F0ED198618A2}">
+                    <File Id="fil7EC3B516BCFBFB4448BB865E493D3C9A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ufloat.h" />
+                </Component>
+                <Component Id="cmpA901E0F09B51851591BE3BCF7B24DEB7" Guid="{DE9D2291-2F01-4700-B261-1D0C428B65F0}">
+                    <File Id="filDD2F1D4019EFD8A86232C8CAA0D01DFD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ufloat.hh" />
+                </Component>
+                <Component Id="cmp981F2FBA21D07F0D428C04EA22C11304" Guid="{33F76975-8179-4E76-A5CD-4C92EEB09D03}">
+                    <File Id="fil74D744121E85EBD22C71BEEEF46534BC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ufloat.hxx" />
+                </Component>
+                <Component Id="cmp090206EDF25AC639A31019823615EA81" Guid="{75B10DE8-1792-4341-A621-8EEC05A35B46}">
+                    <File Id="fil516E95916AD40F6C6AB8ED48AC068760" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ull-fixed-point.hh" />
+                </Component>
+                <Component Id="cmp035229C9441218AB5D4CC2FD0F28F94C" Guid="{7876BC7E-1899-41A5-B41C-CBDA27F7D33A}">
+                    <File Id="fil74BA3D114BA98FCFF3034951B06B1B9B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\ulong-fixed-point.hh" />
+                </Component>
+                <Component Id="cmp015058134B650D53276022698E34AF9B" Guid="{26F61588-DEE6-4998-B782-7E35690F1961}">
+                    <File Id="filF820FAF424638A948849D505FCCD287B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\umatrix.hh" />
+                </Component>
+                <Component Id="cmp2FF043BFA05C8BAC37D4DC6EABBDF4C2" Guid="{6CA584DB-7AEC-4EDE-821D-D1DC768EE2CB}">
+                    <File Id="fil1AFD81F0B14E44976E392CA27F605018" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\unique-pointer.hh" />
+                </Component>
+                <Component Id="cmpFF15118554C458578DB22884002DA4BF" Guid="{919FCF43-80EC-4D55-9B0D-E3D739531509}">
+                    <File Id="filA606B63873EB2B5074348E4F191867AD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\unique-pointer.hxx" />
+                </Component>
+                <Component Id="cmp1997499A2FEDD69FCCC9E483538A2455" Guid="{A97E3332-2035-44B4-9356-A8ECDAAA013C}">
+                    <File Id="fil946BD3C15DD2B5D4CEB2A8AB75C6ACCB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\unistd.h" />
+                </Component>
+                <Component Id="cmp3064F2387B690FD104A0428FF11803C0" Guid="{0D2883AF-1F33-4E63-90CB-50217C374AEE}">
+                    <File Id="fil42321632A2194048EDD44994EB39CC51" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\unit-test.hh" />
+                </Component>
+                <Component Id="cmp178DE99AF84E96A87F3F93A33AE5264F" Guid="{2273574D-289D-4661-A596-C084FB653F94}">
+                    <File Id="filFC1780C300E85F10AA71B790ED56F508" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\utime.hh" />
+                </Component>
+                <Component Id="cmp1C9D0C099FF20BADB6C46E1815BC060F" Guid="{236D971C-96A3-46FB-B07C-51CEA601C933}">
+                    <File Id="filCCEE26D8E23B1EA58F715483DA832263" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\utime.hxx" />
+                </Component>
+                <Component Id="cmp5020F43D18F18D26B139B0A199C9864B" Guid="{21236CED-A6EB-445C-A5AA-453BB962D217}">
+                    <File Id="filD90981153B116C02A1A77686BD8260C8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\uvector.hh" />
+                </Component>
+                <Component Id="cmpF1BF1AFF7537B9CE5758F7EA87BA85F6" Guid="{0C414FDD-FE99-4218-AACC-066DE9F2A9C5}">
+                    <File Id="fil308A10D6488058A60A38931E7C23BD33" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\valgrind.hh" />
+                </Component>
+                <Component Id="cmp5DF17AA40286ADA35423F525116523BB" Guid="{2516FB26-98A6-4885-A5F8-A6DAD5920AD8}">
+                    <File Id="filCCA4DB7D32E11CE34E86D4D91F8839FB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\vector.hh" />
+                </Component>
+                <Component Id="cmpC529AE60EA014175F15EB82D1CB08EBB" Guid="{BF9BEA00-95EC-4AA7-BB59-D90E3DC327A9}">
+                    <File Id="filFA7C505C46AF9A488B4272EA155515BE" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\version.hh" />
+                </Component>
+                <Component Id="cmp983ED1512844142A7849418BCF22B111" Guid="{364A256A-A376-4733-8415-ED06487A11F2}">
+                    <File Id="fil3FC3C4E4BC1731A35FDA562B637D2971" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\visitor.hh" />
+                </Component>
+                <Component Id="cmp6592D685473BB928CED9E0924F60CF83" Guid="{4DB3866E-5FAF-413B-ADFE-4CDC128BBB14}">
+                    <File Id="fil5DF9D1472D992E0A5C2219B12010E00C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\warning-pop.hh" />
+                </Component>
+                <Component Id="cmp208C9BAC8A821F37E646B00719D9FFB7" Guid="{D2423250-5F5F-4B1F-83BF-FDC562A02BD5}">
+                    <File Id="filD54512D70CAEFC570EA9C91CB9E2D5E5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\warning-push.hh" />
+                </Component>
+                <Component Id="cmpDB533F212F9E3BEA6CFEC49F0A7A214A" Guid="{E186FCB6-C84D-4F7E-A8D1-D381D9C0A25A}">
+                    <File Id="fil1FFD094F73974D724F0550C790845D76" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\weak-ptr.hh" />
+                </Component>
+                <Component Id="cmpEA9A3A36835942577EB3DEFC78CAF671" Guid="{133E7C0D-2E15-401B-84D6-81257FBF478D}">
+                    <File Id="fil4A620A51C366F35413A0556A580DD33E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\weak-ptr.hxx" />
+                </Component>
+                <Component Id="cmp059BA5F286E7A5C000ACC7C8D39DFCCD" Guid="{9162A02E-A914-49FE-A02B-FBB2C8F34368}">
+                    <File Id="fil11EB938B83C2C8A2A25A161914512CE9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\windows.hh" />
+                </Component>
+                <Component Id="cmpFC49C64613DCBCD98E331BD244EAC917" Guid="{554C5C89-C8A6-49B7-A7C8-06CCE8A27F0F}">
+                    <File Id="fil23508C5182734BD3DE07739D38DF9DC9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\xalloc.hh" />
+                </Component>
+                <Component Id="cmp750ED57E0911C7E539016EEEFF23AB27" Guid="{F7769E9E-2194-41F4-B5D1-B78190DC4F96}">
+                    <File Id="fil1F85CB038750EB722DC158EA4D1325D4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\xalloc.hxx" />
+                </Component>
+                <Component Id="cmpDC005609E2ED73A46DD575B584516942" Guid="{94E724D0-765D-4FDB-997F-F565AC014485}">
+                    <File Id="fil3B563E8D498C2C19F3D8769760D5E653" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\xlocale.hh" />
+                </Component>
+                <Component Id="cmpBED47A2B78B8797B232FC5637E32B611" Guid="{80542CBE-772E-4A4D-9AED-2B609A2664F9}">
+                    <File Id="fil0D4553F7CE2D5541C3666EA30D0F8E32" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\xltdl.hh" />
+                </Component>
+                <Component Id="cmpE112F1755468F5042075AEF2BFF8C498" Guid="{5B301F2B-F3FF-43ED-A340-46572E7F0098}">
+                    <File Id="fil89AE843DA8567C984D8BA97294A92CBE" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\xltdl.hxx" />
+                </Component>
+                <Directory Id="dir550B8A6DA49B4128293C268BA2D7823F" Name="arpa">
+                    <Component Id="cmp62EA0C3FF56EC03130491B9B4FC02AF0" Guid="{D2EE644F-F644-4701-8191-BE5A866B2697}">
+                        <File Id="fil33AFE95395D9F632BCB5D05D0DDD5C64" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\arpa\inet.h" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir6EE48F77CD585F5AF9B32E9246B6BB79" Name="sys">
+                    <Component Id="cmp399AA442FF807B7FE3C0CFE808A7925A" Guid="{92A5467E-066A-4928-B2A7-402A018EBE77}">
+                        <File Id="filC0621DFC4404636A466BC8CF15C8EDB8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\param.h" />
+                    </Component>
+                    <Component Id="cmpBEEC191E0D9C0C100E9AA6F97E0429E1" Guid="{6E9F20FF-E7AA-4918-908B-89BB6A8FA29E}">
+                        <File Id="fil5A6A569BF0CA46DF3B811D94B7DEF2E9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\prctl.h" />
+                    </Component>
+                    <Component Id="cmpE5A0572F96C20DAD24A44578242A5179" Guid="{7F322633-9419-44DF-A89C-DCB8C36900D7}">
+                        <File Id="filB4679D269BEAF910CE9263FB31F46312" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\select.h" />
+                    </Component>
+                    <Component Id="cmp9C3A3A851D157E4D57BDB97061E5DC21" Guid="{F8BB7900-3A23-4853-96C4-A5839B358744}">
+                        <File Id="fil3A8B4BA873D5D7476CAD37B2FC68FD9D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\socket.h" />
+                    </Component>
+                    <Component Id="cmpC1558A37B605DF89296CADAA71F6CF0E" Guid="{A5E03AFF-FDE9-4C16-AF41-7237EFFC2DA5}">
+                        <File Id="filE616456246BEEC6D7C4546B1032CD25A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\stat.h" />
+                    </Component>
+                    <Component Id="cmp6C8C0E0DF06496D4AE72B5B3E8BA4478" Guid="{757758AD-DFB3-47F9-BDB5-6EB578A14FE0}">
+                        <File Id="fil7FF38C44F2A58A74D734A19D244474C8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\stat.hxx" />
+                    </Component>
+                    <Component Id="cmp7CA6584F393CAF96F70649D703A08DA8" Guid="{134B73CB-DC9C-4A1E-A439-51025E84D208}">
+                        <File Id="filBE380EC4F9581A3CBF0316A4A848CEC4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\time.h" />
+                    </Component>
+                    <Component Id="cmp9ED26487A299AC7A080359842923138C" Guid="{4859870B-8AED-4FFA-912F-2BC367A3057F}">
+                        <File Id="fil9C9373C9091276D248F165994D71EF6F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\time.hxx" />
+                    </Component>
+                    <Component Id="cmp621038F747E5D68E551A3D81892E9FED" Guid="{DCB22631-4900-4751-8CE8-74C3FA773FDE}">
+                        <File Id="fil94DC99E6B2B2D1298B25C3EA4DC376E1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\types.h" />
+                    </Component>
+                    <Component Id="cmpE2C74B2B58FB2471EA5A08A6469365E0" Guid="{F37EA6FC-4D77-467E-8522-426554BFBCDD}">
+                        <File Id="fil389B27C035F466FF500285C9ECEE10E9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\utsname.h" />
+                    </Component>
+                    <Component Id="cmp42EF10EECCF235C45004926D5B917365" Guid="{1E8DEEF3-090D-47A9-8A86-F8E0832ED275}">
+                        <File Id="filC3DCC4F4831A32503F89EB95327DC168" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\utsname.hxx" />
+                    </Component>
+                    <Component Id="cmp158AECD55C97BE03E53CD22857DACEB5" Guid="{1D9059EA-78D8-4643-B5BF-0117DC0A46D8}">
+                        <File Id="filA7DA0012E5163CF39773F63CC286FB66" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\sys\wait.h" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirC9EE8ABF320E97B7A544229C888AAEEB" Name="tr1">
+                    <Component Id="cmp52BD1A67AD18075880DBF6E49AB0A6A7" Guid="{5B884D48-9096-448F-9DAD-1AECB8A55B8D}">
+                        <File Id="filE3A7CB09F6038EB01D328DD3319CD8F6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\libport\tr1\type_traits" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="dir7226C8AC8C60693AB6C8FF802EB32665" Name="sched">
+                <Component Id="cmp451360BADCC5A8EFAE22C2FAB0A14830" Guid="{2C610817-0FB8-4573-AD3E-BF8EACF26937}">
+                    <File Id="fil4BBCF33DF0096991A5F50FF7EF6C9121" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\configuration.hh" />
+                </Component>
+                <Component Id="cmp48A8203EF7667BEE926BD1FFD08F01F5" Guid="{0B44F7E5-A24F-4CCA-AB51-86C23A8403FD}">
+                    <File Id="fil4592EA05B144CFAF725CB736F22B78A2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine-boost.hxx" />
+                </Component>
+                <Component Id="cmp3AA94ED085ABBE546AC4F0D3FA8DD85F" Guid="{1010EA00-58E9-4095-9308-422080B52B54}">
+                    <File Id="fil91FBB0E578EC1280150D1C76A0713220" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine-coro.hxx" />
+                </Component>
+                <Component Id="cmp6901010F3C7ED588BF543D754AD817B2" Guid="{A82D2406-AA31-46F2-BFE4-D5ACCB6E0759}">
+                    <File Id="fil36B6AE16326C4F19E967BE0D9B71C3F0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine-hooks.hh" />
+                </Component>
+                <Component Id="cmpDAB3295264FC1D3BC5FC929D7D0BA7AF" Guid="{09CB6AA9-F6EB-4D73-BFFA-B6EF8B81880E}">
+                    <File Id="fil93CC4100B61FA577E0056287443D13C6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine-local-storage.hh" />
+                </Component>
+                <Component Id="cmpA2A3840EF0BF9EFBE94D43C2A70695CE" Guid="{AAB457A8-E77E-4F53-8491-36061D2006B2}">
+                    <File Id="fil90FCF220D64D587B9A98A13B7DF01EC7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine-local-storage.hxx" />
+                </Component>
+                <Component Id="cmp326F6C7D1FE0AAC82A290782FFCB0034" Guid="{91CE9C25-DFDF-446E-B9F9-7B33F523F68D}">
+                    <File Id="fil38FB14345E1222DCE666E71D93B15A22" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine.hh" />
+                </Component>
+                <Component Id="cmp246BE9C434E2B09B26B0746536F6FE09" Guid="{78D7AB2E-8DF6-41DB-B35E-D2E26E766F11}">
+                    <File Id="fil542385A8D3996593BF4EF5B29A187E68" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\coroutine.hxx" />
+                </Component>
+                <Component Id="cmpF4DCB52475678DDB60C5380CB9DBD8C0" Guid="{4178CEE5-0043-4B97-ABEC-6F8C8FDABAE4}">
+                    <File Id="fil80A08435F6C764AD263E151C8D269C55" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\exception.hh" />
+                </Component>
+                <Component Id="cmpE61472B0F538A78CF84C05F0DA7C2DBC" Guid="{FBEEACA1-B549-4BCE-963E-867ABE5A2746}">
+                    <File Id="filB5F6B987E7614728742A0F9C9E911ACB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\exception.hxx" />
+                </Component>
+                <Component Id="cmp5A7DBC9A2BE49413EA80EC213930AF46" Guid="{2C171461-547C-4669-9FC3-8A87D6EAE775}">
+                    <File Id="fil2E15CA1A3DEF7A37CC73C66E4DA79B4A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\export.hh" />
+                </Component>
+                <Component Id="cmpBFFC671A38F91B33CD94F76F607CD096" Guid="{6743FF3A-C193-4698-B6A3-FE136BD59727}">
+                    <File Id="fil144B61CF57D0B8E4BC0C2D9F5F0FF7DA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\fwd.hh" />
+                </Component>
+                <Component Id="cmp3938C8D8A29A36F5BC27CF08E47F6B4B" Guid="{EAFD3792-83B3-468E-999C-3C0260971ABA}">
+                    <File Id="fil6D715A88329FE711FE3F3D1F5FF2ABCA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\job.hh" />
+                </Component>
+                <Component Id="cmpB76CC20CAFCC7873E46B895C2A9C8CBF" Guid="{7F2B1429-C82C-4187-B1A2-A2485CDBB5A8}">
+                    <File Id="fil93EDAFF3ACCC8D5E05792EE979828946" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\job.hxx" />
+                </Component>
+                <Component Id="cmpDEBF32F517D66C76EC3AA4F4A9748713" Guid="{48CEF668-7190-40F1-818B-E7247127688F}">
+                    <File Id="fil315315E237A2D201646B81B87ACD045A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\local.mk" />
+                </Component>
+                <Component Id="cmp549E834033B8397B549F38A54B749538" Guid="{D731242B-965B-4E56-B218-0D03D4C773B5}">
+                    <File Id="fil9B51B6615E607FA393C476F18ED0FD55" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\scheduler.hh" />
+                </Component>
+                <Component Id="cmpA8431EC7F14C472BFB8C9DD464B5D315" Guid="{A7381AF3-5386-44D5-955A-91D2EFCFF7B5}">
+                    <File Id="fil51E873A6887FB5DEAC7809E8B19BC17E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\scheduler.hxx" />
+                </Component>
+                <Component Id="cmp03E7F74C8C73D9C996D3899695E33BB4" Guid="{578DAFD5-7C49-4003-B965-51365FC7B734}">
+                    <File Id="filA0DCE49C138FA493554297C57792C689" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\tag.hh" />
+                </Component>
+                <Component Id="cmpF872C6FD270632824D1A058864BC1C43" Guid="{31C1ACED-811C-4A0B-A4A7-A82B3E870293}">
+                    <File Id="filE63F04D99F42CF6FEC8974CB01F6B02E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\tag.hxx" />
+                </Component>
+                <Directory Id="dirA2BDBAC5DC88AC1E0F65579D7665FBE9" Name="libcoroutine">
+                    <Component Id="cmp0D8539400DD32A7DE1F14FECE16A5AB8" Guid="{C65C2491-EE6E-4487-89F8-61DD8B41A244}">
+                        <File Id="fil2C089DFF4A8C3F3034589AEEC7CEC6E0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\libcoroutine\386-ucontext.h" />
+                    </Component>
+                    <Component Id="cmpC4F8DD4E480CF710C6EE6051B4FC8EC7" Guid="{F8ADC256-EED9-4102-A19E-E77CD5FD65FB}">
+                        <File Id="fil0A812866E7132A2BA68DCC21B64A1468" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\libcoroutine\amd64-ucontext.h" />
+                    </Component>
+                    <Component Id="cmp407F08B39A4DC5C13C0962CDFC66CBF4" Guid="{E0EFDD0F-4903-4E92-8C00-6908FC520EF5}">
+                        <File Id="fil86026A77C9FFC31080F4294FB97A8BF1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\libcoroutine\Common.h" />
+                    </Component>
+                    <Component Id="cmpFC4D86350030B714D518173384863D5F" Guid="{FD195C6D-A552-44B8-BCBA-B5A26E3C357C}">
+                        <File Id="filDDC16E4DF9FE0AFE053B16EDCB72A82B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\libcoroutine\Coro.h" />
+                    </Component>
+                    <Component Id="cmp55F0507349028B29CC8753CB63EA12E2" Guid="{4F0AC998-58F3-4C7D-A758-607C5DB3D3FE}">
+                        <File Id="fil76184166DD366FA218A50E87A75B03BD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\libcoroutine\power-ucontext.h" />
+                    </Component>
+                    <Component Id="cmpEA55FD23538A069778EA11E0E593FD9D" Guid="{F623E038-7C61-4A06-BD6B-397FE8F203E6}">
+                        <File Id="filCCD6257E3F7866A70D8350AA9EB0733A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\sched\libcoroutine\taskimpl.h" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="dir613ECF3E42B681EFA0F4BD46AA9C91F6" Name="serialize">
+                <Component Id="cmpD2651E95353DA08DAC7F2C7F6A228894" Guid="{10557016-2E68-4117-8558-2E648C9819A1}">
+                    <File Id="fil7C32ACD4D24D5201FADEA074EB6D4928" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\binary-i-serializer.hh" />
+                </Component>
+                <Component Id="cmp5D336388DCDCA13E373FF0A478B757C0" Guid="{41D32054-854A-4698-9908-8ECAE7FA4306}">
+                    <File Id="filF9ADA7957D6DD6A2AF672081B0B0081A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\binary-i-serializer.hxx" />
+                </Component>
+                <Component Id="cmp4970546BFE4235C111D056C541EBE5A0" Guid="{74D5EFDB-C34D-46E3-9899-E5332315AE95}">
+                    <File Id="fil607E7B4468B897DC43F17E2601922425" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\binary-o-serializer.hh" />
+                </Component>
+                <Component Id="cmpD33E357CE548EAFA028BA69B5AD7BC99" Guid="{533FC2D7-30CE-48DF-A0A1-F967C7249110}">
+                    <File Id="filC4C4165EEABEEB059C473091650CCA4E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\binary-o-serializer.hxx" />
+                </Component>
+                <Component Id="cmpE7636DB0606EFCFF77FFA0FD90766ACF" Guid="{376C02EE-290B-446D-BAC6-032BB7344210}">
+                    <File Id="fil3E943C29EECA9254AE19B607C66B146A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\exception.hh" />
+                </Component>
+                <Component Id="cmp998E159A7D513CFE0C25CA21B4FED1C4" Guid="{285A4D63-85F2-4D76-BAB9-88343C4BAE60}">
+                    <File Id="filDCBE85B3DA1627AFF3934B9AC280E4CC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\export.hh" />
+                </Component>
+                <Component Id="cmpCD08A94A7B775CE2FD50D82B43900C05" Guid="{0590B13A-2EEF-40EA-905B-2F45EF7CE5F0}">
+                    <File Id="fil5BD5EA5CFF86A2E13FC4537C0C38C775" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\fwd.hh" />
+                </Component>
+                <Component Id="cmpDB7C3665D7937CAC6DAB1508CC16F30F" Guid="{CE8E56CD-45F9-412A-ACC0-3FA83E2B9E9D}">
+                    <File Id="filF1C19F7A7CFB8F887987F582584AD493" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\i-serializer.hh" />
+                </Component>
+                <Component Id="cmpD530FD5D03D7B4554FC6150D1A136FD8" Guid="{AEA1EDD6-B173-4E36-BA11-B21C541AE6C4}">
+                    <File Id="fil3196B8C487258D5F83816BAE42F1504E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\i-serializer.hxx" />
+                </Component>
+                <Component Id="cmpDA03370B900F91DE47D34273C63A803A" Guid="{A04633FA-5BB1-45DF-BEF6-14AD64E44FB5}">
+                    <File Id="fil48F08CEFE85F74CC3CD93D161521002F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\local.mk" />
+                </Component>
+                <Component Id="cmpDCD307EB67BA890056C8B8C70E6D4B73" Guid="{2B7D8853-5232-4A61-B006-C235ED3F091D}">
+                    <File Id="fil923C6AC62D617BFB0BE80A6943763CBD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\o-serializer.hh" />
+                </Component>
+                <Component Id="cmpDAF2836F8F25447768E9E6737EE67AA8" Guid="{850328B9-740F-489D-A2C8-5E471E9CFCDB}">
+                    <File Id="filC2CF3565CEC4E9A7C934E8DD0577F22C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\o-serializer.hxx" />
+                </Component>
+                <Component Id="cmp6D90D8575180C7A262D970059CCD0EF5" Guid="{D1E50582-AAD2-4C8C-8965-C38984FBAC0F}">
+                    <File Id="fil5A6B07090638F439E1CD3DAFBE57897B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\serialize.hh" />
+                </Component>
+                <Component Id="cmp98DE05163F530CE1C1EF225FC24C6D8D" Guid="{4D4EF989-4069-4A11-9059-798F6E8C0E55}">
+                    <File Id="filCE61A82FD32F9493D8E21CC55870C679" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\xml-i-serializer.hh" />
+                </Component>
+                <Component Id="cmp059A6398F65854C317C44B79B2429B66" Guid="{20C951B8-0637-44A0-88EC-308DED750E97}">
+                    <File Id="filE7E236FC545CBC7BB8BFF7425F03F2B7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\include\serialize\xml-o-serializer.hh" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+        <DirectoryRef Id="dirCC4BF51C3FB0120CE9B785729700549B">
+            <Component Id="cmpFF8D56EFBEC692E65409D2532E603567" Guid="{1E99213E-55E3-4E0C-A7E3-DA7139491105}">
+                <File Id="fil6A744F4BB4DFB5773B6030BB7F2DC5E9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\port.lib" />
+            </Component>
+            <Component Id="cmp8C0BB5573ED5E2F044A8847880252000" Guid="{61D82BC9-FA11-439F-B54D-2408B0BB311B}">
+                <File Id="filF291BDA70E6430D9BFCC5746AAECF05B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\sched.lib" />
+            </Component>
+            <Component Id="cmp1E9F3F1FB02A0D0214A2D6BFC4580089" Guid="{E083BD06-76FF-4E20-A5F9-E5C15A8DE542}">
+                <File Id="fil9BD165B4863184DEE8B34DC2F44E9E36" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\serialize.lib" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="dir9912D30B64EC8FD5585A472B9130C769">
+            <Directory Id="dir392B73AAE73CA96E777AD1C2B843D81A" Name="port">
+                <Component Id="cmp83B1AC931F7146E18575D12175AA93ED" Guid="{4FDA0A53-FAC3-4B80-AE43-0C23D343BCDF}">
+                    <File Id="filB4C78814D21D7E96CDE9C8475EDEAF54" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\cmake\port\port-config.cmake" />
+                </Component>
+            </Directory>
+            <Directory Id="dirFD44311E0B288AF5E2A47541B8E9818B" Name="sched">
+                <Component Id="cmp77DDB10F287B97DD279647A4772DCCB8" Guid="{03C45CFA-863A-417B-BC97-493C934523ED}">
+                    <File Id="fil53DA5A8C753BF15275BFAEBEF0FA9BF5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\cmake\sched\sched-config.cmake" />
+                </Component>
+            </Directory>
+            <Directory Id="dirCB6489B692EC3F53F062CD793EC4A8F7" Name="serialize">
+                <Component Id="cmp5155F09567A963A3FD3ECE23BC4FCB26" Guid="{4A33779C-5EDA-4C7C-9A48-942662687253}">
+                    <File Id="filDD78A9D5F613AB99488FBE7D782A60D0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\cmake\serialize\serialize-config.cmake" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="LibPortDevComponentGroup">
+            <ComponentRef Id="cmp74684D5461CBEE67C1E225C7A73D2892" />
+            <ComponentRef Id="cmp073F8049B65CF4FCBDA9EC959B2AB28A" />
+            <ComponentRef Id="cmpD29FEE1F8E0790B75A06893F39212FE6" />
+            <ComponentRef Id="cmp171C85758DF022958A63AC5C9F87C072" />
+            <ComponentRef Id="cmpFDF660DB129D95AC9F786005EEBA4628" />
+            <ComponentRef Id="cmpC2A3D005C7B3E14C6276F266B9019660" />
+            <ComponentRef Id="cmp1DB9F88FF51DB51A5997EB19CACF4798" />
+            <ComponentRef Id="cmp3A517D77409388C6EB81A1D2D397174F" />
+            <ComponentRef Id="cmpB1A92BFF109A7B87CECF4AD6513FC64F" />
+            <ComponentRef Id="cmpA15254F694A47821CD5708FFB9434D7E" />
+            <ComponentRef Id="cmp679D93A608DA957D97897BED027FC0C8" />
+            <ComponentRef Id="cmpF2E6989E8E46A05D556D944CD5F874EB" />
+            <ComponentRef Id="cmp171C418A361E6F11238D84275C5FE86E" />
+            <ComponentRef Id="cmp7601EC1267CC66410FE4870C3BEB0205" />
+            <ComponentRef Id="cmp65471FF640CB8917234E06A39917125D" />
+            <ComponentRef Id="cmp8317B8CECD5E8F0AC38AC9277398BBD5" />
+            <ComponentRef Id="cmp3ECC9F7107AC32278CE8965A68A13C92" />
+            <ComponentRef Id="cmp93DEEEE8402E5152CFA0626DA1A50472" />
+            <ComponentRef Id="cmp14BB738EA1DC91DB93FC901936A37D7F" />
+            <ComponentRef Id="cmp16C0A3368F717E7ACE56E9C6CA57A6BF" />
+            <ComponentRef Id="cmp3F996FF557ACA1592B075D0BDD5843C9" />
+            <ComponentRef Id="cmp582899F566DD7B1ABA67D9BD7A68105A" />
+            <ComponentRef Id="cmp08A3B697D9D617EB30BE92EDB425C5EF" />
+            <ComponentRef Id="cmpDC1E2766523AE3E6F5D5C050FF7516EE" />
+            <ComponentRef Id="cmp6F277A08FB17115AFB096807A4699E5C" />
+            <ComponentRef Id="cmpE399FB6ACE84A21223247803275C7D1E" />
+            <ComponentRef Id="cmp055446E0E9099E491D5693C791612FF8" />
+            <ComponentRef Id="cmp95ED07FDF8F6A0DB8CFC7F35938AA74B" />
+            <ComponentRef Id="cmp535E8E3FA91C07F50E687F67BD907F72" />
+            <ComponentRef Id="cmpACF90923CB5AAE663D07FC021D7DB5E4" />
+            <ComponentRef Id="cmp5DC73DBFE40EC5BF098917A8AA5D4951" />
+            <ComponentRef Id="cmp11E0C92084F63F4BF6041AFC853B7EA5" />
+            <ComponentRef Id="cmp345CC55CE1856FAB2837BEC7BF93412C" />
+            <ComponentRef Id="cmpF67062550D85DD60233932E7990DA795" />
+            <ComponentRef Id="cmpEAC50989E714C6BD7F3E33445EAB5B87" />
+            <ComponentRef Id="cmp44D4D948E3B3EE71A3005474C085F2DA" />
+            <ComponentRef Id="cmp3945F043285DFB392C66CDAE83C41156" />
+            <ComponentRef Id="cmpA0365214C2920A1A04B86B3E77CA67B3" />
+            <ComponentRef Id="cmp33B0C0AFFA6537557179C60426C556E4" />
+            <ComponentRef Id="cmp5DA73BABFA011EB1A374AD822844E189" />
+            <ComponentRef Id="cmp5193CC1C9A2C7B1B7D5E48F3596EBAF7" />
+            <ComponentRef Id="cmp6257E016AE9C0D18BF69E6664C3E3CA1" />
+            <ComponentRef Id="cmp047E2300DA8524D5E6E089C45CCB24E9" />
+            <ComponentRef Id="cmp5EAA4BE446D873F5B8E2135F5758D97B" />
+            <ComponentRef Id="cmpADD9F0E5D2787E6B8B1B544ED98D9798" />
+            <ComponentRef Id="cmpD20DD1CF84A86CCF4581D3B83D3CB126" />
+            <ComponentRef Id="cmpFE371F5E85579EA9D59B1FE28C4F96D8" />
+            <ComponentRef Id="cmpA487D0B9430F5D1A7476A0D2111C3991" />
+            <ComponentRef Id="cmp1B68B87860316E34EF0FB6C0561768FA" />
+            <ComponentRef Id="cmp586953DAB14C8693C938328680C5D1BD" />
+            <ComponentRef Id="cmp5D14C835F1DA7DA694438FDF617445A3" />
+            <ComponentRef Id="cmp9DF6F05EF21885DE89008F5141AF81FA" />
+            <ComponentRef Id="cmpC3A440DB4388B7D16E6CF6EE78907F8E" />
+            <ComponentRef Id="cmpCCFB3216B0BB1098C27F527433DAF130" />
+            <ComponentRef Id="cmp7B4DE28678844EFD4A9A8D4AF20CCE26" />
+            <ComponentRef Id="cmpCA5FE57532A4A628BE0F43A3686581EF" />
+            <ComponentRef Id="cmpF4B9C0BF3B574F2339F6ABAC74232AF5" />
+            <ComponentRef Id="cmp18B48B12DE553B66FE75F8140CFE5CA7" />
+            <ComponentRef Id="cmpC28B6D51250E0966313B653D8AA17F45" />
+            <ComponentRef Id="cmp19FED668A7E42AAEBEB980189D9CB249" />
+            <ComponentRef Id="cmp9CCBAB1970E5309D4474DF0300014BDD" />
+            <ComponentRef Id="cmp04795F15ECBC1B64FCEB8250DE05DC28" />
+            <ComponentRef Id="cmpD8B78B357A69A00269D29F9232332626" />
+            <ComponentRef Id="cmp80DF0A16FD1EEA1F487219A8016FE260" />
+            <ComponentRef Id="cmpB7A486B0B29F7B55DCAA758FE4345412" />
+            <ComponentRef Id="cmp091DB425F58FCD94DA0EAF8392158BD0" />
+            <ComponentRef Id="cmp5D57DFDF45A1CBEF4D68EDAC270144EF" />
+            <ComponentRef Id="cmpFA794D72C0032A9B389A33A99D33DCDD" />
+            <ComponentRef Id="cmp75D4CBA337C597FA6F34643719D2CA4D" />
+            <ComponentRef Id="cmp30D238F5FEF572924502EBCD0B0B1694" />
+            <ComponentRef Id="cmpD6F039FFCDE6D1008037A5C778CDE711" />
+            <ComponentRef Id="cmp7A4C783F229A78E22D6434E0136020D7" />
+            <ComponentRef Id="cmp8CE46878A3AB5990D5F8DBAD25EECA18" />
+            <ComponentRef Id="cmp33FD79957FDD6D43172BEB5163BE6ADD" />
+            <ComponentRef Id="cmpAA436AF9E5D2854A27047BC9B2F018F7" />
+            <ComponentRef Id="cmpF368760EBF4C136E78A1DBD2BB6BB5B9" />
+            <ComponentRef Id="cmpA4629181C2D6651FF693FE2DFB00DFC2" />
+            <ComponentRef Id="cmp4D3EAB5D92CFB0F73D69F9D46A87F7BD" />
+            <ComponentRef Id="cmpB31695E3DE214274D2968400CAEBD9FD" />
+            <ComponentRef Id="cmp23E25583A6E8E06F75A3DED07734F026" />
+            <ComponentRef Id="cmp3F453E1C710C0362FE7630B325D0EADB" />
+            <ComponentRef Id="cmp512A6E1A3DAC49E21DBC76B6BD881E1D" />
+            <ComponentRef Id="cmp801BFA1556555B1F749309EC10E49986" />
+            <ComponentRef Id="cmp7DF3C01647D10E390039C8366C1EA086" />
+            <ComponentRef Id="cmp333A81FD1392C7998BA7E4C2022A8D08" />
+            <ComponentRef Id="cmp302D34BF745309965953FF79F3A57AB6" />
+            <ComponentRef Id="cmpB82D8F6043D94C0FB0D98006FAABEC50" />
+            <ComponentRef Id="cmp694496FC24E990B1EC7A1B5C7AD2ADFD" />
+            <ComponentRef Id="cmp13A106B7731B6D5701129629B22A7913" />
+            <ComponentRef Id="cmp55FB9CA25FAF2DAD12E96614D532F795" />
+            <ComponentRef Id="cmp7AA08531F6E3966A9E51E0B5B2034402" />
+            <ComponentRef Id="cmpD1FFB6E88A29EC69CD972EF02DF1832C" />
+            <ComponentRef Id="cmpE56E5DFC3DE642D19FADCA54640BAA92" />
+            <ComponentRef Id="cmp81CE464F9A057977AFE30CE6616A41F8" />
+            <ComponentRef Id="cmp508B3DECA24E07BBC7C86CA3379956DC" />
+            <ComponentRef Id="cmpE26D6EB6854289ADE2A3990E92422063" />
+            <ComponentRef Id="cmpE5D54357F6385B6CBCCD1DE6E08F4ED8" />
+            <ComponentRef Id="cmp342BEC11E55BD91F11C7AA4E2F97A749" />
+            <ComponentRef Id="cmp6E11E8A6ECB910D7DFD4EF25610ECADD" />
+            <ComponentRef Id="cmp4D3D07ADF8CB718C8B6E7C584DCE98A8" />
+            <ComponentRef Id="cmp9AB002538180FB885C2E1AB40D5FD988" />
+            <ComponentRef Id="cmp2B8E5FB220E59D921106A7AD21B43099" />
+            <ComponentRef Id="cmpE27A08357B228469374F8AB40D49A936" />
+            <ComponentRef Id="cmpBB65A9BC8B9063B6A926BB7CA2F40956" />
+            <ComponentRef Id="cmp2FBFA257CAF3DC89626C635D144DB792" />
+            <ComponentRef Id="cmp7752E9459D7D8B016EDE797FFE3B4923" />
+            <ComponentRef Id="cmp4AF65774E812699ECCCBA1649292B410" />
+            <ComponentRef Id="cmpA34AF6845602DC7F7361D29E036CA1F9" />
+            <ComponentRef Id="cmp372E927EFCBD49E0BF3FF2C39CE971CF" />
+            <ComponentRef Id="cmpC01CF6660E223F8037875A313302FE5F" />
+            <ComponentRef Id="cmp5352D3B919591C4CB75D4C38610AE1FB" />
+            <ComponentRef Id="cmpC97E121293F695D08D3C713A2E1CBB43" />
+            <ComponentRef Id="cmp2D84E34354FE66ECE5788C6454D2CF64" />
+            <ComponentRef Id="cmp20C18FB9147D307BE9C3D517AF72C01E" />
+            <ComponentRef Id="cmpCAD0155296585FDDB256DBE11AB75724" />
+            <ComponentRef Id="cmp97816E253D3B975A333E442E1CE90BCB" />
+            <ComponentRef Id="cmp61AEB7A833995CD6D90153A9EC8C5781" />
+            <ComponentRef Id="cmpB69E59FA4242218957DBFDE39BB35E33" />
+            <ComponentRef Id="cmp1999D5D74763A7B51D6EFD512E298DF0" />
+            <ComponentRef Id="cmp252A17C8C6C2EA9B0B19CF1F8B5606F1" />
+            <ComponentRef Id="cmpA5E85D2EA46AB41E61541A5AB9C7BD4E" />
+            <ComponentRef Id="cmp68F358667698470748D135089623B359" />
+            <ComponentRef Id="cmp866ED2A5590DC618DB8A67832FDD1C78" />
+            <ComponentRef Id="cmp73C9C1B2E0D973AEDA1617536CDC22BC" />
+            <ComponentRef Id="cmpDDB49C00CB36CAD15133D506D3A5EACB" />
+            <ComponentRef Id="cmp686ED743DA6BB8BB8F3866ABCDCAE835" />
+            <ComponentRef Id="cmpC976665ABD1BA9970D25491753EEDD26" />
+            <ComponentRef Id="cmp3E031E763FE274E0ED7C382B4715E21B" />
+            <ComponentRef Id="cmp30FAE23537BBCF1ABF40846C329D3595" />
+            <ComponentRef Id="cmpF8B58548ED0288BB3EA59B34DF653516" />
+            <ComponentRef Id="cmp17D97C3BAFE15DA41855FC284FC5D4EA" />
+            <ComponentRef Id="cmp790A7F2BE7E541F90D4A49E525655CBF" />
+            <ComponentRef Id="cmp43623C2CB3A084F86C036F62E5C7A268" />
+            <ComponentRef Id="cmp29D1A9C99FD74313EA33250529BD1E1B" />
+            <ComponentRef Id="cmp68C58FC27734B581E14883C81B83EDE7" />
+            <ComponentRef Id="cmp83A6F466A2D5EEB185F5BE0A956BA660" />
+            <ComponentRef Id="cmpFA23F2825F23179E40D127A636A39A21" />
+            <ComponentRef Id="cmp2C70A45A0F8FA01A9B37E52C7A3ECF2F" />
+            <ComponentRef Id="cmpB5813FE93ABA57BB3AD1ED2EBD619C3D" />
+            <ComponentRef Id="cmpCCC04D835ACA4008FE6B2CA62B5D1534" />
+            <ComponentRef Id="cmp9B423DBDCA104F7AAA6CAB0208CD437C" />
+            <ComponentRef Id="cmp8E2D205B9338B1B5B219018EEF59CAFC" />
+            <ComponentRef Id="cmp4F78CCC3F881A078FC0AEDEDEA6DF18C" />
+            <ComponentRef Id="cmpF309E74F554B9F89759BFA5DE291FFE6" />
+            <ComponentRef Id="cmp29C2DA61DDBED4DDDEC69B59B1B70190" />
+            <ComponentRef Id="cmpEA796B7FEF049C65EA563EE4DDEBA44B" />
+            <ComponentRef Id="cmp7FDFD96089BDE51E744471B2FE0035CE" />
+            <ComponentRef Id="cmp630FED48855A1BDC5EF9FB4ED0EF9121" />
+            <ComponentRef Id="cmp6A4B24269378F2A4D1FD5B38B5580801" />
+            <ComponentRef Id="cmp1C050B53A47DC93836749EC06B47BD47" />
+            <ComponentRef Id="cmp44CC8878DBEDB42367E46F9AD6DE2F78" />
+            <ComponentRef Id="cmpD2BE974D2C9F05641A795AB3B977595C" />
+            <ComponentRef Id="cmp0BB82BD55CB067F4B787F24FA2719290" />
+            <ComponentRef Id="cmpE100A0CFF7315C6E9E327AB528368F24" />
+            <ComponentRef Id="cmpC5B5B0B88A00F5CE59B95FEF734763C0" />
+            <ComponentRef Id="cmp2A8A0F2655449FE5189E47226C099A0E" />
+            <ComponentRef Id="cmp9FBF1B351DB9B8E52D4A5AA3F55FC84D" />
+            <ComponentRef Id="cmp2D02946D588B403048ED56E1711A5A6C" />
+            <ComponentRef Id="cmp35DFEF8CC142D9BC30FA72A2E7466978" />
+            <ComponentRef Id="cmpAEFAD533E49CC064DC3058D16A6A457C" />
+            <ComponentRef Id="cmpDE8E17C7A19E2D4CD8A6F9D41951637E" />
+            <ComponentRef Id="cmp9A90B1E39BB078DAF946E7BA429243C0" />
+            <ComponentRef Id="cmp942DE9DEDB8B5F68D872A242BAC64433" />
+            <ComponentRef Id="cmpCF4A207332DD8836EA1C7553C06E98BA" />
+            <ComponentRef Id="cmp1246C34294FB5B0AEEAF32C2C808EA1B" />
+            <ComponentRef Id="cmp546E0A241A6CE7B54A9D2B5F93952576" />
+            <ComponentRef Id="cmp444758737F52B4B2EBF5498D592D8DBD" />
+            <ComponentRef Id="cmp776305590F806DAA4D8E635D25DB93B6" />
+            <ComponentRef Id="cmpA2A8B5B06B37909A338E8D9F2A678900" />
+            <ComponentRef Id="cmp3411B82FB90351CF23B2A6928D8BD07A" />
+            <ComponentRef Id="cmp2A4995A2BD7534AFEBA4880F0DF4994F" />
+            <ComponentRef Id="cmp905D8E6301EDF9555B0600B86269729A" />
+            <ComponentRef Id="cmp64E8FF4F9A13AFA484E65A7BC5B693C2" />
+            <ComponentRef Id="cmpA901E0F09B51851591BE3BCF7B24DEB7" />
+            <ComponentRef Id="cmp981F2FBA21D07F0D428C04EA22C11304" />
+            <ComponentRef Id="cmp090206EDF25AC639A31019823615EA81" />
+            <ComponentRef Id="cmp035229C9441218AB5D4CC2FD0F28F94C" />
+            <ComponentRef Id="cmp015058134B650D53276022698E34AF9B" />
+            <ComponentRef Id="cmp2FF043BFA05C8BAC37D4DC6EABBDF4C2" />
+            <ComponentRef Id="cmpFF15118554C458578DB22884002DA4BF" />
+            <ComponentRef Id="cmp1997499A2FEDD69FCCC9E483538A2455" />
+            <ComponentRef Id="cmp3064F2387B690FD104A0428FF11803C0" />
+            <ComponentRef Id="cmp178DE99AF84E96A87F3F93A33AE5264F" />
+            <ComponentRef Id="cmp1C9D0C099FF20BADB6C46E1815BC060F" />
+            <ComponentRef Id="cmp5020F43D18F18D26B139B0A199C9864B" />
+            <ComponentRef Id="cmpF1BF1AFF7537B9CE5758F7EA87BA85F6" />
+            <ComponentRef Id="cmp5DF17AA40286ADA35423F525116523BB" />
+            <ComponentRef Id="cmpC529AE60EA014175F15EB82D1CB08EBB" />
+            <ComponentRef Id="cmp983ED1512844142A7849418BCF22B111" />
+            <ComponentRef Id="cmp6592D685473BB928CED9E0924F60CF83" />
+            <ComponentRef Id="cmp208C9BAC8A821F37E646B00719D9FFB7" />
+            <ComponentRef Id="cmpDB533F212F9E3BEA6CFEC49F0A7A214A" />
+            <ComponentRef Id="cmpEA9A3A36835942577EB3DEFC78CAF671" />
+            <ComponentRef Id="cmp059BA5F286E7A5C000ACC7C8D39DFCCD" />
+            <ComponentRef Id="cmpFC49C64613DCBCD98E331BD244EAC917" />
+            <ComponentRef Id="cmp750ED57E0911C7E539016EEEFF23AB27" />
+            <ComponentRef Id="cmpDC005609E2ED73A46DD575B584516942" />
+            <ComponentRef Id="cmpBED47A2B78B8797B232FC5637E32B611" />
+            <ComponentRef Id="cmpE112F1755468F5042075AEF2BFF8C498" />
+            <ComponentRef Id="cmp62EA0C3FF56EC03130491B9B4FC02AF0" />
+            <ComponentRef Id="cmp399AA442FF807B7FE3C0CFE808A7925A" />
+            <ComponentRef Id="cmpBEEC191E0D9C0C100E9AA6F97E0429E1" />
+            <ComponentRef Id="cmpE5A0572F96C20DAD24A44578242A5179" />
+            <ComponentRef Id="cmp9C3A3A851D157E4D57BDB97061E5DC21" />
+            <ComponentRef Id="cmpC1558A37B605DF89296CADAA71F6CF0E" />
+            <ComponentRef Id="cmp6C8C0E0DF06496D4AE72B5B3E8BA4478" />
+            <ComponentRef Id="cmp7CA6584F393CAF96F70649D703A08DA8" />
+            <ComponentRef Id="cmp9ED26487A299AC7A080359842923138C" />
+            <ComponentRef Id="cmp621038F747E5D68E551A3D81892E9FED" />
+            <ComponentRef Id="cmpE2C74B2B58FB2471EA5A08A6469365E0" />
+            <ComponentRef Id="cmp42EF10EECCF235C45004926D5B917365" />
+            <ComponentRef Id="cmp158AECD55C97BE03E53CD22857DACEB5" />
+            <ComponentRef Id="cmp52BD1A67AD18075880DBF6E49AB0A6A7" />
+            <ComponentRef Id="cmp451360BADCC5A8EFAE22C2FAB0A14830" />
+            <ComponentRef Id="cmp48A8203EF7667BEE926BD1FFD08F01F5" />
+            <ComponentRef Id="cmp3AA94ED085ABBE546AC4F0D3FA8DD85F" />
+            <ComponentRef Id="cmp6901010F3C7ED588BF543D754AD817B2" />
+            <ComponentRef Id="cmpDAB3295264FC1D3BC5FC929D7D0BA7AF" />
+            <ComponentRef Id="cmpA2A3840EF0BF9EFBE94D43C2A70695CE" />
+            <ComponentRef Id="cmp326F6C7D1FE0AAC82A290782FFCB0034" />
+            <ComponentRef Id="cmp246BE9C434E2B09B26B0746536F6FE09" />
+            <ComponentRef Id="cmpF4DCB52475678DDB60C5380CB9DBD8C0" />
+            <ComponentRef Id="cmpE61472B0F538A78CF84C05F0DA7C2DBC" />
+            <ComponentRef Id="cmp5A7DBC9A2BE49413EA80EC213930AF46" />
+            <ComponentRef Id="cmpBFFC671A38F91B33CD94F76F607CD096" />
+            <ComponentRef Id="cmp3938C8D8A29A36F5BC27CF08E47F6B4B" />
+            <ComponentRef Id="cmpB76CC20CAFCC7873E46B895C2A9C8CBF" />
+            <ComponentRef Id="cmpDEBF32F517D66C76EC3AA4F4A9748713" />
+            <ComponentRef Id="cmp549E834033B8397B549F38A54B749538" />
+            <ComponentRef Id="cmpA8431EC7F14C472BFB8C9DD464B5D315" />
+            <ComponentRef Id="cmp03E7F74C8C73D9C996D3899695E33BB4" />
+            <ComponentRef Id="cmpF872C6FD270632824D1A058864BC1C43" />
+            <ComponentRef Id="cmp0D8539400DD32A7DE1F14FECE16A5AB8" />
+            <ComponentRef Id="cmpC4F8DD4E480CF710C6EE6051B4FC8EC7" />
+            <ComponentRef Id="cmp407F08B39A4DC5C13C0962CDFC66CBF4" />
+            <ComponentRef Id="cmpFC4D86350030B714D518173384863D5F" />
+            <ComponentRef Id="cmp55F0507349028B29CC8753CB63EA12E2" />
+            <ComponentRef Id="cmpEA55FD23538A069778EA11E0E593FD9D" />
+            <ComponentRef Id="cmpD2651E95353DA08DAC7F2C7F6A228894" />
+            <ComponentRef Id="cmp5D336388DCDCA13E373FF0A478B757C0" />
+            <ComponentRef Id="cmp4970546BFE4235C111D056C541EBE5A0" />
+            <ComponentRef Id="cmpD33E357CE548EAFA028BA69B5AD7BC99" />
+            <ComponentRef Id="cmpE7636DB0606EFCFF77FFA0FD90766ACF" />
+            <ComponentRef Id="cmp998E159A7D513CFE0C25CA21B4FED1C4" />
+            <ComponentRef Id="cmpCD08A94A7B775CE2FD50D82B43900C05" />
+            <ComponentRef Id="cmpDB7C3665D7937CAC6DAB1508CC16F30F" />
+            <ComponentRef Id="cmpD530FD5D03D7B4554FC6150D1A136FD8" />
+            <ComponentRef Id="cmpDA03370B900F91DE47D34273C63A803A" />
+            <ComponentRef Id="cmpDCD307EB67BA890056C8B8C70E6D4B73" />
+            <ComponentRef Id="cmpDAF2836F8F25447768E9E6737EE67AA8" />
+            <ComponentRef Id="cmp6D90D8575180C7A262D970059CCD0EF5" />
+            <ComponentRef Id="cmp98DE05163F530CE1C1EF225FC24C6D8D" />
+            <ComponentRef Id="cmp059A6398F65854C317C44B79B2429B66" />
+            <ComponentRef Id="cmpFF8D56EFBEC692E65409D2532E603567" />
+            <ComponentRef Id="cmp8C0BB5573ED5E2F044A8847880252000" />
+            <ComponentRef Id="cmp1E9F3F1FB02A0D0214A2D6BFC4580089" />
+            <ComponentRef Id="cmp83B1AC931F7146E18575D12175AA93ED" />
+            <ComponentRef Id="cmp77DDB10F287B97DD279647A4772DCCB8" />
+            <ComponentRef Id="cmp5155F09567A963A3FD3ECE23BC4FCB26" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

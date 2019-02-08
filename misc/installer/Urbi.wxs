@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="dirA5528701EE26FFBF346CCE20EE8ACE99">
+            <Component Id="cmp231F9C586B44406E660B3E4965E0A157" Guid="{E77D9F8A-670E-412A-89B7-90F7211774F3}">
+                <File Id="filBF9DE048E3911693EA65DFF5887F9139" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi-bandwidth.exe" />
+            </Component>
+            <Component Id="cmp582987AA8962E90F8DC1037957F33133" Guid="{CAB2A971-B7AA-4AA8-B606-F7FDA107B356}">
+                <File Id="fil466338AEF5B2FAB2B1A35BD92CD9B499" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi-launch.exe" />
+            </Component>
+            <Component Id="cmpCE5933CB3B1EA82C2A5435C8A4F29FB6" Guid="{57A049C7-0757-4554-B60B-09A452C5F42D}">
+                <File Id="filB4B037F901DA85CACA05604FD99879C8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi.dll" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="dir4608FB7F01828C280AE0493F68A4A474">
+            <Component Id="cmpE61F9D46B519C376711ADFCB19955662" Guid="{25D0EB44-D093-4EAA-815F-9F4D9D87E000}">
+                <File Id="fil76A4ED6DBB94B5E4ABC339C8998B93E1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\engine\uobject.dll" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="dir59320BEFEC7F765BA59642659C6D97BB">
+            <Component Id="cmpD2D94FC1E824AA5A033EC0E4C2FF529A" Guid="{B4940F90-408B-408F-8BB3-B3D830746224}">
+                <File Id="fil9AFEFE93A4F35D29B8AA0C773246EF39" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\remote\uobject.dll" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="dir08B855A3584F30A090726DC251BE363F">
+            <Component Id="cmp3D87BEFD0CCFDDB246A320059646E2BF" Guid="{A888A648-0039-4028-A2DC-5B4DC58FBA47}">
+                <File Id="fil1097C4AA9D1B116FA934DBDC8F37FAE8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\all.dll" />
+            </Component>
+            <Component Id="cmp5EFE0EECEE103C02D39A34CFB477644D" Guid="{9AF70ED8-5A4C-46C1-8284-69993C7631B8}">
+                <File Id="fil4C9C993991B3F3C46DC6812F24AD7193" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\generic.dll" />
+            </Component>
+            <Component Id="cmp72CA38B2993E2219C2883A7139417230" Guid="{B856831A-5367-4609-9685-482FEF75889C}">
+                <File Id="filF74870EA3E1B028BA22F32BBD60161B9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\issue-3699.dll" />
+            </Component>
+            <Component Id="cmp81AE8EF40927507390416CEF45233CFC" Guid="{1F6138AF-BE99-49D7-B3D9-A37F092FC950}">
+                <File Id="fil38CECE347E1770F54932E332C325C92B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\lib-urbi.dll" />
+            </Component>
+            <Component Id="cmpF826A291996696E7DE1EE41BC2282B42" Guid="{A350F304-8741-4FD9-BA27-8779EDE4523F}">
+                <File Id="filE85531F8E57A03606485433464DD3FEB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\machine.dll" />
+            </Component>
+            <Component Id="cmp1C54CFBB7E7540B772AE2298F5B57514" Guid="{753F2C18-A51A-472D-AA4E-E90F3ADD08E2}">
+                <File Id="fil260DEA999A0CBC9BEE1409339DC5AEE7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\remote.dll" />
+            </Component>
+            <Component Id="cmp7C8077658EF1B651D0499799F6B76DDC" Guid="{83A92071-A7AC-4381-A58B-79358DBE92D7}">
+                <File Id="fil5FE7B5877C25EBDA030D243E750C4219" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\subsumption.dll" />
+            </Component>
+            <Component Id="cmp9DF8E3A54C80AE527A09E2644F7A8308" Guid="{9E48FF96-6E2D-456A-BCC8-96302B67795D}">
+                <File Id="filD01DA28ED2B130A88F670878852C9ACD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\threaded.dll" />
+            </Component>
+            <Component Id="cmpA222891BFEFE2ED60AC194DD7B9332F4" Guid="{CF389C53-A6DB-4968-9901-8FD4379D318C}">
+                <File Id="fil3EE6B8CCD116B0B5989DF8D85678E9B8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\timer.dll" />
+            </Component>
+            <Component Id="cmp63B9F3F5A0D90FCF2003ADF79F484142" Guid="{694D0124-9D55-416F-91A2-B9B35F1A4C3A}">
+                <File Id="fil07686F131BA405F2C1C1CFEFAC389274" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uaccess.dll" />
+            </Component>
+            <Component Id="cmp8DD499E2429B47E7EECB60037C379559" Guid="{B2B549F1-B66B-44FA-95C5-71489340160B}">
+                <File Id="fil35AB36BAC01AAA3C88CFB9A461E63F54" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uaccess3.dll" />
+            </Component>
+            <Component Id="cmp723BF8B68362647B5AD35F163BA864BB" Guid="{1480FC90-F1E9-4326-B125-62BAE9B0EC10}">
+                <File Id="fil62C504E806BF6064B9F5CC27A3E29759" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uchange.dll" />
+            </Component>
+            <Component Id="cmpC03D629C7BF2FF1EF3A7E59ADFDBBB0F" Guid="{7AC9634E-C613-41B5-B50F-A7BA13B75EFE}">
+                <File Id="fil17E9C33EACC47EA47BFD5BEC315C172A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\ultest.dll" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="dir48CC2AC478BFF29FDAF78CE362752C18">
+            <Component Id="cmpCC833508F83467884ED5DA23A8A9042D" Guid="{8084EFBB-C0DF-4600-8A07-3F2701469397}">
+                <File Id="fil8663AE65BD42ECC8A9F6B083CCF6CA10" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\urbi\fusion.dll" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="dir9777D8246D1EFF4BCE1BBB3725F54761">
+            <Directory Id="dir3FDEB5FCCA2BD4010486952850723EC1" Name="gostai">
+                <Directory Id="dirADC3C34BB51A1E126CF7FA4B94AB9CA5" Name="urbi">
+                    <Component Id="cmp5C2010199AF8A28AC3C098C192744827" Guid="{34B9154C-0DA9-4F1F-A21C-89CD8AA8F910}">
+                        <File Id="fil3866B9ABBA572BB6BF5BA4D19039EF10" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\binary.u" />
+                    </Component>
+                    <Component Id="cmp1EA8A7DAF60E76C1CF1B9AC59216262B" Guid="{D8A5D92E-EFE3-447D-81BF-22D4A0B96009}">
+                        <File Id="filC786CC0EF2BC0C58B367E7DEC9670B79" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\boolean.u" />
+                    </Component>
+                    <Component Id="cmpD17FD2B2D24A924B67C878D7A5C19609" Guid="{59EA6FE6-6B14-43CD-BCBA-142823C0EA1B}">
+                        <File Id="fil99D17FE652B3554E0573DCF131A95ED8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\call-message.u" />
+                    </Component>
+                    <Component Id="cmp891169CA3165AE004F182C499214A5AF" Guid="{C3359ECD-0825-42C6-804D-F563AE3E6032}">
+                        <File Id="fil38E34CD2824CBE094B3E7CA56E8E602E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\channel.u" />
+                    </Component>
+                    <Component Id="cmp3D3A95F350DD76907231479B1238C443" Guid="{398BD4D2-8A60-4288-9E2F-954A18DA24B9}">
+                        <File Id="filB188718AC0C7CEA972A743E32CEDC6BC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\code.u" />
+                    </Component>
+                    <Component Id="cmp47BE6D430BF7262C708027603180A21E" Guid="{FDE2BE11-5085-4832-B621-543C2F430475}">
+                        <File Id="fil4ADF70427C2596C13F028BA43BC998DA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\comparable.u" />
+                    </Component>
+                    <Component Id="cmpA53B5A85953D829D4F1A016AD63E4591" Guid="{4533B20E-2D08-477B-AA90-1D66C7A9CB7D}">
+                        <File Id="fil01A339F70CB8D8BEA6D82E8A5DC0B272" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\component.u" />
+                    </Component>
+                    <Component Id="cmpC4B75B1CB67D5388C5F4D92F81D1D341" Guid="{355C5929-7854-4DD1-B249-A3541C1795FD}">
+                        <File Id="fil18B7652A113BE722FC61A783DC028A60" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\container.u" />
+                    </Component>
+                    <Component Id="cmpC1C1B83622D827CA76170C9DC6D8C31E" Guid="{400538A2-BB4A-4E41-B301-027F885A34FE}">
+                        <File Id="fil72D6E698C719FA8A45C5AAB4015312BC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\control.u" />
+                    </Component>
+                    <Component Id="cmp0C894FD03A3CE4D7E6EB4C0F42A12BEA" Guid="{44B29946-A4C5-4839-A43F-B22A64BADD0F}">
+                        <File Id="fil4E6DE67048ABCEBBA5286066D43EF8E7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\dataflow.u" />
+                    </Component>
+                    <Component Id="cmp8BD138B722F13790365B79E43FE72F53" Guid="{AC8FA63A-3B08-4514-8C3E-4BE69ABE46E4}">
+                        <File Id="fil7F5A984A699BCDB7143D05E99D15E55D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\date.u" />
+                    </Component>
+                    <Component Id="cmpDF3762124D38D238CFCE326CA34B20DB" Guid="{4E2D5EA8-A5FC-4BDB-AFBF-082C73D77CCD}">
+                        <File Id="fil67E35696C7A33722C6EA19D2885DB913" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\dictionary.u" />
+                    </Component>
+                    <Component Id="cmp4F4E5A2F167CC0187D80EA195AA36E2B" Guid="{175B0C3D-45DA-4CA4-BC17-05AF4B2EA0A0}">
+                        <File Id="fil77A6F6B38141BC2E1F2ADA1713A47EC1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\directory.u" />
+                    </Component>
+                    <Component Id="cmp682335755C5F25CAD5771A2DE7991D5A" Guid="{36C227C5-875C-40DC-A4AE-6EC4A6807B86}">
+                        <File Id="fil761AEAD926223B68A14B0105427AFD98" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\duration.u" />
+                    </Component>
+                    <Component Id="cmp5CE4F1004844FBBF812F421CE0649FA4" Guid="{ECEB2354-FB18-4C8D-B9E3-E3FFC9E43A7B}">
+                        <File Id="filC5416F520A24393B0FA0F785218D0F41" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\enumeration.u" />
+                    </Component>
+                    <Component Id="cmp1C787D709E440A64C70F8AF1D420D6FB" Guid="{E337CADC-6F44-440F-8BFB-38F5BE850442}">
+                        <File Id="filE3A1F4F2CC0EF8300A0A7DA2E4F6038C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\event.u" />
+                    </Component>
+                    <Component Id="cmp2757F8595369E39ACBC6AE333BBBADB2" Guid="{B3470F4A-BD28-46E1-B9B3-0FEC6CC4BEF7}">
+                        <File Id="fil2AE4460F2CD3DB6DD6F683D2BDAA6637" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\exception.u" />
+                    </Component>
+                    <Component Id="cmpF8E9694DD2F5266F100D21A6B7B56610" Guid="{43FFCEC1-33B9-4C04-8F9F-48B3BDE78DA0}">
+                        <File Id="filBBD3846811D93AE1E5EEF6567EFFBF5D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\file.u" />
+                    </Component>
+                    <Component Id="cmp5420C0018DEFE03A7587D87E2A63E25A" Guid="{CD0F0AEF-FCA8-4EBB-BCE9-8B39A892A280}">
+                        <File Id="fil1970342DA8E395B70E31BCD233ED2F21" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\float.u" />
+                    </Component>
+                    <Component Id="cmp27BB5422F24430A583D6F59730FFE054" Guid="{59EF0F1F-281A-417F-868F-3323D8559015}">
+                        <File Id="filD7ED685ECF8F5185CFCD80AF573533CF" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\formatter.u" />
+                    </Component>
+                    <Component Id="cmpBEF084F2344DEF6B5E36BD500B5AAD75" Guid="{D09E2991-5EDD-4699-840D-CC743AC6B30B}">
+                        <File Id="fil16D64919CD0CAA8F83791F16ABF12D31" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\global.u" />
+                    </Component>
+                    <Component Id="cmp86AB4159300B9F51192852F2FC0D6AD2" Guid="{B129E935-E1E2-44C6-A239-629D1D94C9CD}">
+                        <File Id="fil7A20F2E3F9ED8F9CBF1DA042BD7564E1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\group.u" />
+                    </Component>
+                    <Component Id="cmp0AD908E5C9916B0F13B72FE4B7081B98" Guid="{1D3485D8-8982-4B83-A66F-A31CAC6C10D7}">
+                        <File Id="filE4F46DB444334A48530580C1DE567D6F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\input-stream.u" />
+                    </Component>
+                    <Component Id="cmp16CAC0968ABF96B71BFB3477E1FBA054" Guid="{2DCF1B4B-3342-4821-A3FB-2E10FAB5F049}">
+                        <File Id="filAB0E81A5777F4BE2260F36E6E652DDD2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\job.u" />
+                    </Component>
+                    <Component Id="cmp03976E19D2FB0B493F474B634CF0B3A8" Guid="{ED248453-C89A-4158-BB4E-9F72AE9DF453}">
+                        <File Id="filD6295EE3B4210F896AA89F2FFED9443A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\kernel1.u" />
+                    </Component>
+                    <Component Id="cmp93F64571C45ADB947533ACFDB8B10E4A" Guid="{A031519E-0F7D-4138-B9A5-C7F7DFD98DA5}">
+                        <File Id="fil79B872F655F24C5725CE373CE3C38775" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\lazy.u" />
+                    </Component>
+                    <Component Id="cmp3F6195B0F79631D46C1BFF35FB16751F" Guid="{3EC5EFD7-BB71-46B3-BCA9-4D7F5803D005}">
+                        <File Id="filDA3CF0581FD6CDC99FCCF3734E88C3A1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\list.u" />
+                    </Component>
+                    <Component Id="cmp26BA51D5960E2FB072A5F22B768C1264" Guid="{4F860CFC-E4A5-4152-9A5A-B9A9A9EC58E6}">
+                        <File Id="fil869B9A5C4B9AADB13741AA94881C0835" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\loadable.u" />
+                    </Component>
+                    <Component Id="cmp16DEB4DB17F1D5D80D8C159F4C6BD33F" Guid="{80D047B3-0C0C-47A3-9D7D-E0DA83EEFF3F}">
+                        <File Id="fil21F1A1EE211CBE00505C28DB5A22E000" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\lobby.u" />
+                    </Component>
+                    <Component Id="cmpF04501EF5CE7CFF87C6572D81017B3FC" Guid="{8B5F40AF-E349-407C-8B7E-163C30B0365F}">
+                        <File Id="fil64A649F938DCF175D1853C48614910A0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\local.mk" />
+                    </Component>
+                    <Component Id="cmp2744325A7F94AE91699E94A03E627184" Guid="{7DBD0981-EA58-43C4-B5CA-AB9106065450}">
+                        <File Id="fil7005E637B5302C9289A10F23E84D5646" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\logger.u" />
+                    </Component>
+                    <Component Id="cmp26099681484CE2AEA95DC58D3A4DD2B3" Guid="{DB5F1A1F-95E4-40BD-BC92-53D384F29830}">
+                        <File Id="fil08755E0C4BCF57AF965C760263366D27" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\math.u" />
+                    </Component>
+                    <Component Id="cmpB823171EAF3F790A627DC0F7F10BCA89" Guid="{4F91777C-64E8-4FA7-A03D-B43D0CECF1C1}">
+                        <File Id="fil773E688D54670E76F5873805CCCD7AE3" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\monitoring.u" />
+                    </Component>
+                    <Component Id="cmpDE13FB3AE879DAC47BB7B2A42F0C7A84" Guid="{F4E76E31-ACAD-4B69-B6C8-339063BD05E9}">
+                        <File Id="filB6A71D12AF9A4A2A87CE58E86737578F" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\mutex.u" />
+                    </Component>
+                    <Component Id="cmp2D9E03200BD896628ABF24FBC3F0B936" Guid="{3F3D1416-8519-4BC9-81F0-558537231320}">
+                        <File Id="filCE70FCBFEF2F2EB012F013815FC8167B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\naming-standard.u" />
+                    </Component>
+                    <Component Id="cmpA6AA386976E7E9E5D4CE26DCFCEBEC1E" Guid="{8271FA2B-4563-4DD3-A72C-1E573A5998D1}">
+                        <File Id="filF36314E3B01E3F41C72D0A2C2149D701" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\nil.u" />
+                    </Component>
+                    <Component Id="cmp0BCFEBC4F29609D22255B38A3CB97836" Guid="{B8E97E82-C1B6-4EAD-9B66-A30173723A32}">
+                        <File Id="filA958844F8E50F56CEAA03F81509904AE" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\object.u" />
+                    </Component>
+                    <Component Id="cmp8F3CC1BE1635017C232C8E165A026862" Guid="{F39CF76F-41A8-416F-A0A6-51339EE60D14}">
+                        <File Id="fil0ABBE90D088169C799F678E06A1E9644" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\orderable.u" />
+                    </Component>
+                    <Component Id="cmpA723403343A061171428EDDC834E5C19" Guid="{4C7E551D-E5F8-47EA-B2AB-18C75D8CFA84}">
+                        <File Id="filDAA6857F590F6DB902DD4738CA72C2A5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\package-info.u" />
+                    </Component>
+                    <Component Id="cmp7672AE09DFCFF00ABBEE10A43C98CAE7" Guid="{A30FBDC8-A0BA-4DCE-82C2-41DFEDC1B374}">
+                        <File Id="filE1E016D5E8BC47ABA70A96E4E43D9647" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\path.u" />
+                    </Component>
+                    <Component Id="cmp47B8DCE9A1B384FEA61AE08222928C5F" Guid="{00600E84-E9A3-46F6-8A90-CF761B2BCDA1}">
+                        <File Id="filD89018BE123C258FFBEC69A94EBA2C8A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\pattern.u" />
+                    </Component>
+                    <Component Id="cmp2188E7D4BEBC309D747E2AB41FE41E45" Guid="{1B06AF48-2160-49E3-B0AE-B5D7C5261FAC}">
+                        <File Id="fil4FDE810DD880EEF5739F916CD28BF666" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\platform.u" />
+                    </Component>
+                    <Component Id="cmp44395B8214C69E0B1908BA86969E0BAE" Guid="{693103A2-291B-4558-BC79-FB4B5C47D00A}">
+                        <File Id="fil4A15170B812C7555B22B3EBB979E8F0A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\process.u" />
+                    </Component>
+                    <Component Id="cmp0C2421DEEFACA5531E1B65080A0FAC13" Guid="{051E6C53-56B1-453A-8DF7-D6D266DED23D}">
+                        <File Id="fil3B96D95EBB209641C6691571AE347806" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\profile.u" />
+                    </Component>
+                    <Component Id="cmp0975FA16D07095A47525E510696CC3C1" Guid="{E2F07694-1A98-40AC-B10B-694434FDE1D0}">
+                        <File Id="filCB96A39E0384578D6DF3DFF67E1B12E7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\pubsub.u" />
+                    </Component>
+                    <Component Id="cmp1977AF1E1F94CC6756E4CD061B6E26B5" Guid="{40772EC7-A746-435F-BA6C-AAA2829EB31B}">
+                        <File Id="filD272AA3B761A4DC38089FE32ABA59D4C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\python.u" />
+                    </Component>
+                    <Component Id="cmpFE6A41C3174BFF55F95F1F5650F9BAB3" Guid="{AE210FD4-0657-4D3F-8C5D-DDFA80E637EF}">
+                        <File Id="fil7F1769A4322BDA76F58A84AE1E7EA380" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\range-iterable.u" />
+                    </Component>
+                    <Component Id="cmp6DA6674B0EBB6F64D370A54C3AC11AE7" Guid="{5D8A5423-C58B-49BC-B1EF-1BE75B5F2570}">
+                        <File Id="fil5C95B874FC43F15317BFF13FAF78604A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\regexp.u" />
+                    </Component>
+                    <Component Id="cmpC5FD61B6D50E27576DD9275E3BBA32F8" Guid="{B154FEAE-5DED-4361-A848-3FE51A288116}">
+                        <File Id="fil4A15FC3E41FAE7EEC6C2429EC6A3C9CA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\require-file.u" />
+                    </Component>
+                    <Component Id="cmp6BFBC86E10CA2BD6365BD12A7FA6E059" Guid="{C511AE1B-761D-4CBF-9CC6-D7413AC6B9F3}">
+                        <File Id="fil92E95E4C74952BEC7209680359D7E4F4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\semaphore.u" />
+                    </Component>
+                    <Component Id="cmp46EA19AD6D36E1831D5130B8CD070ECF" Guid="{64F313AC-98D6-43A0-9A73-228B1A47B065}">
+                        <File Id="fil3FC94D5C6FE47BBCD8F0DC06CDBCFD99" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\singleton.u" />
+                    </Component>
+                    <Component Id="cmp2623DE95E4A623A28504F3A92090F1A4" Guid="{22148E66-16B6-48F1-B923-50D98146EED7}">
+                        <File Id="fil44B914D5C154FA3EFE7BF69D67294E9B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\socket.u" />
+                    </Component>
+                    <Component Id="cmp74882460A3F5D55EF7B4D83C4C0A52DA" Guid="{84B0AF2F-F0BE-4F6E-BA4C-55ABC5BA41F0}">
+                        <File Id="fil90BD6147A7FA7FF322F53D66C938BC6B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\stack-frame.u" />
+                    </Component>
+                    <Component Id="cmpB4878D266B9B9119080B288162D0509D" Guid="{D1EBF02B-112C-4570-B52F-15AF6F736B0C}">
+                        <File Id="filFA537B478B478ABBCF933751A3DF79BA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\string.u" />
+                    </Component>
+                    <Component Id="cmpB4DDBED49DF19C1DB5AC8AC42D4D933B" Guid="{F266EBC3-DD77-4FB2-A2F1-626F694566F5}">
+                        <File Id="fil937DB4BA49BAD8C6D2B6A81063972576" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\system.u" />
+                    </Component>
+                    <Component Id="cmp38CB4052D64A1F9258900055DABFA744" Guid="{A803CC02-F920-460C-81A4-5BCFABF8AAAB}">
+                        <File Id="fil444977E4A7126185A8393A4A20664E20" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\tag.u" />
+                    </Component>
+                    <Component Id="cmpEEC4C82E3F3386AF4760A1D22171AF9A" Guid="{D8E73856-D779-49EE-BC19-931BAF7E3BF6}">
+                        <File Id="fil20D48FC0187064290232FE1352D60A7D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\test-suite.u" />
+                    </Component>
+                    <Component Id="cmp7232D996882D9DCDD1AF9BE4D9C45B7C" Guid="{53F1BC16-8F5F-4598-BC77-B142EF5963A3}">
+                        <File Id="fil479FE94D350C8DC9FF652B22B4455E4B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\timeout.u" />
+                    </Component>
+                    <Component Id="cmp67F8330CC0F9B68A0C34A0D70A061630" Guid="{DA1985A9-89A4-4680-876B-9BF83B36975D}">
+                        <File Id="fil4762ACC826E10597F0EB10FE33D57A20" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\traceable.u" />
+                    </Component>
+                    <Component Id="cmp51CB282D5C65C5AF70BDE1537C892D48" Guid="{04BB965B-8B2C-4818-882D-9DD24B1F3B7A}">
+                        <File Id="fil57B10407A8EA3D9209D5D4C190351897" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\trajectory-generator.u" />
+                    </Component>
+                    <Component Id="cmpD0BF2CBB7DF164E86A510D2C51E22D65" Guid="{3E44C3A6-DAD8-4204-BD2D-17B30D13D660}">
+                        <File Id="filA3189DC51B3CAD5E3EC053E2D54036CB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\tuple.u" />
+                    </Component>
+                    <Component Id="cmpB3DE4BC77B8EC37A0ACD04CB916357C0" Guid="{9DC9B8AB-9D33-46EF-B0F2-8A57231FD252}">
+                        <File Id="fil941F5B5560A018C7688D76AF9969616B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\uobject.u" />
+                    </Component>
+                    <Component Id="cmp8581F2863F399A17104C39BD58CF0714" Guid="{AC034F79-86F5-4AF3-ADBB-B5B729E54435}">
+                        <File Id="fil4C6A8A1F259BC304DF44E49A065EF95E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\updatehook-stack.u" />
+                    </Component>
+                    <Component Id="cmp08AC651CEE494599207CBBA3C9223CC2" Guid="{33F93FA7-EED3-4E5F-8C10-48152F04DD4B}">
+                        <File Id="fil3819719B04BB65A8BF7533E117D8B17B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\urbi.u" />
+                    </Component>
+                    <Component Id="cmp69BE366B976157479538CDA8C5F21166" Guid="{7C71C716-1E5E-48FF-BE82-C29693A23B28}">
+                        <File Id="fil048C7EB69B2E2EB8C06A319152A7CFE6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\utags.u" />
+                    </Component>
+                    <Component Id="cmp63A8D34DD9DE4C9F40EB731D36EE3DE2" Guid="{BC087B8A-96F9-4BA0-A3C5-51A3480B33CF}">
+                        <File Id="fil789B4A72C946A05A21F314811EE5CAAC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\vector.u" />
+                    </Component>
+                    <Component Id="cmp448B2E62751355B0C75145AA42CBB463" Guid="{8E69A00A-0029-41AD-8B86-0193FDBC0E78}">
+                        <File Id="filAD87CF212EB703986FBA9875ED96DB54" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\weak-pointer.u" />
+                    </Component>
+                    <Directory Id="dirDA14059737FC6364B23E67AF47821394" Name="package-info">
+                        <Component Id="cmp9808E70291D228B3A07169578E281638" Guid="{50ECBE85-E78F-4DE0-9833-BD86F646957B}">
+                            <File Id="filAD32550ACF2E68F20AF9051ACF17FA77" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\package-info\libport.u" />
+                        </Component>
+                        <Component Id="cmp904253F115EA5E515EDF3D0CBB72D4C9" Guid="{E1A9043C-8DE4-49B8-BC5C-8E6091E18D2F}">
+                            <File Id="fil711353BEF73FEE20416294439B042E65" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\share\gostai\urbi\package-info\urbi.u" />
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+	</Fragment>
+    <Fragment>
+        <ComponentGroup Id="UrbiComponentGroup">
+            <ComponentRef Id="cmp231F9C586B44406E660B3E4965E0A157" />
+            <ComponentRef Id="cmp582987AA8962E90F8DC1037957F33133" />
+            <ComponentRef Id="cmpCE5933CB3B1EA82C2A5435C8A4F29FB6" />
+            <ComponentRef Id="cmpE61F9D46B519C376711ADFCB19955662" />
+            <ComponentRef Id="cmpD2D94FC1E824AA5A033EC0E4C2FF529A" />
+            <ComponentRef Id="cmp3D87BEFD0CCFDDB246A320059646E2BF" />
+            <ComponentRef Id="cmp5EFE0EECEE103C02D39A34CFB477644D" />
+            <ComponentRef Id="cmp72CA38B2993E2219C2883A7139417230" />
+            <ComponentRef Id="cmp81AE8EF40927507390416CEF45233CFC" />
+            <ComponentRef Id="cmpF826A291996696E7DE1EE41BC2282B42" />
+            <ComponentRef Id="cmp1C54CFBB7E7540B772AE2298F5B57514" />
+            <ComponentRef Id="cmp7C8077658EF1B651D0499799F6B76DDC" />
+            <ComponentRef Id="cmp9DF8E3A54C80AE527A09E2644F7A8308" />
+            <ComponentRef Id="cmpA222891BFEFE2ED60AC194DD7B9332F4" />
+            <ComponentRef Id="cmp63B9F3F5A0D90FCF2003ADF79F484142" />
+            <ComponentRef Id="cmp8DD499E2429B47E7EECB60037C379559" />
+            <ComponentRef Id="cmp723BF8B68362647B5AD35F163BA864BB" />
+            <ComponentRef Id="cmpC03D629C7BF2FF1EF3A7E59ADFDBBB0F" />
+            <ComponentRef Id="cmpCC833508F83467884ED5DA23A8A9042D" />
+            <ComponentRef Id="cmp5C2010199AF8A28AC3C098C192744827" />
+            <ComponentRef Id="cmp1EA8A7DAF60E76C1CF1B9AC59216262B" />
+            <ComponentRef Id="cmpD17FD2B2D24A924B67C878D7A5C19609" />
+            <ComponentRef Id="cmp891169CA3165AE004F182C499214A5AF" />
+            <ComponentRef Id="cmp3D3A95F350DD76907231479B1238C443" />
+            <ComponentRef Id="cmp47BE6D430BF7262C708027603180A21E" />
+            <ComponentRef Id="cmpA53B5A85953D829D4F1A016AD63E4591" />
+            <ComponentRef Id="cmpC4B75B1CB67D5388C5F4D92F81D1D341" />
+            <ComponentRef Id="cmpC1C1B83622D827CA76170C9DC6D8C31E" />
+            <ComponentRef Id="cmp0C894FD03A3CE4D7E6EB4C0F42A12BEA" />
+            <ComponentRef Id="cmp8BD138B722F13790365B79E43FE72F53" />
+            <ComponentRef Id="cmpDF3762124D38D238CFCE326CA34B20DB" />
+            <ComponentRef Id="cmp4F4E5A2F167CC0187D80EA195AA36E2B" />
+            <ComponentRef Id="cmp682335755C5F25CAD5771A2DE7991D5A" />
+            <ComponentRef Id="cmp5CE4F1004844FBBF812F421CE0649FA4" />
+            <ComponentRef Id="cmp1C787D709E440A64C70F8AF1D420D6FB" />
+            <ComponentRef Id="cmp2757F8595369E39ACBC6AE333BBBADB2" />
+            <ComponentRef Id="cmpF8E9694DD2F5266F100D21A6B7B56610" />
+            <ComponentRef Id="cmp5420C0018DEFE03A7587D87E2A63E25A" />
+            <ComponentRef Id="cmp27BB5422F24430A583D6F59730FFE054" />
+            <ComponentRef Id="cmpBEF084F2344DEF6B5E36BD500B5AAD75" />
+            <ComponentRef Id="cmp86AB4159300B9F51192852F2FC0D6AD2" />
+            <ComponentRef Id="cmp0AD908E5C9916B0F13B72FE4B7081B98" />
+            <ComponentRef Id="cmp16CAC0968ABF96B71BFB3477E1FBA054" />
+            <ComponentRef Id="cmp03976E19D2FB0B493F474B634CF0B3A8" />
+            <ComponentRef Id="cmp93F64571C45ADB947533ACFDB8B10E4A" />
+            <ComponentRef Id="cmp3F6195B0F79631D46C1BFF35FB16751F" />
+            <ComponentRef Id="cmp26BA51D5960E2FB072A5F22B768C1264" />
+            <ComponentRef Id="cmp16DEB4DB17F1D5D80D8C159F4C6BD33F" />
+            <ComponentRef Id="cmpF04501EF5CE7CFF87C6572D81017B3FC" />
+            <ComponentRef Id="cmp2744325A7F94AE91699E94A03E627184" />
+            <ComponentRef Id="cmp26099681484CE2AEA95DC58D3A4DD2B3" />
+            <ComponentRef Id="cmpB823171EAF3F790A627DC0F7F10BCA89" />
+            <ComponentRef Id="cmpDE13FB3AE879DAC47BB7B2A42F0C7A84" />
+            <ComponentRef Id="cmp2D9E03200BD896628ABF24FBC3F0B936" />
+            <ComponentRef Id="cmpA6AA386976E7E9E5D4CE26DCFCEBEC1E" />
+            <ComponentRef Id="cmp0BCFEBC4F29609D22255B38A3CB97836" />
+            <ComponentRef Id="cmp8F3CC1BE1635017C232C8E165A026862" />
+            <ComponentRef Id="cmpA723403343A061171428EDDC834E5C19" />
+            <ComponentRef Id="cmp7672AE09DFCFF00ABBEE10A43C98CAE7" />
+            <ComponentRef Id="cmp47B8DCE9A1B384FEA61AE08222928C5F" />
+            <ComponentRef Id="cmp2188E7D4BEBC309D747E2AB41FE41E45" />
+            <ComponentRef Id="cmp44395B8214C69E0B1908BA86969E0BAE" />
+            <ComponentRef Id="cmp0C2421DEEFACA5531E1B65080A0FAC13" />
+            <ComponentRef Id="cmp0975FA16D07095A47525E510696CC3C1" />
+            <ComponentRef Id="cmp1977AF1E1F94CC6756E4CD061B6E26B5" />
+            <ComponentRef Id="cmpFE6A41C3174BFF55F95F1F5650F9BAB3" />
+            <ComponentRef Id="cmp6DA6674B0EBB6F64D370A54C3AC11AE7" />
+            <ComponentRef Id="cmpC5FD61B6D50E27576DD9275E3BBA32F8" />
+            <ComponentRef Id="cmp6BFBC86E10CA2BD6365BD12A7FA6E059" />
+            <ComponentRef Id="cmp46EA19AD6D36E1831D5130B8CD070ECF" />
+            <ComponentRef Id="cmp2623DE95E4A623A28504F3A92090F1A4" />
+            <ComponentRef Id="cmp74882460A3F5D55EF7B4D83C4C0A52DA" />
+            <ComponentRef Id="cmpB4878D266B9B9119080B288162D0509D" />
+            <ComponentRef Id="cmpB4DDBED49DF19C1DB5AC8AC42D4D933B" />
+            <ComponentRef Id="cmp38CB4052D64A1F9258900055DABFA744" />
+            <ComponentRef Id="cmpEEC4C82E3F3386AF4760A1D22171AF9A" />
+            <ComponentRef Id="cmp7232D996882D9DCDD1AF9BE4D9C45B7C" />
+            <ComponentRef Id="cmp67F8330CC0F9B68A0C34A0D70A061630" />
+            <ComponentRef Id="cmp51CB282D5C65C5AF70BDE1537C892D48" />
+            <ComponentRef Id="cmpD0BF2CBB7DF164E86A510D2C51E22D65" />
+            <ComponentRef Id="cmpB3DE4BC77B8EC37A0ACD04CB916357C0" />
+            <ComponentRef Id="cmp8581F2863F399A17104C39BD58CF0714" />
+            <ComponentRef Id="cmp08AC651CEE494599207CBBA3C9223CC2" />
+            <ComponentRef Id="cmp69BE366B976157479538CDA8C5F21166" />
+            <ComponentRef Id="cmp63A8D34DD9DE4C9F40EB731D36EE3DE2" />
+            <ComponentRef Id="cmp448B2E62751355B0C75145AA42CBB463" />
+            <ComponentRef Id="cmp9808E70291D228B3A07169578E281638" />
+            <ComponentRef Id="cmp904253F115EA5E515EDF3D0CBB72D4C9" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>
