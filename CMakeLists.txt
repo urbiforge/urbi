@@ -121,12 +121,12 @@ else()
   # HACK, to avoid a qi_generate_src rule for all 100 files,
   # merge the ccs into one merged.cc and declare arule just for it
   qi_generate_src(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/merged.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/src/ast/merged.cc
     SRC src/ast/ast.yml
-    COMMAND ${CMAKE_COMMAND} -E copy_directory   ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/pregenerated/ ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/
+    COMMAND ${CMAKE_COMMAND} -E copy_directory   ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/pregenerated/ ${CMAKE_CURRENT_BINARY_DIR}/src/ast/
   )
   set(GENERATED_SRC
-    src/ast/merged.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/src/ast/merged.cc
   )
 
 endif(HAVE_CUSTOM_BISON)
@@ -405,9 +405,5 @@ enable_testing()
 #add_subdirectory(src/object/urbi)
 
 add_subdirectory(share)
-#Requires lib uobject
 add_subdirectory(sdk-remote/src/uobjects)
-if (NOT I_AM_A_ROBOT)
-  add_subdirectory(sdk-remote/src/swig/java)
-endif()
 add_subdirectory(tests)
