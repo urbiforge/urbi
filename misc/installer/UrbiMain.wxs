@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='Urbi' Id='7363d119-1b8e-4e12-ad25-8a4060ffddaa' UpgradeCode='96272dfd-12a1-4a21-9a6d-fc4db639ad64'
+  <Product Name='Gostai Urbi' Id='7363d119-1b8e-4e12-ad25-8a4060ffddaa' UpgradeCode='96272dfd-12a1-4a21-9a6d-fc4db639ad64'
     Language='1033' Codepage='1252' Version='3.0.0' Manufacturer='Gostai'>
 
     <Package Id='*' Keywords='Installer'
-      Description="Urbi 3.0 Installer"
-      Comments='Urbi is a registered trademark of Gostai' Manufacturer='Gostai'
-      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+      Description="Gostai Urbi 3.0 Installer"
+      Comments='Gostai Urbi is a registered trademark of Gostai' Manufacturer='Gostai'
+      InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
     <Upgrade Id='96272dfd-12a1-4a21-9a6d-fc4db639ad64'>
       <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND' Maximum='3.0.0' IncludeMaximum='no' />
@@ -20,11 +20,11 @@
     <Media Id='1' Cabinet='Urbi.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
     <Property Id='DiskPrompt' Value="Urbi Installation [1]" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-    <!-- <Icon Id="GostaiStudio.exe" SourceFile="GostaiStudio\bin\GostaiStudio.exe" /> -->
-    <Property Id="ARPPRODUCTICON" Value="GostaiStudio.exe" />
+    <Icon Id="cube.exe" SourceFile="$(env.URBI_STAGEDIR)\share\icons\cube.ico" />
+    <Property Id="ARPPRODUCTICON" Value="cube.exe" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
         <Directory Id='INSTALLDIR' Name='Urbi'>
           <Directory Id="dirA5528701EE26FFBF346CCE20EE8ACE99" Name="bin" />
           <Directory Id="dir68B9BCF6132CF919BBBE4B8C2481A832" Name="include" />
@@ -44,31 +44,35 @@
         </Directory>
       </Directory>
 
-      <!-- <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Gostai Studio 3.0">
-          <Component Id="ProgramMenuDir" Guid="8a63755a-5e8e-4d84-be27-a079651b0c34">
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Gostai Urbi 3.0">
+          <Component Id="ProgramMenuDir" Guid="b9b73d3a-428d-4409-881f-6fd6fb90e3ae">
             <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
             <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
           </Component>
         </Directory>
-      </Directory> -->
-
-      <Directory Id="DesktopFolder" Name="Desktop" />
+      </Directory>
     </Directory>
 
-    <Feature Id='Urbi' Level='1'>
-      <ComponentGroupRef Id='UrbiComponentGroup' />
-      <ComponentGroupRef Id='LibPortComponentGroup' />
-      <ComponentGroupRef Id='BoostComponentGroup' />
-      <!-- <ComponentRef Id='ProgramMenuDir' /> -->
-	  <ComponentGroupRef Id='UrbiDevComponentGroup' />
-      <ComponentGroupRef Id='LibPortDevComponentGroup' />
-      <ComponentGroupRef Id='BoostDevComponentGroup' />
-      <ComponentGroupRef Id='LibJpegDevComponentGroup' />
+    <Feature Id='Complete' Title='Urbi' Description='The [ProductName] complete package' Level='1' AllowAdvertise='no' InstallDefault='local' Absent='disallow' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='Runtime' Title='Runtime' Description='The [ProductName] runtime binaries.' Level='1' AllowAdvertise='no' InstallDefault='local' Absent='disallow'>
+        <ComponentGroupRef Id='UrbiComponentGroup' />
+        <ComponentGroupRef Id='LibPortComponentGroup' />
+        <ComponentGroupRef Id='BoostComponentGroup' />
+        <ComponentRef Id='ProgramMenuDir' />
+      </Feature>
+      <Feature Id='SDK' Title='SDK' Description='The [ProductName] SDK for developers.' Level='2' AllowAdvertise='no' InstallDefault='local' Absent='allow'>
+	    <ComponentGroupRef Id='UrbiDevComponentGroup' />
+        <ComponentGroupRef Id='LibPortDevComponentGroup' />
+        <ComponentGroupRef Id='BoostDevComponentGroup' />
+        <ComponentGroupRef Id='LibJpegDevComponentGroup' />
+      </Feature>
     </Feature>
 
-    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="$(env.URBI_STAGEDIR)\LICENSE.rtf" />
 
     <InstallExecuteSequence>
       <Custom Action='AlreadyUpdated' After='FindRelatedProducts'>SELFFOUND</Custom>

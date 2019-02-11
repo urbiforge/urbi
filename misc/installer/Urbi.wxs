@@ -6,7 +6,10 @@
                 <File Id="filBF9DE048E3911693EA65DFF5887F9139" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi-bandwidth.exe" />
             </Component>
             <Component Id="cmp582987AA8962E90F8DC1037957F33133" Guid="{CAB2A971-B7AA-4AA8-B606-F7FDA107B356}">
-                <File Id="fil466338AEF5B2FAB2B1A35BD92CD9B499" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi-launch.exe" />
+                <File Id="fil466338AEF5B2FAB2B1A35BD92CD9B499" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi-launch.exe">
+                  <Shortcut Id="UrbiServer" Name="Urbi Server" Directory="ProgramMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" Arguments="--start --port=54000" Icon="cube.exe" IconIndex="0" />
+                  <Shortcut Id="UrbiServerInteractive" Name="Urbi Server Interactive" Directory="ProgramMenuDir" WorkingDirectory="INSTALLDIR" Advertise="yes" Arguments="--start --port=54000 -- --interactive" Icon="cube.exe" IconIndex="0" />
+                </File>
             </Component>
             <Component Id="cmpCE5933CB3B1EA82C2A5435C8A4F29FB6" Guid="{57A049C7-0757-4554-B60B-09A452C5F42D}">
                 <File Id="filB4B037F901DA85CACA05604FD99879C8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\urbi.dll" />
