@@ -25,51 +25,55 @@
                 <File Id="fil9AFEFE93A4F35D29B8AA0C773246EF39" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\remote\uobject.dll" />
             </Component>
         </DirectoryRef>
-        <DirectoryRef Id="dir08B855A3584F30A090726DC251BE363F">
-            <Component Id="cmp3D87BEFD0CCFDDB246A320059646E2BF" Guid="{A888A648-0039-4028-A2DC-5B4DC58FBA47}">
-                <File Id="fil1097C4AA9D1B116FA934DBDC8F37FAE8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\all.dll" />
-            </Component>
-            <Component Id="cmp5EFE0EECEE103C02D39A34CFB477644D" Guid="{9AF70ED8-5A4C-46C1-8284-69993C7631B8}">
-                <File Id="fil4C9C993991B3F3C46DC6812F24AD7193" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\generic.dll" />
-            </Component>
-            <Component Id="cmp72CA38B2993E2219C2883A7139417230" Guid="{B856831A-5367-4609-9685-482FEF75889C}">
-                <File Id="filF74870EA3E1B028BA22F32BBD60161B9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\issue-3699.dll" />
-            </Component>
-            <Component Id="cmp81AE8EF40927507390416CEF45233CFC" Guid="{1F6138AF-BE99-49D7-B3D9-A37F092FC950}">
-                <File Id="fil38CECE347E1770F54932E332C325C92B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\lib-urbi.dll" />
-            </Component>
-            <Component Id="cmpF826A291996696E7DE1EE41BC2282B42" Guid="{A350F304-8741-4FD9-BA27-8779EDE4523F}">
-                <File Id="filE85531F8E57A03606485433464DD3FEB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\machine.dll" />
-            </Component>
-            <Component Id="cmp1C54CFBB7E7540B772AE2298F5B57514" Guid="{753F2C18-A51A-472D-AA4E-E90F3ADD08E2}">
-                <File Id="fil260DEA999A0CBC9BEE1409339DC5AEE7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\remote.dll" />
-            </Component>
-            <Component Id="cmp7C8077658EF1B651D0499799F6B76DDC" Guid="{83A92071-A7AC-4381-A58B-79358DBE92D7}">
-                <File Id="fil5FE7B5877C25EBDA030D243E750C4219" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\subsumption.dll" />
-            </Component>
-            <Component Id="cmp9DF8E3A54C80AE527A09E2644F7A8308" Guid="{9E48FF96-6E2D-456A-BCC8-96302B67795D}">
-                <File Id="filD01DA28ED2B130A88F670878852C9ACD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\threaded.dll" />
-            </Component>
-            <Component Id="cmpA222891BFEFE2ED60AC194DD7B9332F4" Guid="{CF389C53-A6DB-4968-9901-8FD4379D318C}">
-                <File Id="fil3EE6B8CCD116B0B5989DF8D85678E9B8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\timer.dll" />
-            </Component>
-            <Component Id="cmp63B9F3F5A0D90FCF2003ADF79F484142" Guid="{694D0124-9D55-416F-91A2-B9B35F1A4C3A}">
-                <File Id="fil07686F131BA405F2C1C1CFEFAC389274" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uaccess.dll" />
-            </Component>
-            <Component Id="cmp8DD499E2429B47E7EECB60037C379559" Guid="{B2B549F1-B66B-44FA-95C5-71489340160B}">
-                <File Id="fil35AB36BAC01AAA3C88CFB9A461E63F54" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uaccess3.dll" />
-            </Component>
-            <Component Id="cmp723BF8B68362647B5AD35F163BA864BB" Guid="{1480FC90-F1E9-4326-B125-62BAE9B0EC10}">
-                <File Id="fil62C504E806BF6064B9F5CC27A3E29759" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uchange.dll" />
-            </Component>
-            <Component Id="cmpC03D629C7BF2FF1EF3A7E59ADFDBBB0F" Guid="{7AC9634E-C613-41B5-B50F-A7BA13B75EFE}">
-                <File Id="fil17E9C33EACC47EA47BFD5BEC315C172A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\ultest.dll" />
-            </Component>
-        </DirectoryRef>
-        <DirectoryRef Id="dir48CC2AC478BFF29FDAF78CE362752C18">
-            <Component Id="cmpCC833508F83467884ED5DA23A8A9042D" Guid="{8084EFBB-C0DF-4600-8A07-3F2701469397}">
-                <File Id="fil8663AE65BD42ECC8A9F6B083CCF6CA10" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\urbi\fusion.dll" />
-            </Component>
+        <DirectoryRef Id="dir1CB15A6A9DBD40639505E55800E6AE3D">
+            <Directory Id="dirDE4E2DD7457CABAB5956C8B46DEE6CF5" Name="uobjects">
+                <Directory Id="dir08B855A3584F30A090726DC251BE363F" Name="test">
+                    <Component Id="cmp3D87BEFD0CCFDDB246A320059646E2BF" Guid="{A888A648-0039-4028-A2DC-5B4DC58FBA47}">
+                        <File Id="fil1097C4AA9D1B116FA934DBDC8F37FAE8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\all.dll" />
+                    </Component>
+                    <Component Id="cmp5EFE0EECEE103C02D39A34CFB477644D" Guid="{9AF70ED8-5A4C-46C1-8284-69993C7631B8}">
+                        <File Id="fil4C9C993991B3F3C46DC6812F24AD7193" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\generic.dll" />
+                    </Component>
+                    <Component Id="cmp72CA38B2993E2219C2883A7139417230" Guid="{B856831A-5367-4609-9685-482FEF75889C}">
+                        <File Id="filF74870EA3E1B028BA22F32BBD60161B9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\issue-3699.dll" />
+                    </Component>
+                    <Component Id="cmp81AE8EF40927507390416CEF45233CFC" Guid="{1F6138AF-BE99-49D7-B3D9-A37F092FC950}">
+                        <File Id="fil38CECE347E1770F54932E332C325C92B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\lib-urbi.dll" />
+                    </Component>
+                    <Component Id="cmpF826A291996696E7DE1EE41BC2282B42" Guid="{A350F304-8741-4FD9-BA27-8779EDE4523F}">
+                        <File Id="filE85531F8E57A03606485433464DD3FEB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\machine.dll" />
+                    </Component>
+                    <Component Id="cmp1C54CFBB7E7540B772AE2298F5B57514" Guid="{753F2C18-A51A-472D-AA4E-E90F3ADD08E2}">
+                        <File Id="fil260DEA999A0CBC9BEE1409339DC5AEE7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\remote.dll" />
+                    </Component>
+                    <Component Id="cmp7C8077658EF1B651D0499799F6B76DDC" Guid="{83A92071-A7AC-4381-A58B-79358DBE92D7}">
+                        <File Id="fil5FE7B5877C25EBDA030D243E750C4219" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\subsumption.dll" />
+                    </Component>
+                    <Component Id="cmp9DF8E3A54C80AE527A09E2644F7A8308" Guid="{9E48FF96-6E2D-456A-BCC8-96302B67795D}">
+                        <File Id="filD01DA28ED2B130A88F670878852C9ACD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\threaded.dll" />
+                    </Component>
+                    <Component Id="cmpA222891BFEFE2ED60AC194DD7B9332F4" Guid="{CF389C53-A6DB-4968-9901-8FD4379D318C}">
+                        <File Id="fil3EE6B8CCD116B0B5989DF8D85678E9B8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\timer.dll" />
+                    </Component>
+                    <Component Id="cmp63B9F3F5A0D90FCF2003ADF79F484142" Guid="{694D0124-9D55-416F-91A2-B9B35F1A4C3A}">
+                        <File Id="fil07686F131BA405F2C1C1CFEFAC389274" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uaccess.dll" />
+                    </Component>
+                    <Component Id="cmp8DD499E2429B47E7EECB60037C379559" Guid="{B2B549F1-B66B-44FA-95C5-71489340160B}">
+                        <File Id="fil35AB36BAC01AAA3C88CFB9A461E63F54" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uaccess3.dll" />
+                    </Component>
+                    <Component Id="cmp723BF8B68362647B5AD35F163BA864BB" Guid="{1480FC90-F1E9-4326-B125-62BAE9B0EC10}">
+                        <File Id="fil62C504E806BF6064B9F5CC27A3E29759" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\uchange.dll" />
+                    </Component>
+                    <Component Id="cmpC03D629C7BF2FF1EF3A7E59ADFDBBB0F" Guid="{7AC9634E-C613-41B5-B50F-A7BA13B75EFE}">
+                        <File Id="fil17E9C33EACC47EA47BFD5BEC315C172A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\test\ultest.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir48CC2AC478BFF29FDAF78CE362752C18" Name="urbi">
+                    <Component Id="cmpCC833508F83467884ED5DA23A8A9042D" Guid="{8084EFBB-C0DF-4600-8A07-3F2701469397}">
+                        <File Id="fil8663AE65BD42ECC8A9F6B083CCF6CA10" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\lib\gostai\uobjects\urbi\fusion.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
         </DirectoryRef>
         <DirectoryRef Id="dir9777D8246D1EFF4BCE1BBB3725F54761">
             <Directory Id="dir3FDEB5FCCA2BD4010486952850723EC1" Name="gostai">

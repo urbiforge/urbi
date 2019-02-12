@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='Gostai Urbi' Id='7363d119-1b8e-4e12-ad25-8a4060ffddaa' UpgradeCode='96272dfd-12a1-4a21-9a6d-fc4db639ad64'
+  <Product Name='Gostai Urbi 3.0' Id='7363d119-1b8e-4e12-ad25-8a4060ffddaa' UpgradeCode='96272dfd-12a1-4a21-9a6d-fc4db639ad64'
     Language='1033' Codepage='1252' Version='3.0.0' Manufacturer='Gostai'>
 
     <Package Id='*' Keywords='Installer'
@@ -25,21 +25,19 @@
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFiles64Folder' Name='PFiles'>
-        <Directory Id='INSTALLDIR' Name='Urbi'>
-          <Directory Id="dirA5528701EE26FFBF346CCE20EE8ACE99" Name="bin" />
-          <Directory Id="dir68B9BCF6132CF919BBBE4B8C2481A832" Name="include" />
-          <Directory Id="dirCC4BF51C3FB0120CE9B785729700549B" Name="lib">
-            <Directory Id="dir1CB15A6A9DBD40639505E55800E6AE3D" Name="gostai">
-              <Directory Id="dir4608FB7F01828C280AE0493F68A4A474" Name="engine" />
-              <Directory Id="dir59320BEFEC7F765BA59642659C6D97BB" Name="remote" />
-              <Directory Id="dirDE4E2DD7457CABAB5956C8B46DEE6CF5" Name="uobjects">
-                <Directory Id="dir08B855A3584F30A090726DC251BE363F" Name="test" />
-                <Directory Id="dir48CC2AC478BFF29FDAF78CE362752C18" Name="urbi" />
+        <Directory Id='UrbiRoot' Name='Urbi'>
+          <Directory Id='INSTALLDIR' Name='3.0.0'>
+            <Directory Id="dirA5528701EE26FFBF346CCE20EE8ACE99" Name="bin" />
+            <Directory Id="dir68B9BCF6132CF919BBBE4B8C2481A832" Name="include" />
+            <Directory Id="dirCC4BF51C3FB0120CE9B785729700549B" Name="lib">
+              <Directory Id="dir1CB15A6A9DBD40639505E55800E6AE3D" Name="gostai">
+                <Directory Id="dir4608FB7F01828C280AE0493F68A4A474" Name="engine" />
+                <Directory Id="dir59320BEFEC7F765BA59642659C6D97BB" Name="remote" />
               </Directory>
             </Directory>
-          </Directory>
-          <Directory Id="dir9777D8246D1EFF4BCE1BBB3725F54761" Name="share">
-            <Directory Id="dir9912D30B64EC8FD5585A472B9130C769" Name="cmake" />
+            <Directory Id="dir9777D8246D1EFF4BCE1BBB3725F54761" Name="share">
+              <Directory Id="dir9912D30B64EC8FD5585A472B9130C769" Name="cmake" />
+            </Directory>
           </Directory>
         </Directory>
       </Directory>

@@ -407,3 +407,6 @@ enable_testing()
 add_subdirectory(share)
 add_subdirectory(sdk-remote/src/uobjects)
 add_subdirectory(tests)
+
+include(GNUInstallDirs)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/images/cube.ico DESTINATION share/icons)
