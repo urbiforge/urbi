@@ -2,7 +2,7 @@ function(uobject name path)
   # all uobjects can link with any of the uobjects
   # except lib-urbi which uses liburbi
   qi_create_lib( ${name}
-    SHARED
+    MODULE
     SUBFOLDER gostai/uobjects/${path}
     SRC ${ARGN}
   )
