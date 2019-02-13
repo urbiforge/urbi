@@ -384,7 +384,7 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 # but this one needs to be correct, because DEPENDS does not honor OUTPUT_NAME
 qi_create_lib(uobject
   SHARED
-  SUBFOLDER gostai/engine
+  SUBFOLDER /gostai/engine
   DEPENDS port sched serialize BOOST BOOST_REGEX BOOST_SIGNALS BOOST_FILESYSTEM BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
   SRC ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
 )
