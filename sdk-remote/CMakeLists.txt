@@ -88,7 +88,7 @@ set(UOBJECT_REMOTE_SRC
 )
 
 qi_create_lib(uobject-remote
-  SUBFOLDER gostai/remote
+  SUBFOLDER /gostai/remote
   SHARED
   DEPENDS port serialize ${JPEG_PACKAGE} BOOST BOOST_REGEX BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
   SRC ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC}
@@ -96,7 +96,7 @@ qi_create_lib(uobject-remote
 set_target_properties(uobject-remote
   PROPERTIES
      OUTPUT_NAME uobject
-     INSTALL_NAME_DIR "@executable_path/../lib/gostai/engine"
+     INSTALL_NAME_DIR "@executable_path/../lib/gostai/remote"
      COMPILE_FLAGS -DBUILDING_URBI_SDK)
 
 if (NOT APPLE AND NOT WIN32)
