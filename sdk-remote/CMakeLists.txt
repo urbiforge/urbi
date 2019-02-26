@@ -88,7 +88,7 @@ set(UOBJECT_REMOTE_SRC
 )
 
 qi_create_lib(uobject-remote
-  SUBFOLDER gostai/remote
+  SUBFOLDER /gostai/remote
   SHARED
   DEPENDS port serialize ${JPEG_PACKAGE} BOOST BOOST_REGEX BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
   SRC ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC}
