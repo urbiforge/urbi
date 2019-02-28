@@ -1,27 +1,25 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='Gostai Urbi 3.0' Id='7363d119-1b8e-4e12-ad25-8a4060ffddaa' UpgradeCode='96272dfd-12a1-4a21-9a6d-fc4db639ad64'
+  <Product Name='Gostai Urbi 3.0' Id='*' UpgradeCode='96272dfd-12a1-4a21-9a6d-fc4db639ad64'
     Language='1033' Codepage='1252' Version='3.0.0' Manufacturer='Gostai'>
 
-    <Package Id='*' Keywords='Installer'
+    <Package Keywords='Installer'
       Description="Gostai Urbi 3.0 Installer"
       Comments='Gostai Urbi is a registered trademark of Gostai' Manufacturer='Gostai'
       InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
-    <Upgrade Id='96272dfd-12a1-4a21-9a6d-fc4db639ad64'>
-      <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND' Maximum='3.0.0' IncludeMaximum='no' />
-      <UpgradeVersion OnlyDetect='yes' Property='SELFFOUND' Minimum='3.0.0' IncludeMinimum='yes' Maximum='3.0.0' IncludeMaximum='yes' />
-      <UpgradeVersion OnlyDetect='yes' Property='NEWERFOUND' Minimum='3.0.0' IncludeMinimum='no' />
-    </Upgrade>
+    <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
-    <CustomAction Id='AlreadyUpdated' Error='[ProductName] is already installed.' />
-    <CustomAction Id='NoDowngrade' Error='A later version of [ProductName] is already installed.' />
+    <MajorUpgrade
+        Schedule="afterInstallInitialize"
+        AllowSameVersionUpgrades="yes"
+        DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
 
-    <Media Id='1' Cabinet='Urbi.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="Urbi Installation [1]" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(env.URBI_STAGEDIR)\LICENSE.rtf" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-    <Icon Id="cube.exe" SourceFile="$(env.URBI_STAGEDIR)\share\icons\cube.ico" />
+
     <Property Id="ARPPRODUCTICON" Value="cube.exe" />
+    <Icon Id="cube.exe" SourceFile="$(env.URBI_STAGEDIR)\share\icons\cube.ico" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFiles64Folder' Name='PFiles'>
@@ -40,27 +38,30 @@
             </Directory>
           </Directory>
         </Directory>
-      </Directory>
-
-      <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Gostai Urbi 3.0">
-          <Component Id="ProgramMenuDir" Guid="b9b73d3a-428d-4409-881f-6fd6fb90e3ae">
-            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
-            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
-          </Component>
+        <Directory Id="ProgramMenuFolder">
+          <Directory Id="PROGRAM_MENU_FOLDER" Name="Gostai Urbi 3.0" />
         </Directory>
       </Directory>
     </Directory>
+
+    <DirectoryRef Id="PROGRAM_MENU_FOLDER">
+      <Component Id="Shortcuts" Guid="*">
+        <Shortcut Id="UrbiServerShortcut" Name="Urbi Server" Target="[#fil466338AEF5B2FAB2B1A35BD92CD9B499]" Arguments="--start --port=54000" Icon="cube.exe" IconIndex="0" WorkingDirectory="INSTALLDIR" />
+        <Shortcut Id="UrbiServerInteractiveShortcut" Name="Urbi Server Interactive" Target="[#fil466338AEF5B2FAB2B1A35BD92CD9B499]" Arguments="--start --port=54000 -- --interactive" Icon="cube.exe" IconIndex="0" WorkingDirectory="INSTALLDIR" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="REMOVE_PROGRAM_MENU_FOLDER" On="uninstall" />
+      </Component>
+    </DirectoryRef>
 
     <Feature Id='Complete' Title='Urbi' Description='The [ProductName] complete package' Level='1' AllowAdvertise='no' InstallDefault='local' Absent='disallow' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id='Runtime' Title='Runtime' Description='The [ProductName] runtime binaries.' Level='1' AllowAdvertise='no' InstallDefault='local' Absent='disallow'>
         <ComponentGroupRef Id='UrbiComponentGroup' />
         <ComponentGroupRef Id='LibPortComponentGroup' />
         <ComponentGroupRef Id='BoostComponentGroup' />
-        <ComponentRef Id='ProgramMenuDir' />
+        <ComponentRef Id='Shortcuts' />
       </Feature>
       <Feature Id='SDK' Title='SDK' Description='The [ProductName] SDK for developers.' Level='2' AllowAdvertise='no' InstallDefault='local' Absent='allow'>
-	    <ComponentGroupRef Id='UrbiDevComponentGroup' />
+        <ComponentGroupRef Id='UrbiDevComponentGroup' />
         <ComponentGroupRef Id='LibPortDevComponentGroup' />
         <ComponentGroupRef Id='BoostDevComponentGroup' />
         <ComponentGroupRef Id='LibJpegDevComponentGroup' />
@@ -69,14 +70,5 @@
 
     <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
-
-    <WixVariable Id="WixUILicenseRtf" Value="$(env.URBI_STAGEDIR)\LICENSE.rtf" />
-
-    <InstallExecuteSequence>
-      <Custom Action='AlreadyUpdated' After='FindRelatedProducts'>SELFFOUND</Custom>
-      <Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
-      <RemoveExistingProducts Before="InstallInitialize" />
-    </InstallExecuteSequence>
-
   </Product>
 </Wix>
