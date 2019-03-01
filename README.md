@@ -9,7 +9,7 @@ To build Urbi on Windows 10 you need to setup your environment by installing fol
 *  [Git](https://github.com/git-for-windows/git/releases/download/v2.20.1.windows.1/Git-2.20.1-64-bit.exe)
 *  [CMake](https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-win64-x64.msi)
 
-Alternatively you can use Chocolatey to install all the tools (except qiBuild). To do so, please install Chocolatey. Download [configuration file](https://bitbucket.org/emysinc/urbi/raw/master_upstream/dev/chocolatey_packages.config) and type: `choco install chocolatey_packages.config`
+Alternatively you can use Chocolatey to install all the tools (except qiBuild). To do so, please install Chocolatey. Download [configuration file](https://gitlab.com/emysinc/urbi/urbi/raw/master/dev/chocolatey_packages.config?inline=false) and type: `choco install chocolatey_packages.config`
 Remember to install qiBuild manually.
 
 ##Create workspace directory
@@ -31,9 +31,9 @@ After all, boost should be installed in `%URBI_WORKSPACE%\urbi`.
 Change directory to `%URBI_WORKSPACE%` and download sources with following command:
 ```bat
 qisrc init &&^
-qisrc add --branch master git@bitbucket.org:emysinc/libjpeg.git &&^
-qisrc add --branch master_upstream git@bitbucket.org:emysinc/libport.git &&^
-qisrc add --branch master_upstream git@bitbucket.org:emysinc/urbi.git
+qisrc add --branch master git@gitlab.com:emysinc/urbi/libjpeg.git &&^
+qisrc add --branch master git@gitlab.com:emysinc/urbi/libport.git &&^
+qisrc add --branch master git@gitlab.com:emysinc/urbi/urbi.git
 ```
 
 Configure project
