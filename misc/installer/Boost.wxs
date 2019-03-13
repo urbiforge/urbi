@@ -2,305 +2,157 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="dirA5528701EE26FFBF346CCE20EE8ACE99">
-            <Component Id="cmp597706D933E90E237AF0F8C2BD83F406" Guid="{66393AA4-7E3C-4EA0-A29A-A25EE2866524}">
-                <File Id="fil2170E40EE8B5ED4EA48AB4FFDF8D2119" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_atomic-vc141-mt-gd-x64-1_68.dll" />
-            </Component>
             <Component Id="cmp602B6C735152FF97E2FB46E77C63F538" Guid="{2A221E59-3AA7-427E-8C1E-4666AF1B97F9}">
-                <File Id="filC31B0DADDDEF53E635DBE65ECBE9A161" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_atomic-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp2D704E1461E2AF843BC5B3877644631C" Guid="{47456410-3DD5-4495-9150-5DD2E788F918}">
-                <File Id="filF01656F00B646472530B1C23ADDA9653" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_chrono-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filC31B0DADDDEF53E635DBE65ECBE9A161" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_atomic-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp9BA3E0B27F518CB73CEC296E54A2ACB4" Guid="{7074F2F6-D0A9-4282-BBD9-20894C8A325F}">
-                <File Id="fil1B65926CF42B484D5D0C087D71E42C63" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_chrono-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp713F901FC13D6F452640210730EB4802" Guid="{83ABF3B5-F386-4478-9DB5-460C9704EE86}">
-                <File Id="filB0B3AEF2490B6A60F619F2F87D154F92" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_container-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil1B65926CF42B484D5D0C087D71E42C63" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_chrono-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF402A58B959131AC2EB749E3C4A3BFF1" Guid="{13E525A0-25BD-4F84-8210-4B03132CE1C0}">
-                <File Id="fil3D8C9501E044C73795D72B8262613198" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_container-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp613DAB29503378291801DD9E484ED59E" Guid="{221801C5-25F7-403B-A4D5-855D37101621}">
-                <File Id="filF0923BE60C5999D8F2B5DC31E351E447" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_context-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil3D8C9501E044C73795D72B8262613198" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_container-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp4EF13B5C6A880844EC6FD6A10603B5F5" Guid="{8D9F0289-5B40-468A-B331-30210A663133}">
-                <File Id="fil379B008F2A32A32AEB95AA3414EF5468" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_context-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpEECDE1110D4DAA87A631B5C875B20319" Guid="{8F96322D-02D8-4976-A123-FA5EFEF5CB1E}">
-                <File Id="fil11C7B35F79EB69D98CB59F96B842DD91" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_contract-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil379B008F2A32A32AEB95AA3414EF5468" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_context-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF1DD92C835BC7C17526AB5E5284879E5" Guid="{CFA8C236-EAAA-4916-B787-6A69157AE17A}">
-                <File Id="fil44DB62117031DDF08CED655036A1811A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_contract-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpD3CEA7B039BEE72B40C22F9199F5F9FB" Guid="{8ED06095-D948-4E7A-8EAA-8F3C919B9C6F}">
-                <File Id="fil83C78FD8F34A95B930D3D33CFB4354BE" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_coroutine-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil44DB62117031DDF08CED655036A1811A" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_contract-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp098AEAE24587943CBB67B004EC620C0F" Guid="{8C1B8091-C92D-4C91-B045-E9387BFE959F}">
-                <File Id="fil5553BFC86A6AE92015D69A1C84F33A22" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_coroutine-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpC38B2DB16B7013009C36DEF93C2CEC60" Guid="{68359F9A-93E3-4949-8C11-C2232B44CA54}">
-                <File Id="fil0CDA8A5E54B054F061E5F98E1885DE23" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_date_time-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil5553BFC86A6AE92015D69A1C84F33A22" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_coroutine-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp351DF03FC97D267B0FC279238D1A37E1" Guid="{6BD6EA2B-5E8E-477A-AE53-B5E88502A391}">
-                <File Id="fil132595861FCF1A886B6D9ADE39C6C1CB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_date_time-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp0180D378C100277462CEE45339248F4C" Guid="{B7907E05-0553-43E1-A2C8-9FC4F1B4BA90}">
-                <File Id="fil0A3BCFBF2DC0B7D5F102AABFC3F7AD68" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_fiber-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil132595861FCF1A886B6D9ADE39C6C1CB" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_date_time-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp31F7162975AB0BEAB0D373348EE0DC9E" Guid="{193B043A-80EA-4FA4-B122-7A1614B468CD}">
-                <File Id="fil608B162814E3C60D2125159FE743C853" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_fiber-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpA2C3C61BA274895CF5BF1CC88C0C6D68" Guid="{494FF8AE-D133-4A48-B316-6238E2111CD8}">
-                <File Id="filDE5B8F721478F1287AFF59DB33312B93" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_filesystem-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil608B162814E3C60D2125159FE743C853" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_fiber-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF3EF53DC3B4C54305DBA336BFAF963FC" Guid="{0D19FC93-136C-4BBA-8782-9E4E12613BEA}">
-                <File Id="fil6C3FE2C2F28CEC9E2F31A17D61C9F668" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_filesystem-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp5101EDEF72EA3AA19BDF6D75C6970D94" Guid="{465592D3-E3FF-4D67-9986-3F05847D2FB9}">
-                <File Id="fil92293F99D2CD453B82ECF16B065CADBC" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_graph-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil6C3FE2C2F28CEC9E2F31A17D61C9F668" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_filesystem-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF9346A8C0C3505A94978AC3156E8FB8B" Guid="{879128CA-13AA-4B97-8EE5-6E1F009099E0}">
-                <File Id="fil09450C4889454FBDBF25E089C0840FF5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_graph-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp858C454AADA8DC72D1DEE4113E737389" Guid="{B24EDA88-9484-485A-929D-1C567159658C}">
-                <File Id="fil69A5DF003C733522F8CCF54AA989EFCD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_iostreams-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil09450C4889454FBDBF25E089C0840FF5" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_graph-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF4E741FDA49FDEBC6235949D6175AF8D" Guid="{B0807883-8201-4BFE-A6D5-D6A2DF583265}">
-                <File Id="fil7B2A713426FB2C51FAF2EFF08ACEB3CD" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_iostreams-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpB68524BDF04C0A15C06DB50639AA7E48" Guid="{8D3785F8-B216-40C0-B3EE-5152A02FA999}">
-                <File Id="fil141F1F988A20329D5C3B00EF5CF3EA85" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_locale-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil7B2A713426FB2C51FAF2EFF08ACEB3CD" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_iostreams-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpC960CFD73C469F0B6AA8E0FE6B530D41" Guid="{C3F58065-3718-4911-8A6B-7E0AB769E17B}">
-                <File Id="fil5FD8D7A382256823E5E0FE5EED9F8E03" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_locale-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp317633169AC31D340A5F1A9D72D50F4D" Guid="{2D3AA8D0-E461-412E-866B-B3F1C23BFAA6}">
-                <File Id="fil71D4E401B3A64898B06CEE87CC522F1E" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_log-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil5FD8D7A382256823E5E0FE5EED9F8E03" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_locale-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpA89C7091E46D342CA57A140788B76B89" Guid="{53DFBCAF-7B4D-4BBE-B90C-DE7265192457}">
-                <File Id="filF0639A7A075EC174A801AC8F25E007A7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_log-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp9687D40F099A0F1390C2E580EC48910E" Guid="{F7BB0B96-0B97-4D2A-8772-4AF0C0F59CEB}">
-                <File Id="fil308946E37C3E0EB033F58741D08BDDE1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_log_setup-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filF0639A7A075EC174A801AC8F25E007A7" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_log-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpE86C56932F94775D71DA3F648FE125A8" Guid="{BC77071B-6A0E-4749-B352-F6DD49ACB5C1}">
-                <File Id="filCDA6CE62E37BCA8C2F0246B6FEB652EB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_log_setup-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp8BA1BF8F56CF4230078FAC2B272C2E76" Guid="{5EFB0563-96AF-491C-AA18-5A1FD357018F}">
-                <File Id="fil2CDDB6CB8BBCDB0398D1A843ABA416A6" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_c99-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filCDA6CE62E37BCA8C2F0246B6FEB652EB" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_log_setup-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp2E1B3413BB1259F8B2E7EF69A5C2CF41" Guid="{271BBFBC-59C6-4973-A6F5-1ECD28D880F6}">
-                <File Id="fil16BF90E84AB60DBB85B05790EF6B07E2" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_c99-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp71C406C1255EC2EB60F81C0E99387710" Guid="{4E4F20F6-7FA7-4452-AB77-31D3DA3EB401}">
-                <File Id="fil1DFDE1707EED5D813D7B21292A976F6A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_c99f-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil16BF90E84AB60DBB85B05790EF6B07E2" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_math_c99-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpA16F34D0630C48CF9DD385287E9CDE8E" Guid="{BECBE722-4FFC-447C-A691-59B348FD205C}">
-                <File Id="fil7414A23FBCD8E2EE33E73F48293FF138" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_c99f-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp677937C926B6953C66D6E63E36336304" Guid="{B4284E0D-A8D4-472A-830D-AF87BFC9ED82}">
-                <File Id="fil81B22A905B40D1C9C72D6DA590DFCF8C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_c99l-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil7414A23FBCD8E2EE33E73F48293FF138" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_math_c99f-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp1E048BD127D263AFCECA88597B3165D2" Guid="{3E32C854-933E-4360-9AA3-D462E8C484E0}">
-                <File Id="fil6A1DD426B3EFC85FF373DDCABC71AAB1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_c99l-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp6F9EEDF608BAE3F166FE041EC41E46E1" Guid="{AE038ABE-4B6D-4B74-9323-05AE2D743BDE}">
-                <File Id="filCD0394BE3A2C2C6BFD64BCDB8BCD28D3" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_tr1-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil6A1DD426B3EFC85FF373DDCABC71AAB1" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_math_c99l-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp9E54E5F288E409D51E381222D0C8F757" Guid="{084E2D13-6DDD-48C1-953E-35049CD64C06}">
-                <File Id="fil81B072BB45ECA803A118F81A3D262BA4" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_tr1-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp9D595D0AAAFC71BD6F60F1E6B8B1417E" Guid="{1220778D-367E-41C3-AFE1-B1278285BADD}">
-                <File Id="fil8E2998DAC3925C8A8440D966FB5012C0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_tr1f-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil81B072BB45ECA803A118F81A3D262BA4" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_math_tr1-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF00742A9BC18BDB34A2A92090B87D134" Guid="{0EE8F648-AD94-4A4C-98BB-DAF78A7DFE1D}">
-                <File Id="fil770CA53DFB7717F26B4F4D9C7A4A61DA" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_tr1f-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp3499A5D3AB7E7EDD7A56CDE10DCDA3D0" Guid="{6F1E8BC5-1649-4679-8247-7A7801C8B735}">
-                <File Id="filC44671E47C3C377D0D59639A15474517" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_tr1l-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil770CA53DFB7717F26B4F4D9C7A4A61DA" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_math_tr1f-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp25EA53C6ECEF1D6FC9DDE2472EB59154" Guid="{2F14A465-6F36-4D23-BCCE-B6416207645E}">
-                <File Id="filDC09FDF2C21638A206383FC2C3E9C619" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_math_tr1l-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpDE20CB7C6EA67EA343CC2E30075CEBAF" Guid="{1B7ED345-7D48-4651-A495-0D93D49F9D08}">
-                <File Id="filC92DAB502E3B22357BE47E2BE26D1C5D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_prg_exec_monitor-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filDC09FDF2C21638A206383FC2C3E9C619" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_math_tr1l-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpE900BFB513B472DD6D6285F5546CD90D" Guid="{BC12AB74-B6E9-4395-8865-4F45090D6822}">
-                <File Id="filB5FA5DF8BE411E72F4665553A4F3038A" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_prg_exec_monitor-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp9A4FF6866DC6687EB72A4AB286CCCA46" Guid="{BE6C7FB7-C65A-4452-A7AD-E27DE40F8C91}">
-                <File Id="fil0E9062E675784B3D020B307AAF199A33" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_program_options-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filB5FA5DF8BE411E72F4665553A4F3038A" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_prg_exec_monitor-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp4EB7AB3E8400ACCE88B516342EA349C6" Guid="{4A0D0B36-F3EF-4BBE-9F83-019F09BC5D85}">
-                <File Id="fil03C221000FC627667D5AC10283358645" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_program_options-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp5E93EEE098893C2D8EEB8CF4E09BA2EE" Guid="{B88D3635-8D20-441A-BF76-8CC1E19C9818}">
-                <File Id="fil42A2AA3E2304664A251CE4861BFF1F7C" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_python27-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil03C221000FC627667D5AC10283358645" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_program_options-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp3FAD0537CF53E8921145450B24035FA2" Guid="{61FD79C2-1C13-462A-86E4-3A44A226148E}">
-                <File Id="fil81D13F2CBC7AA66F6900641CE06D229D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_python27-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpA22C3B87788D4678327CB245B3CD58CA" Guid="{4E750F04-A3A2-4910-8AB0-8BEA3EC8549F}">
-                <File Id="filACB645A9997408CA69B4A33CC4820C6D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_random-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil81D13F2CBC7AA66F6900641CE06D229D" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_python27-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpFAD3A04EB2C79A4F0D014AC88F9121DC" Guid="{2C24CFCD-12FF-48DE-8B29-6525B77EA358}">
-                <File Id="filBBC4A2DB143C818D2B4AF9F3E5A11F1D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_random-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpAFFB31BCE82330E339EFAF8DE9956598" Guid="{74C0B0C5-CCE8-497B-AE88-8949356D4B2F}">
-                <File Id="filE71D9D9DAABF4933733C3CF5C72BC728" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_regex-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filBBC4A2DB143C818D2B4AF9F3E5A11F1D" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_random-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp5497AB6AFF80BA8BB6753D0E2E5F8C26" Guid="{900CAD59-57F6-4149-ADF3-C6F582E35CDD}">
-                <File Id="filDD19A09BD32F0DEC05F129E593D086B7" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_regex-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpE62290AC78061C129B07D6D324AF463B" Guid="{C8179C42-101E-448C-B0DC-8217238FC411}">
-                <File Id="filDD2CC891657B3C7EA9F31A23541D8A85" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_serialization-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filDD19A09BD32F0DEC05F129E593D086B7" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_regex-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpF0CEC5DB746A222C0491BC0CBFE48452" Guid="{B9CA68ED-A7E1-48EE-8E3B-D9E1FDA0B493}">
-                <File Id="fil711AF38ACD81F972FB0E73F6EEA7DE03" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_serialization-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp2B68E084CFBF2E093A0DC558666743CE" Guid="{3C5E919B-BA91-4EFC-96AB-3F3BE0B40CE3}">
-                <File Id="fil1E5764170159199AD7BE80DB71DE2862" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_signals-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil711AF38ACD81F972FB0E73F6EEA7DE03" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_serialization-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpE076ECC1684825B3FF360C99FD3360EC" Guid="{DA470E5E-A04C-434A-926E-2F976627294B}">
-                <File Id="fil563794E4B6B7BC039368CE6520BD68C9" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_signals-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmpB34EAF3873F5CF2541DADDA44ACBA4A3" Guid="{D5EA342C-A9E9-4A00-9C89-07BA20253122}">
-                <File Id="fil21B3A040CBA7C36B55928F672D5DE7D5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_stacktrace_noop-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil563794E4B6B7BC039368CE6520BD68C9" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_signals-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpAA887EDEB48C1E914B5D8E35C80ACEDA" Guid="{99C7F24A-5E43-49E4-A6F1-EE8D0FC4C7F2}">
-                <File Id="fil18095E08340BC024F829B432A08BEE17" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_stacktrace_noop-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp5A9492FCAAD23F46D72E794969C84352" Guid="{93E22C0E-0AD0-4F76-941C-7C70B4D4CB53}">
-                <File Id="fil3F3102328472901E148DACA0479337DB" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_stacktrace_windbg-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil18095E08340BC024F829B432A08BEE17" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_stacktrace_noop-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp10AC60230ECE4DF4B5BBA8ABEDE91CC8" Guid="{C0EAC440-4C27-4CE5-88FA-A62C787B28C0}">
-                <File Id="fil759D5B82AE74209DA2E38BFC54DACE84" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_stacktrace_windbg-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp9E8736D5416D94175B056C1DE80EAFE5" Guid="{E4DD8F6D-FB37-4877-8CFA-4619F6A262EA}">
-                <File Id="fil52718D8166716350397FB135542E3600" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_stacktrace_windbg_cached-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil759D5B82AE74209DA2E38BFC54DACE84" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_stacktrace_windbg-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp1A684BAA1FC6551F04E11AFE3DF730D3" Guid="{5D5F2C0C-E3FE-4D80-B544-CBC00A297FF3}">
-                <File Id="filCCB1374041A3E739E669BC548A949EF0" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_stacktrace_windbg_cached-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp078E4AB475AA0D5E99E76082BAED0DBA" Guid="{7B22D3B2-0156-42F6-AD2C-DB568BEE799B}">
-                <File Id="fil17CF7513B8CEC069079517B154C2AE29" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_system-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filCCB1374041A3E739E669BC548A949EF0" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_stacktrace_windbg_cached-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp10B5A8E8E7EA2F3E22E38954D0F77DA3" Guid="{07AE713C-819D-425F-981A-3ACD569294E5}">
-                <File Id="fil39FBD6C8BFBE9BD269776DFE6960839D" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_system-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp57FB492C439C5E18451FE1BCD84A3318" Guid="{78EED9B0-61BE-4C4C-9E93-445FFAF2AAFB}">
-                <File Id="filF95B50FDAAC004501ED1EF98CF877241" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_thread-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil39FBD6C8BFBE9BD269776DFE6960839D" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_system-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp034A545AE92344F91AE3575A209929BF" Guid="{B7F93312-D64E-4003-86D5-0EFA2742A6F1}">
-                <File Id="fil3D737DBD462D34473AE5543DA9CF0E9B" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_thread-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp07BD94C113FD761A05AA3646828E2F4A" Guid="{566637E0-7B31-4B92-BA79-1C0A9C470007}">
-                <File Id="fil4D478AF17E4BEBA1DD8E066B943FC376" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_timer-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil3D737DBD462D34473AE5543DA9CF0E9B" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_thread-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpC9D0733AC15FA62F48E41D58CE400F84" Guid="{A8489D62-0C44-49C5-AE14-D4A3D9FED46C}">
-                <File Id="fil6237AC1D1F9965203288978EB256D406" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_timer-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp90AB0D682D75DF464FB39F5410BBD986" Guid="{EEA455BF-9ABB-4315-AEDB-5C917C9349A3}">
-                <File Id="fil0BAEE107277BF83955642A10BC723B60" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_type_erasure-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil6237AC1D1F9965203288978EB256D406" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_timer-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpB3DB5AD81A2A8B895FCC0B81E2E2C726" Guid="{E1EFC42E-B035-4234-917A-958D5B0840AF}">
-                <File Id="fil0582115C05365D795FFA017D8055DEE5" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_type_erasure-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp827CAFF3FB0BD4D256824BB9C247CD86" Guid="{9B74F3ED-550A-48D7-BC94-E43A9BB5DE1E}">
-                <File Id="fil7F49BAE4B01AE590CC96B8145633B2F1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_unit_test_framework-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil0582115C05365D795FFA017D8055DEE5" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_type_erasure-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpD083F7830E3D84CB7C1ABE58DF08F33A" Guid="{6B0EF82F-DDDB-4282-B0E5-5038736EF5B6}">
-                <File Id="filAFD7D01504EAED96E229245B9F38C2B8" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_unit_test_framework-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp391F6E6B268B7176F6BC30A6323A038F" Guid="{C1877AD2-5282-4B49-9B34-DE926197748C}">
-                <File Id="fil0DF53BBB13ED707D6E22E80BA1631594" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_wave-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="filAFD7D01504EAED96E229245B9F38C2B8" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_unit_test_framework-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmp2ADAE9D904BC287C5AADD58E14C0CE83" Guid="{FD4AB3B6-4F5D-49B3-9AB1-210A954DBF12}">
-                <File Id="fil1FA33B07F8AD885E17075046131642F1" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_wave-vc141-mt-x64-1_68.dll" />
-            </Component>
-            <Component Id="cmp2100CE0543020D8E58163DF3C1F6B4F2" Guid="{230C06FF-10B1-47B5-BA1D-C2657F0D8CFB}">
-                <File Id="filB518FE5CCAFAAB8A4F7CFEE46FE9DD28" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_wserialization-vc141-mt-gd-x64-1_68.dll" />
+                <File Id="fil1FA33B07F8AD885E17075046131642F1" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_wave-vc141-mt-x64-1_68.dll" />
             </Component>
             <Component Id="cmpD9A268E62B672FD62BB46CFA61042E9F" Guid="{6C9373F5-9D9E-4BD4-A32A-A8C22B34B125}">
-                <File Id="fil3E1CCE18AFE89E9ACC17FE5115D4E866" KeyPath="yes" Source="$(env.URBI_STAGEDIR)\bin\boost_wserialization-vc141-mt-x64-1_68.dll" />
+                <File Id="fil3E1CCE18AFE89E9ACC17FE5115D4E866" KeyPath="yes" Source="$(env.BOOST_STAGEDIR)\bin\boost_wserialization-vc141-mt-x64-1_68.dll" />
             </Component>
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="BoostComponentGroup">
-            <ComponentRef Id="cmp597706D933E90E237AF0F8C2BD83F406" />
             <ComponentRef Id="cmp602B6C735152FF97E2FB46E77C63F538" />
-            <ComponentRef Id="cmp2D704E1461E2AF843BC5B3877644631C" />
             <ComponentRef Id="cmp9BA3E0B27F518CB73CEC296E54A2ACB4" />
-            <ComponentRef Id="cmp713F901FC13D6F452640210730EB4802" />
             <ComponentRef Id="cmpF402A58B959131AC2EB749E3C4A3BFF1" />
-            <ComponentRef Id="cmp613DAB29503378291801DD9E484ED59E" />
             <ComponentRef Id="cmp4EF13B5C6A880844EC6FD6A10603B5F5" />
-            <ComponentRef Id="cmpEECDE1110D4DAA87A631B5C875B20319" />
             <ComponentRef Id="cmpF1DD92C835BC7C17526AB5E5284879E5" />
-            <ComponentRef Id="cmpD3CEA7B039BEE72B40C22F9199F5F9FB" />
             <ComponentRef Id="cmp098AEAE24587943CBB67B004EC620C0F" />
-            <ComponentRef Id="cmpC38B2DB16B7013009C36DEF93C2CEC60" />
             <ComponentRef Id="cmp351DF03FC97D267B0FC279238D1A37E1" />
-            <ComponentRef Id="cmp0180D378C100277462CEE45339248F4C" />
             <ComponentRef Id="cmp31F7162975AB0BEAB0D373348EE0DC9E" />
-            <ComponentRef Id="cmpA2C3C61BA274895CF5BF1CC88C0C6D68" />
             <ComponentRef Id="cmpF3EF53DC3B4C54305DBA336BFAF963FC" />
-            <ComponentRef Id="cmp5101EDEF72EA3AA19BDF6D75C6970D94" />
             <ComponentRef Id="cmpF9346A8C0C3505A94978AC3156E8FB8B" />
-            <ComponentRef Id="cmp858C454AADA8DC72D1DEE4113E737389" />
             <ComponentRef Id="cmpF4E741FDA49FDEBC6235949D6175AF8D" />
-            <ComponentRef Id="cmpB68524BDF04C0A15C06DB50639AA7E48" />
             <ComponentRef Id="cmpC960CFD73C469F0B6AA8E0FE6B530D41" />
-            <ComponentRef Id="cmp317633169AC31D340A5F1A9D72D50F4D" />
             <ComponentRef Id="cmpA89C7091E46D342CA57A140788B76B89" />
-            <ComponentRef Id="cmp9687D40F099A0F1390C2E580EC48910E" />
             <ComponentRef Id="cmpE86C56932F94775D71DA3F648FE125A8" />
-            <ComponentRef Id="cmp8BA1BF8F56CF4230078FAC2B272C2E76" />
             <ComponentRef Id="cmp2E1B3413BB1259F8B2E7EF69A5C2CF41" />
-            <ComponentRef Id="cmp71C406C1255EC2EB60F81C0E99387710" />
             <ComponentRef Id="cmpA16F34D0630C48CF9DD385287E9CDE8E" />
-            <ComponentRef Id="cmp677937C926B6953C66D6E63E36336304" />
             <ComponentRef Id="cmp1E048BD127D263AFCECA88597B3165D2" />
-            <ComponentRef Id="cmp6F9EEDF608BAE3F166FE041EC41E46E1" />
             <ComponentRef Id="cmp9E54E5F288E409D51E381222D0C8F757" />
-            <ComponentRef Id="cmp9D595D0AAAFC71BD6F60F1E6B8B1417E" />
             <ComponentRef Id="cmpF00742A9BC18BDB34A2A92090B87D134" />
-            <ComponentRef Id="cmp3499A5D3AB7E7EDD7A56CDE10DCDA3D0" />
             <ComponentRef Id="cmp25EA53C6ECEF1D6FC9DDE2472EB59154" />
-            <ComponentRef Id="cmpDE20CB7C6EA67EA343CC2E30075CEBAF" />
             <ComponentRef Id="cmpE900BFB513B472DD6D6285F5546CD90D" />
-            <ComponentRef Id="cmp9A4FF6866DC6687EB72A4AB286CCCA46" />
             <ComponentRef Id="cmp4EB7AB3E8400ACCE88B516342EA349C6" />
-            <ComponentRef Id="cmp5E93EEE098893C2D8EEB8CF4E09BA2EE" />
             <ComponentRef Id="cmp3FAD0537CF53E8921145450B24035FA2" />
-            <ComponentRef Id="cmpA22C3B87788D4678327CB245B3CD58CA" />
             <ComponentRef Id="cmpFAD3A04EB2C79A4F0D014AC88F9121DC" />
-            <ComponentRef Id="cmpAFFB31BCE82330E339EFAF8DE9956598" />
             <ComponentRef Id="cmp5497AB6AFF80BA8BB6753D0E2E5F8C26" />
-            <ComponentRef Id="cmpE62290AC78061C129B07D6D324AF463B" />
             <ComponentRef Id="cmpF0CEC5DB746A222C0491BC0CBFE48452" />
-            <ComponentRef Id="cmp2B68E084CFBF2E093A0DC558666743CE" />
             <ComponentRef Id="cmpE076ECC1684825B3FF360C99FD3360EC" />
-            <ComponentRef Id="cmpB34EAF3873F5CF2541DADDA44ACBA4A3" />
             <ComponentRef Id="cmpAA887EDEB48C1E914B5D8E35C80ACEDA" />
-            <ComponentRef Id="cmp5A9492FCAAD23F46D72E794969C84352" />
             <ComponentRef Id="cmp10AC60230ECE4DF4B5BBA8ABEDE91CC8" />
-            <ComponentRef Id="cmp9E8736D5416D94175B056C1DE80EAFE5" />
             <ComponentRef Id="cmp1A684BAA1FC6551F04E11AFE3DF730D3" />
-            <ComponentRef Id="cmp078E4AB475AA0D5E99E76082BAED0DBA" />
             <ComponentRef Id="cmp10B5A8E8E7EA2F3E22E38954D0F77DA3" />
-            <ComponentRef Id="cmp57FB492C439C5E18451FE1BCD84A3318" />
             <ComponentRef Id="cmp034A545AE92344F91AE3575A209929BF" />
-            <ComponentRef Id="cmp07BD94C113FD761A05AA3646828E2F4A" />
             <ComponentRef Id="cmpC9D0733AC15FA62F48E41D58CE400F84" />
-            <ComponentRef Id="cmp90AB0D682D75DF464FB39F5410BBD986" />
             <ComponentRef Id="cmpB3DB5AD81A2A8B895FCC0B81E2E2C726" />
-            <ComponentRef Id="cmp827CAFF3FB0BD4D256824BB9C247CD86" />
             <ComponentRef Id="cmpD083F7830E3D84CB7C1ABE58DF08F33A" />
-            <ComponentRef Id="cmp391F6E6B268B7176F6BC30A6323A038F" />
             <ComponentRef Id="cmp2ADAE9D904BC287C5AADD58E14C0CE83" />
-            <ComponentRef Id="cmp2100CE0543020D8E58163DF3C1F6B4F2" />
             <ComponentRef Id="cmpD9A268E62B672FD62BB46CFA61042E9F" />
         </ComponentGroup>
     </Fragment>
