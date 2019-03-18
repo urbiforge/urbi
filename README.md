@@ -62,7 +62,7 @@ It executes interactive console. Thus, you can type your urbiscript directly. Al
 To create MSI package, the additional environment variables has to be created:
 
 * `BOOST_STAGEDIR` points to `%URBI_WORKSPACE%\boost`
-* `URBI_STAGEDIR` points to `%URBI_WORKSPACE%\boost`
+* `URBI_STAGEDIR` points to `%URBI_WORKSPACE%\urbi`
 
 Create folder `%URBI_WORKSPACE%\installer` and type
 ```bat
