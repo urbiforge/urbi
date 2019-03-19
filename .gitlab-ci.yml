@@ -1,0 +1,42 @@
+variables:
+  GIT_STRATEGY: none
+  BOOST_STAGEDIR: boost_bin\
+  URBI_STAGEDIR: urbi_bin\
+  
+before_script:
+  - set "BUILD_DIR=%CI_PROJECT_DIR%"
+  - set "BUILD_DIR=%BUILD_DIR:/=\%"
+  - echo "Cleaning %BUILD_DIR%"
+  - del /q %BUILD_DIR%\*
+  - for /d %%x in (%BUILD_DIR%\*) do if not "%%x\"=="%cd%\%BOOST_STAGEDIR%" @rd /s /q "%%x"
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - git clone https://%ci_agent_user%:%ci_agent_token%@gitlab.com/emysinc/urbi/libport.git --single-branch --branch %CI_COMMIT_REF_NAME%
+  - git clone https://%ci_agent_user%:%ci_agent_token%@gitlab.com/emysinc/urbi/libjpeg.git --single-branch --branch %CI_COMMIT_REF_NAME%
+  - git clone https://%ci_agent_user%:%ci_agent_token%@gitlab.com/emysinc/urbi/urbi.git --single-branch --branch %CI_COMMIT_REF_NAME%
+  - git -C urbi checkout %CI_COMMIT_SHA%
+  - qisrc init
+  - qisrc add libjpeg
+  - qisrc add libport
+  - qisrc add urbi
+  - powershell -File ./urbi/misc/CI/prepare_boost.ps1 #add parameter to select boost version
+
+cache:
+  paths:
+    - boost_bin/
+
+build:
+  tags:
+    - windows-shell
+  script:
+    - qibuild configure --release --with-debug-info -DBOOSTROOT=%cd%\%BOOST_STAGEDIR% -DBOOST_LIBRARYDIR=%cd%\%BOOST_STAGEDIR%\bin -G"Ninja" urbi
+    - qibuild make -j4 urbi >nul
+    - qibuild install urbi %cd%\%URBI_STAGEDIR%
+    - COPY urbi\LICENSE.rtf %URBI_STAGEDIR%
+    - cmd /c "%wix%\bin\candle.exe" -arch x64 urbi\misc\installer\*.wxs
+    - md msi
+    - cmd /c "%wix%\bin\light.exe" -ext WIXUIExtension ^*.wixobj -out msi\urbi_%CI_COMMIT_SHORT_SHA%.msi
+    - del /q msi\*.wixpdb
+  artifacts:
+    paths:
+      - msi/
+    expire_in: 1 week
