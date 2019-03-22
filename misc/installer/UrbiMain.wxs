@@ -17,6 +17,7 @@
 
     <WixVariable Id="WixUILicenseRtf" Value="$(env.URBI_STAGEDIR)\LICENSE.rtf" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id="ALLUSERS" Value="1"/>
 
     <Property Id="ARPPRODUCTICON" Value="cube.exe" />
     <Icon Id="cube.exe" SourceFile="$(env.URBI_STAGEDIR)\share\icons\cube.ico" />
