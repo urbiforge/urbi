@@ -375,7 +375,10 @@ namespace urbi
   UVALUE_OPERATORS(Type v, DATA_DOUBLE, val, v)
 
   UVALUE_DOUBLE(ufloat)
+  UVALUE_DOUBLE(float)
+  UVALUE_DOUBLE(short)
   UVALUE_DOUBLE(int)
+  UVALUE_DOUBLE(unsigned short)
   UVALUE_DOUBLE(unsigned int)
   UVALUE_DOUBLE(long)
   UVALUE_DOUBLE(unsigned long)

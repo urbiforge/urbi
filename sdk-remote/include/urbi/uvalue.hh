@@ -152,11 +152,11 @@ namespace urbi
 
     // Types convertibles to DATA_DOUBLE
 # define URBI_DERIVED_NUMERIC_TYPES                             \
-    LIBPORT_LIST(int, long, unsigned int, unsigned long,        \
+    LIBPORT_LIST(float, short, int, long, unsigned short, unsigned int, unsigned long,        \
                  unsigned long long, long long,)
 
 # define URBI_NUMERIC_TYPES                                             \
-    LIBPORT_LIST(ufloat, int, long, unsigned int, unsigned long,        \
+    LIBPORT_LIST(float, ufloat, short, int, long, unsigned short, unsigned int, unsigned long,        \
                  unsigned long long, long long,)
 
     // Types convertibles to DATA_STRING
