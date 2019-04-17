@@ -37,6 +37,8 @@ namespace urbi
     IMAGE_YUV411_PLANAR=8, ///< 4y 1u1v planar
     IMAGE_NV12=9,      ///< planar y then interleaved uv subsampled 2x2.
     IMAGE_YUV420_PLANAR=10, ///< 4y 1u1v planar
+    IMAGE_BGR = 11,
+    IMAGE_BGRA = 12
 
     // Keep IMAGE_END (below) up to date!
   };
@@ -45,7 +47,7 @@ namespace urbi
   // impossible case.
   enum
   {
-    IMAGE_END = 11,
+    IMAGE_END = 13,
   };
 
 
