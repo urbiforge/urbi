@@ -1,11 +1,8 @@
 function(uobject name path)
   # all uobjects can link with any of the uobjects
   # except lib-urbi which uses liburbi
-  qi_create_lib( ${name}
-    MODULE
-    SUBFOLDER gostai/uobjects/${path}
-    SRC ${ARGN}
-  )
+  add_library(${name} MODULE ${ARGN})
+  
   # Apple default to no unresolved,
   # but stores library path which will not do with uobject
   if (APPLE)
@@ -14,14 +11,19 @@ function(uobject name path)
         LINK_FLAGS "-undefined dynamic_lookup"
     )
   endif()
+  
   # Win32 does not allow unresolved, but just uses lib name not path
   if (WIN32)
-    qi_use_lib(${name} uobject-remote)
+	target_link_libraries(${name} uobject-remote)
   endif()
+  
   set_target_properties( ${name}
     PROPERTIES
       PREFIX ""
   )
+  
+  
+  #STAGE? gostai/uobjects/${path}
 endfunction()
 
 # A target named all does not fare well
@@ -44,8 +46,8 @@ uobject(subsumption test test/subsumption.uob/subsumption.cc)
 uobject(issue-3699 test test/issue-3699.uob/issue-3699.cc)
 uobject(fusion urbi urbi/fusion.uob/fusion.cc)
 
-qi_add_optional_package(ORTP)
+find_package(ORTP QUIET)
 if(ORTP_LIBRARIES)
   uobject(rtp urbi urbi/rtp.uob/rtp.cc)
-  qi_use_lib(rtp ORTP)
+  target_link_libraries(rtp ORTP)
 endif()
