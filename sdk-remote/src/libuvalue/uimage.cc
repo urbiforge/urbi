@@ -37,7 +37,9 @@ namespace urbi
     "grey4",
     "yuv411_planar",
     "nv12",
-    "yuv420_planar"
+    "yuv420_planar",
+    "bgr",
+    "bgra"
   };
 
   const char*
