@@ -1,8 +1,5 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 project(Urbi CXX C)
-
-find_package(Boost COMPONENTS regex system filesystem thread chrono date_time signals REQUIRED)
-find_package(Port REQUIRED)
 
 set(ConfigFile ${CMAKE_CURRENT_BINARY_DIR}/cmake/UrbiConfig.cmake)
 set(ConfigPackageLocation share/cmake/urbi)
@@ -10,6 +7,11 @@ set(CPACK_PACKAGE_VENDOR "Emys Inc.")
 set(CPACK_WIX_UI_REF "WixUI_Minimal")
 set(CPACK_WIX_UPGRADE_GUID "ba25c4f0-b795-44a6-a29e-d785bfa66806")
 set(CPACK_WIX_PROPERTY_ALLUSERS "1")
+add_definitions(-DBOOST_ALL_NO_LIB)
+#set(BOOST_ALL_DYN_LINK)
+
+find_package(Boost COMPONENTS regex system filesystem thread chrono date_time signals REQUIRED)
+find_package(Port REQUIRED)
 
 include(CMakePackageConfigHelpers)
 include(CPack)
