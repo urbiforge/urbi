@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 project(Urbi CXX C)
 
+set(Urbi_VERSION 3.0.0)
+
+set(CPACK_PACKAGE_VERSION ${Urbi_VERSION})
 set(ConfigFile ${CMAKE_CURRENT_BINARY_DIR}/cmake/UrbiConfig.cmake)
+set(ConfigVersionFile ${CMAKE_CURRENT_BINARY_DIR}/cmake/UrbiConfigVersion.cmake)
 set(ConfigPackageLocation share/cmake/urbi)
 set(CPACK_PACKAGE_VENDOR "Emys Inc.")
 set(CPACK_WIX_UI_REF "WixUI_Minimal")
@@ -11,11 +15,19 @@ add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_ALL_DYN_LINK)
 set(Boost_USE_DEBUG_RUNTIME OFF)
 
+
 find_package(Boost COMPONENTS regex system filesystem thread chrono date_time signals REQUIRED)
-find_package(Port REQUIRED)
+
+if(DEFINED FIND_EXTERNAL_DEPENDENCIES)
+  find_package(Port REQUIRED)
+endif()
 
 include(CMakePackageConfigHelpers)
 include(CPack)
+
+add_subdirectory(external/libjpeg)
+add_subdirectory(external/libport)
+
 
 #find python
 find_program(_python_executable
@@ -24,7 +36,6 @@ find_program(_python_executable
   if (NOT _python_executable)
     qi_error("needs python executable in PATH")
   endif()
-
 
 add_subdirectory(sdk-remote)
 
@@ -52,70 +63,7 @@ endif ()
 
 
 if (HAVE_CUSTOM_BISON)
-#this needs to be done...
-MESSAGE("Using bison")
-
-#invoke flex on utoken.l
-qi_generate_src(
-  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw
-  SRC src/parser/utoken.l
-  COMMAND flex -+ -o${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/utoken.l
-)
-
-#fix flex output
-qi_generate_src(
-  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc
-  SRC ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw
-  COMMAND ${_python_executable} ${CMAKE_CURRENT_SOURCE_DIR}/dev/fix-utoken.py ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc
-)
-
-# You need a bison patched by gostai, in the urbi-sdk/bison repository.
-set(BISON_OPTS
-  --defines --report=all -xml
-)
-set(BISON
-  bison
-)
-
-qi_generate_src(
-  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
-  SRC src/parser/ugrammar.y
-  COMMAND ${BISON} ${BISON_OPTS} ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/ugrammar.y -o  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
-)
-
-function(astgen target command)
- qi_generate_src(
-   ${CMAKE_CURRENT_SOURCE_DIR}/${target}
-  SRC src/ast/ast.yml
-  COMMAND ${_python_executable} ${CMAKE_CURRENT_SOURCE_DIR}/dev/ast-${command}-gen ${CMAKE_CURRENT_SOURCE_DIR}/src/ast < ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/ast.yml
- )
-endfunction()
-
-
-astgen(src/ast/all.cc all)
-astgen(src/ast/cloner.cc cloner)
-astgen(src/ast/transformer.cc transformer)
-astgen(src/ast/fwd.hh fwd)
-astgen(src/ast/default-visitor.hh default-visitor)
-astgen(src/ast/visitor.hh visitor)
-astgen(src/ast/pretty-printer.cc pretty-printer)
-astgen(src/ast/dot-printer.cc dot-printer)
-astgen(src/ast/serializer.hh serializer)
-astgen(src/ast/implicit.hh nodes)
-
-set(GENERATED_SRC
-  src/ast/visitor.hh
-  src/ast/implicit.hh
-  src/ast/all.cc
-  src/ast/cloner.hxx
-  src/ast/cloner.cc
-  src/ast/dot-printer.cc
-  src/ast/pretty-printer.cc
-  src/ast/transformer.cc
-  src/ast/default-visitor.hh
-  src/ast/fwd.hh
-)
-
+  include(cmake/custom_bison.cmake)
 else()
   MESSAGE("No bison specified, using pregenerated grammar and AST files.")
 
@@ -139,17 +87,27 @@ if (NOT WIN32)
   list(APPEND UOBJECT_PLUGIN_SRC src/object/urbi/process.cc)
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/)
-
 # For ast/factory.cc
 add_definitions(-D__SRCDIR__="")
 add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 
 add_library(uobject SHARED ${UCO_SRC} ${UOBJECT_PLUGIN_SRC} ${UOBJECT_GENERATED_SRC})
+
+target_include_directories(uobject
+        INTERFACE
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
+          $<INSTALL_INTERFACE:include/urbi>
+        PRIVATE
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
+        )
 
 target_link_libraries(uobject
     Port::port Port::sched Port::serialize Boost::regex Boost::signals Boost::filesystem Boost::date_time Boost::system Boost::thread)
@@ -178,6 +136,14 @@ install(
 add_subdirectory(share)
 add_subdirectory(sdk-remote/src/uobjects)
 
+write_basic_package_version_file(
+      ${ConfigVersionFile}
+    VERSION
+      ${Urbi_VERSION}
+    COMPATIBILITY
+      AnyNewerVersion
+)
+
 export(
     EXPORT
         UrbiTargets
@@ -202,13 +168,11 @@ install(
 
 install(
   FILES
+    ${ConfigVersionFile}
     ${ConfigFile}
   DESTINATION
     ${ConfigPackageLocation}
 )
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/images/cube.ico DESTINATION share/icons)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf DESTINATION ${CMAKE_INSTALL_PREFIX})
-
-
-
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf DESTINATION .)
