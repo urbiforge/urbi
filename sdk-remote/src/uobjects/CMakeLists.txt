@@ -1,36 +1,51 @@
 function(uobject name path)
-  # all uobjects can link with any of the uobjects
-  # except lib-urbi which uses liburbi
-  add_library(${name} MODULE ${ARGN})
-  
-  # Apple default to no unresolved,
-  # but stores library path which will not do with uobject
-  if (APPLE)
-    set_target_properties(${name}
-      PROPERTIES
-        LINK_FLAGS "-undefined dynamic_lookup"
+    # all uobjects can link with any of the uobjects
+    # except lib-urbi which uses liburbi
+    add_library(${name} MODULE ${ARGN})
+
+    # Apple default to no unresolved,
+    # but stores library path which will not do with uobject
+    if (APPLE)
+        set_target_properties(${name}
+        PROPERTIES
+            LINK_FLAGS "-undefined dynamic_lookup"
     )
-  endif()
-  
-  # Win32 does not allow unresolved, but just uses lib name not path
-  if (WIN32)
-	target_link_libraries(${name} uobject-remote)
-  endif()
-  
-  set_target_properties( ${name}
+    endif()
+
+    # Win32 does not allow unresolved, but just uses lib name not path
+    if (WIN32)
+        target_link_libraries(${name} uobject-remote)
+    endif()
+
+    set_target_properties( ${name}
     PROPERTIES
-      PREFIX ""
-  )
-  
-  
-  #STAGE? gostai/uobjects/${path}
+        PREFIX ""
+    )
+
+    install(
+        TARGETS
+            ${name}
+        COMPONENT
+            Runtime
+        EXPORT
+            UrbiTargets
+        RUNTIME  DESTINATION
+            lib/gostai/uobjects/test
+        LIBRARY  DESTINATION
+            lib/gostai/uobjects/test
+        ARCHIVE  DESTINATION
+            lib/gostai/uobjects/test
+        INCLUDES DESTINATION
+            include
+    )
 endfunction()
 
 # A target named all does not fare well
 uobject(uobject_all test test/all.uob/all.cc)
 set_target_properties(uobject_all
-  PROPERTIES
-     OUTPUT_NAME all)
+    PROPERTIES
+        OUTPUT_NAME all
+)
 
 uobject(lib-urbi test test/lib-urbi.uob/liburbi.cc)
 uobject(remote test test/remote.uob/remote.cc)
@@ -48,6 +63,6 @@ uobject(fusion urbi urbi/fusion.uob/fusion.cc)
 
 find_package(ORTP QUIET)
 if(ORTP_LIBRARIES)
-  uobject(rtp urbi urbi/rtp.uob/rtp.cc)
-  target_link_libraries(rtp ORTP)
+    uobject(rtp urbi urbi/rtp.uob/rtp.cc)
+    target_link_libraries(rtp ORTP)
 endif()

@@ -8,13 +8,13 @@ set(ConfigFile ${CMAKE_CURRENT_BINARY_DIR}/cmake/UrbiConfig.cmake)
 set(ConfigVersionFile ${CMAKE_CURRENT_BINARY_DIR}/cmake/UrbiConfigVersion.cmake)
 set(ConfigPackageLocation share/cmake/urbi)
 set(CPACK_PACKAGE_VENDOR "Emys Inc.")
-set(CPACK_WIX_UI_REF "WixUI_Minimal")
+set(CPACK_WIX_UI_REF "WixUI_FeatureTree")
 set(CPACK_WIX_UPGRADE_GUID "ba25c4f0-b795-44a6-a29e-d785bfa66806")
 set(CPACK_WIX_PROPERTY_ALLUSERS "1")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf")
 add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_ALL_DYN_LINK)
 set(Boost_USE_DEBUG_RUNTIME OFF)
-
 
 find_package(Boost COMPONENTS regex system filesystem thread chrono date_time signals REQUIRED)
 
@@ -23,19 +23,18 @@ if(DEFINED FIND_EXTERNAL_DEPENDENCIES)
 endif()
 
 include(CMakePackageConfigHelpers)
-include(CPack)
+include(CPackComponent)
 
 add_subdirectory(external/libjpeg)
 add_subdirectory(external/libport)
-
 
 #find python
 find_program(_python_executable
     NAMES python2 python python.exe
     NO_CMAKE_FIND_ROOT_PATH)
-  if (NOT _python_executable)
-    qi_error("needs python executable in PATH")
-  endif()
+if (NOT _python_executable)
+    message(ERROR "needs python executable in PATH")
+endif()
 
 add_subdirectory(sdk-remote)
 
@@ -54,7 +53,6 @@ endif()
 add_definitions(-DLIBPORT_LIBSFX="")
 add_definitions(-DLIBPORT_LIBDIRNAME="lib")
 add_definitions(-D_USE_MATH_DEFINES)
-#add_definitions(/w)
 
 # stack allocation seems to produce weird things on atom builds
 if (I_AM_A_ROBOT)
@@ -94,35 +92,39 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 add_library(uobject SHARED ${UCO_SRC} ${UOBJECT_PLUGIN_SRC} ${UOBJECT_GENERATED_SRC})
 
 target_include_directories(uobject
-        INTERFACE
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
-          $<INSTALL_INTERFACE:include/urbi>
-        PRIVATE
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
-        )
+    INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
+        $<INSTALL_INTERFACE:include/urbi>
+    PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
+)
 
 target_link_libraries(uobject
     Port::port Port::sched Port::serialize Boost::regex Boost::signals Boost::filesystem Boost::date_time Boost::system Boost::thread)
 
 set_target_properties(uobject
-  PROPERTIES
-    OUTPUT_NAME uobject
-    INSTALL_NAME_DIR "@executable_path/../lib/gostai/engine"
-    COMPILE_FLAGS -DBUILDING_URBI_SDK)
+    PROPERTIES
+        OUTPUT_NAME uobject
+        INSTALL_NAME_DIR "@executable_path/../lib/gostai/engine"
+    COMPILE_FLAGS
+        -DBUILDING_URBI_SDK
+)
 
 install(
     TARGETS
         uobject
     EXPORT
         UrbiTargets
+    COMPONENT
+        Runtime
     RUNTIME  DESTINATION
         lib/gostai/engine
     LIBRARY  DESTINATION
@@ -136,12 +138,42 @@ install(
 add_subdirectory(share)
 add_subdirectory(sdk-remote/src/uobjects)
 
+install(
+    DIRECTORY
+        "${BOOSTROOT}/bin/"
+    COMPONENT
+        SDK
+    DESTINATION
+        bin
+    FILES_MATCHING PATTERN
+        "*.lib"
+)
+
+install(
+    DIRECTORY
+        "${BOOSTROOT}/bin/"
+    COMPONENT
+        Runtime
+    DESTINATION
+        bin
+    FILES_MATCHING PATTERN "*.dll"
+)
+
+install(
+    DIRECTORY
+        "${BOOSTROOT}/include/"
+    COMPONENT
+        SDK
+    DESTINATION
+        include
+)
+
 write_basic_package_version_file(
-      ${ConfigVersionFile}
+        ${ConfigVersionFile}
     VERSION
-      ${Urbi_VERSION}
+        ${Urbi_VERSION}
     COMPATIBILITY
-      AnyNewerVersion
+        AnyNewerVersion
 )
 
 export(
@@ -154,7 +186,8 @@ export(
 configure_package_config_file(
     ${PROJECT_SOURCE_DIR}/cmake/UrbiConfig.cmake.in
     ${ConfigFile}
-    INSTALL_DESTINATION ${ConfigPackageLocation}
+    INSTALL_DESTINATION
+        ${ConfigPackageLocation}
 )
 
 install(
@@ -162,17 +195,56 @@ install(
         UrbiTargets
     FILE
         UrbiTargets.cmake
+    COMPONENT
+        SDK
     DESTINATION
         ${ConfigPackageLocation}
 )
 
 install(
-  FILES
-    ${ConfigVersionFile}
-    ${ConfigFile}
-  DESTINATION
-    ${ConfigPackageLocation}
+    FILES
+        ${ConfigVersionFile}
+        ${ConfigFile}
+    COMPONENT
+        SDK
+    DESTINATION
+        ${ConfigPackageLocation}
 )
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/images/cube.ico DESTINATION share/icons)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf DESTINATION .)
+install(
+    FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/images/cube.ico
+    COMPONENT
+        Runtime
+    DESTINATION
+        share/icons
+)
+
+install(
+    FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf
+    COMPONENT
+        Runtime
+    DESTINATION
+        .
+)
+
+cpack_add_component(Runtime
+    DISPLAY_NAME
+        "Runtime components"
+    REQUIRED
+)
+
+cpack_add_component(SDK
+    DISPLAY_NAME
+        "SDK components for developers"
+    DISABLED
+)
+
+cpack_add_component(Others
+    DISPLAY_NAME
+        "Other components"
+    HIDDEN
+)
+
+include(CPack)

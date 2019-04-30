@@ -7,6 +7,8 @@ target_link_libraries(urbi-bandwidth
 install(
     TARGETS
         urbi-bandwidth
+    COMPONENT
+        SDK
     EXPORT
         UrbiTargets
     RUNTIME  DESTINATION
