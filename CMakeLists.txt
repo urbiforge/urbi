@@ -12,6 +12,7 @@ set(CPACK_WIX_UI_REF "WixUI_FeatureTree")
 set(CPACK_WIX_UPGRADE_GUID "ba25c4f0-b795-44a6-a29e-d785bfa66806")
 set(CPACK_WIX_PROPERTY_ALLUSERS "1")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf")
+set(CPACK_WIX_CMAKE_PACKAGE_REGISTRY ${PROJECT_NAME})
 add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_ALL_DYN_LINK)
 set(Boost_USE_DEBUG_RUNTIME OFF)
@@ -179,6 +180,8 @@ write_basic_package_version_file(
 export(
     EXPORT
         UrbiTargets
+    NAMESPACE
+        ${PROJECT_NAME}::
     FILE
         "${CMAKE_CURRENT_BINARY_DIR}/cmake/UrbiTargets.cmake"
 )
@@ -195,6 +198,8 @@ install(
         UrbiTargets
     FILE
         UrbiTargets.cmake
+    NAMESPACE
+        ${PROJECT_NAME}::
     COMPONENT
         SDK
     DESTINATION
