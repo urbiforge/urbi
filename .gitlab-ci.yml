@@ -1,10 +1,6 @@
 before_script:
-  #- set "BUILD_DIR=%CI_PROJECT_DIR%"
-  #- set "BUILD_DIR=%BUILD_DIR:/=\%"
   - echo "Cleaning %BUILD_DIR%"
-  #- del /q %BUILD_DIR%\*
   - rd /s /q %BUILD_DIR%\build
-  # - for /d %%x in (%BUILD_DIR%\*) do if not "%%x\"=="%cd%\%BOOST_STAGEDIR%" @rd /s /q "%%x"
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - powershell -File ./misc/CI/prepare_boost.ps1
 
@@ -19,7 +15,8 @@ build:
     - git submodule update --init --recursive
     - md build
     - cd build
-    - cmake -G Ninja -DBOOSTROOT=%URBI_WORKSPACE%\boost -DBOOST_LIBRARYDIR=%URBI_WORKSPACE%\boost\bin -DCMAKE_INSTALL_PREFIX=%URBI_WORKSPACE%\urbi_bin -DCMAKE_BUILD_TYPE=Release ..
+    - echo %cd%
+    - cmake -G Ninja -DBOOSTROOT=%CI_PROJECT_DIR%\boost_bin -DBOOST_LIBRARYDIR=%CI_PROJECT_DIR%\boost_bin\bin -DCMAKE_INSTALL_PREFIX=%CI_PROJECT_DIR%\urbi_bin -DCMAKE_BUILD_TYPE=Release %CI_PROJECT_DIR%
     - cmake --build . -j4
     - cpack -G "WIX"
   artifacts:
