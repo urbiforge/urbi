@@ -46,7 +46,7 @@ install(
     COMPONENT
         Others
     DESTINATION
-        share/gdb/python/urbi
+        share/gostai/gdb/python/urbi
 )
 
 install(

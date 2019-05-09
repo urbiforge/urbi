@@ -30,11 +30,11 @@ function(uobject name path)
         EXPORT
             UrbiTargets
         RUNTIME  DESTINATION
-            lib/gostai/uobjects/test
+            lib/gostai/uobjects/${path}
         LIBRARY  DESTINATION
-            lib/gostai/uobjects/test
+            lib/gostai/uobjects/${path}
         ARCHIVE  DESTINATION
-            lib/gostai/uobjects/test
+            lib/gostai/uobjects/${path}
         INCLUDES DESTINATION
             include
     )

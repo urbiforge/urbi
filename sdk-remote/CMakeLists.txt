@@ -143,7 +143,7 @@ install(
     EXPORT
         UrbiTargets
     RUNTIME  DESTINATION
-        lib
+        bin
     LIBRARY  DESTINATION
         lib
     ARCHIVE  DESTINATION
