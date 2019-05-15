@@ -9,7 +9,7 @@ if($upload.ToLower().equals("true"))
 {
     $resolvedPath = Resolve-Path -Path $localPath
     write-host -b green "uploading $resolvedPath"
-    rclone purge $remotePath/latest
+    rclone delete $remotePath/latest/
     rclone copy $resolvedPath $remotePath/$jobId/
     rclone copy $resolvedPath $remotePath/latest/
     $jobUrl | Out-File 'job.txt'
