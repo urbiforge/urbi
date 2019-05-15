@@ -17,7 +17,7 @@ build:
     - cmake -E env CXXFLAGS="/w" cmake -G Ninja -DBOOSTROOT=%CI_PROJECT_DIR%\boost_bin -DBOOST_LIBRARYDIR=%CI_PROJECT_DIR%\boost_bin\bin -DCMAKE_INSTALL_PREFIX=%CI_PROJECT_DIR%\urbi_bin -DCMAKE_BUILD_TYPE=Release %CI_PROJECT_DIR%
     - cmake --build . -j4
     - cpack -G "WIX"
-    - powershell -noninteractive -File ../misc/CI/upload_artifacts.ps1 -upload %UPLOAD_ARTIFACTS% -remotePath emys:/artifacts/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/ -localPath *.msi -jobId %CI_JOB_ID% -jobUrl %CI_JOB_URL%   
+    - powershell -noninteractive -File ../misc/CI/upload_artifacts.ps1 -upload %CI_UPLOAD_ARTIFACTS% -remotePath emys:/artifacts/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/ -localPath *.msi -jobId %CI_JOB_ID% -jobUrl %CI_JOB_URL%   
   artifacts:
     paths:
       - build/*.msi
