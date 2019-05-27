@@ -1,12 +1,7 @@
-before_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-  - powershell -File ./misc/CI/prepare_boost.ps1
-
-cache:
-  paths:
-    - boost_bin/
-
 build:
+  before_script:
+    - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    - powershell -File ./misc/CI/prepare_boost.ps1
   tags:
     - windows-shell
   stage: build
@@ -22,3 +17,19 @@ build:
     paths:
       - build/*.msi
     expire_in: 1 week
+  cache:
+    paths:
+      - boost_bin/
+
+trigger_bundle:
+  tags: 
+    - windows-shell
+  stage: deploy
+  script:
+    - curl -X POST
+     -F token=%BUNDLE_TRIGGER%
+     -F "variables[TRIG_SRC_PROJECT]=%CI_PROJECT_NAME%"
+     -F "variables[TRIG_SRC_BRANCH]=%CI_COMMIT_REF_NAME%"
+     -F "variables[TRIG_SRC_REV]=%CI_COMMIT_SHA%"
+     -F ref=%BUNDLE_BRANCH%
+     https://gitlab.com/api/v4/projects/11002064/trigger/pipeline
