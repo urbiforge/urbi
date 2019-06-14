@@ -263,8 +263,4 @@ namespace runner
 
 } // namespace runner
 
-# if defined LIBPORT_COMPILATION_MODE_SPEED
-#  include <runner/job.hxx>
-# endif
-
 #endif // ! RUNNER_JOB_HH

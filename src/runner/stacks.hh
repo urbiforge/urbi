@@ -155,8 +155,4 @@ namespace runner
   };
 }
 
-# if defined LIBPORT_COMPILATION_MODE_SPEED
-#  include <runner/stacks.hxx>
-# endif
-
 #endif

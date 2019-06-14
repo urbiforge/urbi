@@ -25,11 +25,7 @@
 #include <eval/raise.hh>
 #include <eval/send-message.hh>
 
-#include <libport/config.h>
-
-#ifndef LIBPORT_COMPILATION_MODE_SPEED
-# include <runner/job.hxx>
-#endif
+#include <runner/job.hxx>
 
 
 namespace runner

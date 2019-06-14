@@ -17,7 +17,6 @@
 #include <libport/cstdio>
 #include <iostream>
 
-#include <libport/config.h>
 #include <libport/foreach.hh>
 #include <libport/sysexits.hh>
 

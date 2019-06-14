@@ -12,7 +12,6 @@
 # define RUNNER_STATE_HXX
 
 # include <libport/bind.hh>
-# include <libport/config.h>
 # include <libport/compilation.hh>
 
 # include <ast/local-assignment.hh>

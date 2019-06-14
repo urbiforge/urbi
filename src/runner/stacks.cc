@@ -8,9 +8,5 @@
  * See the LICENSE file for more information.
  */
 
-#include <libport/config.h>
-
-#ifndef LIBPORT_COMPILATION_MODE_SPEED
-# include <runner/stacks.hh>
+#include <runner/stacks.hh>
 # include <runner/stacks.hxx>
-#endif

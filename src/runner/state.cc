@@ -19,11 +19,7 @@
 #include <urbi/object/lobby.hh>
 #include <urbi/object/location.hh>
 
-#include <libport/config.h>
-
-#ifndef LIBPORT_COMPILATION_MODE_SPEED
-# include <runner/state.hxx>
-#endif
+#include <runner/state.hxx>
 
 namespace runner
 {

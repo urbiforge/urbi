@@ -11,7 +11,6 @@
 /// \file kernel/uconnection.cc
 /// \brief Implementation of UConnection.
 
-#include <libport/config.h>
 #include <libport/cstring>
 #include <libport/cstdio>
 #include <libport/cassert>

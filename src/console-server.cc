@@ -8,8 +8,6 @@
  * See the LICENSE file for more information.
  */
 
-#include <libport/config.h>
-
 #include <libport/unistd.h>
 #include <iostream>
 #include <fstream>

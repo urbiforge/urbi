@@ -17,7 +17,6 @@
 # include <memory>
 # include <sstream>
 
-# include <libport/config.h>
 # include <libport/attributes.hh>
 
 # if LIBPORT_HAVE_WINDOWS_H

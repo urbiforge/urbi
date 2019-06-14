@@ -13,7 +13,6 @@
  ** \brief Definition of eval::ast.
  */
 
-#include <libport/config.h>
 #include <libport/compilation.hh>
 
 #include <ast/all.hh>

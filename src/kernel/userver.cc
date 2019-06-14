@@ -34,7 +34,6 @@
 #include <libport/asio.hh>
 #include <libport/backtrace.hh>
 #include <libport/compiler.hh>
-#include <libport/config.h>
 #include <libport/cstdio>
 #include <libport/detect-win32.h>
 #include <libport/finally.hh>

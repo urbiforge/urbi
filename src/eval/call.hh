@@ -140,8 +140,4 @@ namespace eval
     libport::Symbol s, rObject& target, bool throwOnError = true);
 } // namespace eval
 
-# if defined LIBPORT_COMPILATION_MODE_SPEED
-#  include <eval/call.hxx>
-# endif
-
 #endif // ! EVAL_CALL_HH

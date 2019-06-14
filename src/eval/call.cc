@@ -14,9 +14,5 @@
  ** \brief Implementation of routine application
  */
 
-#include <libport/config.h>
-
-#ifndef LIBPORT_COMPILATION_MODE_SPEED
-# include <eval/call.hh>
-# include <eval/call.hxx>
-#endif
+#include <eval/call.hh>
+#include <eval/call.hxx>

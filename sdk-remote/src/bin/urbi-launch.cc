@@ -12,8 +12,6 @@
 
 #include <urbi/urbi-root.hh>
 
-#include <libport/config.h>
-
 int main(int argc, char* argv[])
 {
   UrbiRoot urbi_root(argv[0],

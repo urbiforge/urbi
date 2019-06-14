@@ -337,8 +337,4 @@ namespace runner
 
 } // namespace runner
 
-# if defined LIBPORT_COMPILATION_MODE_SPEED
-#  include <runner/state.hxx>
-# endif
-
 #endif // ! RUNNER_STATE_HH

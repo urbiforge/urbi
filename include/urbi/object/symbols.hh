@@ -16,7 +16,6 @@
 #ifndef OBJECT_SYMBOLS_HH
 # define OBJECT_SYMBOLS_HH
 
-# include <libport/config.h>
 # include <libport/symbol.hh>
 # include <urbi/export.hh>
 

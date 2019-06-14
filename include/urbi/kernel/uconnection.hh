@@ -18,8 +18,6 @@
 # include <iomanip>
 # include <memory>
 
-# include <libport/config.h>
-
 # if LIBPORT_HAVE_WINDOWS_H
 // Without this, windows.h may include winsock.h, which will conflict with
 // winsock2.h when we will try to include it.

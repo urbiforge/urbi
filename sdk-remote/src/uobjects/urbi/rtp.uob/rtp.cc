@@ -13,7 +13,6 @@
 // ORTP defines its own version of int32_t and all, so disable ours.
 #define LIBPORT_NO_CSTDINT_TYPES
 
-#include <libport/config.h>
 #include <libport/detect-win32.h>
 
 #include <libport/lexical-cast.hh>
