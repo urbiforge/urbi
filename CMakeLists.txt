@@ -150,13 +150,11 @@ add_subdirectory(sdk-remote/src/uobjects)
 
 install(
     DIRECTORY
-        "${BOOSTROOT}/bin/"
+        "${BOOSTROOT}/lib/"
     COMPONENT
         SDK
     DESTINATION
-        bin
-    FILES_MATCHING PATTERN
-        "*.lib"
+        lib
 )
 
 install(
@@ -166,7 +164,6 @@ install(
         Runtime
     DESTINATION
         bin
-    FILES_MATCHING PATTERN "*.dll"
 )
 
 install(
