@@ -68,7 +68,7 @@ endif()
 add_library(uobject-remote SHARED ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC})
 
 if (NOT APPLE AND NOT WIN32)
-    set(UOBJECT_REMOTE_EXTRA_LINK_LIBS DL)
+    set(UOBJECT_REMOTE_EXTRA_LINK_LIBS dl)
 endif()
 
 target_include_directories(uobject-remote
