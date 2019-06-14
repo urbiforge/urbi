@@ -19,10 +19,6 @@ set(Boost_USE_DEBUG_RUNTIME OFF)
 
 find_package(Boost COMPONENTS regex system filesystem thread chrono date_time signals REQUIRED)
 
-if(DEFINED FIND_EXTERNAL_DEPENDENCIES)
-    find_package(Port REQUIRED)
-endif()
-
 if(NOT DEFINED GIT_REVISION)
     set(GIT_REVISION "custom_build")
 endif()
@@ -34,7 +30,7 @@ add_subdirectory(external/libjpeg)
 add_subdirectory(external/libport)
 
 install(
-    TARGETS port sched serialize
+    TARGETS port sched serialize jpeg
     EXPORT UrbiTargets
     )
 

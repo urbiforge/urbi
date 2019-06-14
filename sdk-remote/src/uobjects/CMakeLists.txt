@@ -12,10 +12,7 @@ function(uobject name path)
     )
     endif()
 
-    # Win32 does not allow unresolved, but just uses lib name not path
-    if (WIN32)
-        target_link_libraries(${name} uobject-remote)
-    endif()
+    target_link_libraries(${name} uobject-remote)
 
     set_target_properties( ${name}
     PROPERTIES

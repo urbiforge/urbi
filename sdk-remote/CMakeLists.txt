@@ -49,22 +49,6 @@ add_definitions(-DJPEG_INTERNAL)
 
 include(sources.cmake)
 
-# Look for system JPEG, use it if found, or use our internal version.
-find_package(JPEG QUIET)
-if(JPEG_FOUND)
-    message("Using SYSTEM JPEG")
-    set(JPEG_INCLUDE_DIRS ${JPEG_INCLUDE_DIR})
-    set(JPEG_PACKAGE JPEG)
-else()
-    message("Using INTERNAL JPEG")
-    add_definitions(-DJPEG_INTERNAL)
-    set(JPEG_PACKAGE qijpeg)
-
-    if(DEFINED FIND_EXTERNAL_DEPENDENCIES)
-        find_package(qijpeg REQUIRED)
-    endif()
-endif()
-
 add_library(uobject-remote SHARED ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC})
 
 if (NOT APPLE AND NOT WIN32)
@@ -82,7 +66,7 @@ target_include_directories(uobject-remote
 )
 
 target_link_libraries(uobject-remote
-    port::port port::serialize ${JPEG_PACKAGE} ${UOBJECT_REMOTE_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
+    port::port port::serialize jpeg ${UOBJECT_REMOTE_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
 
 set_target_properties(uobject-remote
     PROPERTIES
@@ -128,7 +112,7 @@ if (NOT APPLE AND NOT WIN32)
 endif()
 
 target_link_libraries(urbi
-    port::port port::serialize ${JPEG_PACKAGE} ${URBI_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
+    port::port port::serialize jpeg ${URBI_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
 
 set_target_properties(urbi
     PROPERTIES
