@@ -33,6 +33,11 @@ include(CPackComponent)
 add_subdirectory(external/libjpeg)
 add_subdirectory(external/libport)
 
+install(
+    TARGETS port sched serialize
+    EXPORT UrbiTargets
+    )
+
 #find python
 find_program(_python_executable
     NAMES python2 python python.exe
@@ -113,7 +118,7 @@ target_include_directories(uobject
 )
 
 target_link_libraries(uobject
-    Port::port Port::sched Port::serialize Boost::regex Boost::signals Boost::filesystem Boost::date_time Boost::system Boost::thread)
+    port::port port::sched port::serialize Boost::regex Boost::signals Boost::filesystem Boost::date_time Boost::system Boost::thread)
 
 set_target_properties(uobject
     PROPERTIES

@@ -17,11 +17,11 @@ target_include_directories(urbi-launch
 )
 
 if (NOT APPLE AND NOT WIN32)
-    set(URBI_LAUNCH_EXTRA_LINK_LIBS DL)
+    set(URBI_LAUNCH_EXTRA_LINK_LIBS dl)
 endif()
 
 target_link_libraries(urbi-launch
-    Port::port Port::sched Port::serialize ${URBI_LAUNCH_EXTRA_LINK_LIBS})
+    port::port port::sched port::serialize ${URBI_LAUNCH_EXTRA_LINK_LIBS})
 
 install(
     TARGETS
@@ -82,7 +82,7 @@ target_include_directories(uobject-remote
 )
 
 target_link_libraries(uobject-remote
-    Port::port Port::serialize ${JPEG_PACKAGE} ${UOBJECT_REMOTE_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
+    port::port port::serialize ${JPEG_PACKAGE} ${UOBJECT_REMOTE_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
 
 set_target_properties(uobject-remote
     PROPERTIES
@@ -124,11 +124,11 @@ target_include_directories(urbi
 )
 
 if (NOT APPLE AND NOT WIN32)
-    set(URBI_EXTRA_LINK_LIBS DL)
+    set(URBI_EXTRA_LINK_LIBS dl)
 endif()
 
 target_link_libraries(urbi
-    Port::port Port::serialize ${JPEG_PACKAGE} ${URBI_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
+    port::port port::serialize ${JPEG_PACKAGE} ${URBI_EXTRA_LINK_LIBS} Boost::regex Boost::date_time Boost::system Boost::thread)
 
 set_target_properties(urbi
     PROPERTIES
