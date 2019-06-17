@@ -34,14 +34,6 @@ install(
     EXPORT UrbiTargets
     )
 
-#find python
-find_program(_python_executable
-    NAMES python2 python python.exe
-    NO_CMAKE_FIND_ROOT_PATH)
-if (NOT _python_executable)
-    message(ERROR "needs python executable in PATH")
-endif()
-
 add_subdirectory(sdk-remote)
 
 
