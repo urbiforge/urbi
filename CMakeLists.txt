@@ -36,13 +36,6 @@ install(
 
 add_subdirectory(sdk-remote)
 
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/src)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/libport/include)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/sdk-remote/libport/include)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/include/urbi)
-
 add_definitions(-DLIBPORT_LIBSFX="")
 add_definitions(-DLIBPORT_LIBDIRNAME="lib")
 
@@ -84,19 +77,11 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 add_library(uobject SHARED ${UCO_SRC} ${UOBJECT_PLUGIN_SRC} ${UOBJECT_GENERATED_SRC})
 
 target_include_directories(uobject
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
-        $<INSTALL_INTERFACE:include/urbi>
-    PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/urbi/parser/>
+    PUBLIC $<INSTALL_INTERFACE:include/urbi>
+    PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/sdk-remote/include>
+    PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+    PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
+    PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
 target_link_libraries(uobject
