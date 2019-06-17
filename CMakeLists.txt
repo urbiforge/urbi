@@ -43,10 +43,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/libport/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/sdk-remote/libport/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include/urbi)
 
-if (USE_BOOST_CORO)
-  add_definitions(-DSCHED_USE_BOOST_CORO)
-endif()
-
 add_definitions(-DLIBPORT_LIBSFX="")
 add_definitions(-DLIBPORT_LIBDIRNAME="lib")
 add_definitions(-D_USE_MATH_DEFINES)
