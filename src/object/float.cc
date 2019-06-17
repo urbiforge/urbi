@@ -20,7 +20,6 @@
 #include <libport/compiler.hh>
 #include <libport/format.hh>
 
-#include <kernel/config.h>
 #include <libport/ufloat.hh>
 
 #include <object/cxx-helper.hh>

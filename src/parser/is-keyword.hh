@@ -13,7 +13,6 @@
 #ifndef PARSER_IS_KEYWORD_HH
 # define PARSER_IS_KEYWORD_HH
 
-# include <kernel/config.h>
 # include <libport/symbol.hh>
 
 namespace parser

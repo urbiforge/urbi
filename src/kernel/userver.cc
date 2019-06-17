@@ -45,8 +45,6 @@
 #include <libport/time.hh>
 #include <libport/tokenizer.hh>
 
-#include <kernel/config.h>
-
 #include <urbi/exit.hh>
 #include <urbi/uobject.hh>
 

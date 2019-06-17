@@ -42,8 +42,6 @@
 // //                    "%code requires" blocks.
 #line 29 "/alpha/home/bearclaw/projects/urbirebord/urbiforge/urbi/src/parser/ugrammar.y" // lalr1.cc:380
 
-#include <kernel/config.h> // YYDEBUG.
-
 #include <ast/call.hh>
 #include <ast/catches-type.hh>
 #include <ast/dictionary.hh>

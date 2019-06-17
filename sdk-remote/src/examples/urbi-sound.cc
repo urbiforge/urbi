@@ -14,7 +14,6 @@
  * You can use the sox program to convert it.
  */
 
-#include <kernel/config.h>
 #include <libport/cli.hh>
 #include <libport/cstdio>
 #include <libport/ctime>

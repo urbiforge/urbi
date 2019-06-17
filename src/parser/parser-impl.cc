@@ -10,7 +10,6 @@
 
 /// \file parser/parser-impl.cc
 
-#include <kernel/config.h> // YYDEBUG.
 #include <boost/algorithm/string/erase.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 

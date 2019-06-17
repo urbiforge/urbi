@@ -30,7 +30,6 @@
 # include <urbi/object/fwd.hh>
 # include <urbi/runner/fwd.hh>
 
-# include <kernel/config.h>
 # if defined ENABLE_SERIALIZATION
 #  include <serialize/serialize.hh>
 # endif

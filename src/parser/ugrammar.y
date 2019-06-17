@@ -27,8 +27,6 @@
 
 %code requires // Output in ugrammar.hh.
 {
-#include <kernel/config.h> // YYDEBUG.
-
 #include <ast/call.hh>
 #include <ast/catches-type.hh>
 #include <ast/event-match.hh>

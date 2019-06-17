@@ -15,8 +15,6 @@
 #ifndef KERNEL_SERVER_TIMER_HH
 # define KERNEL_SERVER_TIMER_HH
 
-# include <kernel/config.h>
-
 # if defined COMPILATION_MODE_SPEED
 
 #  define TIMER_INIT()

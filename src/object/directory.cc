@@ -8,7 +8,6 @@
  * See the LICENSE file for more information.
  */
 
-#include <kernel/config.h>
 #if HAVE_SYS_INOTIFY_H
 # include <sys/inotify.h>
 #endif

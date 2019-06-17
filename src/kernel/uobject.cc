@@ -17,8 +17,6 @@
 #include <libport/lexical-cast.hh>
 #include <libport/synchronizer.hh>
 
-#include <kernel/config.h>
-
 #include <urbi/kernel/uconnection.hh>
 #include <urbi/kernel/userver.hh>
 #include <kernel/uvalue-cast.hh>

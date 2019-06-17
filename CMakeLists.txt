@@ -44,7 +44,6 @@ endif()
 
 add_subdirectory(sdk-remote)
 
-configure_file(include/urbi/kernel/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/urbi/kernel/config.h)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/src)

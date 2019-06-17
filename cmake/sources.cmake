@@ -1,5 +1,4 @@
 set(UOBJECT_PLUGIN_SRC
-${CMAKE_CURRENT_BINARY_DIR}/include/urbi/kernel/config.h
 src/ast/analyzer.cc
 src/ast/analyzer.hh
 src/ast/catches-type.cc

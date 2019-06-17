@@ -14,7 +14,6 @@
  ** \file ast/cloner.cc
  ** \brief Implementation of ast::Cloner.
  */
-#include "kernel/config.h"
 #include "ast/all.hh"
 #include "ast/cloner.hh"
 // This file contains only protected functions, not loading it
