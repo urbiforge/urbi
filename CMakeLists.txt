@@ -45,7 +45,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/include/urbi)
 
 add_definitions(-DLIBPORT_LIBSFX="")
 add_definitions(-DLIBPORT_LIBDIRNAME="lib")
-add_definitions(-D_USE_MATH_DEFINES)
 
 # stack allocation seems to produce weird things on atom builds
 if (I_AM_A_ROBOT)
