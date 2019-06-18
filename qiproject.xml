@@ -1,4 +1,0 @@
-<project name="urbi">
-  <depends buildtime="true" names="libport libqijpeg" runtime="true" />
-  <maintainer email="urbi@blueworlds.org">JC Baillie</maintainer>
-</project>

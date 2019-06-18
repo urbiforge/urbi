@@ -4,142 +4,96 @@ set(COMPILATION_MODE_DEBUG false)
 set(COMPILATION_MODE_SPACE false)
 
 if (CMAKE_BUILD_TYPE STREQUAL Release)
-  set(COMPILATION_MODE_SPEED true)
-endif()
+    set(COMPILATION_MODE_SPEED true)
+endif ()
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
-  set(COMPILATION_MODE_DEBUG true)
-endif()
+    set(COMPILATION_MODE_DEBUG true)
+endif ()
 
 if (CMAKE_BUILD_TYPE STREQUAL MinSizeRel)
-  set(COMPILATION_MODE_SPACE true)
-endif()
+    set(COMPILATION_MODE_SPACE true)
+endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/urbi/platform.u.in ${CMAKE_CURRENT_BINARY_DIR}/urbi/platform.u)
 set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/urbi/platform.u PROPERTIES GENERATED 1)
 
-install(
-    FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/urbi/platform.u
-    COMPONENT
-        Runtime
-    DESTINATION
-        share/gostai/urbi
-)
+install(FILES
+    urbi/package-info/libport.u
+    urbi/package-info/urbi.u
+    COMPONENT Runtime
+    DESTINATION share/gostai/urbi/package-info
+    )
 
-install(
-    FILES
-        emacs/urbiscript-mode.el
-    COMPONENT
-        Others
-    DESTINATION
-        share/gostai/emacs
-)
-
-install(
-    FILES
-        gdb/python/urbi/__init__.py
-        gdb/python/urbi/breakpoints.py
-        gdb/python/urbi/commands.py
-        gdb/python/urbi/frames.py
-        gdb/python/urbi/printers.py
-    COMPONENT
-        Others
-    DESTINATION
-        share/gostai/gdb/python/urbi
-)
-
-install(
-    FILES
-        geshi/urbi.php
-    COMPONENT
-        Others
-    DESTINATION
-        share/gostai/geshi
-)
-
-install(
-    FILES
-        urbi/package-info/libport.u
-        urbi/package-info/urbi.u
-    COMPONENT
-        Runtime
-    DESTINATION
-        share/gostai/urbi/package-info
-)
-
-install(
-    FILES
-        urbi/binary.u
-        urbi/boolean.u
-        urbi/call-message.u
-        urbi/channel.u
-        urbi/code.u
-        urbi/comparable.u
-        urbi/component.u
-        urbi/container.u
-        urbi/control.u
-        urbi/dataflow.u
-        urbi/date.u
-        urbi/dictionary.u
-        urbi/directory.u
-        urbi/duration.u
-        urbi/enumeration.u
-        urbi/event.u
-        urbi/exception.u
-        urbi/file.u
-        urbi/float.u
-        urbi/formatter.u
-        urbi/global.u
-        urbi/group.u
-        urbi/input-stream.u
-        urbi/job.u
-        urbi/kernel1.u
-        urbi/lazy.u
-        urbi/list.u
-        urbi/loadable.u
-        urbi/lobby.u
-        urbi/local.mk
-        urbi/logger.u
-        urbi/math.u
-        urbi/monitoring.u
-        urbi/mutex.u
-        urbi/naming-standard.u
-        urbi/nil.u
-        urbi/object.u
-        urbi/orderable.u
-        urbi/package-info.u
-        urbi/path.u
-        urbi/pattern.u
-        urbi/process.u
-        urbi/profile.u
-        urbi/pubsub.u
-        urbi/python.u
-        urbi/range-iterable.u
-        urbi/regexp.u
-        urbi/require-file.u
-        urbi/semaphore.u
-        urbi/singleton.u
-        urbi/socket.u
-        urbi/stack-frame.u
-        urbi/string.u
-        urbi/system.u
-        urbi/tag.u
-        urbi/test-suite.u
-        urbi/timeout.u
-        urbi/traceable.u
-        urbi/trajectory-generator.u
-        urbi/tuple.u
-        urbi/uobject.u
-        urbi/updatehook-stack.u
-        urbi/urbi.u
-        urbi/utags.u
-        urbi/vector.u
-        urbi/weak-pointer.u
-    COMPONENT
-        Runtime
-    DESTINATION
-        share/gostai/urbi
-)
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/urbi/platform.u
+    urbi/binary.u
+    urbi/boolean.u
+    urbi/call-message.u
+    urbi/channel.u
+    urbi/code.u
+    urbi/comparable.u
+    urbi/component.u
+    urbi/container.u
+    urbi/control.u
+    urbi/dataflow.u
+    urbi/date.u
+    urbi/dictionary.u
+    urbi/directory.u
+    urbi/duration.u
+    urbi/enumeration.u
+    urbi/event.u
+    urbi/exception.u
+    urbi/file.u
+    urbi/float.u
+    urbi/formatter.u
+    urbi/global.u
+    urbi/group.u
+    urbi/input-stream.u
+    urbi/job.u
+    urbi/kernel1.u
+    urbi/lazy.u
+    urbi/list.u
+    urbi/loadable.u
+    urbi/lobby.u
+    urbi/logger.u
+    urbi/math.u
+    urbi/monitoring.u
+    urbi/mutex.u
+    urbi/naming-standard.u
+    urbi/nil.u
+    urbi/object.u
+    urbi/orderable.u
+    urbi/package-info.u
+    urbi/path.u
+    urbi/pattern.u
+    urbi/process.u
+    urbi/profile.u
+    urbi/pubsub.u
+    urbi/python.u
+    urbi/range-iterable.u
+    urbi/regexp.u
+    urbi/require-file.u
+    urbi/semaphore.u
+    urbi/singleton.u
+    urbi/socket.u
+    urbi/stack-frame.u
+    urbi/string.u
+    urbi/system.u
+    urbi/tag.u
+    urbi/test-suite.u
+    urbi/timeout.u
+    urbi/traceable.u
+    urbi/trajectory-generator.u
+    urbi/tuple.u
+    urbi/uobject.u
+    urbi/updatehook-stack.u
+    urbi/urbi.u
+    urbi/utags.u
+    urbi/vector.u
+    urbi/weak-pointer.u
+    COMPONENT Runtime
+    DESTINATION share/gostai/urbi
+    )
 
 

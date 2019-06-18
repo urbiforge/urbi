@@ -1,2 +1,0 @@
-#!/bin/sh
-urbi-launch --port 54000 --start -- -i "$@"
