@@ -21,8 +21,8 @@ add_subdirectory(share)
 
 if (WIN32)
     install(DIRECTORY "${BOOSTROOT}/bin/" COMPONENT Runtime DESTINATION bin)
-#    install(DIRECTORY "${BOOSTROOT}/lib/" COMPONENT SDK DESTINATION lib)
-#    install(DIRECTORY "${BOOSTROOT}/include/" COMPONENT SDK DESTINATION include)
+    install(DIRECTORY "${BOOSTROOT}/lib/" COMPONENT SDK DESTINATION lib)
+    install(DIRECTORY "${BOOSTROOT}/include/" COMPONENT SDK DESTINATION include)
 endif ()
 
 include(CMakePackageConfigHelpers)
