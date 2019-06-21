@@ -23,10 +23,6 @@ target_link_libraries(urbi_root INTERFACE port)
 add_library(urbi_launch INTERFACE)
 target_sources(urbi_launch INTERFACE src/urbi-launch.cc)
 
-add_library(urbi MODULE)
-target_link_libraries(urbi PRIVATE urbi_sources urbi_headers uco uvalue port::port jpeg ${CMAKE_DL_LIBS})
-target_compile_definitions(urbi PRIVATE BUILDING_URBI_SDK LIBPORT_LIBSFX="" LIBPORT_LIBDIRNAME="lib")
-
 install(
     TARGETS urbi_headers
     EXPORT UrbiTargets
