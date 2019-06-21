@@ -1,5 +1,3 @@
-#execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/pregenerated/ ${CMAKE_CURRENT_BINARY_DIR}/src/parser/)
-#execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/pregenerated/ ${CMAKE_CURRENT_BINARY_DIR}/src/ast/)
 set(UOBJECT_GENERATED_SRC src/pregenerated/ast/merged.cc)
 
 include(sources.cmake)
