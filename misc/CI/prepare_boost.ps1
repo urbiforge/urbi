@@ -6,7 +6,11 @@ if(!(Test-Path -Path $TARGETDIR )){
     7z x -y boost.zip
     cd boost_1_68_0
     ./bootstrap.bat >$null
-    ./b2.exe -j4 --prefix=$pwd/../boost_bin --libdir=$pwd/../boost_bin/bin toolset=msvc link=shared address-model=64 install >$null
+    ./b2.exe -j4 --prefix=$pwd/../boost_bin toolset=msvc link=shared address-model=64 install >$null
+    if(!(Test-Path -Path "$pwd/../boost_bin/bin")){
+        md $pwd/../boost_bin/bin/
+    }
+    mv $pwd/../boost_bin/lib/*.dll $pwd/../boost_bin/bin
 	echo "Boost compiled and installed"
     cd ..
 }
