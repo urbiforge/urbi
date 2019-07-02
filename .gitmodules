@@ -1,6 +1,6 @@
-[submodule "bison"]
-	path = bison
-	url = ssh://git@git.aldebaran.lan/urbi-sdk/bison.git
-[submodule "fsm"]
-	path = fsm
-	url = ssh://git@git.aldebaran.lan/urbi-sdk/fsm.git
+[submodule "external/libjpeg"]
+	path = external/libjpeg
+	url = ../libjpeg.git
+[submodule "external/libport"]
+	path = external/libport
+	url = ../libport.git

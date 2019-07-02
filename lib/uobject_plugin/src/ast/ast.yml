@@ -1,0 +1,1578 @@
+#                                                      -*- Yaml -*-
+#
+---
+
+# ---------------- #
+# AST parameters.  #
+# ---------------- #
+
+# The base directory to prepend to all the file names generated in the
+# generated Makefile snippet.  If this ast-nodes.mk is to be included
+# by ast/Makefile.am, then define to empty.  If it is included by its
+# parent Makefile.am, define to 'ast/'.
+ast_basedir: 'ast/'
+
+# Whether we should generate a all.cc file.  By default, we generate a
+# foo.cc for every class Foo.  This is costly for compilation cycles.
+# If set to true, then generate *.hcc instead, and a all.cc which
+# includes all the *.hcc files.
+all: true
+
+# The name of the directory/namespace that contains our auxiliary C++
+# library.
+auxlib: 'libport'
+
+# The name of the directory/namespace that contains the cloner.
+clonerlib: 'ast'
+# The name of the directory/namespace that contains the transformer.
+transformerlib: 'ast'
+
+# The generator will accept these types as is, without looking for a
+# particular header.  Also, they are handled by copy.
+atomic_types:
+  - 'bool'
+  - 'int'
+  - 'ufloat'
+  - 'unsigned'
+
+# Likewise, but these types are handled by references, because of
+# their size.
+# compound_types:
+# - 'DecsList::decs_type'
+
+# Text to include on top of any generated file.  Typically the
+# license.
+file_prologue: |2
+  /*
+   * Copyright (C) 2006-2012, Gostai S.A.S.
+   *
+   * This software is provided "as is" without warranty of any kind,
+   * either expressed or implied, including but not limited to the
+   * implied warranties of fitness for a particular purpose.
+   *
+   * See the LICENSE file for more information.
+   */
+
+  // Generated, do not edit by hand.
+
+  /**
+   ** \file %(file)s
+   ** \brief %(brief)s
+   */
+
+
+# In most cases, the name of the header to include can be computed
+# from the name of the type.  Below are the exceptions.
+includes_map:
+  'boost::optional<modifiers_type>':      '<boost/optional.hpp>'
+  'catches_type':                         '<ast/catches-type.hh>'
+  'dictionary_elts_type':                 '<vector>'
+  'exps_type':                            '<ast/exps-type.hh>'
+  'flavor_type':                          '<ast/flavor.hh>'
+  'libport::RefCounted':                  '<libport/ref-counted.hh>'
+  'libport::Symbol':                      '<libport/symbol.hh>'
+  'libport::meta::Hierarchy<Ast, Nodes>': '<libport/hierarchy.hh>'
+  'local_declarations_type':              '<ast/local-declarations-type.hh>'
+  'modifiers_type':                       '<libport/hash.hh>'
+  'std::string':                          '<string>'
+  'symbols_type':                         '<ast/symbols-type.hh>'
+  'libport::ufloat':                      '<libport/ufloat.hh>'
+# FIXME: Can't we compute this list from atomic_types?  Or simply, one
+# cannot visit something which is not a defined ast node?
+# Used by the cloner.
+non_visitable_types:
+  - 'bool'
+  - 'flavor_type'
+  - 'libport::Symbol'
+  - 'loc'
+  - 'std::string'
+  - 'libport::ufloat'
+  - 'unsigned'
+
+# In the cloner, these require 'recurse_collection'.
+collections:
+  - 'catches_type'
+  - 'dictionary_elts_type'
+  - 'exps_type'
+  - 'local_declarations_type'
+  - 'modifiers_type'
+  - 'symbols_type'
+
+# The function to clear a list of pointers.
+deep_clear: 'libport::deep_clear'
+
+# A regexp mathing the types that need to be deep-cleared.
+deep_clear_p: '^$'
+
+# The beginning of visitor.hh, for includes.
+visitor_hh_prologue: |2
+
+  # include <functional>
+
+  # include <boost/preprocessor/array.hpp>
+  # include <boost/preprocessor/repeat.hpp>
+  # include <boost/preprocessor/seq/for_each.hpp>
+
+  # include <libport/select-const.hh>
+
+  # include <ast/fwd.hh>
+
+# The beginning of default-visitor.hh, for includes.
+default_visitor_hh_prologue: |2
+
+  # include <functional>
+  # include <ostream>
+
+  # include <libport/select-const.hh>
+
+  # include <ast/visitor.hh>
+
+# The beginning of fwd.hh, for includes.
+fwd_hh_prologue: |2
+  # include <boost/ptr_container/ptr_vector.hpp>
+
+  # include <libport/fwd.hh>
+  # include <libport/hash.hh>
+  # include <libport/separate.hh>
+
+# The end of the fwd.hh file, in the namespace.
+fwd_hh_epilogue: |2
+
+    // factory.hh.
+    class Factory;
+
+    // event-match.hh.
+    struct EventMatch;
+
+    typedef boost::unordered_map<libport::Symbol, ast::rExp> modifiers_type;
+    typedef std::pair<ast::rExp, ast::rExp> dictionary_elt_type;
+    typedef std::vector<dictionary_elt_type> dictionary_elts_type;
+
+printer_cc_prologue: |2
+
+  #include <libport/foreach.hh>
+  #include <libport/escape.hh>
+  #include <libport/indent.hh>
+  #include <libport/pair.hh>
+
+---
+
+# ----------- #
+# AST Nodes.  #
+# ----------- #
+
+# Possible values:
+#  * class
+#    Description of classes.
+#    + name
+#      a C++ class name.
+#
+#    + desc
+#      a (Doxygen) comment describing the class.
+#
+#    + super
+#      a possibly empty space separated list of superclass names.
+#
+#    + inline
+#      code to include verbatim at some selected places:
+#      [header, inline, impl] x [prologue, inside, epilogue].
+#       *.hh     *.hxx  *.cc
+#       prologue: in the #include section.
+#       inside:   in the class definition/namespace
+#       epilogue: after the class definition, in the namespace.
+#
+#  * clone_by_ref
+#    Boolean, by default false. If true, the cloner will simply
+#    reuse the node itself as it will never change.
+#
+#  * cloner_prologue
+#    Code to execute before cloning this node
+#
+#  * declAttribute
+#    Attribute attached to the identifier of the class, to pass
+#    compiler attributes (such as DLL export requests and so forth).
+#
+#  * attributes:
+#    + name
+#      a C++ attribute name
+#
+#    + type
+#      a C++ type name
+#
+#    + abstract
+#      If True, don't output.
+#
+#    + mandatory
+#      + True
+#        *_get methods return a const ref.
+#      + False
+#        *_get methods return a const pointer.
+#
+#    + init
+#      If set, the value used to initialize the member.
+#      This attribute will not have an argument in the constructors.
+#
+#    + owned
+#      - True: Pointer members are "delete"'d.
+#      - False: They are not.
+#
+#    + access composed by [ 'r', 'w', 'W' ]        (defaults to rw)
+#      - r: provide a *_get const accessor.
+#      - w: provide a *_get accessor that returns a reference
+#        for possible modifications.
+#      - W: provide a *_set accessor.
+#
+#    + desc, a short description of the attribute
+#
+#    + default
+#      The code to output in the default visitor.  The current node
+#      is in the variable "n".
+#
+#    + printer
+#      The way the node is pretty-printed, using so ad-hoc syntactic
+#      sugar. A pretty-printer is specified by actions in a yaml list.
+#      The available actions are:
+#      - $foo: Pretty-print the foo_ attribute of the node.
+#      - ~bar: Pretty-print recursively the bar_ child of the node.
+#      - '{ /* code */ }': Insert a block of code
+#      - Any valid rhs for operator <<.
+#
+# Defaults:
+#  * class:
+#    + desc: the name of the class
+#
+#  * attributes:
+#    + mandatory: True
+#    + access: rw
+#    + owned: True
+#
+
+## -------------- ##
+## Root classes.  ##
+## -------------- ##
+
+Ast:
+  declAttribute: 'URBI_SDK_API'
+  super:
+    - 'libport::RefCounted'
+    - 'libport::meta::Hierarchy<Ast, Nodes>'
+  inline:
+    header prologue: |2
+      // At least OS X's GCC does not actually export functions that
+      // are flagged as exported, but use types that are not exported.
+      // So we need to export these, for sake of binder::bind.
+      // The impact on the size is neglectible.
+      # include <urbi/export.hh>
+
+      # include <ast/fwd.hh>
+      # include <urbi/object/fwd.hh>
+      # include <urbi/runner/fwd.hh>
+
+      # if defined ENABLE_SERIALIZATION
+      #  include <serialize/serialize.hh>
+      # endif
+
+    header inside: |2
+        public:
+          /// Store a reference onto the original node.
+          /// If the original node also has an original reference,
+          /// reuse it.
+          void original_set(const rConstAst&);
+    impl inside: |2
+          void Ast::original_set(const rConstAst& original)
+          {
+            // Try to keep the very first original node if it exists.
+            original_ =
+             (original && original->original_) ?
+             original->original_ : original;
+          }
+  attributes:
+    - location:
+        type: loc
+        access: rW
+        desc: Scanner position information
+        serialize: false
+    - original:
+        type: rConstAst
+        access: r
+        desc: Original node, if this is a rewrite
+        init: '0'
+        serialize: false
+
+Exp:
+  super:
+    - Ast
+  inline:
+    header inside: |2
+        public:
+          /// Whether it is an empty Nary.
+          virtual bool empty() const;
+          /// Whether it is a single statement.
+          /// Actually, whether it should be pretty-printed on one line.
+          virtual bool single() const;
+          /// Whether is an instance of ast::Implicit.
+          virtual bool implicit() const;
+    impl inside: |2
+          bool Exp::empty() const
+          {
+            return false;
+          }
+
+          bool Exp::single() const
+          {
+            return true;
+          }
+
+          bool Exp::implicit() const
+          {
+            return false;
+          }
+
+MetaExp:
+  desc: /// A node which is a placeholder for an Exp.
+  super: Exp
+  attributes:
+    - id:
+        type: unsigned
+        desc: The index of the meta-variable.
+  printer:
+    - '"%exp:"'
+    - $id
+
+## ------ ##
+## Tags.  ##
+## ------ ##
+
+TaggedStmt:
+  super: Exp
+  attributes:
+    - tag: { type: 'rExp', desc: The tagging expression }
+    - exp: { type: 'rExp', desc: The tagged expression }
+  printer:
+    - ~tag
+    - '": "'
+    - ~exp
+
+
+## ------- ##
+## Scope.  ##
+## ------- ##
+
+Scope:
+  super: Exp
+  concrete: True
+  attributes:
+    - body:
+        type: 'rExp'
+        desc: The scoped expression
+        access: rwW
+  inline:
+    header inside: |2
+        public:
+          /// Is there just one child?
+          virtual bool single() const;
+
+    impl inside: |2
+        bool
+        Scope::single() const
+        {
+          return body_->single();
+        }
+
+  printer:
+    - '"{"'
+    - "{
+         if (n->single())
+           ostr_ << ' ' << *n->body_get() << ' ';
+         else if (!n->body_get()->empty())
+           ostr_ << libport::incendl << *n->body_get() << libport::decendl;
+       }"
+    - '"}"'
+
+Do:
+  super: Scope
+  attributes:
+    - target: { type: 'rExp', desc: The default target }
+  default: |2
+    this->operator()(n->target_get().get());
+    visit((typename Const<Scope>::type*) n);
+  printer:
+    - '"do ("'
+    - ~target
+    - '") "'
+    - '{ visit(static_cast<const Scope*>(n)); }'
+
+## -------------------- ##
+## Composing commands.  ##
+## -------------------- ##
+
+Flavored:
+  super: Exp
+  attributes:
+    - flavor:
+        type: flavor_type
+        desc: Execution model
+        access: rW
+  printer:
+    - '{
+         if (n->flavor_get() != flavor_none
+             && n->flavor_get() != flavor_semicolon)
+           ostr_ << n->flavor_get();
+       }'
+
+
+Stmt:
+  super:
+    - Flavored
+  desc: /// An expression with its flavor
+  attributes:
+    - expression:
+        type: 'rExp'
+        desc: Unqualified expression
+        access: rw
+  printer:
+    - ~expression
+    - '{
+         if (n->flavor_get() != flavor_none)
+           ostr_ << n->flavor_get();
+       }'
+
+Nary:
+  declAttribute: 'URBI_SDK_API'
+  super: Exp
+  desc: /// A list of \c Exp.
+  attributes:
+    - children:
+        type: 'exps_type*'
+        desc: Subtrees possibly qualified to be background.
+        access: rwW
+        init: "new exps_type()"
+  default: |2
+    foreach (libport::intrusive_ptr<typename Const<ast::Ast>::type> c,
+             n->children_get())
+      this->operator()(c.get());
+
+  printer:
+    - $children
+  inline:
+    header prologue: |2
+      #include <ast/flavor.hh>
+    header inside: |2
+        public:
+          /// A completely empty Nary node.
+          Nary();
+
+          /// Drop the children.
+          void clear();
+
+          /// Are there any children?
+          virtual bool empty() const;
+
+          /// Is there just one child?
+          virtual bool single() const;
+
+          /// Push a new expression, creating a Statement node.
+          void push_back(rExp e, flavor_type f = flavor_none);
+
+          /// Sets the flavor of the last child.
+          void back_flavor_set(flavor_type k, const loc& l);
+
+          /// Sets the flavor of the last child without modifying location.
+          void back_flavor_set(flavor_type k);
+
+          /// Get the flavor of the last child.
+          flavor_type back_flavor_get() const;
+
+          /// Drop the last children.
+          void pop_back();
+
+          /// Splice the content of \a rhs at the back this list.
+          void splice_back(rNary rhs);
+
+       private:
+          /// Return the last child if there is one of the right type.
+          template <typename T>
+          libport::intrusive_ptr<T> back();
+
+          /// Return the last child if there is one of the right type.
+          template <typename T>
+          libport::intrusive_ptr<const T> back() const;
+
+          /// Adjust the whole location.
+          void location_adjust();
+
+    impl prologue: |2
+      #include <libport/indent.hh>
+      #include <libport/separate.hh>
+      #include <ast/print.hh>
+
+      #include <ast/stmt.hh>
+
+    impl inside: |2
+        Nary::Nary()
+          : Exp(loc())
+          , children_(new exps_type())
+        {}
+
+        void
+        Nary::clear()
+        {
+          children_->clear();
+          location_ = loc();
+        }
+
+        bool
+        Nary::empty() const
+        {
+          return children_->empty();
+        }
+
+        bool
+        Nary::single() const
+        {
+          return children_->size() == 1;
+        }
+
+        void
+        Nary::location_adjust()
+        {
+          if (empty())
+            location_.initialize(0);
+          else
+          {
+            location_.begin = children_->front()->location_get().begin;
+            location_.end   = children_->back() ->location_get().end;
+          }
+        }
+
+        static Stmt* stmt(Exp* e, flavor_type f)
+        {
+          if (Stmt* s = dynamic_cast<Stmt*>(e))
+            return s;
+          else
+            return new Stmt(e->location_get(), f, e);
+        }
+
+        void
+        Nary::push_back(rExp e, flavor_type f)
+        {
+          *children_ << stmt(e.get(), f);
+          location_adjust();
+        }
+
+        template <typename T>
+        libport::intrusive_ptr<T>
+        Nary::back()
+        {
+          return (empty()
+                  ? libport::intrusive_ptr<T>()
+                  : libport::unsafe_cast<T>(children_->back()));
+        }
+
+        template <typename T>
+        libport::intrusive_ptr<const T>
+        Nary::back() const
+        {
+          return (empty()
+                  ? libport::intrusive_ptr<const T>()
+                  : libport::unsafe_cast<const T>(children_->back()));
+        }
+
+        void
+        Nary::back_flavor_set(flavor_type k, const loc& l)
+        {
+          if (rStmt b = back<Stmt>())
+          {
+            b->flavor_set(k);
+            b->location_set(b->location_get() + l);
+          }
+          location_adjust();
+        }
+
+        void
+        Nary::back_flavor_set(flavor_type k)
+        {
+          if (rStmt b = back<Stmt>())
+             b->flavor_set(k);
+        }
+
+        flavor_type
+        Nary::back_flavor_get() const
+        {
+          if (rConstStmt b = back<Stmt>())
+            return b->flavor_get();
+          return flavor_none;
+        }
+
+        void
+        Nary::pop_back()
+        {
+          children_->pop_back();
+          location_adjust();
+        }
+
+        void
+        Nary::splice_back(rNary rhs)
+        {
+          foreach (rExp elt, rhs->children_get())
+            *children_ << elt;
+          rhs->clear();
+          location_adjust();
+        }
+
+Composite:
+  super: Exp
+  attributes:
+    - children:
+        type:   'exps_type'
+        access: rwW
+        desc:   Subexpressions
+
+And:
+  super: Composite
+  printer:
+    - 'libport::separate(n->children_get(), " & ")'
+
+Pipe:
+  super: Composite
+  printer:
+    - 'libport::separate(n->children_get(), " | ")'
+
+If:
+  super: Exp
+  attributes:
+    - test:
+        type: rExp
+        desc: Condition to select thenclause or elseclause
+    - thenclause:
+        type: rScope
+        desc: Executed if test is true
+    - elseclause:
+        type: rScope
+        desc: Executed if test is false
+  printer:
+    - '"if ("'
+    - ~test
+    - '")"'
+    - libport::iendl
+    - ~thenclause
+    - '{
+         if (!n->elseclause_get()->empty())
+         {
+           ostr_ << libport::iendl << "else";
+           if (n->elseclause_get()->body_get().is_a<If>())
+             ostr_ << " " << *n->elseclause_get()->body_get();
+           else
+             ostr_ << libport::iendl << *n->elseclause_get();
+          }
+       }'
+
+While:
+  super:
+    - Flavored
+  attributes:
+    - test:
+        type: rExp
+        desc: Condition to continue
+    - body:
+        type: rScope
+        desc: Executed if test is true
+  printer:
+    - '"while"'
+    - '{ visit(static_cast<const Flavored*>(n)); }'
+    - '" ("'
+    - ~test
+    - '")"'
+    - libport::iendl
+    - ~body
+
+# Syntactically, for the user, this is a possible last clause of
+# try-catch.  Internally, it is easier to handle as a specific node.
+# So
+#
+# try { foo } catch { bar } finally { baz }
+#
+# is actually rendered as
+#
+# Finally (Try (foo, Catch (bar)),
+#          baz).
+#
+# Display it as
+#
+# try
+# {
+#   try { foo } catch { bar }
+# }
+# finally
+# {
+#   baz
+# }
+Finally:
+  super:
+    - Exp
+  attributes:
+    - body:
+        type: 'rExp'
+    - finally:
+        type: 'rExp'
+  printer:
+    - '"try"'
+    - 'libport::iendl'
+    - ~body
+    - 'libport::iendl'
+    - '"finally"'
+    - 'libport::iendl'
+    - '"{"'
+    - 'libport::incendl'
+    - ~finally
+    - 'libport::decendl'
+    - '"}"'
+
+Foreach:
+  super:
+    - Flavored
+  attributes:
+    - index:
+        type: 'rLocalDeclaration'
+        desc: The variable storing de values on which iterate.
+    - list:
+        type: rExp
+        desc: The list containing the values on which iterate.
+    - body:
+        type: rScope
+        desc: Executed for each value in the list
+  printer:
+    - '"for"'
+    - '{ visit(static_cast<const Flavored*>(n)); }'
+    - '" (var "'
+    - '{ n->index_get()->what_get().print_escaped(ostr_); }'
+    - '" : "'
+    - ~list
+    - '")"'
+    - libport::iendl
+    - ~body
+
+Break:
+  desc: /// Break from a loop.
+  super: Exp
+  printer:
+    - '"break"'
+
+Continue:
+  desc: /// Continue execution of a loop.
+  super: Exp
+  printer:
+    - '"continue"'
+
+Return:
+  desc: /// Return a value from a function or closure.
+  super: Exp
+  attributes:
+    - value:
+        type: 'rExp'
+        desc: The value to return. May be empty.
+        mandatory: False
+  printer:
+    - '"return"'
+    - "{
+         if (n->value_get())
+           ostr_ << ' ' << *n->value_get();
+       }"
+
+Noop:
+  super: Scope
+  desc: /// Also known as nop, noop etc.
+  printer:
+    - '"{}"'
+
+
+## --------------------- ##
+## Native Urbi objects.  ##
+## --------------------- ##
+
+Implicit:
+  super: Exp
+  desc: /// Implicit target for messages.
+  clone_by_ref: true
+  inline:
+    header inside: |2
+        public:
+          /// Whether is an instance of ast::Implicit.
+          virtual bool implicit() const;
+    impl inside: |2
+          bool Implicit::implicit() const
+          {
+            return true;
+          }
+  printer:
+    - '"<IMPLICIT>"'
+
+Float:
+  super: Exp
+  attributes:
+    - value:
+        type: libport::ufloat
+        access: r
+        desc: Float value
+  clone_by_ref: true
+  printer:
+    - $value
+
+String:
+  super: Exp
+  attributes:
+    - value:
+        type: 'std::string'
+        access: r
+        desc: String value
+  clone_by_ref: true
+  printer:
+    - "'\"'"
+# FIXME: It really stinks not to be able to use $value here.
+    - libport::escape(n->value_get(), '"')
+    - "'\"'"
+
+Dictionary:
+  super: Exp
+  attributes:
+    - value:
+       type: dictionary_elts_type
+       access: rw
+       desc: Stored dictionary
+  printer:
+    - '"["'
+    - '{
+         if (n->value_get().empty())
+           ostr_ << " => ";
+         else
+         {
+           ostr_ << libport::incindent;
+           foreach (dictionary_elts_type::value_type exp, n->value_get())
+             ostr_  << libport::iendl
+                    << *exp.first .get()
+                    << " => "
+                    << *exp.second.get()
+                    << ",";
+           ostr_ << libport::decendl;
+         }
+       }'
+    - '"]"'
+  default: |2
+    /* Kind of dump to iterate on vals without the keys */
+    foreach (dictionary_elts_type::value_type exp, n->value_get())
+      ; //this->operator()(exp.second.get());
+
+List:
+  super: Exp
+  attributes:
+    - value:
+        type: 'exps_type*'
+        access: rw
+        desc: Stored list value
+  printer:
+    - '"["'
+    - 'libport::separate(n->value_get(), ", ")'
+    - '"]"'
+  default: |2
+    foreach (libport::intrusive_ptr<typename Const<ast::Exp>::type> exp,
+             n->value_get())
+      this->operator()(exp.get());
+
+LValue:
+  super: Exp
+  inline:
+    header inside: |2
+        public:
+          /// This lvalue as a call
+          rCall call();
+    impl prologue: |2
+      # include <ast/call.hh>
+      # include <ast/print.hh>
+    impl inside: |2
+        rCall LValue::call()
+        {
+          rCall res = dynamic_cast<Call*>(this);
+          aver(res, "invalid call: %s", *this);
+          return res;
+        }
+
+LValueArgs:
+  super: LValue
+  attributes:
+    - arguments:
+        type: 'exps_type*'
+        access: rwW
+        mandatory: false
+        desc: Arguments passed to the function
+  printer:
+    - '{
+         if (n->arguments_get())
+           ostr_
+            << "("
+            << libport::incindent
+            << libport::separate(*n->arguments_get(), ", ")
+            << libport::decindent
+            << ")";
+       }'
+
+Call:
+  desc: /// Function calls, and attribute look-ups.
+  super: LValueArgs
+  attributes:
+    - target:
+        type: rExp
+        desc: The target of the call
+        access: rwW
+    - name:
+        type: 'libport::Symbol'
+        desc: Name of the called function
+  inline:
+    header inside: |2
+        public:
+          /// Whether the target is implicit.
+          bool target_implicit() const;
+    inline inside: |2
+          inline bool Call::target_implicit() const
+          {
+            return target_->implicit();
+          }
+  default: |2
+    visit((typename Const<Exp>::type*) n);
+    this->operator()(n->target_get().get());
+    if (n->arguments_get())
+    {
+      foreach (libport::intrusive_ptr<typename Const<ast::Exp>::type> e,
+               *n->arguments_get())
+        this->operator()(e.get());
+    }
+  printer:
+    - '{
+         if (!(n->target_get()->implicit()))
+           ostr_ << *n->target_get() << ".";
+       }'
+    - '{
+         n->name_get().print_escaped(ostr_);
+       }'
+    - '{ visit(static_cast<const LValueArgs*>(n)); }'
+
+MetaLValue:
+  desc: /// A node which is a placeholder for a Call.
+  super: LValueArgs
+  attributes:
+    - id:
+        type: unsigned
+        desc: The index of the meta-variable.
+  printer:
+    - '"%lvalue:"'
+    - $id
+
+MetaArgs:
+  super: LValue
+  attributes:
+    - lvalue:
+        type: rLValue
+        desc: Target metavalue
+    - id:
+        type: unsigned
+        desc: Index of the arguments meta-variable
+  printer:
+    - ~lvalue
+    - '"(%exps:"'
+    - $id
+    - '")"'
+
+Routine:
+  super: Exp
+  attributes:
+    - closure:
+        type: bool
+        desc: Whether is a closure, or a function.
+    - formals:
+        type: 'local_declarations_type*'
+        mandatory: False
+        desc: Formal arguments.  If null, a lazy function.
+        access: rwW
+    - body:
+        type: 'rScope'
+        access: rwW
+        mandatory: False
+        desc: Body
+    - local_variables:
+        type: 'local_declarations_type*'
+        init: "0"
+        mandatory: False
+        access: rwW
+    - captured_variables:
+        type: 'local_declarations_type*'
+        init: "new local_declarations_type()"
+        mandatory: False
+        access: rwW
+    - local_size:
+        type: unsigned
+        init: '0'
+        access: rW
+    - uses_call:
+        type: bool
+        init: 'false'
+        access: rW
+    - has_imports:
+        type: bool
+        init: 'false'
+        access: rwW
+        desc: 'Whether an import directive is present inside'
+  inline:
+    header inside: |2
+        public:
+          /// Whether the arguments must be evaluated.
+          bool strict() const;
+    inline inside: |2
+          inline bool Routine::strict() const
+          {
+            return formals_;
+          }
+  printer:
+    - '(n->closure_get() ? "closure" : "function")'
+    - '" "'
+    - '{
+         if (n->formals_get())
+           ostr_ << "(" << *n->formals_get() << ") ";
+       }'
+    - ~body
+
+LocalWrite:
+  super: Exp
+  attributes:
+    - what:
+        type:   'libport::Symbol'
+        desc:   Name of the symbol being declared or updated.
+        access: rwW
+    - value:
+        type: rExp
+        desc: Initialization value.
+        access: rwW
+    - local_index:
+        type: unsigned
+        access: rwW
+        init: '0'
+  printer:
+    - $what
+    - '" /* idx: "'
+    - $local_index
+    - '" */"'
+    - '{
+         if (n->value_get())
+           ostr_ << " = " << *n->value_get();
+       }'
+
+
+LocalDeclaration:
+  super: LocalWrite
+  attributes:
+    - constant:
+        desc: Whether this slot should be constant
+        type: bool
+        access: rW
+        init: "false"
+    - list:
+        desc: Whether this is a list formal argument.
+        type: bool
+        access: rW
+        init: "false"
+    - is_import:
+        desc: Wheter this local declaration is an import
+        type: bool
+        access: rW
+        init: "false"
+    - is_star:
+        desc: Wheter this local declaration is a star import
+        type: bool
+        access: rW
+        init: "false"
+    - type:
+        desc: Force variable to this type.
+        type: rExp
+        access: rWw
+        init: '0'
+  printer:
+    - '{
+         if (n->constant_get())
+           ostr_ << "const ";
+       }'
+    - '"var "'
+    - '{ visit(static_cast<const LocalWrite*>(n)); }'
+
+LocalAssignment:
+  super: LocalWrite
+  attributes:
+    - depth:
+        type: unsigned
+        desc: the number of contexts to rewind to find the actual variable
+        access: rwW
+    - declaration:
+        type: rLocalDeclaration
+        access: rwW
+        init: '0'
+  inline:
+    header inside: |2
+      public:
+        unsigned local_index_get() const;
+    impl inside: |2
+      unsigned LocalAssignment::local_index_get() const
+      {
+        assert(declaration_);
+        return declaration_->local_index_get();
+      }
+  printer:
+    - '{ visit(static_cast<const LocalWrite*>(n)); }'
+
+Write:
+  super: Exp
+  attributes:
+    - what:
+        type: rLValue
+        desc: What is being declared
+        access: rw
+    - value:
+        type: rExp
+        desc: Initialization value.
+        access: rw
+
+  printer:
+    - ~what
+    - '{
+         if (const rExp& value = n->value_get())
+           ostr_ << " = " << *value;
+       }'
+
+Declaration:
+  super: Write
+  attributes:
+    - constant:
+        desc: Whether this slot should be constant
+        type: bool
+        access: rW
+        init: "false"
+  printer:
+    - '"var "'
+    - '{ visit(static_cast<const Write*>(n)); }'
+
+Assignment:
+  super: Write
+
+OpAssignment:
+  super: Write
+  attributes:
+    - op:
+        type: 'libport::Symbol'
+  printer:
+    - ~what
+    - '" "'
+    - $op
+    - '" "'
+    - ~value
+
+Local:
+  super: Exp
+  attributes:
+    - name:
+        type: 'libport::Symbol'
+        desc: Name of the local variable.
+    - arguments:
+        type: 'exps_type*'
+        access: rwW
+        mandatory: false
+        desc: Arguments passed to the function
+    - depth:
+        type: unsigned
+        access: rwW
+        desc: How many contexts we have to rewind to find the actual value of the
+              variable (thus 0 means this is an actual local variable).
+    - declaration:
+        type: rLocalDeclaration
+        access: rwW
+        init: '0'
+  inline:
+    header inside: |2
+      public:
+        unsigned local_index_get() const;
+    impl inside: |2
+      unsigned Local::local_index_get() const
+      {
+        assert(declaration_);
+        return declaration_->local_index_get();
+      }
+  default: |2
+    visit((typename Const<Exp>::type*) n);
+    if (n->arguments_get())
+    {
+      foreach (libport::intrusive_ptr<typename Const<ast::Exp>::type> e,
+               *n->arguments_get())
+        this->operator()(e.get());
+    }
+  printer:
+    - $name
+    - '{
+         if (n->arguments_get())
+           ostr_
+            << "("
+            << libport::incindent
+            << libport::separate(*n->arguments_get(), ", ")
+            << libport::decindent
+            << ")";
+       }'
+
+This:
+  super: Exp
+  printer:
+    - '"this"'
+
+CallMsg:
+  super: Exp
+  printer:
+    - '"call"'
+
+Binding:
+  super: LValue
+  attributes:
+    - what:
+        type: rLValue
+        access: rw
+    - constant:
+        desc: Whether this slot should be constant
+        type: bool
+        access: rW
+        init: "false"
+  printer:
+    - '"var "'
+    - ~what
+
+Unary:
+  super: Exp
+  desc: /// Expressions with a expression
+  attributes:
+    - exp:
+        type: rLValue
+        desc: Operand
+        access: rw
+    - post:
+        type: bool
+        desc: Whether post- (vs. pre-) operator
+        access: rw
+
+Incrementation:
+  super: Unary
+  printer:
+    -  '{
+          if (n->post_get())
+            ostr_ << *n->exp_get() << "++";
+          else
+            ostr_ << "++" << *n->exp_get();
+        }'
+
+Decrementation:
+  super: Unary
+  printer:
+    -  '{
+          if (n->post_get())
+            ostr_ << *n->exp_get() << "--";
+          else
+            ostr_ << "--" << *n->exp_get();
+        }'
+
+PropertyAction:
+  super: LValue
+  attributes:
+    - owner:
+        type: rExp
+    - name:
+        type: libport::Symbol
+  printer:
+    - ~owner
+    - '"->"'
+    - $name
+
+Property:
+  super: PropertyAction
+
+PropertyWrite:
+  super: PropertyAction
+  attributes:
+    - value:
+        type: rExp
+  printer:
+    - ~owner
+    - '"->"'
+    - $name
+    - '" = "'
+    - ~value
+
+MetaCall:
+  super: LValueArgs
+  attributes:
+    - target:
+        type: rExp
+    - id:
+        type: unsigned
+  printer:
+    - ~target
+    - '".%id:"'
+    - $id
+    - '" "'
+    - '{ visit(static_cast<const LValueArgs*>(n)); }'
+
+MetaId:
+  super: LValueArgs
+  attributes:
+    - id:
+        type: unsigned
+  printer:
+    - '"%id:"'
+    - $id
+
+Class:
+  super: Exp
+  attributes:
+    - what:
+        type: rLValue
+        desc: Lvalue where to store the class
+    - protos:
+        type: 'exps_type*'
+        mandatory: false
+        desc: Prototypes
+    - content:
+        type: rExp
+        desc: Class content
+    - is_package:
+        type: bool
+        desc: Is this a class or a package.
+        default: "false"
+        access: rW
+  printer:
+    - '"class "'
+    - ~what
+    -  '{
+          if (const exps_type* protos = n->protos_get())
+            ostr_ << ": " << libport::separate(*protos, ", ");
+        }'
+    - 'libport::iendl'
+    - '"{"'
+    - 'libport::incendl'
+    - ~content
+    - 'libport::decendl'
+    - '"}"'
+
+Emit:
+  super: Exp
+  attributes:
+    - event:
+        type: rExp
+        desc: The emitted event
+    - arguments:
+        type: exps_type*
+        desc: Values carried by the event
+        mandatory: false
+    - duration:
+        type: rExp
+        desc: Duration of the emission
+        mandatory: false
+  printer:
+    - ~event
+    - '"!"'
+    -  '{
+          if (const exps_type* args = n->arguments_get())
+            ostr_ << "(" << libport::separate(*args, ", ") << ")";
+        }'
+    -  '{
+          if (rConstExp duration = n->duration_get())
+            ostr_ << " ~ " << *duration;
+        }'
+
+Try:
+  super: Exp
+  attributes:
+    - body:
+        type: rScope
+        desc: The code to protect against an exception
+    - handlers:
+        type: catches_type
+        desc: The exception handlers
+    - elseclause:
+        type: rScope
+        desc: Run if no exception was thrown.
+        mandatory: False
+  printer:
+    - '"try"'
+    - 'libport::iendl'
+    - ~body
+    - 'libport::iendl'
+    - 'n->handlers_get()'
+    - '{
+         if (n->elseclause_get())
+           ostr_ << libport::iendl
+                 << "else" << libport::iendl
+                 << *n->elseclause_get();
+       }'
+
+Catch:
+  super: Exp
+  attributes:
+    - match:
+        type: rMatch
+        mandatory: False
+    - body:
+        type: rExp
+        desc: The handler to execute if we have a match
+  printer:
+    - '"catch"'
+    - '{
+         if (rConstMatch m = n->match_get())
+           ostr_ << " (" << *m << ")";
+       }'
+    - 'libport::iendl'
+    - '"{"'
+    - 'libport::incendl'
+    - ~body
+    - 'libport::decendl'
+    - '"}"'
+
+Throw:
+  super: Exp
+  attributes:
+    - value:
+        type: rExp
+        desc: The value to throw
+        mandatory: False
+  printer:
+    - '"throw"'
+    - '{
+         if (rConstExp m = n->value_get())
+           ostr_ << " " << *m;
+       }'
+
+Assign:
+  super: Exp
+  attributes:
+    - what:
+        type: rExp
+    - value:
+        type: rExp
+    - modifiers:
+        type: 'boost::optional<modifiers_type>'
+        access: rwW
+  printer:
+    - ~what
+    - '" = "'
+    - ~value
+    - '{
+         if (n->modifiers_get())
+         {
+          foreach (const modifiers_type::value_type& modifier,
+                   n->modifiers_get().get())
+             ostr_ << " " << modifier.first << ": " << *modifier.second;
+         }
+       }'
+
+Subscript:
+  super: LValueArgs
+  attributes:
+    - target:
+        type: rExp
+  printer:
+    - ~target
+    - '"["'
+    - $arguments
+    - '"]"'
+
+Match:
+  super: Ast
+  attributes:
+    - pattern:
+        type: rExp
+        access: rwW
+    - guard:
+        type: rExp
+        access: rwW
+        mandatory: false
+    - bindings:
+        type: rExp
+        access: rwW
+        init: '0'
+        mandatory: false
+  printer:
+    - '{
+         ostr_ << *n->pattern_get();
+         if (rConstExp guard = n->guard_get())
+           ostr_ << " if " << *guard;
+       }'
+
+Unscope:
+  super: Exp
+  attributes:
+    - count:
+        type: unsigned
+        access: r
+        desc: number of scope level to bypass
+  printer:
+    - '"%unscope:"'
+    - $count
+
+At:
+  super: Flavored
+  attributes:
+    - flavor_location:
+        type: loc
+        access: rW
+        serialize: false
+    - sync:
+        type: bool
+        access: rW
+    - cond:
+        type: rExp
+        access: rwW
+    - body:
+        type: rExp
+        access: rwW
+    - onleave:
+        type: rExp
+        access: rwW
+        mandatory: false
+    - duration:
+        type: rExp
+        access: rwW
+        mandatory: false
+  printer:
+    - '"at ("'
+    - ~cond
+    - '")"'
+    - 'libport::iendl'
+    - ~body
+    - 'libport::iendl'
+    - '"onleave"'
+    - libport::iendl
+    - ~onleave
+
+Event:
+  super: Exp
+  attributes:
+    - exp:
+        type: rExp
+        access: rwW
+  printer:
+    - '"$event("'
+    - ~exp
+    - '")"'
+
+Watch:
+  super: Exp
+  attributes:
+    - exp:
+        type: rExp
+        access: rwW
+  printer:
+    - '"watch("'
+    - ~exp
+    - '")"'
+
+# Local Variables:
+# mode: yaml
+# End:
