@@ -7,7 +7,10 @@ if (NOT DEFINED GIT_REVISION)
     set(GIT_REVISION "custom_build")
 endif ()
 
-add_subdirectory(external/libjpeg)
+if (WIN32)
+    add_subdirectory(external/libjpeg)
+endif ()
+
 add_subdirectory(external/libport)
 
 find_package(Boost COMPONENTS regex system filesystem thread chrono date_time signals REQUIRED)
