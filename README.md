@@ -4,7 +4,7 @@ To build Urbi on Windows 10 you need to setup your environment by installing fol
 
 *  [Python 2.7](https://www.python.org/ftp/python/2.7.15/python-2.7.15.amd64.msi) - be sure that Python is in the `PATH` environment variable
 *  [Ninja](https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-win.zip) - be sure that ninja executable is available through `PATH` environment variable
-*  [Microsoft Visual C++ Build Tools 2017](https://visualstudio.microsoft.com) - during installation import [configuration file](https://bitbucket.org/emysinc/urbi/raw/master_upstream/dev/msvc_buildtools_urbi.vsconfig).
+*  [Microsoft Visual C++ Build Tools 2017](https://visualstudio.microsoft.com/pl/thank-you-downloading-visual-studio/?sku=BuildTools) - during installation import [configuration file](https://bitbucket.org/emysinc/urbi/raw/master/dev/msvc_buildtools_urbi.vsconfig).
 *  [Git](https://github.com/git-for-windows/git/releases/download/v2.20.1.windows.1/Git-2.20.1-64-bit.exe)
 *  [CMake](https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-win64-x64.msi)
 
