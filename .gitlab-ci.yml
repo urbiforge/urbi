@@ -25,6 +25,9 @@ trigger_bundle:
   tags: 
     - windows-shell
   stage: deploy
+  only:
+    refs:
+      - master
   script:
     - curl -X POST
      -F token=%BUNDLE_TRIGGER%
