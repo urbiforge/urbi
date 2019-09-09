@@ -1,18 +1,24 @@
 build:
   before_script:
-    - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    - call "%VCVARS64_PATH%"
     - powershell -File ./misc/CI/prepare_boost.ps1
+    - curl -fL https://api.bintray.com/content/jfrog/jfrog-cli-go/$latest/jfrog-cli-windows-amd64/jfrog.exe?bt_package=jfrog-cli-windows-amd64 --output jfrog.exe --silent
+    - jfrog rt config elrond --url=%ARTIFACTORY_URL% --user=%ARTIFACTORY_USER% --password=%ARTIFACTORY_PASS% --interactive=false
+    - jfrog rt ping
   tags:
     - windows-shell
   stage: build
   script:
     - md build
     - cd build
-    - echo %cd%
     - cmake -E env CXXFLAGS="/w" cmake -G Ninja -DBOOSTROOT=%CI_PROJECT_DIR:\=\\%\\boost_bin -DCMAKE_INSTALL_PREFIX=%CI_PROJECT_DIR%\urbi_bin -DCMAKE_BUILD_TYPE=Release -DGIT_REVISION=%CI_COMMIT_SHA% %CI_PROJECT_DIR%
-    - cmake --build . -j4
+    - cmake --build . -j%PARALLEL_JOB_COUNT%
     - cpack -G "WIX"
-    - powershell -noninteractive -File ../misc/CI/upload_artifacts.ps1 -upload %CI_UPLOAD_ARTIFACTS% -remotePath emys:/artifacts/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/ -localPath *.msi -jobId %CI_JOB_ID% -jobUrl %CI_JOB_URL%   
+    - dir /b *.msi >msi_name.txt && set /p msi_name=<msi_name.txt
+    - ..\jfrog rt u %msi_name% emys-win64/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/%CI_JOB_ID%/
+    - ..\jfrog rt del --quiet emys-win64/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/latest/
+    - ..\jfrog rt u %msi_name% emys-win64/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/latest/
+    - rmdir /Q /S ..\boost_1_68_0
   artifacts:
     paths:
       - build/*.msi
