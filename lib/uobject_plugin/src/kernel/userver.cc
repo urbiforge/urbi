@@ -77,7 +77,6 @@
 #include <eval/send-message.hh>
 
 #include <sched/scheduler.hh>
-#include <sched/configuration.hh>
 
 #include <kernel/connection-set.hh>
 #include <kernel/server-timer.hh>
