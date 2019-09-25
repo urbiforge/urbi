@@ -36,9 +36,8 @@ trigger_bundle:
       - master
   script:
     - curl -X POST
-     -F token=%BUNDLE_TRIGGER%
-     -F "variables[TRIG_SRC_PROJECT]=%CI_PROJECT_NAME%"
-     -F "variables[TRIG_SRC_BRANCH]=%CI_COMMIT_REF_NAME%"
-     -F "variables[TRIG_SRC_REV]=%CI_COMMIT_SHA%"
-     -F ref=%BUNDLE_BRANCH%
-     https://gitlab.com/api/v4/projects/11002064/trigger/pipeline
+     -F token=%COORDINATOR_TRIGGER_TOKEN%
+     -F "variables[TRIG_SRC_PROJECT]=%CI_PROJECT_PATH%"
+     -F "variables[TRIG_SRC_PIPELINE_ID]=%CI_PIPELINE_ID%"
+     -F ref=master
+     https://gitlab.com/api/v4/projects/14232055/trigger/pipeline
