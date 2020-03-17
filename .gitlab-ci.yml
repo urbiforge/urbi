@@ -3,6 +3,10 @@ include:
     ref: master
     file: 'ci/gitlab-ci-general.yml'
 
+cache:
+    paths:
+      - boost_bin/
+
 build:
   extends: .build-general-config
   before_script:
