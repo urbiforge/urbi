@@ -4,3 +4,6 @@
 [submodule "external/libport"]
 	path = external/libport
 	url = ../libport.git
+[submodule "build-common"]
+	path = build-common
+	url = ../../utils/build-common.git

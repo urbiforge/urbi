@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 project(Urbi CXX C)
 
-set(Urbi_VERSION 3.0.0)
+include(build-common/cmake/VersionConfig.cmake)
+set(Urbi_VERSION ${VERSION_SHORT})
 
 if (NOT DEFINED GIT_REVISION)
     set(GIT_REVISION "custom_build")
