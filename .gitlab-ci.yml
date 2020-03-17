@@ -1,47 +1,18 @@
+include:
+  - project: 'emysinc/utils/build-common'
+    ref: master
+    file: 'ci/gitlab-ci-general.yml'
+
 build:
+  extends: .build-general-config
   before_script:
-    - call "%VCVARS64_PATH%"
+    - call build-common\ci\scripts.cmd setupEnvironment
     - powershell -File ./misc/CI/prepare_boost.ps1
-    - curl -fL https://api.bintray.com/content/jfrog/jfrog-cli-go/$latest/jfrog-cli-windows-amd64/jfrog.exe?bt_package=jfrog-cli-windows-amd64 --output jfrog.exe --silent
-    - jfrog rt config elrond --url=%ARTIFACTORY_URL% --user=%ARTIFACTORY_USER% --password=%ARTIFACTORY_PASS% --interactive=false
-    - jfrog rt ping
-  tags:
-    - windows-shell
-  stage: build
   script:
-    - md build
-    - cd build
-    - cmake -E env CXXFLAGS="/w" cmake -G Ninja -DBOOSTROOT=%CI_PROJECT_DIR:\=\\%\\boost_bin -DCMAKE_INSTALL_PREFIX=%CI_PROJECT_DIR%\urbi_bin -DCMAKE_BUILD_TYPE=Release -DGIT_REVISION=%CI_COMMIT_SHA% %CI_PROJECT_DIR%
-    - cmake --build . -j%PARALLEL_JOB_COUNT%
-    - cpack -G "WIX"
-    - dir /b *.msi >msi_name.txt && set /p msi_name=<msi_name.txt
-    - ..\jfrog rt u %msi_name% emys-win64/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/%CI_JOB_ID%/
-    - ..\jfrog rt del --quiet emys-win64/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/latest/
-    - ..\jfrog rt u %msi_name% emys-win64/%CI_PROJECT_PATH%/%CI_COMMIT_REF_NAME%/latest/
+    - call build-common/ci/scripts.cmd buildAndProduceMsi -E env CXXFLAGS="/w" cmake -G Ninja -DBOOSTROOT=%CI_PROJECT_DIR:\=\\%\\boost_bin -DCMAKE_INSTALL_PREFIX=%CI_PROJECT_DIR%\urbi_bin -DCMAKE_BUILD_TYPE=Release -DGIT_REVISION=%CI_COMMIT_SHA% %CI_PROJECT_DIR%
+    - call build-common/ci/scripts.cmd signAllMsi build/*.msi
+    - call build-common/ci/scripts.cmd uploadToArtifactory
     - rmdir /Q /S ..\boost_1_68_0
-  artifacts:
-    paths:
-      - build/*.msi
-    expire_in: 1 week
-  cache:
-    paths:
-      - boost_bin/
 
-trigger_bundle:
-  tags: 
-    - windows-shell
-  stage: deploy
-  only:
-    refs:
-      - master
-  except:
-    variables:
-      - $upstreams
-  script:
-    - curl -X POST
-     -F token=%COORDINATOR_TRIGGER_TOKEN%
-     -F "variables[TRIG_SRC_PROJECT]=%CI_PROJECT_PATH%"
-     -F "variables[TRIG_SRC_PIPELINE_ID]=%CI_PIPELINE_ID%"
-     -F ref=master
-     https://gitlab.com/api/v4/projects/14232055/trigger/pipeline
-
+upload-artifact-to-gitlab-release:
+  extends: .upload-artifact-to-gitlab-release-general

@@ -12,6 +12,6 @@
 /src/kernel/config.h.in
 /src/kernel/config.h.in~
 /src/ast/merged.cc
-/build-*
+/build
 /CMakeLists.txt.user
 doc/config.sty
