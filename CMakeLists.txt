@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(Urbi CXX C)
 
 include(build-common/cmake/VersionConfig.cmake)
+project(Urbi LANGUAGES CXX C VERSION ${VERSION_SHORT})
 set(Urbi_VERSION ${VERSION_SHORT})
 
 if (NOT DEFINED GIT_REVISION)
@@ -67,14 +67,12 @@ install(
     DESTINATION .
 )
 
+include(build-common/cmake/CpackConfig.cmake)
 set(CPACK_PACKAGE_VERSION ${Urbi_VERSION})
-set(CPACK_PACKAGE_VENDOR "Emys Inc.")
 set(CPACK_WIX_UI_REF "WixUI_FeatureTree")
 set(CPACK_WIX_UPGRADE_GUID "ba25c4f0-b795-44a6-a29e-d785bfa66806")
-set(CPACK_WIX_PROPERTY_ALLUSERS "1")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.rtf")
 set(CPACK_WIX_CMAKE_PACKAGE_REGISTRY ${PROJECT_NAME})
-set(CPACK_WIX_PATCH_FILE "${CMAKE_CURRENT_SOURCE_DIR}/misc/cpack/wix_patch.xml")
 set(CPACK_WIX_PRODUCT_ICON "${CMAKE_CURRENT_SOURCE_DIR}/share/images/urbi-logo/cube.ico")
 
 cpack_add_component(Runtime
