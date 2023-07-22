@@ -14,6 +14,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <boost/optional.hpp>
 #include <libport/cstring>
 
 #include <boost/function.hpp>
@@ -264,8 +265,8 @@ namespace urbi
 #endif
 
   static
-  int
-  init(const libport::cli_args_type& _args, bool errors,
+  LoopData
+  do_init(const libport::cli_args_type& _args, bool errors,
        libport::Semaphore* sem, UrbiRoot& urbi_root)
   {
     libport::Finally f;
@@ -275,17 +276,17 @@ namespace urbi
     {
       try
       {
-        return init(_args, false, sem, urbi_root);
+        return do_init(_args, false, sem, urbi_root);
       }
       catch (const urbi::Exit& e)
       {
         std::cerr << libport::program_name() << ": " << e.what() << std::endl;
-        return e.error_get();
+        return {};
       }
       catch (const std::exception& e)
       {
         std::cerr << libport::program_name() << ": " << e.what() << std::endl;
-        return 1;
+        return {};
       }
     }
 
@@ -531,8 +532,36 @@ namespace urbi
 
     if (sem)
       (*sem)++;
+    return data;
+}
 
-    return main_loop(data);
+  static
+  int
+  init(const libport::cli_args_type& _args, bool errors,
+       libport::Semaphore* sem, UrbiRoot& urbi_root)
+  {
+    auto d = do_init(_args, errors, sem, urbi_root);
+    return main_loop(d);
+  }
+
+  static boost::optional<LoopData> state;
+  ATTRIBUTE_DLLEXPORT int init_kernel_mean(const char* pgm)
+  {
+     UrbiRoot r = UrbiRoot(std::string(pgm));
+     std::vector<std::string> args { "urbi", "--port", "54000"};
+     state = do_init(args, false, nullptr, r);
+     return 0;
+  }
+  ATTRIBUTE_DLLEXPORT int init_kernel(std::string pgm, std::vector<std::string> const& args)
+  {
+    UrbiRoot r = UrbiRoot(pgm);
+    state = do_init(args, false, nullptr, r);
+    return 0;
+  }
+
+  ATTRIBUTE_DLLEXPORT unsigned long step_kernel()
+  {
+    return state->server->work();
   }
 
   int
