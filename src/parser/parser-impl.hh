@@ -106,7 +106,7 @@ namespace parser
     bool meta_;
 
     /// Factory.
-    std::auto_ptr<ast::Factory> factory_;
+    std::shared_ptr<ast::Factory> factory_;
 
     /// Initial token to select mode
     boost::optional<yy::parser::token_type> initial_token_;

@@ -40,7 +40,7 @@ namespace rewrite
     ast::rPipe declarations_;
     ast::rLValue pattern_;
     int i_;
-    std::auto_ptr<ast::Factory> factory_;
+    std::unique_ptr<ast::Factory> factory_;
   };
 }
 

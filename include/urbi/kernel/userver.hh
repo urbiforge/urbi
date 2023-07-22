@@ -296,7 +296,7 @@ namespace kernel
     /// List of active connections: includes one UGhostConnection.
     // FIXME: This is meant to become a runner::Job and move out of this class.
     /// A pointer to stop dependencies.
-    std::auto_ptr<kernel::ConnectionSet> connections_;
+    std::unique_ptr<kernel::ConnectionSet> connections_;
 
     /// The ghost connection used for urbi.u, URBI.INI, etc.
     // Does not need to be an auto_ptr, as it is stored in connections_
