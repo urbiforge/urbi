@@ -107,7 +107,7 @@ namespace urbi
     Subscription::~Subscription()
     {
       GD_FINFO_TRACE("~Subscription %s", this);
-      foreach (boost::signals::connection& c, connections)
+      foreach (boost::signals2::connection& c, connections)
         c.disconnect();
       delete cb_;
     }
@@ -132,7 +132,7 @@ namespace urbi
       stop();
       GD_FINFO_TRACE("Unregister registration %s on %s.", this, event_);
 
-      foreach (boost::signals::connection& c, connections)
+      foreach (boost::signals2::connection& c, connections)
         c.disconnect();
       connections.clear();
       rEvent e = event_;
