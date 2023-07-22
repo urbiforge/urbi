@@ -40,7 +40,7 @@ namespace parser
     virtual std::string append_ (unsigned& key, Data data);
 
     /// Extract a metavariable.
-    virtual Data take_ (unsigned key) throw (std::range_error);
+    virtual Data take_ (unsigned key);
 
     /// Empty in another map.
     void insert_(MetavarMap<Data>& other);

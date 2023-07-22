@@ -56,7 +56,7 @@ namespace ast
   template <typename T>
   inline
   T
-  ParameterizedAst::take(unsigned s) throw (std::range_error)
+  ParameterizedAst::take(unsigned s)
   {
     return parser::MetavarMap<T>::take_(s);
   }
