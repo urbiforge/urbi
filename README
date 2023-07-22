@@ -15,6 +15,8 @@ Version:
   This is version 3.0. There might be bits of 2.x references left
   in the doc or in the code, just ignore them (or fix them!).
 
+This version builds with modern (2023) environments (tested with boost 1.80 and 1.82).
+
 Documentation:
 
   * PDF : https://github.com/urbiforge/urbi/blob/master/doc/urbi-sdk.pdf
@@ -37,6 +39,8 @@ Build Urbi:
    qisrc add https://github.com/urbiforge/libport.git && \
    qisrc add https://github.com/urbiforge/urbi.git
 
+Ignore submodule errors.
+
  * qibuild configure --release --with-debug-info urbi && \
    qibuild make urbi && \
    qibuild install urbi /usr/local
@@ -56,3 +60,8 @@ Run Urbi docker container:
 
  * docker run --net host urbiforge/urbi
  * rlwrap nc localhost 54000
+
+Build with clang, libc++, cxx17:
+
+     qibuild configure --release --with-debug-info urbi -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ -D CMAKE_CXX_STANDARD=17 -D CMAKE_CXX_FLAGS='-stdlib=libc++ -fno-delete-null-pointer-checks'
+
