@@ -12,7 +12,7 @@
 #define URBI_OBJECT_SUBSCRIPTION_HH
 
 # include <boost/function.hpp>
-# include <boost/signal.hpp>
+# include <boost/signals2.hpp>
 
 # include <urbi/object/cxx-object.hh>
 # include <urbi/runner/fwd.hh>
@@ -114,7 +114,7 @@ namespace urbi
 
   public:
     rProfile profile;
-    std::vector<boost::signals::connection> connections;
+    std::vector<boost::signals2::connection> connections;
     /// Number of frozen tags this Subscription is marked with.
     unsigned int frozen;
     runner::tag_stack_type tag_stack;

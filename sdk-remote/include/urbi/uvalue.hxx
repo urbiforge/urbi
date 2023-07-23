@@ -18,6 +18,12 @@
 #include <libport/format.hh>
 #include <libport/preproc.hh>
 
+#ifndef URBI_NO_RTTI
+#define URBI_IF_RTTI(a, b) a
+#else
+#define URBI_IF_RTTI(a, b) b
+#endif
+
 namespace urbi
 {
   /*--------------.
@@ -344,7 +350,7 @@ namespace urbi
     b.common.size = sizeof(T)*d.size();
     b.common.data = malloc(b.common.size);
     b.message = libport::format("packed %s %s",
-                                sizeof(T), typeid(T).name());
+                                sizeof(T), URBI_IF_RTTI(typeid(T).name(), "unknown"));
     memcpy(b.common.data, &d.front(), b.common.size);
     return v;
   }
@@ -389,7 +395,7 @@ namespace urbi
     b.type = BINARY_UNKNOWN;
     b.common.size = sizeof(T)*d.size();
     b.common.data = malloc(b.common.size);
-    b.message = libport::format("packed %s %s", sizeof(T), typeid(T).name());
+    b.message = libport::format("packed %s %s", sizeof(T), URBI_IF_RTTI(typeid(T).name(), "unknown"));
     memcpy(b.common.data, &d(0), b.common.size);
     return v;
   }
@@ -430,7 +436,7 @@ namespace urbi
     b.common.size = sizeof(T)*d.size1() * d.size2();
     b.common.data = malloc(b.common.size);
     b.message = libport::format("packed %s %s %s %s",
-                                sizeof(T), typeid(T).name(),
+                                sizeof(T), URBI_IF_RTTI(typeid(T).name(), "unknown"),
                                 d.size1(), d.size2());
     memcpy(b.common.data, &d(0,0), b.common.size);
     return v;

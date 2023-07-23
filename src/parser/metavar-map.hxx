@@ -55,7 +55,7 @@ namespace parser
 
   template <typename Data>
   Data
-  MetavarMap<Data>::take_ (unsigned key) throw (std::range_error)
+  MetavarMap<Data>::take_ (unsigned key)
   {
     aver(libport::has(map_, key),
          "Missing meta-variable in %s map: %s", name_, key);

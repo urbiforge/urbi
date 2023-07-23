@@ -239,7 +239,7 @@ namespace kernel
 
   protected:
     typedef libport::Fifo<char, '\0'> queue_type;
-    std::auto_ptr<queue_type> send_queue_;
+    std::unique_ptr<queue_type> send_queue_;
 
     /// Each call to effective_send() will send packetSize byte (or less).
     size_t packet_size_;

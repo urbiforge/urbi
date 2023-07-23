@@ -56,7 +56,7 @@ namespace eval
     rObject exec(Job* job,
                  rObject code, const objects_type& args)
     {
-      std::auto_ptr<Call> v(reinterpret_cast<Call*>(build(code, args)));
+      std::unique_ptr<Call> v(reinterpret_cast<Call*>(build(code, args)));
       return v->exec(job);
     }
 

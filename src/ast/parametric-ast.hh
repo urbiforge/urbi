@@ -136,7 +136,7 @@ namespace ast
       );
 
     /// Metavariables manipulator.
-    template <typename T> T take (unsigned s) throw (std::range_error);
+    template <typename T> T take (unsigned s);
 
   private:
     /// The ast.

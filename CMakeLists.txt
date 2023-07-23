@@ -8,7 +8,7 @@ qi_sanitize_compile_flags(HIDDEN_SYMBOLS)
 
 #find python
 find_program(_python_executable
-    NAMES python2 python python.exe
+    NAMES python3 python python.exe
     NO_CMAKE_FIND_ROOT_PATH)
   if (NOT _python_executable)
     qi_error("needs python executable in PATH")
@@ -385,7 +385,7 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 qi_create_lib(uobject
   SHARED
   SUBFOLDER /gostai/engine
-  DEPENDS port sched serialize BOOST BOOST_REGEX BOOST_SIGNALS BOOST_FILESYSTEM BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
+  DEPENDS port sched serialize BOOST BOOST_REGEX BOOST_FILESYSTEM BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
   SRC ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
 )
 set_target_properties(uobject
@@ -408,6 +408,6 @@ add_subdirectory(share)
 #Requires lib uobject
 add_subdirectory(sdk-remote/src/uobjects)
 if (NOT I_AM_A_ROBOT)
-  add_subdirectory(sdk-remote/src/swig/java)
+#  add_subdirectory(sdk-remote/src/swig/java)
 endif()
 add_subdirectory(tests)

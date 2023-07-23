@@ -37,7 +37,7 @@ namespace ast
     runner::Exception errors_;
 
     /// Factory.
-    std::auto_ptr<ast::Factory> factory_;
+    std::unique_ptr<ast::Factory> factory_;
   };
 
   /// Apply a visitor on a.
