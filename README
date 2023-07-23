@@ -29,10 +29,10 @@ Build Urbi:
 
  * install the following packages (debian/ubuntu):
 	build-essential git-core vim autoconf mlocate wget \
-        python python-pip libboost-all-dev default-jdk \
+        python3 python3-pip libboost-all-dev default-jdk \
         libssl-dev swig texlive texlive-latex-extra tex4ht
 
- * pip install qibuild
+ * pip install qibuild pyyaml
  * qisrc init && \
    qisrc add https://github.com/urbiforge/libjpeg.git && \
    qisrc add https://github.com/urbiforge/gtest.git   && \
