@@ -14,6 +14,7 @@
  */
 
 #include <libport/deref.hh>
+#include <ast/all.hh>
 #include <ast/print.hh>
 #include <ast/event-match.hh>
 

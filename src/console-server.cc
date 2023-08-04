@@ -50,6 +50,7 @@
 #include <sched/coroutine-local-storage.hh>
 
 // Inclusion order matters for windows. Leave userver.hh after network.hh.
+#include <ast/all.hh>
 #include <urbi/kernel/userver.hh>
 #include <urbi/kernel/uconnection.hh>
 

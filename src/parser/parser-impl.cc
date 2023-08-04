@@ -25,6 +25,7 @@
 #include <libport/finally.hh>
 #include <libport/foreach.hh>
 
+#include <ast/all.hh>
 #include <ast/nary.hh>
 #include <ast/print.hh>
 

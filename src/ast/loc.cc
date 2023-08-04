@@ -14,6 +14,7 @@
  */
 
 #include <boost/algorithm/string/erase.hpp>
+#include <ast/all.hh>
 #include <ast/loc.hh>
 #include <object/system.hh>
 

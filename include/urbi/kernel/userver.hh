@@ -37,7 +37,7 @@
 # include <libport/synchronizer.hh>
 
 # include <sched/fwd.hh>
-
+# include <ast/all.hh>
 # include <urbi/kernel/fwd.hh>
 # include <urbi/kernel/utypes.hh>
 # include <urbi/export.hh>
