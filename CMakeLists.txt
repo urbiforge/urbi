@@ -19,9 +19,94 @@ find_program(_python_executable
     qi_error("needs python executable in PATH")
   endif()
 
+
 include_directories(${Boost_INCLUDES})
 add_definitions(-DBOOST_ALL_NO_LIBS)
 add_definitions(-DBOOST_BIND_GLOBAL_PLACEHOLDERS)
+
+if (WITH_EMBED)
+set(U_FILES
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/pubsub.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/require-file.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/stack-frame.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/trajectory-generator.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/code.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/logger.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/string.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/float.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/event.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/boolean.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/directory.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/traceable.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/local.mk
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/process.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/package-info/urbi.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/package-info/libport.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/monitoring.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/comparable.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/group.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/singleton.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/call-message.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/tuple.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/dataflow.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/container.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/lobby.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/tag.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/formatter.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/pattern.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/component.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/object.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/python.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/urbi.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/file.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/run-test.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/job.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/lazy.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/test-suite.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/loadable.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/semaphore.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/system.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/path.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/dictionary.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/math.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/naming-standard.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/duration.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/weak-pointer.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/utags.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/enumeration.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/timeout.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/global.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/vector.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/regexp.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/input-stream.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/list.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/range-iterable.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/package-info.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/updatehook-stack.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/mutex.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/orderable.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/channel.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/profile.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/uobject.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/control.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/kernel1.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/platform.u.in
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/socket.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/date.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/binary.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/nil.u
+${CMAKE_CURRENT_SOURCE_DIR}/share:urbi/exception.u
+${CMAKE_CURRENT_BINARY_DIR}/share:urbi/platform.u
+)
+  set(EMBED_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/src/kernel/embed.hh)
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/kernel/embed.hh
+    COMMAND ${_python_executable} ${CMAKE_CURRENT_SOURCE_DIR}/dev/embed.py ${CMAKE_CURRENT_BINARY_DIR}/src/kernel/embed.hh none ${U_FILES}
+   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/share/urbi/platform.u
+   )
+  add_definitions(-DURBI_WITH_EMBED)
+else()
+  set(EMBED_SOURCES "")
+endif()
 
 add_subdirectory(sdk-remote)
 
@@ -392,9 +477,10 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 
 # uobject-remote is renamed as uobject using a set_target_properties
 # but this one needs to be correct, because DEPENDS does not honor OUTPUT_NAME
+
 add_library(uobject
   ${LIB_MODE}
-  ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
+  ${UCO_SRC} ${UOBJECT_PLUGIN_SRC} ${EMBED_SOURCES}
 )
 target_link_libraries(uobject
   port sched serialize Boost::filesystem Boost::date_time Boost::system Boost::thread Boost::regex

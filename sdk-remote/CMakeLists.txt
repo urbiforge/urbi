@@ -4,6 +4,7 @@ if (CMAKE_BUILD_TYPE STREQUAL Debug)
   add_definitions(-DURBI_COMPILATION_MODE_DEBUG)
 endif()
 
+
 if(NOT STATIC_BUILD)
 add_executable(urbi-launch
     src/bin/urbi-launch.cc
@@ -23,6 +24,7 @@ endif()
 
 install(TARGETS urbi-launch)
 endif()
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libport/include)

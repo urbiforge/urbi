@@ -11,12 +11,17 @@
 /// \file parser/uparser.cc
 
 #include <fstream>
-
+#include <sstream>
+#include <boost/algorithm/string.hpp>
+#include <unordered_map>
 #include <parser/uparser.hh>
 #include <parser/parser-impl.hh>
 #include <ast/all.hh>
 #include <ast/nary.hh>
 
+#ifdef URBI_WITH_EMBED
+extern std::unordered_map<std::string, std::string> embeded_files;
+#endif
 namespace parser
 {
 
@@ -54,7 +59,20 @@ namespace parser
   {
     std::ifstream* input = new std::ifstream(file.to_string().c_str());
     if (!input->good())
-      throw 42; // FIXME
+    {
+#ifdef URBI_WITH_EMBED
+       std::string npath = file.to_string();
+       boost::replace_all(npath, "\\", "/");
+       auto it = embeded_files.find(npath);
+       if (it != embeded_files.end())
+       {
+         stream_ = new std::stringstream(it->second);
+         pimpl_ = new ParserImpl(*stream_);
+         return;
+       }
+#endif
+       throw 42;
+    }
     stream_ = input;
     pimpl_ = new ParserImpl(*stream_);
   }
