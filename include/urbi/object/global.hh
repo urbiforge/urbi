@@ -39,8 +39,13 @@ namespace urbi
 }
 
 # define CAPTURE_(Name, From)                                   \
+static int Name ## _iteration = ::urbi::object::object_iteration; \
   static ::urbi::object::rObject Name =                         \
-    ::urbi::object::capture(libport::Symbol(#Name), From)
+    ::urbi::object::capture(libport::Symbol(#Name), From);      \
+    if (Name ## _iteration != ::urbi::object::object_iteration) { \
+      Name = ::urbi::object::capture(libport::Symbol(#Name), From);\
+      Name ## _iteration = ::urbi::object::object_iteration; \
+    }
 
 # define CAPTURE_GLOBAL(Name)                   \
   CAPTURE_(Name, ::urbi::object::Object::package_lang_get())
@@ -49,7 +54,12 @@ namespace urbi
   CAPTURE_GLOBAL(Name);                         \
   CAPTURE_(Member, Name)
 
-# define CAPTURE_LANG(Name) static ::urbi::object::rObject Name = \
-    ::urbi::object::Object::package_lang_get()
+# define CAPTURE_LANG(Name) static ::urbi::object::rObject Name;     \
+    static int capture_lang_iteration = -1;                          \
+    if (capture_lang_iteration != ::urbi::object::object_iteration)  \
+    {                                                                \
+      Name = ::urbi::object::Object::package_lang_get();             \
+      capture_lang_iteration = ::urbi::object::object_iteration;     \
+    }
 
 #endif // !OBJECT_GLOBAL_HH

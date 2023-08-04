@@ -87,6 +87,9 @@ namespace urbi
       , protos_(0)
       , slots_()
       , lookup_id_(INT_MAX)
+#ifdef WITH_THIS_OBJECT_ITERATION
+      , this_object_iteration(object_iteration)
+#endif
     {
     }
 
@@ -122,6 +125,7 @@ namespace urbi
       }
       protos_cache_ = protos;
       protos_ = &protos->value_get();
+      //std::cerr << "proto CALL " << &*protos << std::endl;
       return protos;
     }
 
@@ -183,7 +187,14 @@ namespace urbi
     rObject
     Object::local_slot_get(key_type k) const
     {
+#ifdef WITH_THIS_OBJECT_ITERATION
+       if (this_object_iteration != object_iteration)
+      {
+        std::cerr << "STALE OBJECT2 " << this << " accessing " << k << std::endl;
+      }
+#endif
       rObject res = slots_.get(this, k);
+      //std::cerr << "local_slot_get " << k << " " << !!res << std::endl;
       if(!fastHook)
       {
         if (res)
@@ -217,6 +228,12 @@ namespace urbi
     Object::slot_locate(key_type k,
                         bool fallback) const
     {
+#if WITH_THIS_OBJECT_ITERATION
+      if (this_object_iteration != object_iteration)
+      {
+        std::cerr << "STALE OBJECT " << this << " accessing " << k << std::endl;
+      }
+#endif
       ++lookup_id;
       Object::location_type res = slot_locate_(k);
       if (!res.first && fallback)
@@ -1115,11 +1132,15 @@ namespace urbi
     Object::package_root_get()
     {
       static rObject res = 0;
-      if (!res)
+      static int init_iteration = -1;
+      if (init_iteration != object_iteration)
       {
+        aver(Object::proto);
         res = Object::proto->clone();
         res->slot_set_value(SYMBOL(package), res);
-        res->slot_set_value(SYMBOL(lang), Object::proto->clone());
+        auto daLang = Object::proto->clone();
+        res->slot_set_value(SYMBOL(lang), daLang);
+        init_iteration = object_iteration;
         //Object::proto->slot_set_value(SYMBOL(Package), res);
       }
       return res;
@@ -1129,14 +1150,18 @@ namespace urbi
     Object::package_lang_get()
     {
       static rObject res = 0;
-      if (!res)
+      static int init_iteration = -1;
+      if (init_iteration != object_iteration)
       {
-        res = package_root_get()->slot_get_value(SYMBOL(lang));
-        res->slot_set_value(SYMBOL(package), package_root_get());
+        rObject pr = package_root_get();
+        res = pr->slot_get_value(SYMBOL(lang));
+        res->slot_set_value(SYMBOL(package), pr);
+        init_iteration = object_iteration;
       }
       return res;
     }
 
     rObject Object::proto;
+    int object_iteration = 1;
   } // namespace object
 }

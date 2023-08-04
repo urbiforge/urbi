@@ -42,8 +42,15 @@ namespace urbi
                                                         \
   static rObject Name(const object::objects_type& args) \
   {                                                     \
-    static rPrimitive v1 = primitive(V1);               \
-    static rPrimitive v2 = primitive(V2);               \
+    static int capture_iteration = -1;                  \
+    static rPrimitive v1;                               \
+    static rPrimitive v2;                               \
+    if (capture_iteration != object_iteration)          \
+    {                                                   \
+      v1 = primitive(V1);                               \
+      v2 = primitive(V2);                               \
+      capture_iteration = object_iteration;             \
+    }                                                   \
                                                         \
     object::check_arg_count(args, N);                   \
     if (args[Arg]->as<T2>())                            \
@@ -56,9 +63,17 @@ namespace urbi
                                                                 \
   static rObject Name(const object::objects_type& args)         \
   {                                                             \
-    static rPrimitive v1 = primitive(V1);                       \
-    static rPrimitive v2 = primitive(V2);                       \
-    static rPrimitive v3 = primitive(V3);                       \
+    static int capture_iteration = -1;                          \
+    static rPrimitive v1;                                       \
+    static rPrimitive v2;                                       \
+    static rPrimitive v3;                                       \
+    if (capture_iteration != object_iteration)                  \
+    {                                                           \
+      v1 = primitive(V1);                                       \
+      v2 = primitive(V2);                                       \
+      v3 = primitive(V3);                                       \
+      capture_iteration = object_iteration;                     \
+    }                                                           \
                                                                 \
     object::check_arg_count(args, N);                           \
     return (args[Arg]->as<T1>()   ? (*v1)(args)                 \
@@ -77,8 +92,15 @@ namespace urbi
                                                         \
   static rObject Name(const object::objects_type& args) \
   {                                                     \
-    static rPrimitive v1 = primitive(V1);               \
-    static rPrimitive v2 = primitive(V2);               \
+    static int capture_iteration = -1;                  \
+    static rPrimitive v1;                               \
+    static rPrimitive v2;                               \
+    if (capture_iteration != object_iteration)          \
+    {                                                   \
+      v1 = primitive(V1);                               \
+      v2 = primitive(V2);                               \
+      capture_iteration = object_iteration;             \
+    }                                                   \
                                                         \
     object::check_arg_count(args, N - 1, N);            \
     switch (args.size())                                \
@@ -106,13 +128,19 @@ namespace urbi
   static rObject Name(const object::objects_type& args_)                \
   {                                                                     \
     object::objects_type args = args_;                                  \
-    static rPrimitive primitive = primitive(P);                         \
+    static int capture_iteration = -1;                                  \
+    static rPrimitive p;                                                \
+    if (capture_iteration != object_iteration)                          \
+    {                                                                   \
+      p = primitive(P);                                                 \
+      capture_iteration = object_iteration;                             \
+    }                                                                   \
     int arity = args.size() - 1;                                        \
                                                                         \
     object::check_arg_count(arity, N, N + 1);                           \
     if (arity == N)                                                     \
       args.push_back(to_urbi(V));                                       \
-    return (*primitive)(args);                                          \
+    return (*p)(args);                                                  \
   }                                                                     \
 
 /// Raise an Urbi exception.

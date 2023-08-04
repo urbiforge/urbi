@@ -12,6 +12,7 @@
  ** \file object/root-classes.cc
  ** \brief Creation of the root Objects.
  */
+#include <iostream>
 #include <urbi/object/fwd.hh>
 #include <object/object-class.hh>
 #include <object/root-classes.hh>
@@ -28,17 +29,32 @@
 #include <urbi/object/directory.hh>
 #include <urbi/object/duration.hh>
 #include <urbi/object/event.hh>
+#include <urbi/object/event-handler.hh>
 #include <urbi/object/file.hh>
+#include <object/finalizable.hh>
 #include <urbi/object/float.hh>
+#include <object/format-info.hh>
+#include <object/formatter.hh>
 #include <urbi/object/global.hh>
+#include <object/urbi/input-stream.hh>
+#include <urbi/object/location.hh>
+#include <object/urbi/logger.hh>
 #include <urbi/object/job.hh>
 #include <urbi/object/list.hh>
 #include <urbi/object/lobby.hh>
 #include <urbi/object/object.hh>
+#include <object/urbi/output-stream.hh>
 #include <urbi/object/path.hh>
+#include <urbi/object/position.hh>
 #include <urbi/object/primitive.hh>
+#include <object/urbi/process.hh>
+#include <object/urbi/regexp.hh>
+#include <object/urbi/stream.hh>
 #include <urbi/object/string.hh>
 #include <urbi/object/tag.hh>
+#include <object/uconnection.hh>
+#include <object/uvalue.hh>
+#include <urbi/object/vector.hh>
 
 namespace urbi
 {
@@ -227,6 +243,8 @@ namespace urbi
       static inline void
       cleanup_object(libport::intrusive_ptr<T>& o)
       {
+        if (!o)
+          return;
         o->protos_set(new object::List(object::List::value_type()));
         o.reset();
       }
@@ -251,8 +269,40 @@ namespace urbi
       cleanup_object(system_class);
       cleanup_object(true_class);
       cleanup_object(void_class);
+      cleanup_object(Slot::proto);
+      cleanup_object(Executable::proto);
       // List must be last, because it is used in cleanup_object.
+      cleanup_object(Subscription::proto);
+      cleanup_object(UValue::proto);
+      cleanup_object(Server::proto);
+      cleanup_object(Socket::proto);
+      cleanup_object(Position::proto);
+      cleanup_object(Location::proto);
+      cleanup_object(Event::proto);
+      cleanup_object(EventHandler::proto);
+      cleanup_object(IoService::proto);
+      cleanup_object(Duration::proto);
+      cleanup_object(Finalizable::proto);
+      cleanup_object(File::proto);
+      cleanup_object(Path::proto);
+      cleanup_object(Directory::proto);
+      cleanup_object(Date::proto);
+      cleanup_object(Hash::proto);
+      cleanup_object(UConnection::proto);
+      cleanup_object(Profile::proto);
+      cleanup_object(FunctionProfile::proto);
+      cleanup_object(Vector::proto);
+      cleanup_object(Process::proto);
+      cleanup_object(Stream::proto);
+      cleanup_object(InputStream::proto);
+      cleanup_object(OutputStream::proto);
+      cleanup_object(Regexp::proto);
+      cleanup_object(Logger::proto);
+      cleanup_object(FormatInfo::proto);
+      cleanup_object(Formatter::proto);
       cleanup_object(List::proto);
+
+      
     }
 
     /*-------.

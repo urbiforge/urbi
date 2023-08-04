@@ -282,14 +282,14 @@ namespace urbi
     static rObject
     object_class_PLUS_PLUS(rObject lhs)
     {
-      static rObject one = to_urbi(1);
+      /*static*/ rObject one = to_urbi(1);
       return lhs->call(SYMBOL(PLUS_EQ), one);
     }
 
     static rObject
     object_class_MINUS_MINUS(rObject lhs)
     {
-      static rObject one = to_urbi(1);
+      /*static*/ rObject one = to_urbi(1);
       return lhs->call(SYMBOL(MINUS_EQ), one);
     }
 

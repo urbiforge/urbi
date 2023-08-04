@@ -52,11 +52,22 @@
 #define URBI_CXX_OBJECT_REGISTER_(Name, Attrs)                \
   URBI_CXX_OBJECT_REGISTER__(Name, LIBPORT_LIST_NTH(0, Attrs))
 
+#ifdef WITH_THIS_OBJECT_ITERATION
+ #define URBI_ITERATION_CHECK(Name) \
+    if (Name::proto && Name::proto->this_object_iteration != ::urbi::object::object_iteration) \
+    { Name::proto = nullptr; \
+      GD_ERROR("killing stale proto for " #Name); \
+    }
+#else
+  #define URBI_ITERATION_CHECK(Name)
+#endif
+
 #define URBI_CXX_OBJECT_REGISTER__(Name, Ns)                            \
   static void                                                           \
   LIBPORT_CAT(urbi_cxx_object_register_##Name##_, __LINE__)()           \
   {                                                                     \
     URBI_CHECK_SDK_VERSION(#Name);                                      \
+    URBI_ITERATION_CHECK(Name)                                          \
     ::urbi::object::CxxObject::add<Name>(BOOST_PP_STRINGIZE(Ns));       \
   }                                                                     \
   URBI_INITIALIZATION_REGISTER                                          \

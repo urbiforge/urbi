@@ -108,7 +108,7 @@ namespace urbi
     {
       if (!libport::has(content_, key))
       {
-        static rObject exn = slot_get_value(SYMBOL(KeyError));
+        /*static*/ rObject exn = slot_get_value(SYMBOL(KeyError));
         eval::raise(::kernel::runner(), exn->call("new", key));
       }
     }

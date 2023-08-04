@@ -84,6 +84,13 @@ namespace urbi
     {
       // FIXME: should we set lobby and tag_stack in all cases?
       // Only done for ats now.
+#if WITH_THIS_OBJECT_ITERATION
+      if (proto && proto->this_object_iteration != object_iteration)
+      {
+        GD_ERROR("Subscription proto is stale");
+        proto = nullptr;
+      }
+#endif
       if (this != proto)
         proto_set(proto);
       cb_ = 0;

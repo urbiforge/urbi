@@ -49,6 +49,7 @@ namespace kernel
 {
   /// Global variable for the server
   extern URBI_SDK_API class UServer* urbiserver;
+  extern bool just_die_already;
 
   /// The current server.
   UServer& server();
@@ -119,7 +120,7 @@ namespace kernel
     //! Overload this function to return the running time of the server.
     /*! The running time of the server must be in microseconds.
      */
-    virtual libport::utime_t getTime() const = 0;
+    virtual libport::utime_t getTime() const { return 0;}
 
     /// Path to explore when looking for .u files.
     libport::file_library search_path;

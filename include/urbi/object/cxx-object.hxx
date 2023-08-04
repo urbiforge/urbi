@@ -94,26 +94,35 @@ namespace urbi
         GD_FINFO_TRACE("register C++ object %s as %s", name, ns);
 
       libport::intrusive_ptr<T> res;
+      #ifdef WITH_THIS_OBJECT_ITERATION
+      if (T::proto && T::proto->this_object_iteration != object_iteration)
+      {
+        std::cerr << "proto is of previous iteration" << std::endl;
+      }
+      #endif
       if (!T::proto)
       {
         res = new T(FirstPrototypeFlag());
         T::proto = res;
       }
       else
+      {
         res = T::proto;
-
+      }
       // If the user didn't specify a prototype, use Object.
       if (!res->protos_has())
+      {
         res->proto_add(Object::proto);
+      }
       aver(res);
 
       // type.
-      static libport::Symbol type("type");
+       libport::Symbol type("type");
       if (!res->local_slot_get(type))
         res->slot_set_value(type,
                        new String(name), true);
       // clone.
-      static libport::Symbol clone("clone");
+      libport::Symbol clone("clone");
       res->slot_set_value(clone,
                     new Primitive(bind(cxx_object_clone<T>, _1)), true);
 

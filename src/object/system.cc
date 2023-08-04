@@ -62,7 +62,7 @@ GD_CATEGORY(Urbi.Object);
 namespace urbi
 {
 
-  static std::vector<Initialization>&
+  std::vector<Initialization>&
   initializations_()
   {
     static std::vector<Initialization> initializations;
@@ -499,11 +499,18 @@ namespace urbi
     static rDictionary
     system_env_init()
     {
+      static int env_iteration = -1;
+      if (env_iteration != object_iteration)
+      {
+        env_ = nullptr;
+        env_iteration = object_iteration;
+      }
       libport::environ_type env = libport::getenviron();
       if (!env_)
         env_ = new Dictionary;
       else
         env_->clear();
+
       for (libport::environ_type::iterator it = env.begin(); it != env.end(); ++it)
         env_->set (to_urbi(it->first), to_urbi(it->second));
       return env_;
@@ -512,8 +519,12 @@ namespace urbi
     static rDictionary
     system_env()
     {
-      if (!env_)
+      static int env_iteration = -1;
+      if (env_iteration != object_iteration)
+      {
         system_env_init();
+        env_iteration = object_iteration;
+      }
       return env_;
     }
 
@@ -654,7 +665,6 @@ namespace urbi
     static void
     system_poll()
     {
-
       dead_jobs_.clear();
       dead_jobs_ = kernel::scheduler().terminated_jobs_get();
       foreach (const sched::rJob& j, dead_jobs_)

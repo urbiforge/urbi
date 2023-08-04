@@ -287,10 +287,17 @@ namespace urbi
     {
       return io_service_;
     }
+
     rIoService
     Socket::get_default_io_service()
     {
-      static rIoService ios(new IoService);
+      static rIoService ios;
+      static int init_iteration = -1;
+      if (init_iteration != object_iteration)
+      {
+        ios = new IoService;
+        init_iteration = object_iteration;
+      }
       return ios;
     }
 

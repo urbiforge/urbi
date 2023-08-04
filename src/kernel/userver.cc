@@ -103,7 +103,7 @@ namespace kernel
 {
   // Global server reference
   UServer* urbiserver = 0;
-
+  bool just_die_already = false;
   std::string current_function_name()
   {
     const ::runner::State::call_stack_type& bt =
@@ -178,6 +178,7 @@ namespace kernel
     search_path.push_back(libport::path(urbi_root.root() + "/../share"));
     TIMER_INIT();
     TIMER_PUSH("server");
+    std::cerr << "new server " << this << std::endl;
     urbiserver = this;
     // If someone locks the big kernel lock and we're sleeping, wake
     // up.
@@ -402,7 +403,11 @@ namespace kernel
     {
       GD_PUSH_TRACE("going to work until urbi.u is processed.");
       while (!object::Object::proto->slot_has(SYMBOL(loaded)))
+      {
+          //std::cerr << "working again..." << std::endl;
         work();
+      }
+      std::cerr << "URBI IS FINALLY READY****************" << std::endl;
     }
     mode_ = mode_user;
     object::Object::proto->slot_remove(SYMBOL(loaded));
@@ -840,7 +845,8 @@ namespace kernel
   boost::asio::io_service&
   UServer::get_io_service ()
   {
-    return *object::Socket::get_default_io_service().get();
+    boost::asio::io_service& res = *object::Socket::get_default_io_service().get();
+    return res;
   }
 
   void

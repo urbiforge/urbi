@@ -16,6 +16,7 @@
 #include <object/finalizable.hh>
 #include <urbi/object/symbols.hh>
 #include <urbi/object/urbi-exception.hh>
+#include <urbi/kernel/userver.hh>
 
 #include <eval/call.hh>
 
@@ -44,6 +45,8 @@ namespace urbi
 
     Finalizable::~Finalizable()
     {
+      if (kernel::just_die_already)
+        return;
       try
       {
         if (rObject finalize = slot_get_value(SYMBOL(finalize), false))

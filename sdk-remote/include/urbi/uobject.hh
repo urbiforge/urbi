@@ -511,6 +511,7 @@ namespace urbi
     /// Find the TaskLock associated with lock specs \b s.
     libport::ThreadPool::rTaskLock getTaskLock(LockSpec s,
                                                const std::string& what);
+
     /// The load attribute is standard and can be used to control the
     /// activity of the object.
     UVar load;
