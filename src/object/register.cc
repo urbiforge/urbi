@@ -68,6 +68,11 @@ namespace urbi
 {
   namespace object
   {
+    // Hack to avoid requiring whole-archive when static linking.
+    int dummy_register_function()
+    {
+      return 5142;
+    }
     URBI_CXX_OBJECT_REGISTER(Executable);
     URBI_CXX_OBJECT_REGISTER(Primitive);
     URBI_CXX_OBJECT_REGISTER(Slot);
