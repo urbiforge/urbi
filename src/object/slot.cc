@@ -133,7 +133,13 @@ namespace urbi
     void
     Slot::set(rObject value, Object* sender, libport::utime_t timestamp)
     {
-      static rObject void_object = capture(SYMBOL(void), Object::package_lang_get());
+        static rObject void_object;
+        static int void_iteration = -1;
+        if (object_iteration != void_iteration)
+        {
+            void_iteration = object_iteration;
+            void_object = capture(SYMBOL(void), Object::package_lang_get());
+        }
       GD_FINFO_DUMP("Slot::set, slot %s, sender %s, oset %s",
         this, sender, !!oset_);
       if (type_)

@@ -292,7 +292,9 @@ namespace urbi
       cleanup_object(Profile::proto);
       cleanup_object(FunctionProfile::proto);
       cleanup_object(Vector::proto);
+#ifndef WIN32
       cleanup_object(Process::proto);
+#endif
       cleanup_object(Stream::proto);
       cleanup_object(InputStream::proto);
       cleanup_object(OutputStream::proto);
