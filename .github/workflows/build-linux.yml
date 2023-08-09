@@ -1,0 +1,39 @@
+name: Linux
+
+on:
+  push:
+    branches: [ "master" ]
+  #pull_request:
+  #  branches: [ "master" ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Qibuild
+      run: pip3 install qibuild
+    - name: Checkout
+      run: qisrc init && qisrc add https://github.com/urbiforge/libjpeg.git && qisrc add https://github.com/urbiforge/gtest.git   && qisrc add https://github.com/urbiforge/libport.git && qisrc add https://github.com/urbiforge/urbi.git || true
+    - name: Version
+      run: cd urbiforge/urbi && git describe --always > /tmp/version.txt
+    - name: Configure
+      run: qibuild configure --release urbi
+    - name: Build
+      # Build your program with the given configuration
+      run: qibuild make urbi
+    - name: Install
+      # Build your program with the given configuration
+      run: qibuild install urbi /tmp/urbisdk
+    - name: Compress
+      run: cd /tmp && tar czf /tmp/urbisdk-linux.tar.gz urbiskdk
+    - uses: actions/upload-artifact@v3
+      with:
+        name: urbisdk-linux
+        path: /tmp/urbisdk-linux.tar.gz
+
