@@ -32,6 +32,7 @@ jobs:
           platform_version: 2022
           # OPTIONAL: Specify a toolset
           toolset: msvc
+          link: shared
     - name: Checkout
       run: |
           qisrc init
