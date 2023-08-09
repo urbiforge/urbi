@@ -10,7 +10,7 @@
 
 #include <libport/indent.hh>
 #include <libport/separate.hh>
-
+#include <ast/all.hh>
 #include <ast/exp.hh>
 #include <ast/exps-type.hh>
 #include <ast/print.hh>

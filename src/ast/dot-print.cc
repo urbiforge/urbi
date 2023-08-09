@@ -8,6 +8,7 @@
  * See the LICENSE file for more information.
  */
 
+#include <ast/all.hh>
 #include <ast/dot-print.hh>
 #include <ast/dot-printer.hh>
 

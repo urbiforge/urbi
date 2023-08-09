@@ -10,7 +10,7 @@
 
 #include <kernel/connection.hh>
 #include <urbi/kernel/userver.hh>
-
+#include <ast/all.hh>
 #include <urbi/object/lobby.hh>
 #include <urbi/object/symbols.hh>
 

@@ -320,6 +320,7 @@ typedef unsigned char YY_CHAR;
 #define YY_INTERACTIVE
 
 #include "parser/flex-lexer.hh"
+#include <ast/all.hh>
 #include <ast/nary.hh>
 
 /* Done after the current pattern has been matched and before the

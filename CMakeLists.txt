@@ -8,7 +8,7 @@ qi_sanitize_compile_flags(HIDDEN_SYMBOLS)
 
 #find python
 find_program(_python_executable
-    NAMES python3 python python.exe
+    NAMES python3 python python.exe py
     NO_CMAKE_FIND_ROOT_PATH)
   if (NOT _python_executable)
     qi_error("needs python executable in PATH")

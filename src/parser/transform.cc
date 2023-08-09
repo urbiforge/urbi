@@ -12,7 +12,7 @@
 #include <flower/flow.hh>
 #include <rewrite/rewrite.hh>
 #include <parser/transform.hh>
-
+#include <ast/all.hh>
 #include <ast/nary.hh>
 
 namespace parser

@@ -8,6 +8,7 @@
  * See the LICENSE file for more information.
  */
 
+#include <ast/all.hh>
 #include <ast/exp.hh>
 #include <ast/formal.hh>
 #include <ast/print.hh>

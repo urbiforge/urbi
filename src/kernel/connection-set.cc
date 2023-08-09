@@ -11,7 +11,7 @@
 #include <libport/bind.hh>
 #include <boost/lambda/lambda.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
-
+#include <ast/all.hh>
 #include <kernel/connection-set.hh>
 #include <urbi/kernel/uconnection.hh>
 
