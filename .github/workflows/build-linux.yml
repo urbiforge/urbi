@@ -18,6 +18,8 @@ jobs:
     steps:
     - name: Qibuild
       run: pip3 install qibuild
+    - name: dependencies
+      run: sudo apt-get install -y libboost-all-dev
     - name: Checkout
       run: qisrc init && qisrc add https://github.com/urbiforge/libjpeg.git && qisrc add https://github.com/urbiforge/gtest.git   && qisrc add https://github.com/urbiforge/libport.git && qisrc add https://github.com/urbiforge/urbi.git || true
     - name: Version
