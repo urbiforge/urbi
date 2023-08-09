@@ -385,7 +385,7 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 qi_create_lib(uobject
   SHARED
   SUBFOLDER /gostai/engine
-  DEPENDS port sched serialize BOOST BOOST_REGEX BOOST_FILESYSTEM BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
+  DEPENDS port sched serialize Boost Boost_REGEX Boost_FILESYSTEM Boost_DATE_TIME  Boost_SYSTEM Boost_THREAD
   SRC ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
 )
 set_target_properties(uobject

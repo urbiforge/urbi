@@ -90,7 +90,7 @@ set(UOBJECT_REMOTE_SRC
 qi_create_lib(uobject-remote
   SUBFOLDER /gostai/remote
   SHARED
-  DEPENDS port serialize ${JPEG_PACKAGE} BOOST BOOST_REGEX BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
+  DEPENDS port serialize ${JPEG_PACKAGE} Boost Boost_REGEX Boost_DATE_TIME  Boost_SYSTEM Boost_THREAD
   SRC ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC}
 )
 set_target_properties(uobject-remote
@@ -109,7 +109,7 @@ qi_stage_lib(uobject-remote)
 #So we still need a liburbi for programs wanting to link with it
 qi_create_lib(urbi
   SHARED
-  DEPENDS port serialize ${JPEG_PACKAGE} BOOST BOOST_REGEX BOOST_DATE_TIME  BOOST_SYSTEM BOOST_THREAD
+  DEPENDS port serialize ${JPEG_PACKAGE} Boost Boost_REGEX Boost_DATE_TIME  Boost_SYSTEM Boost_THREAD
   SRC ${COMMON_SRC} ${URBI_SRC}
 )
 
