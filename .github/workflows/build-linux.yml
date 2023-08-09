@@ -33,7 +33,7 @@ jobs:
       # Build your program with the given configuration
       run: qibuild install urbi /tmp/urbisdk
     - name: Compress
-      run: cd /tmp && tar czf /tmp/urbisdk-linux.tar.gz urbiskdk
+      run: cd /tmp && tar czf /tmp/urbisdk-linux.tar.gz urbisdk
     - uses: actions/upload-artifact@v3
       with:
         name: urbisdk-linux
