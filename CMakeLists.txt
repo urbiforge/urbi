@@ -14,6 +14,7 @@ find_program(_python_executable
 
 include_directories(${Boost_INCLUDES})
 add_definitions(-DBOOST_ALL_NO_LIBS)
+add_definitions(-DBOOST_BIND_GLOBAL_PLACEHOLDERS)
 
 add_subdirectory(sdk-remote)
 
