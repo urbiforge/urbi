@@ -22,9 +22,9 @@ jobs:
     - name: dependencies
       run: sudo apt-get install -y libboost-all-dev
     - name: Version
-      run: cd  $GITHUB_WORKSPACE/urbi && git describe --always > /tmp/version.txt
+      run: cd  $GITHUB_WORKSPACE && git describe --always > /tmp/version.txt
     - name: Configure
-      run: mkdir  $GITHUB_WORKSPACE/build && cd  $GITHUB_WORKSPACE/build && cmake -DCMAKE_CXXFLAGS="-g -O2" -DCMAKE_INSTALL_PREFIX=/tmp/urbisdk ../urbi
+      run: mkdir  $GITHUB_WORKSPACE/build && cd  $GITHUB_WORKSPACE/build && cmake -DCMAKE_CXXFLAGS="-g -O2" -DCMAKE_INSTALL_PREFIX=/tmp/urbisdk ..
     - name: Build
       # Build your program with the given configuration
       run: cd  $GITHUB_WORKSPACE/build && make -j2
