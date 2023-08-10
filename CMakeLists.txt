@@ -3,16 +3,18 @@ project(kernel)
 
 add_subdirectory(libport)
 
+set(Boost_USE_STATIC_LIBS On)
 find_package(Boost REQUIRED COMPONENTS chrono thread system filesystem date_time regex)
 #find python
 find_program(_python_executable
-    NAMES python3 python python.exe py
+    NAMES py python3 python python.exe
     NO_CMAKE_FIND_ROOT_PATH)
   if (NOT _python_executable)
     qi_error("needs python executable in PATH")
   endif()
 
 include_directories(${Boost_INCLUDES})
+add_definitions(-DBOOST_ALL_NO_LIBS)
 
 add_subdirectory(sdk-remote)
 

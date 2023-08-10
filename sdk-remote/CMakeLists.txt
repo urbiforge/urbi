@@ -81,7 +81,9 @@ if(JPEG_FOUND)
 else()
   message("Using INTERNAL JPEG")
   add_definitions(-DJPEG_INTERNAL)
-  set(JPEG_PACKAGE QIJPEG)
+  set(JPEG_PACKAGE qijpeg)
+  add_subdirectory(libjpeg)
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libjpeg)
 endif()
 
 set(UOBJECT_REMOTE_SRC
