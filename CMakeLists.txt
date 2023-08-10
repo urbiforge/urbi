@@ -3,7 +3,6 @@ project(kernel)
 
 add_subdirectory(libport)
 
-set(Boost_USE_STATIC_LIBS On)
 find_package(Boost REQUIRED COMPONENTS chrono thread system filesystem date_time regex)
 #find python
 find_program(_python_executable
