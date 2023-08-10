@@ -16,26 +16,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Qibuild
-      run: pip3 install qibuild
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
     - name: dependencies
       run: sudo apt-get install -y libboost-all-dev
-    - name: Checkout
-      run: qisrc init && qisrc add https://github.com/urbiforge/libjpeg.git && qisrc add https://github.com/urbiforge/gtest.git   && qisrc add https://github.com/urbiforge/libport.git && qisrc add https://github.com/urbiforge/urbi.git || true
     - name: Version
-      run: cd urbiforge/urbi && git describe --always > /tmp/version.txt
+      run: cd urbi && git describe --always > /tmp/version.txt
     - name: Configure
-      run: qibuild configure --release urbi
+      run: mkdir urbi/build && cd urbi/build && cmake -DCMAKE_CXXFLAGS="-g -O2" -DCMAKE_INSTALL_PREFIX=/tmp/urbisdk ..
     - name: Build
       # Build your program with the given configuration
-      run: qibuild make urbi
+      run: cd urbi/build && make -j2
     - name: Install
       # Build your program with the given configuration
-      run: qibuild install urbi /tmp/urbisdk
-    - name: Compress
-      run: cd /tmp && tar czf /tmp/urbisdk-linux.tar.gz urbisdk
+      run: cd urbi/build && make install -j2
     - uses: actions/upload-artifact@v3
       with:
         name: urbisdk-linux
-        path: /tmp/urbisdk-linux.tar.gz
-
+        path: /tmp/urbisdk

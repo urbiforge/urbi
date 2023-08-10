@@ -32,18 +32,12 @@ Build Urbi:
         python3 python3-pip libboost-all-dev default-jdk \
         libssl-dev swig texlive texlive-latex-extra tex4ht
 
- * pip install qibuild pyyaml
- * qisrc init && \
-   qisrc add https://github.com/urbiforge/libjpeg.git && \
-   qisrc add https://github.com/urbiforge/gtest.git   && \
-   qisrc add https://github.com/urbiforge/libport.git && \
-   qisrc add https://github.com/urbiforge/urbi.git
-
-Ignore submodule errors.
-
- * qibuild configure --release --with-debug-info urbi && \
-   qibuild make urbi && \
-   qibuild install urbi /usr/local
+ * git clone https://github.com/urbiforge/urbi.git urbi
+   cd urbi
+   git submodule update --init
+   cmake -Bbuild . -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/tmp/urbisdk
+   cmake --build build --config Release
+   cmake --install build --config Release
 
 Run Urbi (interactive session):
 

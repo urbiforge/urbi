@@ -11,7 +11,7 @@ if (NOT DEFINED TEST_DIRS)
   if (NOT I_AM_A_ROBOT)
     list(APPEND TEST_DIRS uob/java)
   endif()
-  qi_add_optional_package(ORTP)
+  find_package(ORTP)
   if (WITH_ORTP)
     list(APPEND TEST_DIRS uob/rtp)
   endif()
@@ -54,7 +54,7 @@ FOREACH(infileName ${tests})
   string(REPLACE "/" "_" _out2 ${_out})
   list(FIND BLACKLIST ${_out2} _blacklisted)
   if(NOT ${_blacklisted} EQUAL -1)
-    qi_debug("Test ${_out2} blacklisted, skipping")
+    message(DEBUG "Test ${_out2} blacklisted, skipping")
   else()
     # We need to check fast mode at this point
     file(READ ${infileName} _fcontent LIMIT 512)
@@ -69,10 +69,8 @@ FOREACH(infileName ${tests})
       set(_fast "")
     endif()
     #MESSAGE("adding  ${infileName} ${_out} ${_out2} ")
-    qi_add_test(${_out2} urbi-launch
-      ARGUMENTS -s -- ${_fast} --host 127.0.0.1 --port 0 urbi/run-test.u ${infileName}
-      TIMEOUT 60
-      NO_INSTALL
+    add_test(NAME ${_out2} 
+      COMMAND urbi-launch -s -- ${_fast} --host 127.0.0.1 --port 0 urbi/run-test.u ${infileName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/..
     )
   endif()
@@ -93,10 +91,8 @@ FOREACH(infileName ${doctex})
     if (${_found_nofast} EQUAL -1)
       set(_fast "--fast")
     endif()
-    qi_add_test(${_out2} urbi-launch
-      ARGUMENTS -s --  ${_fast} --host 127.0.0.1 --port 0 urbi/run-test.u ${infileName}
-      TIMEOUT 60
-      NO_INSTALL
+    add_test(NAME ${_out2} COMMAND urbi-launch
+      -s --  ${_fast} --host 127.0.0.1 --port 0 urbi/run-test.u ${infileName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/..
     )
   endif()

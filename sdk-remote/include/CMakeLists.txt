@@ -58,7 +58,7 @@ urbi/uvar.hxx
 urbi/version-check.hh
 )
 
-qi_install_header(
+install(FILES
   ${URBI_PUBLIC_HEADERS}
-  KEEP_RELATIVE_PATHS
+  DESTINATION include/urbi
 )

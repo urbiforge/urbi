@@ -1,0 +1,6 @@
+[submodule "libport"]
+	path = libport
+	url = https://github.com/urbiforge/libport.git
+[submodule "libjpeg"]
+	path = sdk-remote/libjpeg
+	url = https://github.com/urbiforge/libjpeg.git

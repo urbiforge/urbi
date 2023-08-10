@@ -16,8 +16,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Qibuild
-      run: python -m pip install qibuild
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
     - name: Install boost
       uses: MarkusJx/install-boost@v2.4.1
       id: install-boost
@@ -33,23 +34,16 @@ jobs:
           # OPTIONAL: Specify a toolset
           toolset: msvc
           link: shared
-    - name: Checkout
-      run: |
-          qisrc init
-          qisrc add https://github.com/urbiforge/libjpeg.git
-          qisrc add https://github.com/urbiforge/gtest.git
-          qisrc add https://github.com/urbiforge/libport.git
-          qisrc add https://github.com/urbiforge/urbi.git
     - name: Configure
-      run: qibuild configure --release urbi
+      run: cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=urbisdk -DBoost_USE_STATIC_LIBS=On -Bbuild urbi
       env:
           BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
     - name: Build
       # Build your program with the given configuration
-      run: qibuild make urbi
+      run: cmake --build build --config Release
     - name: Install
       # Build your program with the given configuration
-      run: qibuild install urbi urbisdk
+      run: cmake --install build --config Release
     - uses: actions/upload-artifact@v3
       with:
         name: urbisdk-windows
