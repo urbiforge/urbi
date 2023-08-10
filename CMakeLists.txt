@@ -1,11 +1,9 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.22)
 project(kernel)
 
-find_package(qibuild)
+add_subdirectory(libport)
 
-qi_sanitize_compile_flags(HIDDEN_SYMBOLS)
-
-
+find_package(Boost REQUIRED COMPONENTS chrono thread system filesystem date_time regex)
 #find python
 find_program(_python_executable
     NAMES python3 python python.exe py
@@ -14,12 +12,13 @@ find_program(_python_executable
     qi_error("needs python executable in PATH")
   endif()
 
+include_directories(${Boost_INCLUDES})
 
 add_subdirectory(sdk-remote)
 
-qi_create_config_h(KCONFIG_H
+configure_file(
    ${CMAKE_CURRENT_SOURCE_DIR}/include/urbi/kernel/config.h.in
-   urbi/kernel/config.h
+   ${CMAKE_CURRENT_BINARY_DIR}/include/urbi/kernel/config.h
 )
 
 
@@ -28,7 +27,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk-remote/libport/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/sdk-remote/libport/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include/urbi)
-
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libport/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/libport/include)
 if (USE_BOOST_CORO)
   add_definitions(-DSCHED_USE_BOOST_CORO)
 endif()
@@ -49,17 +50,17 @@ if (HAVE_CUSTOM_BISON)
 MESSAGE("Using bison")
 
 #invoke flex on utoken.l
-qi_generate_src(
-  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw
-  SRC src/parser/utoken.l
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw
   COMMAND flex -+ -o${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/utoken.l
-)
+  DEPENDS src/parser/utoken.l
+  )
 
 #fix flex output
-qi_generate_src(
-  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc
-  SRC ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc
   COMMAND ${_python_executable} ${CMAKE_CURRENT_SOURCE_DIR}/dev/fix-utoken.py ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc
+  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc.raw
 )
 
 # You need a bison patched by gostai, in the urbi-sdk/bison repository.
@@ -70,17 +71,17 @@ set(BISON
   bison
 )
 
-qi_generate_src(
-  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
-  SRC src/parser/ugrammar.y
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
   COMMAND ${BISON} ${BISON_OPTS} ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/ugrammar.y -o  ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
-)
+  DEPENDS src/parser/ugrammar.y
+ )
 
 function(astgen target command)
- qi_generate_src(
-   ${CMAKE_CURRENT_SOURCE_DIR}/${target}
-  SRC src/ast/ast.yml
+ add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${target}
   COMMAND ${_python_executable} ${CMAKE_CURRENT_SOURCE_DIR}/dev/ast-${command}-gen ${CMAKE_CURRENT_SOURCE_DIR}/src/ast < ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/ast.yml
+  DEPENDS src/ast/ast.yml
  )
 endfunction()
 
@@ -111,20 +112,20 @@ set(GENERATED_SRC
 
 else()
   MESSAGE("No bison specified, using pregenerated grammar and AST files.")
-  qi_generate_src(
-    ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
+  add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/parser/ugrammar.cc
     ${CMAKE_CURRENT_BINARY_DIR}/src/parser/utoken.cc
-    SRC src/parser/ugrammar.y src/ast/ast.yml src/parser/pregenerated/ugrammar.cc
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/pregenerated/ ${CMAKE_CURRENT_BINARY_DIR}/src/parser/
+    DEPENDS src/parser/ugrammar.y src/ast/ast.yml src/parser/pregenerated/ugrammar.cc
   )
 
   # HACK, to avoid a qi_generate_src rule for all 100 files,
   # merge the ccs into one merged.cc and declare arule just for it
-  qi_generate_src(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/merged.cc
-    SRC src/ast/ast.yml
+  add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/merged.cc
     COMMAND ${CMAKE_COMMAND} -E copy_directory   ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/pregenerated/ ${CMAKE_CURRENT_SOURCE_DIR}/src/ast/
-  )
+    DEPENDS src/ast/ast.yml
+     )
   set(GENERATED_SRC
     src/ast/merged.cc
   )
@@ -382,20 +383,22 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 
 # uobject-remote is renamed as uobject using a set_target_properties
 # but this one needs to be correct, because DEPENDS does not honor OUTPUT_NAME
-qi_create_lib(uobject
+add_library(uobject
   SHARED
-  SUBFOLDER /gostai/engine
-  DEPENDS port sched serialize Boost Boost_REGEX Boost_FILESYSTEM Boost_DATE_TIME  Boost_SYSTEM Boost_THREAD
-  SRC ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
+  ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
+)
+target_link_libraries(uobject
+  port sched serialize Boost::filesystem Boost::date_time Boost::system Boost::thread Boost::regex
 )
 set_target_properties(uobject
   PROPERTIES
      OUTPUT_NAME uobject
      INSTALL_NAME_DIR "@executable_path/../lib/gostai/engine"
-     COMPILE_FLAGS -DBUILDING_URBI_SDK)
+     COMPILE_FLAGS -DBUILDING_URBI_SDK
+     INSTALL_RPATH "$ORIGIN/../..")
 
 
-qi_stage_lib(uobject)
+install(TARGETS uobject DESTINATION lib/gostai/engine)
 
 
 # Add a simple test:

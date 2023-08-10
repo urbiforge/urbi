@@ -1,24 +1,31 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.22)
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
   add_definitions(-DURBI_COMPILATION_MODE_DEBUG)
 endif()
 
-qi_create_bin(urbi-launch
-  SRC
+add_executable(urbi-launch
     src/bin/urbi-launch.cc
     src/liburbi/urbi-launch.cc
     src/liburbi/urbi-root.cc
-  DEPENDS port sched serialize
+    )
+target_link_libraries(urbi-launch
+  port sched serialize
+)
+set_target_properties(urbi-launch
+PROPERTIES
+  INSTALL_RPATH "$ORIGIN/../lib"
   )
 if (NOT APPLE AND NOT WIN32)
-  qi_use_lib(urbi-launch DL)
+  target_link_libraries(urbi-launch dl)
 endif()
 
-qi_stage_bin(urbi-launch)
+install(TARGETS urbi-launch)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libport/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../libport/include)
 
 add_definitions(-DLIBPORT_LIBSFX="")
 add_definitions(-DLIBPORT_LIBDIRNAME="lib")
@@ -70,7 +77,7 @@ find_package(JPEG)
 if(JPEG_FOUND)
   message("Using SYSTEM JPEG")
   set(JPEG_INCLUDE_DIRS ${JPEG_INCLUDE_DIR})
-  set(JPEG_PACKAGE JPEG)
+  set(JPEG_PACKAGE ${JPEG_LIBRARIES})
 else()
   message("Using INTERNAL JPEG")
   add_definitions(-DJPEG_INTERNAL)
@@ -87,41 +94,44 @@ set(UOBJECT_REMOTE_SRC
   src/libuco/urbi-main.cc
 )
 
-qi_create_lib(uobject-remote
-  SUBFOLDER /gostai/remote
+add_library(uobject-remote
   SHARED
-  DEPENDS port serialize ${JPEG_PACKAGE} Boost Boost_REGEX Boost_DATE_TIME  Boost_SYSTEM Boost_THREAD
-  SRC ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC}
+  ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC}
+)
+target_link_libraries(uobject-remote
+   port serialize ${JPEG_PACKAGE} Boost::regex Boost::date_time  Boost::system Boost::thread
 )
 set_target_properties(uobject-remote
   PROPERTIES
      OUTPUT_NAME uobject
      INSTALL_NAME_DIR "@executable_path/../lib/gostai/remote"
-     COMPILE_FLAGS -DBUILDING_URBI_SDK)
+     COMPILE_FLAGS -DBUILDING_URBI_SDK
+     INSTALL_RPATH "$ORIGIN/../..")
 
 if (NOT APPLE AND NOT WIN32)
-  qi_use_lib(uobject-remote DL)
+  target_link_libraries(uobject-remote dl)
 endif()
 
-qi_stage_lib(uobject-remote)
+install(TARGETS uobject-remote DESTINATION lib/gostai/remote)
 
 #uobject-remote is instaled at a custom location.
 #So we still need a liburbi for programs wanting to link with it
-qi_create_lib(urbi
+add_library(urbi
   SHARED
-  DEPENDS port serialize ${JPEG_PACKAGE} Boost Boost_REGEX Boost_DATE_TIME  Boost_SYSTEM Boost_THREAD
-  SRC ${COMMON_SRC} ${URBI_SRC}
+  ${COMMON_SRC} ${URBI_SRC}
 )
-
+target_link_libraries(urbi
+  port serialize ${JPEG_PACKAGE} Boost::regex Boost::date_time  Boost::system Boost::thread
+)
 set_target_properties(urbi
   PROPERTIES
     COMPILE_FLAGS -DBUILDING_URBI_SDK)
 
 if (NOT APPLE AND NOT WIN32)
-  qi_use_lib(urbi DL)
+  target_link_libraries(urbi dl)
 endif()
 
-qi_stage_lib(urbi)
+install(TARGETS urbi)
 
 
 add_subdirectory(src/examples)
