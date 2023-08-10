@@ -3,6 +3,13 @@ project(kernel)
 
 add_subdirectory(libport)
 
+if (STATIC_BUILD)
+  set(LIB_MODE STATIC)
+  add_definitions(-DSTATIC_BUILD=1)
+else()
+  set(LIB_MODE SHARED)
+endif()
+
 find_package(Boost REQUIRED COMPONENTS chrono thread system filesystem date_time regex)
 #find python
 find_program(_python_executable
@@ -386,7 +393,7 @@ add_definitions(-DBUILDING_URBI_SDK -DBUILDING_URBI_MODULE)
 # uobject-remote is renamed as uobject using a set_target_properties
 # but this one needs to be correct, because DEPENDS does not honor OUTPUT_NAME
 add_library(uobject
-  SHARED
+  ${LIB_MODE}
   ${UCO_SRC} ${UOBJECT_PLUGIN_SRC}
 )
 target_link_libraries(uobject
@@ -402,7 +409,13 @@ set_target_properties(uobject
 
 install(TARGETS uobject DESTINATION lib/gostai/engine)
 
-
+add_executable(urbiscript
+  sdk-remote/src/liburbi/urbi.cc  $<TARGET_OBJECTS:uobject>
+  )
+target_link_libraries(urbiscript 
+  port sched serialize Boost::filesystem Boost::date_time Boost::system Boost::thread Boost::regex
+  )
+install(TARGETS urbiscript)
 # Add a simple test:
 enable_testing()
 

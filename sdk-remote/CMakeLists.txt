@@ -4,6 +4,7 @@ if (CMAKE_BUILD_TYPE STREQUAL Debug)
   add_definitions(-DURBI_COMPILATION_MODE_DEBUG)
 endif()
 
+if(NOT STATIC_BUILD)
 add_executable(urbi-launch
     src/bin/urbi-launch.cc
     src/liburbi/urbi-launch.cc
@@ -21,7 +22,7 @@ if (NOT APPLE AND NOT WIN32)
 endif()
 
 install(TARGETS urbi-launch)
-
+endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libport/include)
@@ -97,7 +98,7 @@ set(UOBJECT_REMOTE_SRC
 )
 
 add_library(uobject-remote
-  SHARED
+  ${LIB_MODE}
   ${COMMON_SRC} ${UOBJECT_REMOTE_SRC} ${URBI_SRC}
 )
 target_link_libraries(uobject-remote
@@ -119,7 +120,7 @@ install(TARGETS uobject-remote DESTINATION lib/gostai/remote)
 #uobject-remote is instaled at a custom location.
 #So we still need a liburbi for programs wanting to link with it
 add_library(urbi
-  SHARED
+  ${LIB_MODE}
   ${COMMON_SRC} ${URBI_SRC}
 )
 target_link_libraries(urbi
@@ -135,8 +136,9 @@ endif()
 
 install(TARGETS urbi)
 
-
+if (NOT STATIC_BUILD)
 add_subdirectory(src/examples)
+endif()
 add_subdirectory(include)
 
 # Scripts
