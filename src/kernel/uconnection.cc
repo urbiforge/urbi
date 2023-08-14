@@ -54,7 +54,7 @@ namespace kernel
     , receiving_(false)
     , server_(server)
     , lobby_(new object::Lobby(this))
-    , send_queue_(new queue_type(1024))
+    , send_queue_(new queue_type(65536))
     , packet_size_(packetSize)
     , blocked_(false)
       // Initial state of the connection: unblocked, not receiving binary.
@@ -115,6 +115,8 @@ namespace kernel
   void
   UConnection::send_queue(const char* buf, size_t len)
   {
+    if (mirror_output)
+      mirror_output(buf, len);
     if (!closing_)
       send_queue_->push(buf, len);
     error_ = USUCCESS;

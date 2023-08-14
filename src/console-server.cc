@@ -78,6 +78,7 @@ namespace urbi
   namespace object
   {
     extern bool root_classes_initialized;
+    extern bool disable_long_poll;
   }
 }
 
@@ -608,6 +609,7 @@ namespace urbi
  }
   static void reinit()
   {
+  	object::disable_long_poll = true;
     if (first_time)
     {
       debugger_data_thread_coro_local();
@@ -649,6 +651,18 @@ namespace urbi
   ATTRIBUTE_DLLEXPORT unsigned long step_kernel()
   {
       return state->server->work();
+  }
+  ATTRIBUTE_DLLEXPORT void load_file(std::string const& file)
+  {
+  	  state->server->load_file(file, state->server->ghost_connection_get());
+  }
+  ATTRIBUTE_DLLEXPORT void send_command(std::string const & us)
+  {
+  	  state->server->ghost_connection_get().received(us.data(), us.size());
+  }
+  ATTRIBUTE_DLLEXPORT void set_ghost_mirror(std::function<void (const char*, size_t)> func)
+  {
+  	  state->server->ghost_connection_get().mirror_output=func;
   }
   ATTRIBUTE_DLLEXPORT void kill_kernel()
   {
