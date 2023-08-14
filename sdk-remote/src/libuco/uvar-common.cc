@@ -14,13 +14,16 @@
 #include <urbi/uobject.hh>
 #include <urbi/uvalue.hh>
 #include <urbi/uvar.hh>
-
+#include <urbi/ucontext-impl.hh>
 GD_CATEGORY(Urbi.UVar);
 
 namespace urbi
 {
 
-
+    namespace impl
+    {
+	    thread_local UContextImpl::CleanupList UContextImpl::cleanup_list_;
+	}
   /*-------.
   | UVar.  |
   `-------*/

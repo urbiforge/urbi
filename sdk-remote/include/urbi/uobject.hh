@@ -16,6 +16,7 @@
 # include <libport/warning-push.hh>
 
 # include <string>
+# include <unordered_map>
 
 # include <libport/cmath>
 # include <libport/compiler.hh>
@@ -440,7 +441,7 @@ namespace urbi
       return (new UTimerCallbackobj<T>                                  \
               (__name, t,                                               \
                dynamic_cast<T*>(this),                                  \
-               boost::bind(fun, dynamic_cast<T*>(this)),                \
+               std::bind(fun, dynamic_cast<T*>(this)),                \
                ctx_))                                                   \
         ->handle_get();                                                 \
     }
@@ -529,7 +530,7 @@ namespace urbi
     UObjectData* objectData;
 
     impl::UObjectImpl* impl_;
-    boost::unordered_map<std::string, libport::ThreadPool::rTaskLock>
+    std::unordered_map<std::string, libport::ThreadPool::rTaskLock>
     taskLocks_;
     /// Instance task lock.
     libport::ThreadPool::rTaskLock taskLock_;

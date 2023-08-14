@@ -10,7 +10,6 @@
 
 /* Serialization/deserialization of UValue to/from a binary stream.
  */
-#include <boost/foreach.hpp>
 #include <libport/lexical-cast.hh>
 #include <serialize/serialize.hh>
 #include <urbi/uvalue.hh>
@@ -90,7 +89,7 @@ namespace urbi
     {
       unsigned int len =  v.dictionary->size();
       ar << len;
-      BOOST_FOREACH(UDictionary::value_type& e, *v.dictionary)
+      for(UDictionary::value_type& e: *v.dictionary)
         ar << e.first << e.second;
     }
     break;

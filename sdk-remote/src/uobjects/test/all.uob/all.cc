@@ -59,7 +59,7 @@ struct PointOfInterest
 {
   std::string sectorName;
   std::vector<Rect> subSectors;
-  boost::unordered_map<std::string, Rect> byName;
+  std::unordered_map<std::string, Rect> byName;
 };
 
 URBI_REGISTER_STRUCT(Point, x, y);
@@ -1031,7 +1031,7 @@ public:
     if (!(v == d))
       throw std::runtime_error("v != d");
     CHECK;
-    boost::unordered_map<std::string, UObject*> vu;
+    std::unordered_map<std::string, UObject*> vu;
     vu["coin"] = this;
     a = vu;
     a.fill(vu);

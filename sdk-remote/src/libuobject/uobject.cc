@@ -17,6 +17,7 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
+#include <boost/thread.hpp>
 #include <libport/containers.hh>
 #include <libport/debug.hh>
 #include <libport/escape.hh>
@@ -93,7 +94,7 @@ namespace urbi
       }
     }
 
-    typedef boost::unordered_map<std::string, impl::UContextImpl*>
+    typedef std::unordered_map<std::string, impl::UContextImpl*>
             contexts_type;
     static contexts_type contexts;
 
