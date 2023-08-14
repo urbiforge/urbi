@@ -79,7 +79,7 @@ namespace urbi
   {
 
     using ::kernel::runner;
-
+    bool disable_long_poll = false;
     namespace
     {
 
@@ -716,7 +716,7 @@ namespace urbi
       // pollFor has a minimum duration time (which depends on the OS), so
       // if we call it when our select_time is constantly below this value,
       // this will limit the CPU time urbi will use. So we set a threshold.
-      if (select_time > 1000)
+      if (!disable_long_poll && select_time > 1000)
         libport::pollFor(select_time, true, ios);
       ios.reset();
       ios.poll();

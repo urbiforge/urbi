@@ -139,6 +139,7 @@ namespace kernel
      */
     void received(const std::string& s);
 
+    std::function<void (const char*, size_t)> mirror_output;
   public:
     //! Close the connection.
     void close();
