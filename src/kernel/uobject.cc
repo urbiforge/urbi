@@ -10,6 +10,8 @@
 
 #include <cstdarg>
 
+#include <boost/algorithm/string/replace.hpp>
+#include <boost/thread.hpp>
 #include <libport/bind.hh>
 #include <libport/lexical-cast.hh>
 #include <libport/foreach.hh>

@@ -16,7 +16,7 @@
 
 # include <list>
 # include <string>
-# include <boost/shared_ptr.hpp>
+# include <memory>
 # include <urbi/export.hh>
 
 namespace urbi
@@ -61,7 +61,7 @@ namespace urbi
   URBI_SDK_API std::string getClientConnectionID(const UAbstractClient* c);
   URBI_SDK_API UClient* getDefaultClient();
 
-  typedef boost::shared_ptr<std::string> TimerHandle;
+  typedef std::shared_ptr<std::string> TimerHandle;
 };
 
 #endif //! URBI_FWD_HH

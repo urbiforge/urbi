@@ -76,7 +76,9 @@ namespace urbi
               UAutoValue v6 = UAutoValue());
 
     /// The underlying IO Service, from the UContextImpl.
+#ifdef HAVE_BOOST
     boost::asio::io_service& getIoService();
+#endif
 
     /// The mode in which the code is running.
     UObjectMode getRunningMode() const;

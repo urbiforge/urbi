@@ -8,7 +8,6 @@
  * See the LICENSE file for more information.
  */
 
-#include <libport/bind.hh>
 
 namespace urbi
 {
@@ -70,7 +69,7 @@ namespace urbi
     template <typename T> void
     UContextImpl::addCleanup(T* ptr)
     {
-      addCleanup(boost::bind(&deletor<T>, ptr));
+      addCleanup(std::bind(&deletor<T>, ptr));
     }
   }
 

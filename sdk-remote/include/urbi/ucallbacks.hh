@@ -26,7 +26,7 @@
 # include <urbi/ucontext.hh>
 # include <urbi/uvar.hh>
 
-# include <boost/function.hpp>
+# include <functional>
 
 namespace urbi
 {
@@ -78,7 +78,7 @@ namespace urbi
     /// Set this callback to asynchronous mode using \b mode locking mode.
     void setAsync(libport::ThreadPool::rTaskLock lock);
 
-    typedef boost::function2<void, UValue&, const std::exception*> OnDone;
+    typedef std::function<void(UValue&, const std::exception*)> OnDone;
     /** Start evaluation, call onDone with result when done.
      * Synchronous if isSynchronous(), asynchronous else.
      */
@@ -2171,7 +2171,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback0(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function0<R > fun,
+		  std::function<R() > fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,0, ctx),
@@ -2191,14 +2191,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function0<R > fun;
+    std::function<R() > fun;
   };
 
   template <class R>
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function0<R > fun,
+		  std::function<R() > fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2217,7 +2217,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback0<R >
-      (owner, target, type,boost::function0<R >(fun),funname, ctx);
+      (owner, target, type,std::function<R() >(fun),funname, ctx);
   }
 # endif
 
@@ -2227,7 +2227,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback1(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function1<R , P1 > fun,
+		  std::function<R( P1 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,1, ctx),
@@ -2247,14 +2247,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function1<R , P1 > fun;
+    std::function<R( P1) > fun;
   };
 
   template <class R, class P1 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function1<R , P1 > fun,
+		  std::function<R(P1) > fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2273,7 +2273,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback1<R , P1 >
-      (owner, target, type,boost::function1<R , P1 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2283,7 +2283,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback2(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function2<R , P1 , P2 > fun,
+		  std::function<R( P1 , P2 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,2, ctx),
@@ -2303,14 +2303,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function2<R , P1 , P2 > fun;
+    std::function<R( P1 , P2 )> fun;
   };
 
   template <class R, class P1 , class P2 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function2<R , P1 , P2 > fun,
+		  std::function<R( P1 , P2 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2329,7 +2329,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback2<R , P1 , P2 >
-      (owner, target, type,boost::function2<R , P1 , P2 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2339,7 +2339,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback3(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function3<R , P1 , P2 , P3 > fun,
+		  std::function<R( P1 , P2 , P3 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,3, ctx),
@@ -2359,14 +2359,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function3<R , P1 , P2 , P3 > fun;
+    std::function<R( P1 , P2 , P3 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function3<R , P1 , P2 , P3 > fun,
+		  std::function<R( P1 , P2 , P3 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2385,7 +2385,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback3<R , P1 , P2 , P3 >
-      (owner, target, type,boost::function3<R , P1 , P2 , P3 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2395,7 +2395,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback4(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function4<R , P1 , P2 , P3 , P4 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,4, ctx),
@@ -2415,14 +2415,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function4<R , P1 , P2 , P3 , P4 > fun;
+    std::function<R( P1 , P2 , P3 , P4 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function4<R , P1 , P2 , P3 , P4 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2441,7 +2441,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback4<R , P1 , P2 , P3 , P4 >
-      (owner, target, type,boost::function4<R , P1 , P2 , P3 , P4 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2451,7 +2451,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback5(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function5<R , P1 , P2 , P3 , P4 , P5 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,5, ctx),
@@ -2471,14 +2471,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function5<R , P1 , P2 , P3 , P4 , P5 > fun;
+    std::function<R( P1 , P2 , P3 , P4 , P5 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 , class P5 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function5<R , P1 , P2 , P3 , P4 , P5 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2497,7 +2497,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback5<R , P1 , P2 , P3 , P4 , P5 >
-      (owner, target, type,boost::function5<R , P1 , P2 , P3 , P4 , P5 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 , P5 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2507,7 +2507,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback6(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function6<R , P1 , P2 , P3 , P4 , P5 , P6 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,6, ctx),
@@ -2527,14 +2527,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function6<R , P1 , P2 , P3 , P4 , P5 , P6 > fun;
+    std::function<R( P1 , P2 , P3 , P4 , P5 , P6 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 , class P5 , class P6 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function6<R , P1 , P2 , P3 , P4 , P5 , P6 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2553,7 +2553,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback6<R , P1 , P2 , P3 , P4 , P5 , P6 >
-      (owner, target, type,boost::function6<R , P1 , P2 , P3 , P4 , P5 , P6 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 , P5 , P6 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2563,7 +2563,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback7(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function7<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,7, ctx),
@@ -2583,14 +2583,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function7<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 > fun;
+    std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 , class P5 , class P6 , class P7 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function7<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2609,7 +2609,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback7<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 >
-      (owner, target, type,boost::function7<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2619,7 +2619,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback8(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function8<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,8, ctx),
@@ -2639,14 +2639,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function8<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 > fun;
+    std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 , class P5 , class P6 , class P7 , class P8 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function8<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2665,7 +2665,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback8<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 >
-      (owner, target, type,boost::function8<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2675,7 +2675,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback9(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function9<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,9, ctx),
@@ -2695,14 +2695,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function9<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 > fun;
+    std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 , class P5 , class P6 , class P7 , class P8 , class P9 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function9<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2721,7 +2721,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback9<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 >
-      (owner, target, type,boost::function9<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 )>(fun),funname, ctx);
   }
 # endif
 
@@ -2731,7 +2731,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     public:
     UBoostFunctionCallback10(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function10<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 )> fun,
                   const std::string& funname,
                   impl::UContextImpl* ctx)
       : UGenericCallback(owner, target, type, funname,10, ctx),
@@ -2751,14 +2751,14 @@ uvar_uvalue_cast<UVar&>(UValue& v)
     }
 
     private:
-    boost::function10<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 > fun;
+    std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 )> fun;
   };
 
   template <class R, class P1 , class P2 , class P3 , class P4 , class P5 , class P6 , class P7 , class P8 , class P9 , class P10 >
   UGenericCallback*
   createUCallback(UObject& owner, UVar* target,
                   const std::string& type,
-		  boost::function10<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 > fun,
+		  std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 )> fun,
 		  const std::string& funname,
                   impl::UContextImpl* ctx)
   {
@@ -2777,7 +2777,7 @@ uvar_uvalue_cast<UVar&>(UValue& v)
                      impl::UContextImpl* ctx)
   {
     return new UBoostFunctionCallback10<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 >
-      (owner, target, type,boost::function10<R , P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 >(fun),funname, ctx);
+      (owner, target, type,std::function<R( P1 , P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , P10 )>(fun),funname, ctx);
   }
 # endif
 } // end namespace urbi

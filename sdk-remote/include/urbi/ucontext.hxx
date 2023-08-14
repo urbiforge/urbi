@@ -47,12 +47,14 @@ namespace urbi
   {
   }
 
+#ifdef HAVE_BOOST
   inline
   boost::asio::io_service&
   UContext::getIoService()
   {
     return ctx_->getIoService();
   }
+#endif
 
   inline UObjectHub*
   getUObjectHub(const std::string& n)

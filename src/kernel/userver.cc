@@ -309,7 +309,7 @@ namespace kernel
 
   static void sigint_handler(int)
   {
-    static libport::Time last_call = boost::posix_time::min_date_time;
+    static libport::Time last_call =libport::Time::min();
 
     if (kernel::urbiserver->interactive_get()
         && libport::time::ms(1500) < libport::time::now() - last_call)

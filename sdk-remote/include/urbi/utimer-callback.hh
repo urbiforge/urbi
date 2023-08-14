@@ -15,7 +15,7 @@
 
 # include <string>
 
-# include <boost/function.hpp>
+# include <functional>
 
 # include <libport/ufloat.hh>
 
@@ -61,7 +61,7 @@ namespace urbi
   public:
     UTimerCallbackobj(const std::string& objname,
 		      ufloat period, T* obj,
-		      boost::function0<void> fun, impl::UContextImpl* ctx)
+		      std::function<void()> fun, impl::UContextImpl* ctx)
       : UTimerCallback(objname, period, ctx)
       , obj(obj)
       , fun(fun)
@@ -75,7 +75,7 @@ namespace urbi
     }
   private:
     T* obj;
-    boost::function0<void> fun;
+    std::function<void()> fun;
   };
 
 

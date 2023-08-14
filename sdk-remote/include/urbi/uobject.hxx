@@ -12,8 +12,9 @@
 
 #ifndef URBI_UOBJECT_HXX
 # define URBI_UOBJECT_HXX
-
+#ifdef HAVE_BOOST
 # include <libport/debug.hh>
+#endif
 
 # define URBI_BINDVARS(r, obj, v) UBindVar(obj, v);
 # define URBI_BINDFUNCTIONS(r, obj, v) UBindFunction(obj, v);
@@ -88,7 +89,6 @@ namespace urbi
   libport::ThreadPool::rTaskLock
   UObject::getTaskLock(LockSpec m, const std::string& what)
   {
-    GD_CATEGORY(Urbi.UObject);
     typedef libport::ThreadPool::rTaskLock rTaskLock;
     typedef libport::ThreadPool::TaskLock TaskLock;
     // Static in inlined functions are per-module.
@@ -104,8 +104,6 @@ namespace urbi
         if (!res)
         {
           res = new TaskLock(m.maxQueueSize);
-          GD_FINFO_TRACE("Creating taskLock for %s with %s: %s", what,
-                         m.maxQueueSize, res.get());
         }
         return res;
       }

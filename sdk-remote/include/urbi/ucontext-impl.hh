@@ -13,12 +13,13 @@
 
 #include <set>
 
-#include <boost/function.hpp>
-#include <libport/system-warning-push.hh>
-#include <boost/thread.hpp>
-#include <libport/system-warning-pop.hh>
+#include <functional>
+#include <thread>
+#include <unordered_map>
 
+#ifdef HAVE_BOOST
 #include <libport/asio.hh>
+#endif
 
 #include <urbi/fwd.hh>
 #include <urbi/uprop.hh>
@@ -114,9 +115,9 @@ namespace urbi
       virtual void setHubUpdate(UObjectHub*, ufloat) = 0;
       /// Called by the urbiStarter after each UObject instanciation.
       virtual void instanciated(UObject*) = 0;
-      typedef boost::unordered_map<std::string, UObject*>  objects_type;
+      typedef std::unordered_map<std::string, UObject*>  objects_type;
       objects_type objects;
-      typedef boost::unordered_map<std::string, UObjectHub*> hubs_type;
+      typedef std::unordered_map<std::string, UObjectHub*> hubs_type;
       hubs_type hubs;
       std::set<void*> initialized;
 
@@ -139,7 +140,7 @@ namespace urbi
       void addCleanup(T* ptr);
 
       /// Add an arbitrary operation to perform at cleanup() time.
-      void addCleanup(boost::function0<void> op);
+      void addCleanup(std::function<void()> op);
 
       /// Push a new cleanup stack.
       void pushCleanupStack();
@@ -153,8 +154,11 @@ namespace urbi
       /// Release lock acquired with lock()
       virtual void unlock() = 0;
       /// The io_service used by this context.
+#ifdef HAVE_BOOST
       virtual boost::asio::io_service& getIoService() = 0;
-
+#else
+	  virtual void getIoService() = 0;
+#endif
       virtual Barrier* barrier() = 0;
       /// RTP hooks for performance
       typedef void(*RTPSend)(UObject* rtp, const UValue& v);
@@ -164,8 +168,8 @@ namespace urbi
       RTPSend rtpSend;
       RTPSendGrouped rtpSendGrouped;
     private:
-      typedef std::vector<std::vector<boost::function0<void> > > CleanupList;
-      boost::thread_specific_ptr<CleanupList> cleanup_list_;
+      typedef std::vector<std::vector<std::function<void()> > > CleanupList;
+      static thread_local CleanupList cleanup_list_;
     };
 
     class URBI_SDK_API UObjectImpl

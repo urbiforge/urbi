@@ -40,7 +40,12 @@ namespace urbi
 
 # else // ! URBI_INHIBIT_REVISION_CHECK
 
+#ifdef HAVE_BOOST
 #  include <libport/debug.hh>
+#else
+# define GD_CATEGORY(a)
+# define GD_FINFO_TRACE(a,b)
+#endif
 #  include <libport/package-info.hh>
 #  include <urbi/package-info.hh>
 #  include <urbi/revision-stub.hh>
@@ -57,7 +62,6 @@ namespace urbi
                            const libport::PackageInfo& compiler)
     {
       static int i = check_sdk_version(where, compiler);
-      LIBPORT_USE(i);
     }
 
     /// Information about the Urbi SDK that compiled this module.
@@ -66,8 +70,6 @@ namespace urbi
     compiler_info()
     {
       LIBPORT_PACKAGE_INFO_STATIC_VAR_(URBI_SDK_INFO_, pi);
-      GD_CATEGORY(Urbi.Version);
-      GD_FINFO_TRACE("compiler info: %s", pi);
       return pi;
     }
   }

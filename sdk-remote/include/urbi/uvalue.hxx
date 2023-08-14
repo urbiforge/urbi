@@ -10,12 +10,16 @@
 
 /// \file urbi/uvalue.hxx
 
-#include <boost/foreach.hpp>
+#ifdef HAVE_BOOST
 #include <boost/numeric/ublas/blas.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 #include <libport/debug.hh>
 #include <libport/format.hh>
+#endif
+
+#include <unordered_map>
+
 #include <libport/preproc.hh>
 
 #ifndef URBI_NO_RTTI
@@ -93,10 +97,27 @@ namespace urbi
     return *this = rhs;                         \
   }
 
+  DEFINE(ufloat)
+  DEFINE(int)
+  DEFINE(long)
+  DEFINE(unsigned int)
+  DEFINE(unsigned long)
+  DEFINE(unsigned long long)
+  DEFINE(long long)
+  DEFINE(const char*)
+  DEFINE(const void*)
+  DEFINE(const std::string&)
+  DEFINE(const UBinary&)
+  DEFINE(const UList&)
+  DEFINE(const UDictionary&)
+  DEFINE(const USound&)
+  DEFINE(const UImage&)
+  
+  /*
   LIBPORT_LIST_APPLY(DEFINE, URBI_NUMERIC_TYPES)
   LIBPORT_LIST_APPLY(DEFINE, URBI_STRING_TYPES)
   LIBPORT_LIST_APPLY(DEFINE, URBI_MISC_TYPES)
-
+  */
 # undef DEFINE
 
 
@@ -108,7 +129,13 @@ namespace urbi
     return static_cast<Type>(static_cast<ufloat>((*this)));     \
   }
 
-  LIBPORT_LIST_APPLY(DEFINE, URBI_DERIVED_NUMERIC_TYPES)
+  DEFINE(int)
+  DEFINE(long)
+  DEFINE(unsigned int)
+  DEFINE(unsigned long)
+  DEFINE(unsigned long long)
+  DEFINE(long long)
+  //LIBPORT_LIST_APPLY(DEFINE, URBI_DERIVED_NUMERIC_TYPES)
 # undef DEFINE
 
 
@@ -166,7 +193,14 @@ namespace urbi
     }						\
   };
 
-  LIBPORT_LIST_APPLY(DEFINE, URBI_NUMERIC_TYPES)
+  DEFINE(ufloat)
+  DEFINE(int)
+  DEFINE(long)
+  DEFINE(unsigned int)
+  DEFINE(unsigned long)
+  DEFINE(unsigned long long)
+  DEFINE(long long)
+  //LIBPORT_LIST_APPLY(DEFINE, URBI_NUMERIC_TYPES)
   DEFINE(std::string);
   DEFINE(const std::string);
   DEFINE(bool);
@@ -251,15 +285,15 @@ namespace urbi
 
   // Dictionary casters.
   template <typename V>
-  struct uvalue_caster<boost::unordered_map<std::string, V> >
+  struct uvalue_caster<std::unordered_map<std::string, V> >
   {
-    boost::unordered_map<std::string, V> operator()(UValue& v)
+    std::unordered_map<std::string, V> operator()(UValue& v)
     {
-      boost::unordered_map<std::string, V> res;
+      std::unordered_map<std::string, V> res;
       if (v.type != DATA_DICTIONARY)
         throw std::runtime_error("UValue is not a dictionary.");
       typedef UDictionary::value_type DictVal;
-      BOOST_FOREACH (UDictionary::value_type& val, *v.dictionary)
+      for (UDictionary::value_type& val: *v.dictionary)
         res[val.first] = uvalue_cast<V>(val.second);
       return res;
     }
@@ -268,13 +302,13 @@ namespace urbi
   template <typename V>
   inline
   UValue&
-  operator,(UValue& v, const boost::unordered_map<std::string, V> & d)
+  operator,(UValue& v, const std::unordered_map<std::string, V> & d)
   {
-    typedef typename boost::unordered_map<std::string, V>::value_type DictVal;
+    typedef typename std::unordered_map<std::string, V>::value_type DictVal;
     v.clear();
     v.type = DATA_DICTIONARY;
     v.dictionary = new UDictionary;
-    BOOST_FOREACH (const DictVal & val, d)
+    for (const DictVal & val: d)
     {
       UValue nv;
       nv, val.second;
@@ -321,10 +355,16 @@ namespace urbi
     t = uvalue_cast<T>(v);
   }
 
+#ifdef HAVE_BOOST
 #define CHECK(Cond, Message)                                            \
   if (!(Cond))                                                          \
     throw std::runtime_error(libport::format("invalid cast to %s: %s",  \
                                              Message, v))
+#else
+#define CHECK(Cond, Message)                                            \
+  if (!(Cond))                                                          \
+    throw std::runtime_error(std::string("Invalid cast: ") + Message)
+#endif
 
   template <typename T>
   struct uvalue_caster<UPackedData<T> >
@@ -349,12 +389,12 @@ namespace urbi
     b.type = BINARY_UNKNOWN;
     b.common.size = sizeof(T)*d.size();
     b.common.data = malloc(b.common.size);
-    b.message = libport::format("packed %s %s",
-                                sizeof(T), URBI_IF_RTTI(typeid(T).name(), "unknown"));
+    b.message = "packed " + std::to_string(sizeof(T)) + " " + URBI_IF_RTTI(typeid(T).name(), "unknown");
     memcpy(b.common.data, &d.front(), b.common.size);
     return v;
   }
 
+#ifdef HAVE_BOOST
   /*------------------------.
   | boost::numeric::ublas.  |
   `------------------------*/
@@ -441,5 +481,6 @@ namespace urbi
     memcpy(b.common.data, &d(0,0), b.common.size);
     return v;
   }
+#endif
 #undef CHECK
 } // namespace urbi

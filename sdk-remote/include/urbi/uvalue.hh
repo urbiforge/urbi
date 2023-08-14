@@ -15,6 +15,7 @@
 # include <libport/warning-push.hh>
 
 # include <vector>
+# include <unordered_map>
 
 # include <libport/hash.hh>
 # include <libport/preproc.hh>
@@ -83,7 +84,7 @@ namespace urbi
   | UDictionary.  |
   `--------------*/
 
-  typedef boost::unordered_map<std::string, UValue> UDictionary;
+  typedef std::unordered_map<std::string, UValue> UDictionary;
 
   URBI_SDK_API
   std::ostream& operator<<(std::ostream& s, const UDictionary& d);
@@ -192,9 +193,26 @@ namespace urbi
     DECLARE(const UList&);
     DECLARE(const USound&);
 # else // !SWIG
+  DECLARE(ufloat)
+  DECLARE(int)
+  DECLARE(long)
+  DECLARE(unsigned int)
+  DECLARE(unsigned long)
+  DECLARE(unsigned long long)
+  DECLARE(long long)
+  DECLARE(const char*)
+  DECLARE(const void*)
+  DECLARE(const std::string&)
+  DECLARE(const UBinary&)
+  DECLARE(const UList&)
+  DECLARE(const UDictionary&)
+  DECLARE(const USound&)
+  DECLARE(const UImage&)
+  /*
     LIBPORT_LIST_APPLY(DECLARE, URBI_NUMERIC_TYPES)
     LIBPORT_LIST_APPLY(DECLARE, URBI_STRING_TYPES)
     LIBPORT_LIST_APPLY(DECLARE, URBI_MISC_TYPES)
+    */
 # endif
 # undef DECLARE
 
@@ -211,7 +229,14 @@ namespace urbi
     // promote doubleValue instead.
     DECLARE(ufloat);
 # else // !SWIG
-    LIBPORT_LIST_APPLY(DECLARE, URBI_NUMERIC_TYPES)
+  DECLARE(ufloat)
+  DECLARE(int)
+  DECLARE(long)
+  DECLARE(unsigned int)
+  DECLARE(unsigned long)
+  DECLARE(unsigned long long)
+  DECLARE(long long)
+    //LIBPORT_LIST_APPLY(DECLARE, URBI_NUMERIC_TYPES)
 # endif
 
 #ifdef DOXYGEN

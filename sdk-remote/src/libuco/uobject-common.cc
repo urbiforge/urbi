@@ -397,31 +397,31 @@ namespace urbi
 
 
     void
-    UContextImpl::addCleanup(boost::function0<void> op)
+    UContextImpl::addCleanup(std::function<void()> op)
     {
-      aver(cleanup_list_.get());
-      aver(!cleanup_list_->empty());
-      cleanup_list_->back().push_back(op);
+      aver(!cleanup_list_.empty());
+      cleanup_list_.back().push_back(op);
     }
 
     void
     UContextImpl::pushCleanupStack()
     {
+      /*
       CleanupList* cl = cleanup_list_.get();
       if (!cl)
       {
         cl = new CleanupList;
         cleanup_list_.reset(cl);
-      }
-      cl->resize(cl->size()+1);
+      }*/
+      cleanup_list_.resize(cleanup_list_.size()+1);
     }
 
     void
     UContextImpl::popCleanupStack()
     {
-      foreach (boost::function0<void>& f, cleanup_list_->back())
+      for (std::function<void()>& f: cleanup_list_.back())
         f();
-      cleanup_list_->pop_back();
+      cleanup_list_.pop_back();
     }
 
     UContextImpl::CleanupStack::CleanupStack(UContextImpl& owner)
