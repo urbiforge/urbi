@@ -290,7 +290,7 @@ namespace urbi
     // Last attempt: it should be a double.
     {
       char *end;
-      double d = libport::strtod_c(message+pos, &end);
+      double d = std::strtod(message+pos, &end); //libport::strtod_c(message+pos, &end);
       // Did we find a number?  Make sure we don't overflow.
       if (end != message + pos)
       {
