@@ -496,7 +496,7 @@ set_target_properties(uobject
 
 install(TARGETS uobject DESTINATION lib/gostai/engine)
 
-if (MSVC and STATIC_BUILD)
+if (MSVC AND STATIC_BUILD)
 add_custom_target(uobject-full ALL
 	lib.exe
 		/out:${CMAKE_CURRENT_BINARY_DIR}/uobject-full.lib
