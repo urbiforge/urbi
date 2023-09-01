@@ -80,6 +80,7 @@ namespace urbi
 
     using ::kernel::runner;
     bool disable_long_poll = false;
+    bool update_tick = true;
     namespace
     {
 
@@ -724,11 +725,15 @@ namespace urbi
       if (interactive)
         ERRNO_RUN(fcntl, STDOUT_FILENO, F_SETFL, flags & ~O_NONBLOCK);
 #endif
+      static unsigned long tick = 0;
+      if (update_tick)
+        system_class->slot_update(SYMBOL(tick), new Float(++tick));
     }
 
     static void
     system_pollLoop()
     {
+      system_class->slot_set_value(SYMBOL(tick), new Float(0));
       while (true)
       {
         try {
