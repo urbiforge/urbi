@@ -10,4 +10,5 @@ namespace urbi
   void send_command(std::string const & us);
   void kill_kernel();
   void set_ghost_mirror(std::function<void (const char*, size_t)> func);
+  void set_update_tick(bool enable);
 }

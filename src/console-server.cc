@@ -26,6 +26,7 @@
 #include <libport/exception.hh>
 #include <libport/foreach.hh>
 #include <libport/format.hh>
+#include <libport/instance-tracker.hh>
 #include <libport/sys/utsname.h>
 
 #ifndef NO_OPTION_PARSER
@@ -79,6 +80,7 @@ namespace urbi
   {
     extern bool root_classes_initialized;
     extern bool disable_long_poll;
+    extern bool update_tick;
   }
 }
 
@@ -663,6 +665,10 @@ namespace urbi
   ATTRIBUTE_DLLEXPORT void set_ghost_mirror(std::function<void (const char*, size_t)> func)
   {
   	  state->server->ghost_connection_get().mirror_output=func;
+  }
+  ATTRIBUTE_DLLEXPORT void set_update_tick(bool enable)
+  {
+    object::update_tick = enable;
   }
   ATTRIBUTE_DLLEXPORT void kill_kernel()
   {
