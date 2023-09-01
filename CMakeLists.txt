@@ -514,6 +514,24 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/uobject-full.lib
 	DESTINATION lib)
 endif()
 
+if (UNIX AND STATIC_BUILD)
+add_custom_target(libuobject-full ALL
+       ${CMAKE_CURRENT_SOURCE_DIR}/dev/assemble-libs.sh
+		${CMAKE_CURRENT_BINARY_DIR}/libuobject-full.a
+		$<TARGET_FILE:uobject>
+		$<TARGET_FILE:port>
+		$<TARGET_FILE:sched>
+		$<TARGET_FILE:serialize>
+		${Boost_SYSTEM_LIBRARY_RELEASE}
+		${Boost_THREAD_LIBRARY_RELEASE}
+		${Boost_FILESYSTEM_LIBRARY_RELEASE}
+	BYPRODUCTS uobject-full.a
+)
+add_dependencies(libuobject-full uobject)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libuobject-full.a
+	DESTINATION lib)
+endif()
+
 add_executable(urbiscript
   sdk-remote/src/liburbi/urbi.cc  $<TARGET_OBJECTS:uobject>
   )
