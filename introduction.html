@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>1 Introduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="contents.html" >Next</a><a
+href="index.html#introduction.html" >Up</a><a
+href="index.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 1</span><br /><a
+href="index.html#QQ2-2-1" id="x2-10001">Introduction</a></h2>
+<!--l. 11--><p class="noindent" >Urbi SDK is a fully-featured environment to orchestrate complex organizations of components. It is an
+open source framework for complex systems. It relies on a middleware architecture that coordinates
+components named UObjects. It also features urbiscript, a scripting language tailored to write
+orchestration programs.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >1.1 <a
+href="#x2-20001.1">Urbi and UObjects</a></span>
+<br />    <span class="sectionToc" >1.2 <a
+href="#x2-30001.2">The Big Picture</a></span>
+<br />    <span class="sectionToc" >1.3 <a
+href="#x2-40001.3">Urbi and urbiscript</a></span>
+<br />    <span class="sectionToc" >1.4 <a
+href="#x2-50001.4">Genesis</a></span>
+<br />    <span class="sectionToc" >1.5 <a
+href="#x2-80001.5">Outline</a></span>
+<br />    <span class="sectionToc" >1.6 <a
+href="#x2-90001.6">Documentation</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a
+href="index.html#QQ2-2-2" id="x2-20001.1">Urbi and UObjects</a></h3>
+<!--l. 19--><p class="noindent" >Urbi makes the orchestration of independent and concurrent components easier. It was ﬁrst designed
+for robotics: it provides all the needed features to coordinate the execution of various components
+(actuators, sensors, software devices that provide features such as text-to-speech, face recognition and
+so forth). Languages such as C++ are well suited to program the local, low-level, handling of these
+hardware or software devices; indeed one needs eﬃciency, small memory footprint, and
+access to low-level hardware details. Yet, when it comes to component orchestration and
+coordination, in a word, when it comes to addressing concurrency, it can be tedious to use such
+languages.
+</p><!--l. 30--><p class="indent" >   Middleware infrastructures make possible to use remote components as if they were local, to allow
+concurrent execution, to make synchronous or asynchronous requests and so forth. The
+<span
+class="cmti-10x-x-109">UObject</span><a
+ id="x2-2001"></a> C++ architecture provides exactly this: a common API that allows conforming
+components to be used seamlessly in highly concurrent settings. Components need not be
+designed with UObjects in mind, rather, UObjects are typically “shells” around “regular”
+components.
+</p><!--l. 38--><p class="indent" >   Components with an UObject interface are naturally supported by the urbiscript programming
+language. This provides a tremendous help: one can interact with these components (making queries,
+changing them, observing their state, monitoring various kinds of events and so forth), which provides
+a huge speed-up during development.
+</p><!--l. 44--><p class="indent" >   Although made with robots in mind, the UObject architecture is well suited to tame any heavily
+concurrent environment, such as video games or complex systems in general.
+</p><!--l. 48--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a
+href="index.html#QQ2-2-3" id="x2-30001.2">The Big Picture</a></h3>
+<!--l. 50--><p class="noindent" >The <a
+href="#x2-30011">Section 1.1</a> shows the architecture of Urbi. Let&#x2019;s browse it bottom up.
+</p>
+   <hr class="figure" /><div class="figure"
+>
+<a
+ id="x2-30011"></a><a
+ id="x4-11007r5"></a><a
+ id="x4-11013r5"></a><a
+ id="x4-11019r7"></a><a
+ id="x4-11027r13"></a><a
+ id="x4-11041r3"></a>
+<!--l. 55--><p class="noindent" ><img
+src="urbi-sdk0x.png" alt="PIC" class="graphics" width="455.24411pt" height="496.94528pt"  /><!--tex4ht:graphics
+name="urbi-sdk0x.png" src="img/urbi-architecture.eps"
+-->
+<br /> </p><div class="caption"
+><span class="id">Figure 1.1: </span><span
+class="content">A Bird-View of the Urbi Architecture</span></div><!--tex4ht:label?: x2-30011 -->
+   </div><hr class="endfigure" />
+<!--l. 60--><p class="indent" >   At the lowest level, Urbi requires a (possibly very limited) embedded computer. This is the case for
+most robots today, but on occasion, some device cannot even run reasonably small pieces of code. In
+that case, Urbi can still be used, but then the robot is actually remote-controlled from a computer
+running Urbi.
+</p><!--l. 66--><p class="indent" >   Right on top of the hardware, is running the <span
+class="cmti-10x-x-109">Operating System</span><a
+ id="x2-3002"></a>. Urbi supports the major OSes; it
+was also ported on top of real-time OSes such as Xenomai, and on speciﬁc OSes such as Aperios,
+Sony&#x2019;s proprietary system running its Aibo robotic dog.
+</p><!--l. 71--><p class="indent" >   The <span
+class="cmti-10x-x-109">Urbi Runtime</span><a
+ id="x2-3003"></a>, which is the actual core of the system, also known as the <span
+class="cmti-10x-x-109">engine</span><a
+ id="x2-3004"></a> or the <span
+class="cmti-10x-x-109">kernel</span><a
+ id="x2-3005"></a>,
+is interfacing the OS with the rest of the Urbi world, urbiscript and UObjects.
+</p><!--l. 75--><p class="indent" >   UObjects are used to bind hardware or software components, such as actuators and sensors on the
+one hand, and voice synthesis or face recognition on the other hand. They can be run locally on the
+robot, or on a remote, more powerful, computer.
+</p><!--l. 80--><p class="indent" >   To orchestrate all the components, urbiscript is a programming language of choice (see
+below).
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.3   </span> <a
+href="index.html#QQ2-2-5" id="x2-40001.3">Urbi and urbiscript</a></h3>
+<!--l. 85--><p class="noindent" >urbiscript is a programming language primarily designed to handle concurrent programming. It&#x2019;s a
+dynamic, prototype-based, object-oriented scripting language. It supports and emphasizes parallel and
+event-based programming, which are very popular paradigms in robotics, by providing core primitives
+and language constructs.
+</p><!--l. 92--><p class="indent" >   Its main features are: </p>
+     <ul class="itemize1">
+     <li class="itemize">syntactically close to C++.<br
+class="newline" />If you know C, C++, Java, or JavaScript, you can easily write urbiscript programs.
+     </li>
+     <li class="itemize">fully integrated with C++.<br
+class="newline" />You can bind C++ classes in urbiscript seamlessly. urbiscript is also integrated with many
+     other languages such as Java, MatLab or Python.
+     </li>
+     <li class="itemize">object-oriented.<br
+class="newline" />It supports encapsulation, inheritance and inclusion polymorphism. Dynamic dispatching
+     is available through monomethods — just as C++, C# or Java.
+     </li>
+     <li class="itemize">concurrent.<br
+class="newline" />It provides you with natural constructs to run and control high numbers of interacting
+     concurrent tasks.
+     </li>
+     <li class="itemize">event-based.<br
+class="newline" />Triggering events and reacting to them is absolutely straightforward.
+     </li>
+     <li class="itemize">functional programming.<br
+class="newline" />Inspired by languages such as <span
+class="cmcsc-10x-x-109">L<span
+class="small-caps">i</span><span
+class="small-caps">s</span><span
+class="small-caps">p</span> </span>or Caml, urbiscript features ﬁrst class functions and
+     pattern matching.
+     </li>
+     <li class="itemize">client/server.<br
+class="newline" />The interpreter accepts multiple connections from diﬀerent sources (human users, robots,
+     other servers &hellip;) and enables them to interact.
+     </li>
+     <li class="itemize">distributed.<br
+class="newline" />You  can  run  objects  in  diﬀerent  processes,  potentially  remote  computers  across  the
+     network.</li></ul>
+<!--l. 120--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a
+href="index.html#QQ2-2-6" id="x2-50001.4">Genesis</a></h3>
+<!--l. 122--><p class="noindent" >Urbi what ﬁrst designed and implemented by Jean-Christophe Baillie, together with Matthieu Nottale.
+Because its users wildly acclaimed it, Jean-Christophe founded Gostai, a France-based Company that
+develops software for robotics with a strong emphasis on personal robotics. Gostai has been acquired
+by Aldebaran Robotics in 2012. Urbi is now a community-driven open source project available at
+https://github.com/jcbaillie/urbi.
+</p>
+<!--l. 129--><p class="noindent" ><span class="paragraphHead"><a
+href="#x2-60001.4" id="x2-60001.4"><span
+class="cmbx-10x-x-109">Authors</span></a></span>
+   Urbi SDK 1 was further developed by Akim Demaille, Guillaume Deslandes, Quentin Hocquet, and
+Benoît Sigoure.
+</p><!--l. 133--><p class="indent" >   The Urbi SDK 2 project was started and developed by Akim Demaille, Quentin Hocquet, Matthieu
+Nottale, and Benoît Sigoure. Samuel Tardieu provided an immense help during the year 2008, in
+particular for the concurrency and event support.
+</p><!--l. 138--><p class="indent" >   The maintenance in Gostai was carried out by Akim Demaille, Quentin Hocquet, and Matthieu
+Nottale. Jean-Christophe Baillie is still deeply involved in the development of urbiscript, he regularly
+submits ideas, and occasionally even code!
+</p>
+<!--l. 143--><p class="noindent" ><span class="paragraphHead"><a
+href="#x2-70001.4" id="x2-70001.4"><span
+class="cmbx-10x-x-109">Contributors</span></a></span>
+   Many people contributed signiﬁcantly to Urbi, including Alexandre Morgand, Romain Bezut,
+Thomas Moulard, Clément Moussu, Nicolas Pierron.
+</p><!--l. 148--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.5   </span> <a
+href="index.html#QQ2-2-9" id="x2-80001.5">Outline</a></h3>
+<!--l. 150--><p class="noindent" >This multi-part document provides a complete guide to Urbi. See <a
+href="notations.html#x46-79600028">Listing 28</a> for the various notations
+that are used in the document.
+     </p><dl class="description"><dt class="description">
+<a
+href="uobjects.html#x38-720000IV"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> IV</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="uobjects.html#x38-720000IV"><span
+class="cmbx-10x-x-109">Urbi and UObjects User Manual</span><!--tex4ht:ref: part:uobject --></a> </dt><dd
+class="description"> <br
+class="newline" />This part covers the Urbi architecture: its core components (client/server architecture), how its
+     middleware works, how to include extensions as UObjects (C++ components) and so
+     forth.
+     <!--l. 27--><p class="noindent" >No knowledge of the urbiscript language is needed. As a matter of fact, Urbi can be
+     used as a standalone middleware architecture to orchestrate the execution of existing
+     components.
+     </p><!--l. 27--><p class="noindent" >Yet urbiscript is a feature that “comes for free”: it is easy using it to experiment, prototype, and
+     even program fully-featured applications that orchestrate native components. The interested
+     reader should read either the urbiscript user manual (<a
+href="urbiscript-user-manual.html#x5-12000I">Listing I</a>), or the reference manual
+     (<a
+href="urbiscript-language-reference-manual.html#x31-24500020">Section 20</a>).
+          </p><dl class="description"><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="quick-start.html#x40-72200024"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 24</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="quick-start.html#x40-72200024"><span
+class="cmbx-10x-x-109">Quick Start</span><!--tex4ht:ref: sec:uob:quick --></a> </dt><dd
+class="description"> <br
+class="newline" />This chapter, self-contained, shows the potential of Urbi used as a middleware.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="the-uobject-api.html#x41-73500025"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 25</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="the-uobject-api.html#x41-73500025"><span
+class="cmbx-10x-x-109">The UObject API</span><!--tex4ht:ref: sec:uob:api --></a> </dt><dd
+class="description"> <br
+class="newline" />This section shows the various steps of writing an Urbi C++ component using the
+          UObject API.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="the-uobject-java-api.html#x42-77000026"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 26</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="the-uobject-java-api.html#x42-77000026"><span
+class="cmbx-10x-x-109">The UObject Java API</span><!--tex4ht:ref: sec:uob:apijava --></a> </dt><dd
+class="description"> <br
+class="newline" />UObjects can also be written in Java. This section demonstrates it all.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="use-cases.html#x43-78400027"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 27</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="use-cases.html#x43-78400027"><span
+class="cmbx-10x-x-109">Use Cases</span><!--tex4ht:ref: sec:uob:uses --></a> </dt><dd
+class="description"> <br
+class="newline" />Interfacing a servomotor device as an example of how to use the UObject architecture
+          as a middleware.</dd></dl>
+<a
+href="urbiscript-user-manual.html#x5-12000I"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> I</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="urbiscript-user-manual.html#x5-12000I"><span
+class="cmbx-10x-x-109">urbiscript User Manual</span><!--tex4ht:ref: part:tut --></a>  <br
+class="newline" />This part, also known as the “urbiscript tutorial”, teaches the reader how to program in
+     urbiscript. It goes from the basis to concurrent and event-based programming. No speciﬁc
+     knowledge is expected. There is no need for a C++ compiler, as <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> will not be covered here
+     (see <a
+href="uobjects.html#x38-720000IV">Listing IV</a>). The reference manual contains a terse and complete deﬁnition of the Urbi
+     environment (<a
+href="urbi-sdk-reference-manual.html#x28-192000III">Section III</a>).
+          <dl class="description"><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="first-steps.html#x7-140003"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 3</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="first-steps.html#x7-140003"><span
+class="cmbx-10x-x-109">First Steps</span><!--tex4ht:ref: sec:tut:first --></a> </dt><dd
+class="description"> <br
+class="newline" />First contacts with urbiscript.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="basic-objects-value-model.html#x8-230004"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 4</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="basic-objects-value-model.html#x8-230004"><span
+class="cmbx-10x-x-109">Basic Objects, Value Model</span><!--tex4ht:ref: sec:tut:value --></a> </dt><dd
+class="description"> <br
+class="newline" />A quick introduction to objects and values.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="flow-control-constructs.html#x9-290005"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 5</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="flow-control-constructs.html#x9-290005"><span
+class="cmbx-10x-x-109">Flow Control Constructs</span><!--tex4ht:ref: sec:tut:flow --></a> </dt><dd
+class="description"> <br
+class="newline" />Basic control ﬂow: <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span></span> and the like.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="advanced-functions-and-scoping.html#x10-350006"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 6</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="advanced-functions-and-scoping.html#x10-350006"><span
+class="cmbx-10x-x-109">Advanced Functions and Scoping</span><!--tex4ht:ref: sec:tut:function --></a> </dt><dd
+class="description"> <br
+class="newline" />Details about functions, scopes, and lexical closures.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="objective-programming-urbiscript-object-model.html#x11-400007"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 7</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="objective-programming-urbiscript-object-model.html#x11-400007"><span
+class="cmbx-10x-x-109">Objective Programming, urbiscript Object Model</span><!--tex4ht:ref: sec:tut:object --></a> </dt><dd
+class="description"> <br
+class="newline" />A more in-depth introduction to object-oriented programming in urbiscript.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="functional-programming.html#x13-550009"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 9</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="functional-programming.html#x13-550009"><span
+class="cmbx-10x-x-109">Functional Programming</span><!--tex4ht:ref: sec:tut:functional --></a> </dt><dd
+class="description"> <br
+class="newline" />Functions are ﬁrst-class citizens.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="parallelism-concurrent-flow-control.html#x14-5900010"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 10</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="parallelism-concurrent-flow-control.html#x14-5900010"><span
+class="cmbx-10x-x-109">Parallelism, Concurrent Flow Control</span><!--tex4ht:ref: sec:tut:concurrent --></a> </dt><dd
+class="description"> <br
+class="newline" />The urbiscript operators for concurrency, tags.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="event-based-programming.html#x15-6700011"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 11</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="event-based-programming.html#x15-6700011"><span
+class="cmbx-10x-x-109">Event-based Programming</span><!--tex4ht:ref: sec:tut:event-prog --></a> </dt><dd
+class="description"> <br
+class="newline" />Support for event-driven concurrency in urbiscript.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="ros-tutorial.html#x16-7300012"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 12</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="ros-tutorial.html#x16-7300012"><span
+class="cmbx-10x-x-109">Urbi for ROS Users</span><!--tex4ht:ref: sec:tut:ros --></a> </dt><dd
+class="description"> <br
+class="newline" />How to use ROS from Urbi, and vice-versa.</dd></dl>
+<a
+href="guidelines-and-cook-books.html#x20-91000II"><span
+class="cmbx-10x-x-109">paragraph</span><span
+class="cmbx-10x-x-109"> II</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="guidelines-and-cook-books.html#x20-91000II"><span
+class="cmbx-10x-x-109">Guidelines and Cook Books</span><!--tex4ht:ref: part:guide --></a>  <br
+class="newline" />This part contains guides to some speciﬁc aspects of Urbi SDK.
+          <dl class="description"><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="installation.html#x22-9300013"><span
+class="cmbx-10x-x-109">paragraph</span><span
+class="cmbx-10x-x-109"> 13</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="installation.html#x22-9300013"><span
+class="cmbx-10x-x-109">Installation</span><!--tex4ht:ref: sec:installation --></a> </dt><dd
+class="description"> <br
+class="newline" />Complete instructions on how to install Urbi SDK binary packages.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="faq.html#x23-10100014"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 14</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="faq.html#x23-10100014"><span
+class="cmbx-10x-x-109">Frequently Asked Questions</span><!--tex4ht:ref: sec:faq --></a> </dt><dd
+class="description"> <br
+class="newline" />Some answers to common questions.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="urbi-guideline.html#x24-15800015"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 15</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="urbi-guideline.html#x24-15800015"><span
+class="cmbx-10x-x-109">Urbi Guideline</span><!--tex4ht:ref: sec:guideline --></a> </dt><dd
+class="description"> <br
+class="newline" />Based on our own experience, and code that users have submitted to us, we suggest
+          a programming guideline for Urbi SDK.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16200016"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 16</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16200016"><span
+class="cmbx-10x-x-109">Migration from urbiscript 1 to urbiscript 2</span><!--tex4ht:ref: sec:k1 --></a> </dt><dd
+class="description"> <br
+class="newline" />This chapter is intended to people who want to migrate programs in urbiscript 1 to
+          urbiscript 2.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="build.html#x27-17900018"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 18</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="build.html#x27-17900018"><span
+class="cmbx-10x-x-109">Building Urbi SDK</span> <!--tex4ht:ref: sec:build --></a> </dt><dd
+class="description"> <br
+class="newline" />Building Urbi SDK from the sources. How to install it, how to check it and so forth.
+          This chapter is meant only for people who want to <span
+class="cmti-10x-x-109">build </span>Urbi SDK, which is orders
+          of magnitude more delicate than simply installing the binary packages from Gostai.</dd></dl>
+<a
+href="urbi-sdk-reference-manual.html#x28-192000III"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> III</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="urbi-sdk-reference-manual.html#x28-192000III"><span
+class="cmbx-10x-x-109">Urbi SDK Reference Manual</span><!--tex4ht:ref: part:specs --></a>  <br
+class="newline" />This part deﬁnes the speciﬁcations of the urbiscript language. It deﬁnes the expected behavior
+     from the urbiscript interpreter, the standard library, and the SDK. It can be used to check
+     whether some code is valid, or browse urbiscript or C++ API for a desired feature. Random
+     reading can also provide you with advanced knowledge or subtleties about some urbiscript
+     aspects.
+     <!--l. 26--><p class="noindent" >This part is not an urbiscript tutorial; it is not structured in a progressive manner and is too
+     detailed. Think of it as a dictionary: one does not learn a foreign language by reading a
+     dictionary. For an urbiscript Tutorial, see <a
+href="urbiscript-user-manual.html#x5-12000I">Listing I</a>.
+     </p><!--l. 26--><p class="noindent" >This part does not aim at giving advanced programming techniques. Its only goal is to deﬁne the
+     language and its libraries.
+          </p><dl class="description"><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="programs.html#x30-19400019"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 19</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="programs.html#x30-19400019"><span
+class="cmbx-10x-x-109">Programs</span><!--tex4ht:ref: sec:tools --></a> </dt><dd
+class="description"> <br
+class="newline" />Presentation and usage of the diﬀerent tools available with the Urbi framework related
+          to urbiscript, such as the Urbi server, the command line client, <span
+class="cmtt-10x-x-109">umake</span>, &hellip;
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="urbiscript-language-reference-manual.html#x31-24500020"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 20</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="urbiscript-language-reference-manual.html#x31-24500020"><span
+class="cmbx-10x-x-109">urbiscript Language Reference Manual</span><!--tex4ht:ref: sec:lang --></a> </dt><dd
+class="description"> <br
+class="newline" />Core constructs of the language and their semantics.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="urbiscript-standard-library.html#x35-38000021"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 21</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="urbiscript-standard-library.html#x35-38000021"><span
+class="cmbx-10x-x-109">urbiscript Standard Library</span><!--tex4ht:ref: sec:stdlib --></a> </dt><dd
+class="description"> <br
+class="newline" />The classes and methods provided in the standard library.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="ros.html#x36-66700022"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 22</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="ros.html#x36-66700022"><span
+class="cmbx-10x-x-109">Communication with ROS</span><!--tex4ht:ref: sec:specs:ros --></a> </dt><dd
+class="description"> <br
+class="newline" />Urbi provides a set of tools to communicate with ROS (Robot Operating System).
+          For more information about ROS, see <a
+href="http://www.ros.org" ><span
+class="cmtt-10x-x-109">http://www.ros.org</span></a>.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="urbi-standard-robotics-api.html#x37-68000023"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 23</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="urbi-standard-robotics-api.html#x37-68000023"><span
+class="cmbx-10x-x-109">Urbi Standard Robotics API</span><!--tex4ht:ref: sec:naming --></a> </dt><dd
+class="description"> <br
+class="newline" />Also known as “The Urbi Naming Standard”: naming conventions in for standard
+          hardware/software  devices  and  components  implemented  as  UObject  and  the
+          corresponding slots/events to access them.</dd></dl>
+<a
+href="tables-and-indexes.html#x44-794000V"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> V</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="tables-and-indexes.html#x44-794000V"><span
+class="cmbx-10x-x-109">Tables and Indexes</span><!--tex4ht:ref: part:tables --></a>  <br
+class="newline" />This part contains material about the document itself.
+          <dl class="description"><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="notations.html#x46-79600028"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 28</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="notations.html#x46-79600028"><span
+class="cmbx-10x-x-109">Notations</span><!--tex4ht:ref: sec:notations --></a> </dt><dd
+class="description"> <br
+class="newline" />Conventions used in the type-setting of this document.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="grammar.html#x47-80500029"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 29</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="grammar.html#x47-80500029"><span
+class="cmbx-10x-x-109">Grammar</span><!--tex4ht:ref: sec:grammar --></a> </dt><dd
+class="description"> <br
+class="newline" />Grammar of the urbiscript language.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="licenses.html#x52-94000031"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 31</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="licenses.html#x52-94000031"><span
+class="cmbx-10x-x-109">Licenses</span><!--tex4ht:ref: sec:licenses --></a> </dt><dd
+class="description"> <br
+class="newline" />Licenses of components used in Urbi SDK.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="release-notes.html#x48-80600030"><span
+class="cmbx-10x-x-109">Listing</span><span
+class="cmbx-10x-x-109"> 30</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="release-notes.html#x48-80600030"><span
+class="cmbx-10x-x-109">Release Notes</span><!--tex4ht:ref: sec:news --></a> </dt><dd
+class="description"> <br
+class="newline" />Also known as the Urbi ChangeLog, or Urbi NEWS, this chapter lists the user-visible
+          changes in Urbi SDK releases.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="bibliography.html#x53-95100032"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 32</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="bibliography.html#x53-95100032"><span
+class="cmbx-10x-x-109">ł::bel sec:bibliographyBibliography</span><!--tex4ht:ref: sec:bibliography --></a> </dt><dd
+class="description"> <br
+class="newline" />References to other documents such as documentation, scientiﬁc papers, etc.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="glossary.html#x54-95200033"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 33</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="glossary.html#x54-95200033"><span
+class="cmbx-10x-x-109">Glossary</span><!--tex4ht:ref: sec:glossary --></a> </dt><dd
+class="description"> <br
+class="newline" />Deﬁnition of the terms used in this document.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="list-of-tables.html#x55-95300034"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 34</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="list-of-tables.html#x55-95300034"><span
+class="cmbx-10x-x-109">List of Tables</span><!--tex4ht:ref: sec:lot --></a> </dt><dd
+class="description"> <br
+class="newline" />Index of all the tables: list of keywords, operators, etc.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109"> </span><span
+class="cmbx-10x-x-109"> </span><a
+href="list-of-figures.html#x56-95400035"><span
+class="cmbx-10x-x-109">Section</span><span
+class="cmbx-10x-x-109"> 35</span></a> <span
+class="cmbx-10x-x-109">— </span><a
+href="list-of-figures.html#x56-95400035"><span
+class="cmbx-10x-x-109">List of Figures</span><!--tex4ht:ref: sec:lof --></a> </dt><dd
+class="description"> <br
+class="newline" />Index of all the ﬁgures: snapshots, schema, etc.
+          </dd></dl>
+<!--l. 188--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1.6   </span> <a
+href="index.html#QQ2-2-10" id="x2-90001.6">Documentation</a></h3>
+<!--l. 190--><p class="noindent" >You may want to look at the <a
+href="https://github.com/jcbaillie/urbi/urbi/3.x/doc/" >documentation of the latest version</a>, and visit <a
+href="http://urbiforge.org" ><span
+class="cmtt-10x-x-109">http://urbiforge.org</span></a>,
+the Urbi community web site, and its <a
+href="http://forum.urbiforge.org" >forum</a>.
+</p><!--l. 195--><p class="indent" >   This document and others are updated regularly on the Gostai Web site:  </p>
+     <ul class="itemize1">
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/</span></a> <br
+class="newline" />All the documentations for Urbi 3.0.0.
+     </li>
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-sdk.pdf" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-sdk.pdf</span></a> <br
+class="newline" />Urbi SDK Documentation (this document) in PDF.
+     </li>
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-sdk.htmldir/" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-sdk.htmldir/</span></a> <br
+class="newline" />Urbi SDK Documentation (this document) in several HTML ﬁles.
+     </li>
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-sdk-single.htmldir/" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-sdk-single.htmldir/</span></a> <br
+class="newline" />Urbi SDK Documentation (this document) in a single large HTML ﬁle.
+     </li>
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/sdk-remote.htmldir/" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/sdk-remote.htmldir/</span></a> <br
+class="newline" />The Doxygen documentation of UObject/SDK Remote for C++.
+     </li>
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/sdk-remote-java.htmldir/" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/sdk-remote-java.htmldir/</span></a> <br
+class="newline" />The Doxygen documentation of UObject/SDK Remote for Java.
+     </li>
+     <li class="itemize"><a
+href="https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-naming.pdf" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/3.0.0/doc/urbi-naming.pdf</span></a> <br
+class="newline" />The Gostai Standard Robotics API, i.e., <a
+href="urbi-standard-robotics-api.html#x37-68000023">Section 23</a> as a standalone document. </li></ul>
+</body></html>

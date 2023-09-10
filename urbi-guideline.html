@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>15 Urbi Guideline</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="migration-from-urbiscript-1-to-urbiscript-2.html" >Next</a><a
+href="guidelines-and-cook-books.html#urbi-guideline.html" >Up</a><a
+href="faq.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 15</span><br /><a
+href="index.html#QQ2-24-165" id="x24-15800015">Urbi Guideline</a></h2>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >15.1 <a
+href="#x24-15900015.1">urbiscript Programming Guideline</a></span>
+<br />     <span class="subsectionToc" >15.1.1 <a
+href="#x24-16000015.1.1">Prefer Expressions to Statements</a></span>
+<br />     <span class="subsectionToc" >15.1.2 <a
+href="#x24-16100015.1.2">Avoid <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span></span></a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">15.1   </span> <a
+href="index.html#QQ2-24-166" id="x24-15900015.1">urbiscript Programming Guideline</a></h3>
+<!--l. 14--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">15.1.1   </span> <a
+href="contents.html#QQ2-24-167" id="x24-16000015.1.1">Prefer Expressions to Statements</a></h4>
+<!--l. 16--><p class="noindent" >Code like this:
+</p><!--l. 18--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 18--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (delta) </span><br /><span class="label"><a
+ id="x24-160002r2"></a></span><span class="cmtt-10x-x-109">  cmd = </span><!--l. 20--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;go&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x24-160003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (alpha) </span><br /><span class="label"><a
+ id="x24-160004r4"></a></span><span class="cmtt-10x-x-109">  cmd = </span><!--l. 22--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;turn&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160006r6"></a></span><span class="cmtt-10x-x-109">  cmd = </span><!--l. 24--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;stop&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160007r7"></a></span></pre>
+   </div>
+<!--l. 27--><p class="noindent" >is more legible as follows:
+</p><!--l. 30--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 30--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160008r1"></a></span><span class="cmtt-10x-x-109">cmd = </span><br /><span class="label"><a
+ id="x24-160009r2"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x24-160010r3"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109">      (delta) </span><!--l. 33--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;go&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160011r4"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (alpha) </span><!--l. 34--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;turn&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160012r5"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span class="cmtt-10x-x-109">            </span><!--l. 35--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;stop&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160013r6"></a></span><span class="cmtt-10x-x-109">  };</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-160014r7"></a></span></pre>
+   </div>
+<!--l. 40--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">15.1.2   </span> <a
+href="contents.html#QQ2-24-168" id="x24-16100015.1.2">Avoid <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span></span></a></h4>
+<!--l. 43--><p class="noindent" >The <a
+ id="x24-161001"></a><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span></span> statement (<a
+href="urbiscript-language-reference-manual.html#x31-28700020.3.3">Section 20.3.3<!--tex4ht:ref: sec:lang:waituntil --></a>) is actually costly, because it is also in charge of
+stopping all the event-handlers, detached code, and code sent into background (via ‘<span
+class="cmtt-10x-x-109">,</span>&#x2019; or
+‘<span
+class="cmtt-10x-x-109">&#x0026;</span>&#x2019;).
+</p><!--l. 47--><p class="indent" >   In a large number of cases, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span></span> is actually useless. For instance instead of:
+</p><!--l. 50--><p class="indent" >   <div class="code urbiscript">
+<!--l. 50--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> inBounds1(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> low, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> high) </span><br /><span class="label"><a
+ id="x24-161003r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x24-161004r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (x &#x003C; low) </span><br /><span class="label"><a
+ id="x24-161005r4"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> false; </span><br /><span class="label"><a
+ id="x24-161006r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (high &#x003C; x) </span><br /><span class="label"><a
+ id="x24-161007r6"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> false; </span><br /><span class="label"><a
+ id="x24-161008r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> true; </span><br /><span class="label"><a
+ id="x24-161009r8"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x24-161010r9"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161011r10"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x24-161012r11"></a></span><span class="cmtt-10x-x-109">  inBounds1(1, 0, 2);    inBounds1(0, 0, 2);  inBounds1(2, 0, 2); </span><br /><span class="label"><a
+ id="x24-161013r12"></a></span><span class="cmtt-10x-x-109">  !inBounds1(0, 1, 2);  !inBounds1(3, 0, 2); </span><br /><span class="label"><a
+ id="x24-161014r13"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161015r14"></a></span></pre>
+   </div>
+<!--l. 66--><p class="noindent" >write
+</p><!--l. 69--><p class="indent" >   <div class="code urbiscript">
+<!--l. 69--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161016r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> inBounds2(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> low, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> high) </span><br /><span class="label"><a
+ id="x24-161017r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x24-161018r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (x &#x003C; low) </span><br /><span class="label"><a
+ id="x24-161019r4"></a></span><span class="cmtt-10x-x-109">    false </span><br /><span class="label"><a
+ id="x24-161020r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (high &#x003C; x) </span><br /><span class="label"><a
+ id="x24-161021r6"></a></span><span class="cmtt-10x-x-109">    false </span><br /><span class="label"><a
+ id="x24-161022r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161023r8"></a></span><span class="cmtt-10x-x-109">    true; </span><br /><span class="label"><a
+ id="x24-161024r9"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x24-161025r10"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161026r11"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x24-161027r12"></a></span><span class="cmtt-10x-x-109">  inBounds2(1, 0, 2);    inBounds2(0, 0, 2);  inBounds2(2, 0, 2); </span><br /><span class="label"><a
+ id="x24-161028r13"></a></span><span class="cmtt-10x-x-109">  !inBounds2(0, 1, 2);  !inBounds2(3, 0, 2); </span><br /><span class="label"><a
+ id="x24-161029r14"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161030r15"></a></span></pre>
+   </div>
+<!--l. 86--><p class="noindent" >or better yet, simply evaluate the Boolean expression. As a matter of fact, returning a Boolean is often
+the sign that you ought to “return” a Boolean expression, rather than evaluating that Boolean value
+using a conditional, and return either true or false.
+</p><!--l. 92--><p class="indent" >   <div class="code urbiscript">
+<!--l. 92--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161031r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> inBounds3(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> low, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> high) </span><br /><span class="label"><a
+ id="x24-161032r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x24-161033r3"></a></span><span class="cmtt-10x-x-109">  low &#x003C;= x &#x003C;= high </span><br /><span class="label"><a
+ id="x24-161034r4"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x24-161035r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161036r6"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x24-161037r7"></a></span><span class="cmtt-10x-x-109">  inBounds3(1, 0, 2);    inBounds3(0, 0, 2);  inBounds3(2, 0, 2); </span><br /><span class="label"><a
+ id="x24-161038r8"></a></span><span class="cmtt-10x-x-109">  !inBounds3(0, 1, 2);  !inBounds3(3, 0, 2); </span><br /><span class="label"><a
+ id="x24-161039r9"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x24-161040r10"></a></span></pre>
+   </div>
+</body></html>

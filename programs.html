@@ -1,0 +1,2174 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>19 Programs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="urbiscript-language-reference-manual.html" >Next</a><a
+href="urbi-sdk-reference-manual.html#programs.html" >Up</a><a
+href="urbi-sdkli4.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 19</span><br /><a
+href="index.html#QQ2-30-201" id="x30-19400019">Programs</a></h2>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >19.1 <a
+href="#x30-19500019.1">Environment Variables</a></span>
+<br />     <span class="subsectionToc" >19.1.1 <a
+href="#x30-19600019.1.1">Search Path Variables</a></span>
+<br />     <span class="subsectionToc" >19.1.2 <a
+href="#x30-19800019.1.2">Environment Variables</a></span>
+<br />    <span class="sectionToc" >19.2 <a
+href="#x30-19900019.2">Special Files</a></span>
+<br />    <span class="sectionToc" >19.3 <a
+href="#x30-20000019.3"><span
+class="cmtt-10x-x-109">urbi </span>— Running an Urbi Server</a></span>
+<br />     <span class="subsectionToc" >19.3.1 <a
+href="#x30-20100019.3.1">Options</a></span>
+<br />     <span class="subsectionToc" >19.3.2 <a
+href="#x30-20600019.3.2">Quitting</a></span>
+<br />    <span class="sectionToc" >19.4 <a
+href="#x30-20700019.4"><span
+class="cmtt-10x-x-109">urbi-image </span>— Querying Images from a Server</a></span>
+<br />     <span class="subsectionToc" >19.4.1 <a
+href="#x30-20800019.4.1">Options</a></span>
+<br />    <span class="sectionToc" >19.5 <a
+href="#x30-21200019.5"><span
+class="cmtt-10x-x-109">urbi-launch </span>— Running a UObject</a></span>
+<br />     <span class="subsectionToc" >19.5.1 <a
+href="#x30-21300019.5.1">Invoking <span
+class="cmtt-10x-x-109">urbi-launch</span></a></span>
+<br />     <span class="subsectionToc" >19.5.2 <a
+href="#x30-21700019.5.2">Examples</a></span>
+<br />     <span class="subsectionToc" >19.5.3 <a
+href="#x30-21800019.5.3">UObject Module Options</a></span>
+<br />    <span class="sectionToc" >19.6 <a
+href="#x30-22200019.6"><span
+class="cmtt-10x-x-109">urbi-launch-java </span>— Running a Java UObject</a></span>
+<br />     <span class="subsectionToc" >19.6.1 <a
+href="#x30-22300019.6.1">Invoking <span
+class="cmtt-10x-x-109">urbi-launch-java</span></a></span>
+<br />    <span class="sectionToc" >19.7 <a
+href="#x30-22700019.7"><span
+class="cmtt-10x-x-109">urbi-ping </span>— Checking the Delays with a Server</a></span>
+<br />     <span class="subsectionToc" >19.7.1 <a
+href="#x30-22800019.7.1">Options</a></span>
+<br />    <span class="sectionToc" >19.8 <a
+href="#x30-23200019.8"><span
+class="cmtt-10x-x-109">urbi-send </span>— Sending urbiscript Commands to a Server</a></span>
+<br />    <span class="sectionToc" >19.9 <a
+href="#x30-23300019.9"><span
+class="cmtt-10x-x-109">urbi-sound </span>— Querying Sounds from a Server</a></span>
+<br />     <span class="subsectionToc" >19.9.1 <a
+href="#x30-23400019.9.1">Options</a></span>
+<br />    <span class="sectionToc" >19.10 <a
+href="#x30-23800019.10"><span
+class="cmtt-10x-x-109">umake </span>— Compiling UObject Components</a></span>
+<br />     <span class="subsectionToc" >19.10.1 <a
+href="#x30-23900019.10.1">Invoking <span
+class="cmtt-10x-x-109">umake</span></a></span>
+<br />     <span class="subsectionToc" >19.10.2 <a
+href="#x30-24400019.10.2"><span
+class="cmtt-10x-x-109">umake </span>Wrappers</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">19.1   </span> <a
+href="index.html#QQ2-30-202" id="x30-19500019.1">Environment Variables</a></h3>
+<!--l. 25--><p class="noindent" >There is a number of environment variables that alter the behavior of the Urbi tools.
+</p><!--l. 28--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.1.1   </span> <a
+href="contents.html#QQ2-30-203" id="x30-19600019.1.1">Search Path Variables</a></h4>
+<!--l. 30--><p class="noindent" >Some variables deﬁne <span
+class="cmti-10x-x-109">search-paths</span><a
+ id="x30-196001"></a>, i.e., colon-separated lists of directories in which library ﬁles
+(urbiscript programs, UObjects and so forth) are looked for.
+</p><!--l. 34--><p class="indent" >   The tools have predeﬁned values for these variables which are tailored for your installation — so
+that Urbi tools can be run without any special adjustment. In order to provide the user with a means
+to override or extend these built-in values, the path variables support a special syntax: a lone colon
+speciﬁes where the standard search path must be inserted. See the following examples about
+<span class="cmtt-10x-x-109">URBI_PATH</span>.
+</p><!--l. 42--><p class="indent" >   <div class="code shell">
+<!--l. 42--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196002r1"></a></span><!--l. 43--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Completely override the system path.  First look for files in</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196003r2"></a></span><!--l. 44--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># /home/jessie/urbi, then in /usr/local/urbi.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196004r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">export</span></span><span class="cmtt-10x-x-109"> URBI_PATH=/home/jessie/urbi:/usr/local/urbi </span><br /><span class="label"><a
+ id="x30-196005r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196006r5"></a></span><!--l. 47--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Prepend the previous path to the default path.  This is dangerous as</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196007r6"></a></span><!--l. 48--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># it may result in some standard files being hidden.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196008r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">export</span></span><span class="cmtt-10x-x-109"> URBI_PATH=/home/jessie/urbi:/usr/local/urbi: </span><br /><span class="label"><a
+ id="x30-196009r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196010r9"></a></span><!--l. 51--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># First look in Jessie&#x2019;s directory, then the default location, and</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196011r10"></a></span><!--l. 52--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># finally in /usr/local/urbi.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196012r11"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">export</span></span><span class="cmtt-10x-x-109"> URBI_PATH=/home/jessie/urbi::/usr/local/urbi </span><br /><span class="label"><a
+ id="x30-196013r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196014r13"></a></span><!--l. 55--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Extend the default path, i.e., files that are not found in the</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196015r14"></a></span><!--l. 56--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># default path will be looked for in Jessie&#x2019;s place, and then in</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196016r15"></a></span><!--l. 57--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># /usr/local/urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196017r16"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">export</span></span><span class="cmtt-10x-x-109"> URBI_PATH=:/home/jessie/urbi:/usr/local/urbi</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-196018r17"></a></span></pre>
+   </div>
+<!--l. 61--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-19700019.1.1" id="x30-19700019.1.1"><span
+class="cmbx-10x-x-109">Windows Issues</span></a></span>
+     </p><div class="quote">
+     <!--l. 62--><p class="noindent" ><span
+class="cmti-10x-x-109">On Windows too directories are separated by colons, but backslashes are used instead of</span>
+     <span
+class="cmti-10x-x-109">forward-slashes. For instance </span><div class="code shell">
+<!--l. 64--><pre class="listings"><span
+class="cmitt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-197001r1"></a></span><span
+class="cmitt-10x-x-109">URBI_PATH</span><span
+class="cmitt-10x-x-109">=</span><span
+class="cmitt-10x-x-109">C</span><span
+class="cmitt-10x-x-109">:\</span><span
+class="cmitt-10x-x-109">cygwin</span><span
+class="cmitt-10x-x-109">\</span><span
+class="cmitt-10x-x-109">home</span><span
+class="cmitt-10x-x-109">\</span><span
+class="cmitt-10x-x-109">jessie</span><span
+class="cmitt-10x-x-109">\</span><span
+class="cmitt-10x-x-109">urbi</span><span
+class="cmitt-10x-x-109">:</span><span
+class="cmitt-10x-x-109">C</span><span
+class="cmitt-10x-x-109">:\</span><span
+class="cmitt-10x-x-109">cygwin</span><span
+class="cmitt-10x-x-109">\</span><span
+class="cmitt-10x-x-109">usr</span><span
+class="cmitt-10x-x-109">\</span><span class="textkwd"><span
+class="cmitt-10x-x-109">local</span></span><span
+class="cmitt-10x-x-109">\</span><span
+class="cmitt-10x-x-109">urbi</span>
+   <span
+class="cmitt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-197002r2"></a></span></pre>
+     </div>
+     </div>
+<!--l. 69--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.1.2   </span> <a
+href="contents.html#QQ2-30-205" id="x30-19800019.1.2">Environment Variables</a></h4>
+<!--l. 72--><p class="noindent" >The following variables control the way the log messages are displayed. They are meant for
+developers.
+     </p><dl class="list1"><dt class="list">
+<a
+ id="x30-198001"></a><span class="cmtt-10x-x-109">GD_COLOR</span> </dt><dd
+class="list">
+     <!--l. 75--><p class="noindent" >If set, force the use of colors in the logs, even if the output device does not seem to support
+     them. See also <span class="cmtt-10x-x-109">GD_NO_COLOR</span>.
+     </p></dd><dt class="list">
+<a
+ id="x30-198002"></a><span class="cmtt-10x-x-109">GD_CATEGORY</span> </dt><dd
+class="list">
+     <!--l. 78--><p class="noindent" >If  set,  a  comma-separated  list  of  category  patterns  with  optional  modiﬁers  ‘<span
+class="cmtt-10x-x-109">+</span>&#x2019;  or  ‘<span
+class="cmtt-10x-x-109">-</span>&#x2019;;
+     for instance, ‘<span
+class="cmtt-10x-x-109">-Urbi.*,Urbi.UObject</span>&#x2019;. See <a
+href="urbiscript-standard-library.html#slot:Logger.set"><span class="lstinline"><span class="cmtt-10x-x-109">Logger.set</span></span></a> for a more precise description of
+     syntax, and <a
+href="urbiscript-standard-library.html#x35-51000021.36.2">Section 21.36.2<!--tex4ht:ref: sec:tut:import --></a> for a description of the categories used by Urbi SDK.
+     </p></dd><dt class="list">
+<a
+ id="x30-198003"></a><span class="cmtt-10x-x-109">GD_ENABLE_CATEGORY</span> </dt><dd
+class="list">
+     <!--l. 84--><p class="noindent" >If set, a comma-separated list of categories or globs (e.g., ‘<span
+class="cmtt-10x-x-109">UValue</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">Urbi.*</span>&#x2019;) to display.
+     All the others will be discarded. See also <span class="cmtt-10x-x-109">GD_DISABLE_CATEGORY</span>.
+     </p></dd><dt class="list">
+<a
+ id="x30-198004"></a><span class="cmtt-10x-x-109">GD_DISABLE_CATEGORY</span> </dt><dd
+class="list">
+     <!--l. 87--><p class="noindent" >If set, a comma-separated list of categories or globs (e.g., ‘<span
+class="cmtt-10x-x-109">UValue</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">Urbi.*</span>&#x2019;) <span
+class="cmti-10x-x-109">not </span>to display.
+     See also <span class="cmtt-10x-x-109">GD_ENABLE_CATEGORY</span>.
+     </p></dd><dt class="list">
+<a
+ id="x30-198005"></a><span class="cmtt-10x-x-109">GD_LEVEL</span> </dt><dd
+class="list">
+     <!--l. 90--><p class="noindent" >Set the verbosity level of traces. This environment variable is meant for the developers of Urbi
+     SDK, yet it is very useful when tracking problems such as a UObject that fails to load properly.
+     Valid values are, in increasing verbosity order:
+          </p><ol  class="enumerate1" >
+          <li
+  class="enumerate" id="x30-198007x1"><span
+class="cmtt-10x-x-109">NONE</span>, no log messages at all.
+          </li>
+          <li
+  class="enumerate" id="x30-198009x2"><span
+class="cmtt-10x-x-109">LOG</span>, the default value.
+          </li>
+          <li
+  class="enumerate" id="x30-198011x3"><span
+class="cmtt-10x-x-109">TRACE</span>
+          </li>
+          <li
+  class="enumerate" id="x30-198013x4"><span
+class="cmtt-10x-x-109">DEBUG</span>
+          </li>
+          <li
+  class="enumerate" id="x30-198015x5"><span
+class="cmtt-10x-x-109">DUMP</span>, maximum verbosity.</li></ol>
+     </dd><dt class="list">
+<a
+ id="x30-198016"></a><span class="cmtt-10x-x-109">GD_LOC</span> </dt><dd
+class="list">
+     <!--l. 102--><p class="noindent" >If set, display the location (ﬁle, line, function name) from which the log message was
+     issued.
+     </p></dd><dt class="list">
+<a
+ id="x30-198017"></a><span class="cmtt-10x-x-109">GD_NO_COLOR</span> </dt><dd
+class="list">
+     <!--l. 105--><p class="noindent" >If set, forbid the use of colors in the logs, even if the output device seems to support them, or if
+     <span class="cmtt-10x-x-109">GD_COLOR </span>is set.
+     </p></dd><dt class="list">
+<a
+ id="x30-198018"></a><span class="cmtt-10x-x-109">GD_PID</span> </dt><dd
+class="list">
+     <!--l. 108--><p class="noindent" >If set, display the PID (Process Identity).
+     </p></dd><dt class="list">
+<a
+ id="x30-198019"></a><span class="cmtt-10x-x-109">GD_THREAD</span> </dt><dd
+class="list">
+     <!--l. 110--><p class="noindent" >If set, display the thread identity.
+     </p></dd><dt class="list">
+<a
+ id="x30-198020"></a><span class="cmtt-10x-x-109">GD_TIME</span> </dt><dd
+class="list">
+     <!--l. 112--><p class="noindent" >If set, display timestamps.
+     </p></dd><dt class="list">
+<a
+ id="x30-198021"></a><span class="cmtt-10x-x-109">GD_TIMESTAMP_US</span> </dt><dd
+class="list">
+     <!--l. 114--><p class="noindent" >If set, display timestamps in microseconds.</p></dd></dl>
+<!--l. 117--><p class="indent" >   The following variables control more high-level features, typically to override the default
+behavior.
+     </p><dl class="list1"><dt class="list">
+<a
+ id="x30-198022"></a><span class="cmtt-10x-x-109">URBI_PATH</span> </dt><dd
+class="list">
+     <!--l. 120--><p class="noindent" >The search-path for urbiscript source ﬁles (i.e., ‘<span
+class="cmtt-10x-x-109">*.u</span>&#x2019; ﬁles).
+     </p></dd><dt class="list">
+<a
+ id="x30-198023"></a><span class="cmtt-10x-x-109">URBI_ROOT</span> </dt><dd
+class="list">
+     <!--l. 123--><p class="noindent" ><a
+ id="x30-198024"></a>Urbi SDK is relocatable: its components know the relative location of each other. Yet they
+     need to “guess” the <span
+class="cmitt-10x-x-109">urbi-root</span>, i.e., the path to the directory that contains all the ﬁles.
+     This variable permits to override that guess. Do not use it unless you know exactly what
+     you are doing.
+     </p></dd><dt class="list">
+<a
+ id="x30-198025"></a><span class="cmtt-10x-x-109">URBI_TEXT_MODE</span> </dt><dd
+class="list">
+     <!--l. 129--><p class="noindent" >If set in the environment of a remote urbi-launch, disable binary protocol and force using
+     urbiscript messages.
+     </p></dd><dt class="list">
+<a
+ id="x30-198026"></a><span class="cmtt-10x-x-109">URBI_UOBJECT_PATH</span> </dt><dd
+class="list">
+     <!--l. 132--><p class="noindent" >The search-path for UObjects ﬁles. This is used by <span
+class="cmtt-10x-x-109">urbi-launch</span>, by <a
+href="urbiscript-standard-library.html#slot:System.loadModule"><span class="lstinline"><span class="cmtt-10x-x-109">System.loadModule</span></span></a>
+     and <a
+href="urbiscript-standard-library.html#slot:System.loadLibrary"><span class="lstinline"><span class="cmtt-10x-x-109">System.loadLibrary</span></span></a>.</p></dd></dl>
+<!--l. 137--><p class="indent" >   There are also very special environment variables, meant to be used only by Urbi developers, see
+<a
+href="build.html#x27-18600018.2">Section 18.2<!--tex4ht:ref: sec:tut:import --></a>.
+</p><!--l. 140--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.2   </span> <a
+href="index.html#QQ2-30-206" id="x30-19900019.2">Special Files</a></h3>
+<!--l. 143--><p class="noindent" >
+     </p><dl class="list1"><dt class="list">
+<a
+ id="x30-199001"></a>‘<span
+class="cmtt-10x-x-109">CLIENT.INI</span>&#x2019; </dt><dd
+class="list">
+     <!--l. 144--><p class="noindent" >This is the obsolete name for ‘<span
+class="cmtt-10x-x-109">global.u</span>&#x2019;.
+     </p></dd><dt class="list">
+<a
+ id="x30-199002"></a>‘<span
+class="cmtt-10x-x-109">global.u</span>&#x2019; </dt><dd
+class="list">
+     <!--l. 146--><p class="noindent" >If found in the <span class="cmtt-10x-x-109">URBI_PATH </span>(see <a
+href="#x30-19500019.1">Section 19.1<!--tex4ht:ref: sec:tut:import --></a>), this ﬁle is loaded by Urbi server upon
+     start-up. It is the appropriate place to install features you mean to provide to all the users
+     of the server. It is will be loaded via a special system connection, with its own private lobby.
+     Therefore, purely local deﬁnitions will not be reachable from users; global modiﬁcations
+     should be made in globally visible objects, say <a
+href="urbiscript-standard-library.html#object:Global"><span class="lstinline"><span
+class="cmtt-10x-x-109">Global</span></span></a>.
+     </p></dd><dt class="list">
+<a
+ id="x30-199003"></a>‘<span
+class="cmtt-10x-x-109">local.u</span>&#x2019; </dt><dd
+class="list">
+     <!--l. 155--><p class="noindent" >If  found  in  the  <span class="cmtt-10x-x-109">URBI_PATH </span>(see  <a
+href="#x30-19500019.1">Section 19.1<!--tex4ht:ref: sec:tut:import --></a>),  this  ﬁle  is  loaded  by  every  connection
+     established with an Urbi server. This is the appropriate place for enhancements local to a
+     lobby.
+     </p></dd><dt class="list">
+<a
+ id="x30-199004"></a>‘<span
+class="cmtt-10x-x-109">URBI.INI</span>&#x2019; </dt><dd
+class="list">
+     <!--l. 160--><p class="noindent" >This is the obsolete name for ‘<span
+class="cmtt-10x-x-109">global.u</span>&#x2019;.</p></dd></dl>
+<!--l. 163--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.3   </span> <a
+href="index.html#QQ2-30-207" id="x30-20000019.3"><span
+class="cmtt-10x-x-109">urbi </span>— Running an Urbi Server</a></h3>
+<a
+ id="x30-200001"></a>
+<!--l. 167--><p class="noindent" >The <span
+class="cmtt-10x-x-109">urbi </span>program launches an Urbi server, for either batch, interactive, or network-based executions.
+It is subsumed by, but simpler to use than, <span
+class="cmtt-10x-x-109">urbi-launch </span>(<a
+href="#x30-21200019.5">Section 19.5<!--tex4ht:ref: sec:tut:import --></a>).
+</p><!--l. 171--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.3.1   </span> <a
+href="contents.html#QQ2-30-208" id="x30-20100019.3.1">Options</a></h4>
+<!--l. 174--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-20200019.3.1" id="x30-20200019.3.1"><span
+class="cmbx-10x-x-109">General Options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-202001"></a><a
+ id="x30-202002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-202003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-202004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--print-root</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the <span
+class="cmitt-10x-x-109">urbi-root </span>and exit successfully.</dd></dl>
+<!--l. 180--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-20300019.3.1" id="x30-20300019.3.1"><span
+class="cmbx-10x-x-109">Tuning</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-203001"></a><a
+ id="x30-203002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-d</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--debug=</span><span
+class="cmitt-10x-x-109">level</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the verbosity level of traces. See the <span class="cmtt-10x-x-109">GD_LEVEL </span>documentation (<a
+href="#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:tut:import --></a>).
+     </dd><dt class="description">
+<a
+ id="x30-203003"></a><a
+ id="x30-203004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-F</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--fast</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Ignore system time, go as fast as possible. Do not use this option unless you know exactly
+     what you are doing.
+     <!--l. 186--><p class="noindent" >The ‘<span
+class="cmtt-10x-x-109">--fast</span>&#x2019; ﬂag makes the kernel run the program in “simulated time”, as fast as possible.
+     A <a
+href="urbiscript-standard-library.html#slot:System.sleep"><span class="lstinline"><span class="cmtt-10x-x-109">System.sleep</span></span></a> in fast mode will not actually wait (from the wall-clock point of view),
+     but the kernel will internally increase its simulated time.
+     </p><!--l. 191--><p class="noindent" >For instance, the following session behaves equally in fast and non-fast mode:
+     </p><!--l. 194--><p class="noindent" ><div class="code urbiscript">
+<!--l. 194--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-203005r1"></a></span><span class="cmtt-10x-x-109">{ sleep(2s); echo(</span><!--l. 195--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;after&#x0022;</span></span></span><span class="cmtt-10x-x-109">) } &#x0026; { sleep(1s); echo(</span><!--l. 195--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;before&#x0022;</span></span></span><span class="cmtt-10x-x-109">) }; </span><br /><span class="label"><a
+ id="x30-203006r2"></a></span><!--l. 196--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000463] *** before</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-203007r3"></a></span><!--l. 197--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00001463] *** after</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-203008r4"></a></span></pre>
+     </div>
+     <!--l. 200--><p class="noindent" >However, in non fast mode the execution will take two seconds (wall clock time), while it be
+     instantaneous in fast mode. This option was designed for testing purpose; <span
+class="cmti-10x-x-109">it does not preserve the</span>
+     <span
+class="cmti-10x-x-109">program semantics</span>.
+     </p></dd><dt class="description">
+<a
+ id="x30-203009"></a><a
+ id="x30-203010"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-s</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--stack-size=</span><span
+class="cmitt-10x-x-109">size</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the coroutine <span
+class="cmti-10x-x-109">stack size</span><a
+ id="x30-203011"></a>. The unit of <span
+class="cmitt-10x-x-109">size </span>is KB; it defaults to 128.
+     <!--l. 209--><p class="noindent" >This option should not be needed unless you have “stack exhausted” messages from <span
+class="cmtt-10x-x-109">urbi </span>in
+     which case you should try ‘<span
+class="cmtt-10x-x-109">--stack-size=512</span>&#x2019; or more.
+     </p><!--l. 213--><p class="noindent" >Alternatively you can deﬁne the environment variable <span class="cmtt-10x-x-109">URBI_STACK_SIZE</span>. The option
+     ‘<span
+class="cmtt-10x-x-109">--stack-size</span>&#x2019; has precedence over the <span class="cmtt-10x-x-109">URBI_STACK_SIZE</span>.
+     </p></dd><dt class="description">
+<a
+ id="x30-203012"></a><a
+ id="x30-203013"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-q</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--quiet</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Do not send the welcome banner to incoming clients.</dd></dl>
+<!--l. 220--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-20400019.3.1" id="x30-20400019.3.1"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-204001"></a><a
+ id="x30-204002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-H</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--host=</span><span
+class="cmitt-10x-x-109">address</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the <span
+class="cmitt-10x-x-109">address </span>on which network connections are listened to. Typical values of <span
+class="cmitt-10x-x-109">address</span>
+     include:
+          <dl class="description"><dt class="description">
+     <span
+class="cmbx-10x-x-109">localhost</span> </dt><dd
+class="description">only local connections are allowed (no other computer can reach this server).
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109">127.0.0.1</span> </dt><dd
+class="description">same as <span
+class="cmtt-10x-x-109">localhost</span>.
+          </dd><dt class="description">
+     <span
+class="cmbx-10x-x-109">0.0.0.0</span> </dt><dd
+class="description">any IP v4 connection is allowed, including from remote computers.</dd></dl>
+     <!--l. 233--><p class="noindent" >Defaults to <span
+class="cmtt-10x-x-109">0.0.0.0</span>.
+     </p></dd><dt class="description">
+<a
+ id="x30-204003"></a><a
+ id="x30-204004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-P</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--port=</span><span
+class="cmitt-10x-x-109">port</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the port to listen incoming connections to. If <span
+class="cmitt-10x-x-109">port </span>is <span
+class="cmtt-10x-x-109">-1</span>, no networking. If <span
+class="cmitt-10x-x-109">port </span>is
+     <span
+class="cmtt-10x-x-109">0</span>, then the system will chose any available port (see ‘<span
+class="cmtt-10x-x-109">--port-file</span>&#x2019;). Defaults to
+     <span
+class="cmtt-10x-x-109">-1</span>.
+     </dd><dt class="description">
+<a
+ id="x30-204005"></a><a
+ id="x30-204006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-w</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--port-file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />When the system is up and running, and when it is ready for network connections,
+     create the ﬁle named <span
+class="cmitt-10x-x-109">file </span>which contains the number of the port the server listens
+     to.</dd></dl>
+<!--l. 244--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-20500019.3.1" id="x30-20500019.3.1"><span
+class="cmbx-10x-x-109">Execution</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-205001"></a><a
+ id="x30-205002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-e</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--expression=</span><span
+class="cmitt-10x-x-109">exp</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Send the urbiscript expression <span
+class="cmitt-10x-x-109">exp</span>. No separator is added, you have to pass yours.
+     </dd><dt class="description">
+<a
+ id="x30-205003"></a><a
+ id="x30-205004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-f</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Send the contents of the ﬁle <span
+class="cmitt-10x-x-109">file</span>. No separator is added, you have to pass yours.
+     </dd><dt class="description">
+<a
+ id="x30-205005"></a><a
+ id="x30-205006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-i</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--interactive</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Start an interactive session.
+     <!--l. 251--><p class="noindent" >Enabled  if  no  input  was  provided  (i.e.,  none  of  ‘<span
+class="cmtt-10x-x-109">-e</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--expression</span>&#x2019;,  ‘<span
+class="cmtt-10x-x-109">-f</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--file</span>&#x2019;,
+     ‘<span
+class="cmtt-10x-x-109">-P</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--port</span>&#x2019; was given).
+     </p></dd><dt class="description">
+<a
+ id="x30-205007"></a><a
+ id="x30-205008"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-m</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--module=</span><span
+class="cmitt-10x-x-109">module</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Load the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span><span
+class="cmitt-10x-x-109">module</span>.</dd></dl>
+<!--l. 257--><p class="noindent" >The options ‘<span
+class="cmtt-10x-x-109">-e</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">-f</span>&#x2019; accumulate, and are run in the same <a
+href="urbiscript-standard-library.html#object:Lobby"><span class="lstinline"><span
+class="cmtt-10x-x-109">Lobby</span></span></a> as ‘<span
+class="cmtt-10x-x-109">-i</span>&#x2019; if used. In other words, the
+following session is valid:
+</p><!--l. 261--><p class="indent" >   <div class="code shell">
+<!--l. 261--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-205009r1"></a></span><!--l. 262--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Create a file &#x0022;two.u&#x0022;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-205010r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">echo</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 263--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;var two = 2;&#x0022;</span></span></span><span class="cmtt-10x-x-109"> &#x003E;two.u </span><br /><span class="label"><a
+ id="x30-205011r3"></a></span><span class="cmtt-10x-x-109">$ urbi -q -e </span><!--l. 264--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;var one = 1;&#x2019;</span></span><span class="cmtt-10x-x-109"> -f two.u -i </span><br /><span class="label"><a
+ id="x30-205012r4"></a></span><!--l. 265--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-205013r5"></a></span><!--l. 266--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-205014r6"></a></span><span class="cmtt-10x-x-109">one + two; </span><br /><span class="label"><a
+ id="x30-205015r7"></a></span><!--l. 268--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-205016r8"></a></span></pre>
+   </div>
+<!--l. 272--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.3.2   </span> <a
+href="contents.html#QQ2-30-213" id="x30-20600019.3.2">Quitting</a></h4>
+<!--l. 275--><p class="noindent" >To exit <span
+class="cmtt-10x-x-109">urbi</span>, use the command <a
+href="urbiscript-standard-library.html#slot:System.shutdown"><span class="lstinline"><span class="cmtt-10x-x-109">System.shutdown</span></span></a>.
+</p><!--l. 277--><p class="indent" >   If you are in interactive mode, you can also use the shortcut sequence C-d in the server lobby. The
+command <a
+href="urbiscript-standard-library.html#slot:Lobby.quit"><span class="lstinline"><span class="cmtt-10x-x-109">Lobby.quit</span></span></a> does not shutdown the server, it only closes the current lobby which closes the
+connection while in remote mode (using <span
+class="cmtt-10x-x-109">telnet </span>for example), but only closes the interactive mode if
+performed on the server lobby.
+</p><!--l. 283--><p class="indent" >   On Unix systems, <span
+class="cmtt-10x-x-109">urbi </span>handles the SIGINT signal (action performed when C-c is pressed). If you
+are in interactive mode, a ﬁrst C-c kills the foreground job (or does nothing if no job is running on
+foreground).
+</p><!--l. 288--><p class="indent" >   For example consider the following piece of code:
+</p><!--l. 290--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 290--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109"> (4s) </span><br /><span class="label"><a
+ id="x30-206002r2"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 292--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello world!&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206003r3"></a></span></pre>
+   </div>
+<!--l. 295--><p class="noindent" >If you try to execute this code, you will notice that you can no longer execute commands, since the
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span></span> job is foreground (because of the semicolon). Now if you press C-c, the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span></span> job is killed, all
+the pending commands you may have typed are cleared from the execution queue, and you get back
+with a working interactive mode.
+</p><!--l. 302--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 302--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206004r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109"> (1s) echo(</span><!--l. 303--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello world!&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x30-206005r2"></a></span><!--l. 304--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00010181] *** Hello world!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206006r3"></a></span><!--l. 305--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00011181] *** Hello world!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206007r4"></a></span><!--l. 306--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This command is entered while the foreground job blocks the evaluation.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206008r5"></a></span><!--l. 307--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// It waits to be executed.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206009r6"></a></span><span class="cmtt-10x-x-109">echo(</span><!--l. 308--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;done&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x30-206010r7"></a></span><!--l. 309--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00012181] *** Hello world!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206011r8"></a></span><!--l. 310--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00013181] *** Hello world!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206012r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206013r10"></a></span><!--l. 312--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Pressing Control-C here:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206014r11"></a></span><!--l. 313--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00014100:error] !!! received interruption, killing foreground job.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206015r12"></a></span><!--l. 314--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Note that the &#x0022;echo&#x0022; is not run, the command queue is flushed.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206016r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206017r14"></a></span><!--l. 316--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// New commands are honored.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206018r15"></a></span><span class="cmtt-10x-x-109">echo(</span><!--l. 317--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;interrupted&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x30-206019r16"></a></span><!--l. 318--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00019709] *** interrupted</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206020r17"></a></span></pre>
+   </div>
+<!--l. 321--><p class="indent" >   A second C-c (or SIGINT) within the 1.5s after the ﬁrst one tries to execute <a
+href="urbiscript-standard-library.html#slot:System.shutdown"><span class="lstinline"><span class="cmtt-10x-x-109">System.shutdown</span></span></a>.
+This can take a while, in particular if you have remote UObjects, since a clean shutdown will ﬁrst take
+care of disconnecting them cleanly.
+</p><!--l. 326--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 326--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206021r1"></a></span><!--l. 327--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Two Control-C in a row.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206022r2"></a></span><!--l. 328--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00493865:error] !!! received interruption, killing foreground job.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206023r3"></a></span><!--l. 329--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00494672:error] !!! received interruption, shutting down.</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-206024r4"></a></span></pre>
+   </div>
+<!--l. 332--><p class="indent" >   Pressing C-c a third time triggers the default behavior: killing the program in emergency,
+by-passing all the cleanups.
+</p><!--l. 337--><p class="indent" >   In non-interactive mode (after a <a
+href="urbiscript-standard-library.html#slot:Lobby.quit"><span class="lstinline"><span class="cmtt-10x-x-109">Lobby.quit</span></span></a> on the server lobby for example), the ﬁrst C-c
+executes <a
+href="urbiscript-standard-library.html#slot:System.shutdown"><span class="lstinline"><span class="cmtt-10x-x-109">System.shutdown</span></span></a>, and the second one triggers the default behavior.
+</p><!--l. 342--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.4   </span> <a
+href="index.html#QQ2-30-214" id="x30-20700019.4"><span
+class="cmtt-10x-x-109">urbi-image </span>— Querying Images from a Server</a></h3>
+<a
+ id="x30-207001"></a>
+<!--l. 346--><p class="noindent" ><div class="code shell">
+<!--l. 346--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-207002r1"></a></span><span class="cmtt-10x-x-109">urbi-image </span><!--l. 347--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span
+class="cmtt-10x-x-109">...</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-207003r2"></a></span></pre>
+   </div>
+<!--l. 350--><p class="noindent" >Connect to an Urbi server, and fetch images from it, for instance from its camera.
+</p><!--l. 353--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.4.1   </span> <a
+href="contents.html#QQ2-30-215" id="x30-20800019.4.1">Options</a></h4>
+<!--l. 355--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-20900019.4.1" id="x30-20900019.4.1"><span
+class="cmbx-10x-x-109">General Options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-209001"></a><a
+ id="x30-209002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-209003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.</dd></dl>
+<!--l. 360--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-21000019.4.1" id="x30-21000019.4.1"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-210001"></a><a
+ id="x30-210002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-H</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--host=</span><span
+class="cmitt-10x-x-109">host</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Address to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-210003"></a><a
+ id="x30-210004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-P</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--port=</span><span
+class="cmitt-10x-x-109">port</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Port to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-210005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--port-file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Connect to the port contained in the ﬁle <span
+class="cmitt-10x-x-109">file</span>.</dd></dl>
+<!--l. 367--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-21100019.4.1" id="x30-21100019.4.1"><span
+class="cmbx-10x-x-109">Tuning</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-211001"></a><a
+ id="x30-211002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-p</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--period=</span><span
+class="cmitt-10x-x-109">period</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Specify the period, in millisecond, at which images are queried.
+     </dd><dt class="description">
+<a
+ id="x30-211003"></a><a
+ id="x30-211004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-F</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--format=</span><span
+class="cmitt-10x-x-109">format</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Select format of the image (‘<span
+class="cmtt-10x-x-109">rgb</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">ycrcb</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">jpeg</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">ppm</span>&#x2019;).
+     </dd><dt class="description">
+<a
+ id="x30-211005"></a><a
+ id="x30-211006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-r</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--reconstruct</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Use reconstruct mode (for aibo).
+     </dd><dt class="description">
+<a
+ id="x30-211007"></a><a
+ id="x30-211008"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-j</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--jpeg=</span><span
+class="cmitt-10x-x-109">factor</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />JPEG compression factor (from 0 to 100, defaults to 70).
+     </dd><dt class="description">
+<a
+ id="x30-211009"></a><a
+ id="x30-211010"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-d</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--device=</span><span
+class="cmitt-10x-x-109">device</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Query image on <span
+class="cmitt-10x-x-109">device</span>.val (default: <span
+class="cmtt-10x-x-109">camera</span>).
+     </dd><dt class="description">
+<a
+ id="x30-211011"></a><a
+ id="x30-211012"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-o</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--output=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Query and save one image to <span
+class="cmitt-10x-x-109">file</span>.
+     </dd><dt class="description">
+<a
+ id="x30-211013"></a><a
+ id="x30-211014"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-R</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--resolution=</span><span
+class="cmitt-10x-x-109">resolution</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Select resolution of the image (0=biggest).
+     </dd><dt class="description">
+<a
+ id="x30-211015"></a><a
+ id="x30-211016"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-s</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--scale=</span><span
+class="cmitt-10x-x-109">factor</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Rescale image with given <span
+class="cmitt-10x-x-109">factor </span>(display only).</dd></dl>
+<!--l. 385--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.5   </span> <a
+href="index.html#QQ2-30-219" id="x30-21200019.5"><span
+class="cmtt-10x-x-109">urbi-launch </span>— Running a UObject</a></h3>
+<a
+ id="x30-212001"></a>
+<!--l. 389--><p class="noindent" >The <span
+class="cmtt-10x-x-109">urbi-launch </span>program launches an Urbi system. It is more general than <span
+class="cmtt-10x-x-109">urbi </span>(<a
+href="#x30-20000019.3">Section 19.3<!--tex4ht:ref: sec:tut:import --></a>):
+everything <span
+class="cmtt-10x-x-109">urbi </span>can do, <span
+class="cmtt-10x-x-109">urbi-launch </span>can do it too.
+</p><!--l. 393--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.5.1   </span> <a
+href="contents.html#QQ2-30-220" id="x30-21300019.5.1">Invoking <span
+class="cmtt-10x-x-109">urbi-launch</span></a></h4>
+<!--l. 395--><p class="noindent" ><span
+class="cmtt-10x-x-109">urbi-launch </span>launches UObjects, either in plugged-in mode, or in remote mode. Since UObjects can
+also accept options, the command line features two parts, separated by ‘<span
+class="cmtt-10x-x-109">--</span>&#x2019;:
+</p><!--l. 399--><p class="indent" >   <div class="code shell">
+<!--l. 399--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-213001r1"></a></span><span class="cmtt-10x-x-109">urbi-launch [</span><!--l. 400--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span class="cmtt-10x-x-109">...] </span><!--l. 400--><span class="listings-nested"><span
+class="cmitt-10x-x-109">module</span></span><span class="cmtt-10x-x-109">... [-- </span><!--l. 400--><span class="listings-nested"><span
+class="cmitt-10x-x-109">module-option</span></span><span
+class="cmtt-10x-x-109">...]</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-213002r2"></a></span></pre>
+   </div>
+<!--l. 403--><p class="indent" >   The <span
+class="cmitt-10x-x-109">module</span>s are looked for in the <span class="cmtt-10x-x-109">URBI_UOBJECT_PATH</span>. The <span
+class="cmitt-10x-x-109">module </span>extension (‘<span
+class="cmtt-10x-x-109">.so</span>&#x2019;, or ‘<span
+class="cmtt-10x-x-109">.dll</span>&#x2019;)
+does not need to be speciﬁed.
+</p>
+<!--l. 407--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-21400019.5.1" id="x30-21400019.5.1"><span
+class="cmbx-10x-x-109">Options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-214001"></a><a
+ id="x30-214002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-214003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-214004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--print-root</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the <span
+class="cmitt-10x-x-109">urbi-root </span>and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-214005"></a><a
+ id="x30-214006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-c</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--customize=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Start the Urbi server in <span
+class="cmitt-10x-x-109">file</span>. This option is mostly for developers.
+     </dd><dt class="description">
+<a
+ id="x30-214007"></a><a
+ id="x30-214008"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-d</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--debug=</span><span
+class="cmitt-10x-x-109">level</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the verbosity level of traces. See the <span class="cmtt-10x-x-109">GD_LEVEL </span>documentation (<a
+href="#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:tut:import --></a>).</dd></dl>
+<!--l. 416--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-21500019.5.1" id="x30-21500019.5.1"><span
+class="cmbx-10x-x-109">Mode selection</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-215001"></a><a
+ id="x30-215002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-p</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--plugin</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Attach the <span
+class="cmitt-10x-x-109">module </span>onto a currently running Urbi server (identiﬁed by <span
+class="cmitt-10x-x-109">host </span>and <span
+class="cmitt-10x-x-109">port</span>).
+     This is equivalent to running <span class="lstinline"><span class="cmtt-10x-x-109">loadModule(</span><span class="textstr"></span><span
+class="cmtt-10x-x-109">&#x0022;</span><span
+class="cmitt-10x-x-109">module</span><span class="cmtt-10x-x-109">&#x0022;)</span></span> on the corresponding server.
+     </dd><dt class="description">
+<a
+ id="x30-215003"></a><a
+ id="x30-215004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-r</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--remote</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Run the <span
+class="cmitt-10x-x-109">modules </span>as separated processes, connected to a running Urbi server (identiﬁed
+     by <span
+class="cmitt-10x-x-109">host </span>and <span
+class="cmitt-10x-x-109">port</span>) via network connection.
+     </dd><dt class="description">
+<a
+ id="x30-215005"></a><a
+ id="x30-215006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-s</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--start</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Start an Urbi server with plugged-in <span
+class="cmitt-10x-x-109">modules</span>. In this case, the <span
+class="cmitt-10x-x-109">module-option </span>are exactly
+     the options supported by <span
+class="cmtt-10x-x-109">urbi</span>.</dd></dl>
+<!--l. 431--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-21600019.5.1" id="x30-21600019.5.1"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+   <span
+class="cmtt-10x-x-109">urbi-launch </span>supports the same networking options (‘<span
+class="cmtt-10x-x-109">--host</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">--port</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">--port-file</span>&#x2019;) as <span
+class="cmtt-10x-x-109">urbi</span>,
+see <a
+href="#x30-20000019.3">Section 19.3<!--tex4ht:ref: sec:tut:import --></a>.
+</p><!--l. 436--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.5.2   </span> <a
+href="contents.html#QQ2-30-224" id="x30-21700019.5.2">Examples</a></h4>
+<!--l. 438--><p class="noindent" >To launch a fresh server in an interactive session with the <span class="lstinline"><span
+class="cmtt-10x-x-109">UMachine</span></span> UObject compiled as the ﬁle
+‘<span
+class="cmtt-10x-x-109">test/machine.so</span>&#x2019; (or ‘<span
+class="cmtt-10x-x-109">test/machine.dll</span>&#x2019; plugged in, run:
+</p><!--l. 442--><p class="indent" >   <div class="code shell">
+<!--l. 442--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-217001r1"></a></span><span class="cmtt-10x-x-109">urbi-launch --start test/machine -- --interactive</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-217002r2"></a></span></pre>
+   </div>
+<!--l. 446--><p class="indent" >   To start an Urbi server accepting connections on the local port 54000 from any remote host, with
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UMachine</span></span> plugged in, run:
+</p><!--l. 449--><p class="indent" >   <div class="code shell">
+<!--l. 449--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-217003r1"></a></span><span class="cmtt-10x-x-109">urbi-launch --start --host 0.0.0.0 --port 54000 test/machine</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-217004r2"></a></span></pre>
+   </div>
+<!--l. 453--><p class="indent" >   Since <span
+class="cmtt-10x-x-109">urbi-launch </span>in server mode is basically the same as running the <span
+class="cmtt-10x-x-109">urbi </span>program, both
+programs are quit the same way (see <a
+href="#x30-20600019.3.2">Section 19.3.2<!--tex4ht:ref: sec:tut:import --></a>).
+</p><!--l. 457--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.5.3   </span> <a
+href="contents.html#QQ2-30-225" id="x30-21800019.5.3">UObject Module Options</a></h4>
+<!--l. 460--><p class="noindent" >Being a program that runs programs <span
+class="cmtt-10x-x-109">urbi-launch </span>is also providing access to the options supported by
+the UObject middleware: pass them after ‘<span
+class="cmtt-10x-x-109">--</span>&#x2019; in plugin mode. For instance:
+</p><!--l. 464--><p class="indent" >   <div class="code shell">
+<!--l. 464--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-218001r1"></a></span><span class="cmtt-10x-x-109">$ urbi-launch test/all -- --version </span><br /><span class="label"><a
+ id="x30-218002r2"></a></span><span class="cmtt-10x-x-109">Urbi version 3.x.y</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-218003r3"></a></span></pre>
+   </div>
+<!--l. 469--><p class="indent" >   The options supporting by the UObject middleware are described below.
+</p>
+<!--l. 471--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-21900019.5.3" id="x30-21900019.5.3"><span
+class="cmbx-10x-x-109">UObject options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-219001"></a><a
+ id="x30-219002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-219003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-219004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--describe</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Describe the loaded modules on the standard output and exit.
+     </dd><dt class="description">
+<a
+ id="x30-219005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--describe-file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Describe the loaded modules in the <span
+class="cmitt-10x-x-109">file </span>exit.
+     </dd><dt class="description">
+<a
+ id="x30-219006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--no-sync-client</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Use an asynchronous connection. This mode is extremely dangerous, any attempt to use
+     synchronous operation will crash.
+     </dd><dt class="description">
+<a
+ id="x30-219007"></a><a
+ id="x30-219008"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-s</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--stay-alive</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Do not disconnect at the end of the program.
+     </dd><dt class="description">
+<a
+ id="x30-219009"></a><a
+ id="x30-219010"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-d</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--disconnect</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Disconnect at the end of the program. This is the default.
+     </dd><dt class="description">
+<a
+ id="x30-219011"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--server</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Start the remote in server mode.</dd></dl>
+<!--l. 485--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-22000019.5.3" id="x30-22000019.5.3"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+   Beside the usual options (‘<span
+class="cmtt-10x-x-109">--host</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">--port</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">--port-file</span>&#x2019;, see <a
+href="#x30-20000019.3">Section 19.3<!--tex4ht:ref: sec:tut:import --></a>), the following
+options are supported.
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-220001"></a><a
+ id="x30-220002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-b</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--buffer=</span><span
+class="cmitt-10x-x-109">size</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Specify the buﬀer size.</dd></dl>
+<!--l. 493--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-22100019.5.3" id="x30-22100019.5.3"><span
+class="cmbx-10x-x-109">Input</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-221001"></a><a
+ id="x30-221002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-e</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--expression=</span><span
+class="cmitt-10x-x-109">exp</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Send the urbiscript expression <span
+class="cmitt-10x-x-109">exp</span>. No separator is added, you have to pass yours.
+     </dd><dt class="description">
+<a
+ id="x30-221003"></a><a
+ id="x30-221004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-f</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Send the contents of the ﬁle <span
+class="cmitt-10x-x-109">file</span>. No separator is added, you have to pass yours.
+     </dd><dt class="description">
+<a
+ id="x30-221005"></a><a
+ id="x30-221006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-m</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--module=</span><span
+class="cmitt-10x-x-109">module</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Load the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span><span
+class="cmitt-10x-x-109">module</span>.</dd></dl>
+<!--l. 501--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.6   </span> <a
+href="index.html#QQ2-30-229" id="x30-22200019.6"><span
+class="cmtt-10x-x-109">urbi-launch-java </span>— Running a Java UObject</a></h3>
+<!--l. 504--><p class="noindent" >Java UObjects can only be run remotely, they cannot be “plugged”. So, while <span
+class="cmtt-10x-x-109">urbi-launch-java </span>is
+really alike <span
+class="cmtt-10x-x-109">urbi-launch</span>, it is not the same either. See also <a
+href="the-uobject-java-api.html#x42-77300026.1.2">Section 26.1.2<!--tex4ht:ref: sec:tut:import --></a> for a more tutorial-like
+introduction to <span
+class="cmtt-10x-x-109">urbi-launch-java</span>.
+</p><!--l. 509--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.6.1   </span> <a
+href="contents.html#QQ2-30-230" id="x30-22300019.6.1">Invoking <span
+class="cmtt-10x-x-109">urbi-launch-java</span></a></h4>
+<!--l. 511--><p class="noindent" ><span
+class="cmtt-10x-x-109">urbi-launch-java </span>launches Java UObjects, either in plugged-in mode, or in remote mode.
+Since UObjects can also accept options, the command line features two parts, separated by
+‘<span
+class="cmtt-10x-x-109">--</span>&#x2019;:
+</p><!--l. 515--><p class="indent" >   <div class="code shell">
+<!--l. 515--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-223001r1"></a></span><span class="cmtt-10x-x-109">urbi-launch-java [</span><!--l. 516--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span class="cmtt-10x-x-109">...] </span><!--l. 516--><span class="listings-nested"><span
+class="cmitt-10x-x-109">module</span></span><span class="cmtt-10x-x-109">... [-- </span><!--l. 516--><span class="listings-nested"><span
+class="cmitt-10x-x-109">module-option</span></span><span
+class="cmtt-10x-x-109">...]</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-223002r2"></a></span></pre>
+   </div>
+<!--l. 519--><p class="indent" >   The <span
+class="cmitt-10x-x-109">module</span>s are looked for in the <span class="cmtt-10x-x-109">URBI_UOBJECT_PATH</span>. The <span
+class="cmitt-10x-x-109">module </span>extension (‘<span
+class="cmtt-10x-x-109">.so</span>&#x2019;, or ‘<span
+class="cmtt-10x-x-109">.dll</span>&#x2019;)
+does not need to be speciﬁed.
+</p>
+<!--l. 523--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-22400019.6.1" id="x30-22400019.6.1"><span
+class="cmbx-10x-x-109">Options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-224001"></a><a
+ id="x30-224002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-224003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-224004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--print-root</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the <span
+class="cmitt-10x-x-109">urbi-root </span>and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-224005"></a><a
+ id="x30-224006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-C</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--check</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Exit  successfully  if  and  only  if  Java  UObject  is  usable  (it  might  not  be  compiled  or
+     installed).
+     </dd><dt class="description">
+<a
+ id="x30-224007"></a><a
+ id="x30-224008"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-d</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--debug=</span><span
+class="cmitt-10x-x-109">level</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the verbosity level of traces. See the <span class="cmtt-10x-x-109">GD_LEVEL </span>documentation (<a
+href="#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:tut:import --></a>).</dd></dl>
+<!--l. 532--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-22500019.6.1" id="x30-22500019.6.1"><span
+class="cmbx-10x-x-109">Java</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-225001"></a><a
+ id="x30-225002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-c</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--classpath=</span><span
+class="cmitt-10x-x-109">path</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Pass a colon-separated list of directories, JAR archives, and ZIP archives to search for
+     class ﬁles.</dd></dl>
+<!--l. 537--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-22600019.6.1" id="x30-22600019.6.1"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+   <span
+class="cmtt-10x-x-109">urbi-launch-java </span>supports the same networking options (‘<span
+class="cmtt-10x-x-109">--host</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">--port</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">--port-file</span>&#x2019;) as
+<span
+class="cmtt-10x-x-109">urbi</span>, see <a
+href="#x30-20000019.3">Section 19.3<!--tex4ht:ref: sec:tut:import --></a>.
+</p><!--l. 543--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.7   </span> <a
+href="index.html#QQ2-30-234" id="x30-22700019.7"><span
+class="cmtt-10x-x-109">urbi-ping </span>— Checking the Delays with a Server</a></h3>
+<a
+ id="x30-227001"></a>
+<!--l. 547--><p class="noindent" ><div class="code shell">
+<!--l. 547--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-227002r1"></a></span><span class="cmtt-10x-x-109">urbi-ping </span><!--l. 548--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span class="cmtt-10x-x-109">... [</span><!--l. 548--><span class="listings-nested"><span
+class="cmitt-10x-x-109">host</span></span><span class="cmtt-10x-x-109">] [</span><!--l. 548--><span class="listings-nested"><span
+class="cmitt-10x-x-109">interval</span></span><span class="cmtt-10x-x-109">] [</span><!--l. 548--><span class="listings-nested"><span
+class="cmitt-10x-x-109">count</span></span><span
+class="cmtt-10x-x-109">]</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-227003r2"></a></span></pre>
+   </div>
+<!--l. 551--><p class="noindent" >Send “ping”s to an Urbi server, and report how long it took for “pong”s to come back.
+</p><!--l. 554--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.7.1   </span> <a
+href="contents.html#QQ2-30-235" id="x30-22800019.7.1">Options</a></h4>
+<!--l. 556--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-22900019.7.1" id="x30-22900019.7.1"><span
+class="cmbx-10x-x-109">General Options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-229001"></a><a
+ id="x30-229002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-229003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.</dd></dl>
+<!--l. 561--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-23000019.7.1" id="x30-23000019.7.1"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-230001"></a><a
+ id="x30-230002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-H</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--host=</span><span
+class="cmitt-10x-x-109">host</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Address to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-230003"></a><a
+ id="x30-230004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-P</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--port=</span><span
+class="cmitt-10x-x-109">port</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Port to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-230005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--port-file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Connect to the port contained in the ﬁle <span
+class="cmitt-10x-x-109">file</span>.</dd></dl>
+<!--l. 568--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-23100019.7.1" id="x30-23100019.7.1"><span
+class="cmbx-10x-x-109">Tuning</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-231001"></a><a
+ id="x30-231002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-c</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--count=</span><span
+class="cmitt-10x-x-109">count</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Number of pings to send. Pass 0 to send an unlimited number of pings. Defaults to 0.
+     </dd><dt class="description">
+<a
+ id="x30-231003"></a><a
+ id="x30-231004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-i</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--interval=</span><span
+class="cmitt-10x-x-109">interval</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the delays between pings, in milliseconds. Pass 0 to ﬂood the connection. Defaults to
+     1000.</dd></dl>
+<!--l. 575--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.8   </span> <a
+href="index.html#QQ2-30-239" id="x30-23200019.8"><span
+class="cmtt-10x-x-109">urbi-send </span>— Sending urbiscript Commands to a Server</a></h3>
+<a
+ id="x30-232001"></a>
+<!--l. 579--><p class="noindent" ><div class="code shell">
+<!--l. 579--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-232002r1"></a></span><span class="cmtt-10x-x-109">urbi-send </span><!--l. 580--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span
+class="cmtt-10x-x-109">...</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-232003r2"></a></span></pre>
+   </div>
+<!--l. 583--><p class="noindent" >Connect to an Urbi server, and send commands or ﬁle contents to it. Stay connected, until server
+disconnection, or user interruption (such as C-c under a Unix terminal).
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-232004"></a><a
+ id="x30-232005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-e</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--expression=</span><span
+class="cmitt-10x-x-109">script</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Send <span
+class="cmitt-10x-x-109">script </span>to the server.
+     </dd><dt class="description">
+<a
+ id="x30-232006"></a><a
+ id="x30-232007"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-f</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Send the contents of <span
+class="cmitt-10x-x-109">file </span>to the server.
+     </dd><dt class="description">
+<a
+ id="x30-232008"></a><a
+ id="x30-232009"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-m</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--module=</span><span
+class="cmitt-10x-x-109">module</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Load the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span><span
+class="cmitt-10x-x-109">module</span>. This is equivalent to ‘<span
+class="cmtt-10x-x-109">-e &#x2019;loadModule(&#x0022;</span><span
+class="cmitt-10x-x-109">module</span><span
+class="cmtt-10x-x-109">&#x0022;);&#x2019;</span>&#x2019;.
+     </dd><dt class="description">
+<a
+ id="x30-232010"></a><a
+ id="x30-232011"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-232012"></a><a
+ id="x30-232013"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-H</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--host=</span><span
+class="cmitt-10x-x-109">host</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Address to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-232014"></a><a
+ id="x30-232015"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-P</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--port=</span><span
+class="cmitt-10x-x-109">port</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Port to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-232016"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--port-file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Connect to the port contained in the ﬁle <span
+class="cmitt-10x-x-109">file</span>.
+     </dd><dt class="description">
+<a
+ id="x30-232017"></a><a
+ id="x30-232018"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-Q</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--quit</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Disconnect  from  the  server  immediately  after  having  sent  all  the  commands.  This  is
+     equivalent to ‘<span
+class="cmtt-10x-x-109">-e &#x2019;quit;&#x2019;</span>&#x2019; at the end of the options. This is inappropriate if code running
+     in background is expected to deliver its result asynchronously: the connection will be closed
+     before the result was sent.
+     <!--l. 604--><p class="noindent" >Without this option, <span
+class="cmtt-10x-x-109">urbi-send </span>prompts the user to hit C-c to end the connection.
+     </p></dd><dt class="description">
+<a
+ id="x30-232019"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.</dd></dl>
+<!--l. 610--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.9   </span> <a
+href="index.html#QQ2-30-240" id="x30-23300019.9"><span
+class="cmtt-10x-x-109">urbi-sound </span>— Querying Sounds from a Server</a></h3>
+<a
+ id="x30-233001"></a>
+<!--l. 614--><p class="noindent" ><div class="code shell">
+<!--l. 614--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-233002r1"></a></span><span class="cmtt-10x-x-109">urbi-sound </span><!--l. 615--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span
+class="cmtt-10x-x-109">...</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-233003r2"></a></span></pre>
+   </div>
+<!--l. 618--><p class="noindent" >Connect to an Urbi server, and record sounds from it, and play them on ‘<span
+class="cmtt-10x-x-109">/dev/dsp</span>&#x2019;. This is only
+supported on GNU/Linux. If ‘<span
+class="cmtt-10x-x-109">[</span>&#x2019;o]output is speciﬁed, the recording is saved instead of being
+played.
+</p><!--l. 623--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.9.1   </span> <a
+href="contents.html#QQ2-30-241" id="x30-23400019.9.1">Options</a></h4>
+<!--l. 625--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-23500019.9.1" id="x30-23500019.9.1"><span
+class="cmbx-10x-x-109">General Options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-235001"></a><a
+ id="x30-235002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-235003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.</dd></dl>
+<!--l. 630--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-23600019.9.1" id="x30-23600019.9.1"><span
+class="cmbx-10x-x-109">Networking</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-236001"></a><a
+ id="x30-236002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-H</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--host=</span><span
+class="cmitt-10x-x-109">host</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Address to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-236003"></a><a
+ id="x30-236004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-P</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--port=</span><span
+class="cmitt-10x-x-109">port</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Port to connect to.
+     </dd><dt class="description">
+<a
+ id="x30-236005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--port-file=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Connect to the port contained in the ﬁle <span
+class="cmitt-10x-x-109">file</span>.</dd></dl>
+<!--l. 637--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-23700019.9.1" id="x30-23700019.9.1"><span
+class="cmbx-10x-x-109">Tuning</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-237001"></a><a
+ id="x30-237002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-d</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--device=</span><span
+class="cmitt-10x-x-109">device</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Query image on <span
+class="cmitt-10x-x-109">device</span>.val (default: <span
+class="cmtt-10x-x-109">camera</span>).
+     </dd><dt class="description">
+<a
+ id="x30-237003"></a><a
+ id="x30-237004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-D</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--duration=</span><span
+class="cmitt-10x-x-109">duration</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Specify, in seconds, how long the recording is performed.
+     </dd><dt class="description">
+<a
+ id="x30-237005"></a><a
+ id="x30-237006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-n</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--no-header</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />When saving the sound, do not include the WAV headers in the ﬁle.
+     </dd><dt class="description">
+<a
+ id="x30-237007"></a><a
+ id="x30-237008"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-o</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--output=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Save the sound into <span
+class="cmitt-10x-x-109">file</span>.</dd></dl>
+<!--l. 648--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">19.10   </span> <a
+href="index.html#QQ2-30-245" id="x30-23800019.10"><span
+class="cmtt-10x-x-109">umake </span>— Compiling UObject Components</a></h3>
+<a
+ id="x30-238001"></a>
+<!--l. 652--><p class="noindent" >The <span
+class="cmtt-10x-x-109">umake </span>programs builds loadable modules, UObjects, to be later run using <span
+class="cmtt-10x-x-109">urbi-launch</span>
+(<a
+href="#x30-21200019.5">Section 19.5<!--tex4ht:ref: sec:tut:import --></a>). Using it is not mandatory: users familiar with their compilation tools will probably
+prefer using them directly. Yet <span
+class="cmtt-10x-x-109">umake </span>makes things more uniform and simpler, at the cost of less
+control.
+</p><!--l. 659--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.10.1   </span> <a
+href="contents.html#QQ2-30-246" id="x30-23900019.10.1">Invoking <span
+class="cmtt-10x-x-109">umake</span></a></h4>
+<!--l. 662--><p class="noindent" >Usage: <div class="code shell">
+<!--l. 663--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-239001r1"></a></span><span class="cmtt-10x-x-109">umake </span><!--l. 664--><span class="listings-nested"><span
+class="cmitt-10x-x-109">option</span></span><span class="cmtt-10x-x-109">... </span><!--l. 664--><span class="listings-nested"><span
+class="cmitt-10x-x-109">file</span></span><span
+class="cmtt-10x-x-109">...</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x30-239002r2"></a></span></pre>
+   </div>
+<!--l. 667--><p class="indent" >   Compile the <span
+class="cmitt-10x-x-109">file</span>. The <span
+class="cmitt-10x-x-109">files </span>can be of diﬀerent kinds: </p>
+     <ul class="itemize1">
+     <li class="itemize">objects ﬁles (‘<span
+class="cmtt-10x-x-109">*.o</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.obj</span>&#x2019; and so forth) and linked into the result.
+     </li>
+     <li class="itemize">libraries (‘<span
+class="cmtt-10x-x-109">*.a</span>&#x2019;) and linked into the result.
+     </li>
+     <li class="itemize">source ﬁles (‘<span
+class="cmtt-10x-x-109">*.cc</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.cpp</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.c</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.C</span>&#x2019;) are compiled.
+     </li>
+     <li class="itemize">header ﬁles (‘<span
+class="cmtt-10x-x-109">*.h</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.hh</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.hxx</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">*.hpp</span>&#x2019;) are <span
+class="cmti-10x-x-109">not </span>compiled, but used as dependencies:
+     if a header ﬁle is changed, the next <span
+class="cmtt-10x-x-109">umake </span>run will actually recompile.
+     </li>
+     <li class="itemize">directories are recursively traversed, and ﬁles of the above types are gathered as if they
+     were given on the command line.</li></ul>
+<!--l. 682--><p class="indent" >   There are several environment variables that <span
+class="cmtt-10x-x-109">umake </span>reads:
+     </p><dl class="list1"><dt class="list">
+<a
+ id="x30-239003"></a><span
+class="cmtt-10x-x-109">CPPFLAGS</span> </dt><dd
+class="list">
+     <!--l. 684--><p class="noindent" >Options passed to the preprocessor.
+     </p></dd><dt class="list">
+<a
+ id="x30-239004"></a><span
+class="cmtt-10x-x-109">CXXFLAGS</span> </dt><dd
+class="list">
+     <!--l. 685--><p class="noindent" >Options passed to the C++ compiler.
+     </p></dd><dt class="list">
+<a
+ id="x30-239005"></a><span
+class="cmtt-10x-x-109">LDFLAGS</span> </dt><dd
+class="list">
+     <!--l. 686--><p class="noindent" >Options passed to the linker.</p></dd></dl>
+<!--l. 689--><p class="indent" >   The arguments of <span
+class="cmtt-10x-x-109">umake </span>may also include assignments, i.e., arguments of the type ‘<span
+class="cmitt-10x-x-109">var</span><span
+class="cmtt-10x-x-109">=</span><span
+class="cmitt-10x-x-109">val </span>&#x2019;. The
+behavior depends on <span
+class="cmitt-10x-x-109">var</span>, the name of the variable:
+     </p><dl class="list1"><dt class="list">
+<a
+ id="x30-239006"></a><span class="cmtt-10x-x-109">EXTRA_CPPFLAGS</span> </dt><dd
+class="list">
+     <!--l. 693--><p class="noindent" >Appended to the options passed to the preprocessor.
+     </p></dd><dt class="list">
+<a
+ id="x30-239007"></a><span class="cmtt-10x-x-109">EXTRA_CXXFLAGS</span> </dt><dd
+class="list">
+     <!--l. 694--><p class="noindent" >Appended to the options passed to the C++ compiler.
+     </p></dd><dt class="list">
+<a
+ id="x30-239008"></a><span class="cmtt-10x-x-109">EXTRA_LDFLAGS</span> </dt><dd
+class="list">
+     <!--l. 695--><p class="noindent" >Appended to the options passed to the linker.
+     </p></dd><dt class="list">
+<a
+ id="x30-239009"></a><span
+class="cmtt-10x-x-109">VPATH</span> </dt><dd
+class="list">
+     <!--l. 696--><p class="noindent" >Appended to the <span
+class="cmtt-10x-x-109">VPATH</span>, i.e., the list of directories in which the sources are looked for.</p></dd></dl>
+<!--l. 699--><p class="noindent" >Otherwise, the argument is passed as is to <span
+class="cmtt-10x-x-109">make</span>.
+</p>
+<!--l. 702--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-24000019.10.1" id="x30-24000019.10.1"><span
+class="cmbx-10x-x-109">General options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-240001"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--debug</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Turn on shell debugging (<span class="lstinline"><span class="cmtt-10x-x-109">set -x</span></span>) to track <span
+class="cmtt-10x-x-109">umake </span>problems.
+     </dd><dt class="description">
+<a
+ id="x30-240002"></a><a
+ id="x30-240003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-h</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--help</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output the help message and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-240004"></a><a
+ id="x30-240005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-q</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--quiet</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Produce no output except errors.
+     </dd><dt class="description">
+<a
+ id="x30-240006"></a><a
+ id="x30-240007"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-V</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--version</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Output version information and exit successfully.
+     </dd><dt class="description">
+<a
+ id="x30-240008"></a><a
+ id="x30-240009"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-v</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--verbose</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Report on what is done.</dd></dl>
+<!--l. 711--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-24100019.10.1" id="x30-24100019.10.1"><span
+class="cmbx-10x-x-109">Compilation options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-241001"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--deep-clean</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Remove all building directories and exit.
+     </dd><dt class="description">
+<a
+ id="x30-241002"></a><a
+ id="x30-241003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-c</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--clean</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Clean building directory before compilation.
+     </dd><dt class="description">
+<a
+ id="x30-241004"></a><a
+ id="x30-241005"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-j</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--jobs=</span><span
+class="cmitt-10x-x-109">jobs</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Specify the numbers of compilation commands to run simultaneously.
+     </dd><dt class="description">
+<a
+ id="x30-241006"></a><a
+ id="x30-241007"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-l</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--library</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Produce a library, don&#x2019;t link to a particular core.
+     </dd><dt class="description">
+<a
+ id="x30-241008"></a><a
+ id="x30-241009"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-s</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--shared</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Produce a shared library loadable by any core.
+     </dd><dt class="description">
+<a
+ id="x30-241010"></a><a
+ id="x30-241011"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-o</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--output=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the output ﬁle name.
+     </dd><dt class="description">
+<a
+ id="x30-241012"></a><a
+ id="x30-241013"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-C</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--core=</span><span
+class="cmitt-10x-x-109">core</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the build type.
+     </dd><dt class="description">
+<a
+ id="x30-241014"></a><a
+ id="x30-241015"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-H</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--host=</span><span
+class="cmitt-10x-x-109">host</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the destination host.
+     </dd><dt class="description">
+<a
+ id="x30-241016"></a><a
+ id="x30-241017"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-m</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--disable-automain</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Do not add the <span class="lstinline"><span
+class="cmtt-10x-x-109">main</span></span> function.
+     </dd><dt class="description">
+<a
+ id="x30-241018"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">--package=</span><span
+class="cmitt-10x-x-109">pkg</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Use <span
+class="cmtt-10x-x-109">pkg-config </span>to retrieve compilation ﬂags (<span
+class="cmtt-10x-x-109">cflags </span>and <span
+class="cmtt-10x-x-109">libs</span>). Fails if <span
+class="cmtt-10x-x-109">pkg-config </span>does
+     not know about the package <span
+class="cmitt-10x-x-109">pkg</span>.</dd></dl>
+<!--l. 727--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-24200019.10.1" id="x30-24200019.10.1"><span
+class="cmbx-10x-x-109">Compiler and linker options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-242001"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-D</span><span
+class="cmitt-10x-x-109">symbol</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Forwarded to the preprocessor (i.e., added to the <span class="cmtt-10x-x-109">EXTRA_CPPFLAGS</span>).
+     </dd><dt class="description">
+<a
+ id="x30-242002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-I</span><span
+class="cmitt-10x-x-109">path</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Forwarded to the preprocessor (i.e., added to the <span class="cmtt-10x-x-109">EXTRA_CPPFLAGS</span>).
+     </dd><dt class="description">
+<a
+ id="x30-242003"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-L</span><span
+class="cmitt-10x-x-109">path</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Forwarded to the linker (i.e., added to the <span class="cmtt-10x-x-109">EXTRA_LDFLAGS</span>).
+     </dd><dt class="description">
+<a
+ id="x30-242004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-l</span><span
+class="cmitt-10x-x-109">lib</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Forwarded to the linker (i.e., added to the <span class="cmtt-10x-x-109">EXTRA_LDFLAGS</span>).</dd></dl>
+<!--l. 738--><p class="noindent" ><span class="paragraphHead"><a
+href="#x30-24300019.10.1" id="x30-24300019.10.1"><span
+class="cmbx-10x-x-109">Developer options</span></a></span>
+     </p><dl class="description"><dt class="description">
+<a
+ id="x30-243001"></a><a
+ id="x30-243002"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-p</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--prefix=</span><span
+class="cmitt-10x-x-109">dir</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set library ﬁles location.
+     </dd><dt class="description">
+<a
+ id="x30-243003"></a><a
+ id="x30-243004"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-P</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--param-mk=</span><span
+class="cmitt-10x-x-109">file</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set ‘<span
+class="cmtt-10x-x-109">param.mk</span>&#x2019; location.
+     </dd><dt class="description">
+<a
+ id="x30-243005"></a><a
+ id="x30-243006"></a><span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">-k</span><span
+class="cmbx-10x-x-109">&#x2019;, ‘</span><span
+class="cmtt-10x-x-109">--kernel=</span><span
+class="cmitt-10x-x-109">dir</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description"> <br
+class="newline" />Set the kernel location.</dd></dl>
+<!--l. 745--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">19.10.2   </span> <a
+href="contents.html#QQ2-30-251" id="x30-24400019.10.2"><span
+class="cmtt-10x-x-109">umake </span>Wrappers</a></h4>
+<a
+ id="x30-244001"></a>
+<a
+ id="x30-244002"></a>
+<!--l. 752--><p class="noindent" >As a convenience for common <span
+class="cmtt-10x-x-109">umake </span>usages, some wrappers are provided:
+     </p><dl class="description"><dt class="description">
+<span
+class="cmtt-10x-x-109">umake-deepclean</span> </dt><dd
+class="description">— Cleaning<br
+class="newline" />Clean the temporary ﬁles made by running <span
+class="cmtt-10x-x-109">umake </span>with the same arguments. Same as
+     ‘<span
+class="cmtt-10x-x-109">umake --deep-clean</span>&#x2019;.
+     </dd><dt class="description">
+<span
+class="cmtt-10x-x-109">umake-shared</span> </dt><dd
+class="description">— Compiling Shared UObjects<br
+class="newline" />Build a shared object to be later run using <span
+class="cmtt-10x-x-109">urbi-launch </span>(<a
+href="#x30-21200019.5">Section 19.5<!--tex4ht:ref: sec:tut:import --></a>). Same as ‘<span
+class="cmtt-10x-x-109">umake</span>
+     <span
+class="cmtt-10x-x-109">--shared-library</span>&#x2019;.</dd></dl>
+</body></html>

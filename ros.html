@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>22 Communication with ROS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="urbi-standard-robotics-api.html" >Next</a><a
+href="urbi-sdk-reference-manual.html#ros.html" >Up</a><a
+href="urbiscript-standard-library.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 22</span><br /><a
+href="index.html#QQ2-36-784" id="x36-66700022">Communication with ROS</a></h2>
+<!--l. 10--><p class="noindent" ><!-- tex4ht:FileName="ros" -->
+</p><!--l. 13--><p class="indent" >   This chapter is not an introduction to using ROS from Urbi, see <a
+href="ros-tutorial.html#x16-7300012">Listing 12<!--tex4ht:ref: sec:tut:import --></a> for a tutorial.
+</p><!--l. 16--><p class="indent" >   Urbi provides a set of tools to communicate with ROS (Robot Operating System). For more
+information about ROS, please refer to <a
+href="http://www.ros.org" ><span
+class="cmtt-10x-x-109">http://www.ros.org</span></a>. Urbi, acting as a ROS node, is able to
+interact with the ROS world.
+</p>
+   <div class="paragraphTOCS">
+    <span class="sectionToc" ><a
+href="#Q1-36-787">22.1             Ros</a></span>
+<br />     <span class="subsectionToc" >22.1.1 <a
+href="#x36-67000022.1.1">Construction</a></span>
+<br />     <span class="subsectionToc" >22.1.2 <a
+href="#x36-67100022.1.2">Slots</a></span>
+<br />    <span class="sectionToc" ><a
+href="#Q1-36-790">22.2             Ros.Topic</a></span>
+<br />     <span class="subsectionToc" >22.2.1 <a
+href="#x36-67200022.2.1">Construction</a></span>
+<br />     <span class="subsectionToc" >22.2.2 <a
+href="#x36-67300022.2.2">Slots</a></span>
+<br />     <span class="subsectionToc" >22.2.3 <a
+href="#x36-67700022.2.3">Example</a></span>
+<br />    <span class="sectionToc" ><a
+href="#Q1-36-797">22.3             Ros.Service</a></span>
+<br />     <span class="subsectionToc" >22.3.1 <a
+href="#x36-67800022.3.1">Construction</a></span>
+<br />     <span class="subsectionToc" >22.3.2 <a
+href="#x36-67900022.3.2">Slots</a></span>
+   </div>
+<!--l. 22--><p class="noindent" ><span class="paragraphHead"><a
+href="#x36-66800022" id="x36-66800022"><span
+class="cmbx-10x-x-109">Requirements</span></a></span>
+   You need to have installed ROS (possibly a recent version), and compiled all of the common ROS
+tools (<span
+class="cmtt-10x-x-109">rxconsole</span>, <span
+class="cmtt-10x-x-109">roscore</span>, <span
+class="cmtt-10x-x-109">roscpp</span>, &hellip;).
+</p><!--l. 28--><p class="indent" >   You also need to have a few environment variables set, normally provided with ROS installation:
+<span class="cmtt-10x-x-109">ROS_ROOT</span>, <span class="cmtt-10x-x-109">ROS_MASTER_URI </span>and <span class="cmtt-10x-x-109">ROS_PACKAGE_PATH</span>.
+</p>
+<!--l. 33--><p class="noindent" ><span class="paragraphHead"><a
+href="#x36-66900022" id="x36-66900022"><span
+class="cmbx-10x-x-109">Usage</span></a></span>
+   The classes are implemented as UObjects (see <a
+href="uobjects.html#x38-720000IV">Listing IV<!--tex4ht:ref: sec:tut:import --></a>): <a
+href="#object:Ros"><span class="lstinline"><span
+class="cmtt-10x-x-109">Ros</span></span></a>, <a
+href="#object:Ros.Topic"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.Topic</span></span></a>, and <a
+href="#object:Ros.Service"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.Service</span></span></a>.
+</p><!--l. 38--><p class="indent" >   This module is loaded automatically if <span class="cmtt-10x-x-109">ROS_ROOT </span>is set in your environment. If <span
+class="cmtt-10x-x-109">roscore </span>is not
+launched, you will be warned and Urbi will check regularly for <span
+class="cmtt-10x-x-109">roscore</span>.
+</p><!--l. 42--><p class="indent" >   If for any reason you need to load this module manually, use: <div class="code urbiunchecked">
+<!--l. 43--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-669001r1"></a></span><span class="cmtt-10x-x-109">loadModule(</span><!--l. 44--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;urbi/ros&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-669002r2"></a></span></pre>
+   </div>
+<!--l. 48--><p class="indent" >
+<a
+ id="x36-669003r403"></a>
+</p><!--l. 48--><p class="noindent" ><span
+class="cmbx-12x-x-120">22.1</span>   <a
+ id="object:Ros"></a><a
+ id="x36-669004"></a><span
+class="cmbx-12x-x-120">Ros</span>
+<a
+ id="Q1-36-787"></a>
+</p><!--l. 50--><p class="indent" >   This object provides some handy tools to know the status of <span
+class="cmtt-10x-x-109">roscore</span>, to list the diﬀerent nodes,
+topics, services, &hellip;It also serves as a namespace entry point for ROS entities, such as <a
+href="#object:Ros.Topic"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.Topic</span></span></a> and so
+forth.
+</p><!--l. 55--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.1.1   </span> <a
+href="contents.html#QQ2-36-788" id="x36-67000022.1.1">Construction</a></h4>
+<!--l. 57--><p class="noindent" >There is no construction, since this class only provides a set of tools related to ROS in general, or the
+current node (which is unique per instance of Urbi).
+</p><!--l. 61--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.1.2   </span> <a
+href="contents.html#QQ2-36-789" id="x36-67100022.1.2">Slots</a></h4>
+     <ul class="itemize1">
+     <li class="itemize"><a
+ id="slot:Ros.checkMaster"></a><a
+ id="x36-671001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">checkMaster</span></span> <br
+class="newline" />Whether <span
+class="cmtt-10x-x-109">roscore </span>is accessible.
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.name"></a><a
+ id="x36-671002"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">name</span></span> <br
+class="newline" />The name of the current node associated with Urbi (as a string). The name of an Urbi
+     node is generally composed of ‘<span class="cmtt-10x-x-109">/urbi_+</span><span
+class="cmitt-10x-x-109">random </span>&#x2019; sequence.
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.nodes"></a><a
+ id="x36-671003"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">nodes</span></span> <br
+class="newline" />A <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a> containing all the nodes known by <span
+class="cmtt-10x-x-109">roscore</span>. Each key is a node name. Its
+     associated value is another <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a>, with the following keys: <span class="lstinline"><span
+class="cmtt-10x-x-109">publish</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">subscribe</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">services</span></span>.
+     Each of these keys is associated with a list of topics or services. <div class="code urbiassert">
+        <!--l. 79--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671004r1"></a></span><!--l. 80--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> Ros.nodes; </span><br /><span class="label"><a
+ id="x36-671005r2"></a></span><span class="cmtt-10x-x-109">Ros.name </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> Ros.nodes;</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671006r3"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Service"></a><a
+ id="x36-671007"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">Service</span></span> <br
+class="newline" />The <a
+href="#object:Ros.Service"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.Service</span></span></a> class.
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.services"></a><a
+ id="x36-671008"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">services</span></span> <br
+class="newline" />A <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a> containing all the services known by <span
+class="cmtt-10x-x-109">roscore</span>. Each key is the name of a service,
+     and the associated value is a list of nodes that provide this service.
+     <div class="code urbiscript">
+        <!--l. 99--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671009r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> services = Ros.services| </span><br /><span class="label"><a
+ id="x36-671010r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> name = Ros.name|; </span><br /><span class="label"><a
+ id="x36-671011r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671012r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x36-671013r5"></a></span><span class="cmtt-10x-x-109">         </span><!--l. 104--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout/get_loggers&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> services; </span><br /><span class="label"><a
+ id="x36-671014r6"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 105--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout/set_logger_level&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> services; </span><br /><span class="label"><a
+ id="x36-671015r7"></a></span><span class="cmtt-10x-x-109">       (name + </span><!--l. 106--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/get_loggers&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> services; </span><br /><span class="label"><a
+ id="x36-671016r8"></a></span><span class="cmtt-10x-x-109">  (name + </span><!--l. 107--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/set_logger_level&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> services; </span><br /><span class="label"><a
+ id="x36-671017r9"></a></span><span
+class="cmtt-10x-x-109">};</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671018r10"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic"></a><a
+ id="x36-671019"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">Topic</span></span> <br
+class="newline" />The <a
+href="#object:Ros.Topic"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.Topic</span></span></a> class.
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.topics"></a><a
+ id="x36-671020"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">topics</span></span> <br
+class="newline" />A <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a> containing all the topics advertised to <span
+class="cmtt-10x-x-109">roscore</span>. Each key is the name of a topic,
+     and the associated value is another <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a>, with the following keys: <span class="lstinline"><span
+class="cmtt-10x-x-109">subscribers</span></span>,
+     <span class="lstinline"><span
+class="cmtt-10x-x-109">publishers</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">type</span></span>. <div class="code urbiscript">
+        <!--l. 124--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671021r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> topics = Ros.topics|; </span><br /><span class="label"><a
+ id="x36-671022r2"></a></span><span class="cmtt-10x-x-109">topics.keys; </span><br /><span class="label"><a
+ id="x36-671023r3"></a></span><span class="cmtt-10x-x-109">[03316144] [</span><!--l. 127--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout_agg&#x0022;</span></span></span><span class="cmtt-10x-x-109">] </span><br /><span class="label"><a
+ id="x36-671024r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671025r5"></a></span><!--l. 129--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The actual value of the &#x0022;type&#x0022; field depends on the ROS version</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671026r6"></a></span><!--l. 130--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// (the location changed, but the type is the same):</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671027r7"></a></span><!--l. 131--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// - &#x0022;roslib/Log&#x0022; for CTurtle.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671028r8"></a></span><!--l. 132--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// - &#x0022;rosgraph_msgs/Log&#x0022; for Diamondback and later.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671029r9"></a></span><span class="cmtt-10x-x-109">topics[</span><!--l. 133--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout_agg&#x0022;</span></span></span><span class="cmtt-10x-x-109">]; </span><br /><span class="label"><a
+ id="x36-671030r10"></a></span><span class="cmtt-10x-x-109">[03325634] [</span><!--l. 134--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;publishers&#x0022;</span></span></span><span class="cmtt-10x-x-109"> =&#x003E; [</span><!--l. 134--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout&#x0022;</span></span></span><span class="cmtt-10x-x-109">], \ </span><br /><span class="label"><a
+ id="x36-671031r11"></a></span><!--l. 135--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">    &#x0022;subscribers&#x0022; =&#x003E; [], \</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671032r12"></a></span><!--l. 136--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">    &#x0022;type&#x0022; =&#x003E; &#x0022;rosgraph_msgs/Log&#x0022;]</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-671033r13"></a></span></pre>
+     </div>
+     </li></ul>
+<!--l. 144--><p class="noindent" >
+<a
+ id="x36-671034r403"></a>
+</p><!--l. 144--><p class="noindent" ><span
+class="cmbx-12x-x-120">22.2</span>   <a
+ id="object:Ros.Topic"></a><a
+ id="x36-671035"></a><span
+class="cmbx-12x-x-120">Ros.Topic</span>
+<a
+ id="Q1-36-790"></a>
+</p><!--l. 146--><p class="indent" >   This <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> provides a handy way to communicate through ROS topics, by subscribing to
+existent topics or advertising to them.
+</p><!--l. 149--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.2.1   </span> <a
+href="contents.html#QQ2-36-791" id="x36-67200022.2.1">Construction</a></h4>
+<!--l. 151--><p class="noindent" >To create a new topic, call <span class="lstinline"><span class="cmtt-10x-x-109">Ros.topic.new</span></span> with a string (the name of the topic you want to subscribe
+to / advertise on).
+</p><!--l. 154--><p class="indent" >   The topic name can only contain alphanumerical characters, ‘<span
+class="cmtt-10x-x-109">/</span>&#x2019; and ‘<span
+class="cmtt-10x-x-109">_</span>&#x2019;, and cannot be empty. If
+the topic name is invalid, an exception is thrown and the topic is not created.
+</p><!--l. 158--><p class="indent" >   Until you decide what you want to do with your topic (<a
+href="#slot:Ros.Topic.subscribe"><span class="lstinline"><span
+class="cmtt-10x-x-109">subscribe</span></span></a> or <a
+href="#slot:Ros.Topic.advertise"><span class="lstinline"><span
+class="cmtt-10x-x-109">advertise</span></span></a>), you are free to
+call <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> to change its name.
+</p><!--l. 163--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.2.2   </span> <a
+href="contents.html#QQ2-36-792" id="x36-67300022.2.2">Slots</a></h4>
+<!--l. 165--><p class="noindent" >Some slots on this <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> have no interest once the type of instance is determined. For example, you
+cannot call <a
+href="#slot:Ros.Topic.unsubscribe"><span class="lstinline"><span
+class="cmtt-10x-x-109">unsubscribe</span></span></a> if you <a
+href="#slot:Ros.Topic.advertise"><span class="lstinline"><span
+class="cmtt-10x-x-109">advertise</span></span></a>, and in the same way you cannot call <a
+href="#slot:Ros.Topic.publish"><span class="lstinline"><span
+class="cmtt-10x-x-109">publish</span></span></a> if you
+subscribed to a topic.
+</p><!--l. 170--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">22.2.2.1   </span> <a
+href="contents.html#QQ2-36-793" id="x36-67400022.2.2.1">Common</a></h5>
+     <ul class="itemize1">
+     <li class="itemize"><a
+ id="slot:Ros.Topic.name"></a><a
+ id="x36-674001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">name</span></span> <br
+class="newline" />The name of the topic provided to <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>. <div class="code urbiassert">
+        <!--l. 175--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-674002r1"></a></span><span class="cmtt-10x-x-109">Ros.Topic.new(</span><!--l. 176--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/test&#x0022;</span></span></span><span class="cmtt-10x-x-109">).name == </span><!--l. 176--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/test&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">;</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-674003r2"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.structure"></a><a
+ id="x36-674004"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">structure</span></span> <br
+class="newline" />Once <a
+href="#slot:Ros.Topic.advertise"><span class="lstinline"><span
+class="cmtt-10x-x-109">advertise</span></span></a> or <a
+href="#slot:Ros.Topic.subscribe"><span class="lstinline"><span
+class="cmtt-10x-x-109">subscribe</span></span></a> has been called, this slot contains a template of the message type,
+     with default values for each type (empty strings, zeros, &hellip;). This template is a <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a>.
+     <div class="code urbiscript">
+        <!--l. 185--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-674005r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> logTopic = Ros.Topic.new(</span><!--l. 186--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout_agg&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x36-674006r2"></a></span><span class="cmtt-10x-x-109">logTopic.subscribe|; </span><br /><span class="label"><a
+ id="x36-674007r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-674008r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x36-674009r5"></a></span><span class="cmtt-10x-x-109">  logTopic.structure.keys </span><br /><span class="label"><a
+ id="x36-674010r6"></a></span><span class="cmtt-10x-x-109">    == [</span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;file&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;function&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;header&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;level&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;line&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;msg&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;name&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 191--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;topics&#x0022;</span></span></span><span class="cmtt-10x-x-109">]; </span><br /><span class="label"><a
+ id="x36-674011r7"></a></span><span
+class="cmtt-10x-x-109">};</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-674012r8"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.subscriberCount"></a><a
+ id="x36-674013"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">subscriberCount</span></span> <br
+class="newline" />The number of subscribers for the topic given in <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>; 0 if the topic is not registered.</li></ul>
+<!--l. 205--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">22.2.2.2   </span> <a
+href="contents.html#QQ2-36-794" id="x36-67500022.2.2.2">Subscription</a></h5>
+     <ul class="itemize1">
+     <li class="itemize"><a
+ id="slot:Ros.Topic.onMessage"></a><a
+ id="x36-675001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">onMessage</span></span> <br
+class="newline" />Event triggered when a new message is received from a subscribed channel, the payload
+     of this event contains the message.
+     <!--l. 212--><p class="noindent" ><div class="code urbiunchecked">
+<!--l. 212--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-675002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> t = Ros.Topic.new(</span><!--l. 213--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/test&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x36-675003r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (t.onMessage?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> m)) </span><br /><span class="label"><a
+ id="x36-675004r3"></a></span><span class="cmtt-10x-x-109">  echo(m); </span><br /><span class="label"><a
+ id="x36-675005r4"></a></span><span class="cmtt-10x-x-109">t.subscribe;</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-675006r5"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.subscribe"></a><a
+ id="x36-675007"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">subscribe</span></span> <br
+class="newline" />Subscribe to the provided topic. Throw an exception if it doesn&#x2019;t exist, or if the type advertised
+     by ROS for this topic does not exist. From the call of this method, a direct connection is
+     made between the advertiser and the subscriber which starts deserializing the received
+     messages.
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.unsubscribe"></a><a
+ id="x36-675008"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">unsubscribe</span></span> <br
+class="newline" />Unsubscribe from a previously subscribed channel, and set the state of the instance as if <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>
+     was called but not subscribe.</li></ul>
+<!--l. 236--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">22.2.2.3   </span> <a
+href="contents.html#QQ2-36-795" id="x36-67600022.2.2.3">Advertising</a></h5>
+     <ul class="itemize1">
+     <li class="itemize"><a
+ id="slot:Ros.Topic.'<<'"></a><a
+ id="x36-676001"></a><span class="lstinline"><span class="cmtt-10x-x-109">&#x2019;&#x003C;&#x003C;&#x2019;(</span><span
+class="cmitt-10x-x-109">message</span><span
+class="cmtt-10x-x-109">)</span></span> <br
+class="newline" />An alias for <a
+href="#slot:Ros.Topic.publish"><span class="lstinline"><span
+class="cmtt-10x-x-109">publish</span></span></a>. <div class="code urbiscript">
+        <!--l. 241--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> stringPub = Ros.Topic.new(</span><!--l. 242--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/mytest&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x36-676003r2"></a></span><span class="cmtt-10x-x-109">stringPub.advertise(</span><!--l. 243--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;std_msgs/String&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x36-676004r3"></a></span><span class="cmtt-10x-x-109">stringPub &#x003C;&#x003C; [</span><!--l. 244--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109"> =&#x003E; </span><!--l. 244--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello world!&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">];</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676005r4"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.advertise"></a><a
+ id="x36-676006"></a><span class="lstinline"><span class="cmtt-10x-x-109">advertise(</span><span
+class="cmitt-10x-x-109">type</span><span
+class="cmtt-10x-x-109">)</span></span> <br
+class="newline" />Tells ROS that this node will advertise on the topic given in <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>, with the type <span
+class="cmitt-10x-x-109">type</span>. <span
+class="cmitt-10x-x-109">type</span>
+     must be a valid ROS type, such as ‘<span
+class="cmtt-10x-x-109">roslib/Log</span>&#x2019;. If <span
+class="cmitt-10x-x-109">type </span>is an empty string, the method
+     will try to check whether a node is already advertising on this topic, and its type.
+     <div class="code urbiscript">
+        <!--l. 257--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676007r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> stringPub = Ros.Topic.new(</span><!--l. 258--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/mytest&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x36-676008r2"></a></span><span class="cmtt-10x-x-109">stringPub.advertise(</span><!--l. 259--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;std_msgs/String&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x36-676009r3"></a></span><span class="cmtt-10x-x-109">stringPub.structure; </span><br /><span class="label"><a
+ id="x36-676010r4"></a></span><!--l. 261--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00670809] [&#x0022;data&#x0022; =&#x003E; &#x0022;&#x0022;]</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676011r5"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.onConnect"></a><a
+ id="x36-676012"></a><span class="lstinline"><span class="cmtt-10x-x-109">onConnect(</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span> <br
+class="newline" />Event triggered when the current instance is advertising on a topic and a node subscribes to this
+     topic. The payload <span
+class="cmitt-10x-x-109">name </span>is the name of the node that subscribed. See also <a
+href="#slot:Ros.Topic.onDisconnect"><span class="lstinline"><span
+class="cmtt-10x-x-109">onDisconnect</span></span></a>.
+     <div class="code urbiscript">
+        <!--l. 272--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676013r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Ros.Topic.new(</span><!--l. 273--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/test/publisher&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x36-676014r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> sync (p.onConnect?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> n)) </span><br /><span class="label"><a
+ id="x36-676015r3"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 275--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;%s has subscribed to %s&#x0022;</span></span></span><span class="cmtt-10x-x-109"> % [n, p.name]); </span><br /><span class="label"><a
+ id="x36-676016r4"></a></span><!--l. 276--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The structure is not defined, yet.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676017r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109"> (p.structure.isVoid); </span><br /><span class="label"><a
+ id="x36-676018r6"></a></span><span class="cmtt-10x-x-109">p.advertise(</span><!--l. 278--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;std_msgs/String&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x36-676019r7"></a></span><!--l. 279--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The structure is ready to be used.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676020r8"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109"> (p.structure == [</span><!--l. 280--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109"> =&#x003E; </span><!--l. 280--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x36-676021r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676022r10"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> s = Ros.Topic.new(</span><!--l. 282--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/test/publisher&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">)|;</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676023r11"></a></span></pre>
+     </div>
+     Subscription and unsubscription are asynchronous. To make them synchronous, we <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span></span>
+     the connection event is sent. The ﬁrst idea: <div class="code urbiunchecked">
+        <!--l. 288--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676024r1"></a></span><span class="cmtt-10x-x-109">s.subscribe; </span><br /><span class="label"><a
+ id="x36-676025r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span><span class="cmtt-10x-x-109"> (p.onConnect?);</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676026r3"></a></span></pre>
+     </div>
+     is wrong: the event (ﬁred in the ﬁrst line) might be accomplished before the second line is even
+     started. In that case, Urbi will remain suspended, waiting for an already passed event.
+     Rather, we will “waituntil” in background <span
+class="cmti-10x-x-109">before </span>subscribing, and rely on the fact that
+     scopes “wait” for all the background statements to be ﬁnished (<a
+href="urbiscript-language-reference-manual.html#x31-26300020.1.7.2">Section 20.1.7.2<!--tex4ht:ref: sec:tut:import --></a>):
+     <div class="code urbiscript">
+        <!--l. 299--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676027r1"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x36-676028r2"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span><span class="cmtt-10x-x-109"> (p.onConnect?), </span><br /><span class="label"><a
+ id="x36-676029r3"></a></span><span class="cmtt-10x-x-109">  s.subscribe; </span><br /><span class="label"><a
+ id="x36-676030r4"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x36-676031r5"></a></span><!--l. 304--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00077308] *** /urbi_1317980847216045000 has subscribed to /test/publisher</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676032r6"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.onDisconnect"></a><a
+ id="x36-676033"></a><span class="lstinline"><span class="cmtt-10x-x-109">onDisconnect(</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span> <br
+class="newline" />Event triggered when the current instance is advertising on a topic, and a node unsubscribes
+     from this topic. The payload <span
+class="cmitt-10x-x-109">name </span>is the name of the node that unsubscribed. See also
+     <a
+href="#slot:Ros.Topic.onConnect"><span class="lstinline"><span
+class="cmtt-10x-x-109">onConnect</span></span></a>. The following example is a continuation of the previous one. <div class="code urbiscript">
+        <!--l. 313--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676034r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (p.onDisconnect?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> n)) </span><br /><span class="label"><a
+ id="x36-676035r2"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 315--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;%s has unsubscribed to %s&#x0022;</span></span></span><span class="cmtt-10x-x-109"> % [n, p.name]); </span><br /><span class="label"><a
+ id="x36-676036r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676037r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x36-676038r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span><span class="cmtt-10x-x-109"> (p.onDisconnect?), </span><br /><span class="label"><a
+ id="x36-676039r6"></a></span><span class="cmtt-10x-x-109">  s.unsubscribe; </span><br /><span class="label"><a
+ id="x36-676040r7"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x36-676041r8"></a></span><!--l. 321--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00077308] *** /urbi_1317980847216045000 has unsubscribed to /test/publisher</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676042r9"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.publish"></a><a
+ id="x36-676043"></a><span class="lstinline"><span class="cmtt-10x-x-109">publish(</span><span
+class="cmitt-10x-x-109">message</span><span
+class="cmtt-10x-x-109">)</span></span> <br
+class="newline" />Publish <span
+class="cmitt-10x-x-109">message </span>to the current topic. This method is usable only if <a
+href="#slot:Ros.Topic.advertise"><span class="lstinline"><span
+class="cmtt-10x-x-109">advertise</span></span></a> was called.
+     The message must follow the same structure as the one in the slot <span class="lstinline"><span
+class="cmtt-10x-x-109">structure</span></span>, or
+     it will throw an exception telling which key is missing / wrong in the dictionary.
+     <div class="code urbiscript">
+        <!--l. 333--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676044r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> stringPub = Ros.Topic.new(</span><!--l. 334--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/mytest&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x36-676045r2"></a></span><span class="cmtt-10x-x-109">stringPub.advertise(</span><!--l. 335--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;std_msgs/String&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x36-676046r3"></a></span><span class="cmtt-10x-x-109">stringPub.publish([</span><!--l. 336--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109"> =&#x003E; </span><!--l. 336--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello world!&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">]);</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-676047r4"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Topic.unadvertise"></a><a
+ id="x36-676048"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">unadvertise</span></span> <br
+class="newline" />Tells ROS that we stop publishing on this topic. The <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> then gets back to a state where it
+     could call <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>, <a
+href="#slot:Ros.Topic.subscribe"><span class="lstinline"><span
+class="cmtt-10x-x-109">subscribe</span></span></a> or <a
+href="#slot:Ros.Topic.advertise"><span class="lstinline"><span
+class="cmtt-10x-x-109">advertise</span></span></a>.</li></ul>
+<!--l. 350--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.2.3   </span> <a
+href="contents.html#QQ2-36-796" id="x36-67700022.2.3">Example</a></h4>
+<!--l. 352--><p class="noindent" >This is a typical example of the creation of a publisher, a subscriber, and message transmission
+between both of them.
+</p><!--l. 355--><p class="indent" >   First we need to declare our Publisher, the topic name is ‘<span
+class="cmtt-10x-x-109">/example</span>&#x2019;, and the type of message that
+will be sent on this topic is ‘<span class="cmtt-10x-x-109">std_msgs/String</span>&#x2019;. This type contains a single ﬁeld called ‘<span
+class="cmtt-10x-x-109">data</span>&#x2019;, holding
+a string. We also set up handlers for <a
+href="#slot:Ros.Topic.onConnect"><span class="lstinline"><span
+class="cmtt-10x-x-109">onConnect</span></span></a> and <a
+href="#slot:Ros.Topic.onDisconnect"><span class="lstinline"><span
+class="cmtt-10x-x-109">onDisconnect</span></span></a> to be noticed when someone
+subscribes to us.
+</p><!--l. 362--><p class="indent" >   <div class="code urbiscript">
+<!--l. 362--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> publisher = Ros.Topic.new(</span><!--l. 363--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/example&#x0022;</span></span></span><span class="cmtt-10x-x-109">)| </span><br /><span class="label"><a
+ id="x36-677002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (publisher.onConnect?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> name)) </span><br /><span class="label"><a
+ id="x36-677003r3"></a></span><span class="cmtt-10x-x-109">  echo(name[0,5] + </span><!--l. 365--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022; is now listening on &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + publisher.name); </span><br /><span class="label"><a
+ id="x36-677004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (publisher.onDisconnect?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> name)) </span><br /><span class="label"><a
+ id="x36-677005r5"></a></span><span class="cmtt-10x-x-109">  echo(name[0,5] + </span><!--l. 367--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022; is no longer listening on &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + publisher.name); </span><br /><span class="label"><a
+ id="x36-677006r6"></a></span><span class="cmtt-10x-x-109">publisher.advertise(</span><!--l. 368--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;std_msgs/String&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677007r7"></a></span></pre>
+   </div>
+<!--l. 371--><p class="indent" >   Then we subscribe to the freshly created topic, and for each message, we display the ‘<span
+class="cmtt-10x-x-109">data</span>&#x2019; section
+(which is the content of the message). Thanks to the previous <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> above, a message is displayed at
+subscription time.
+</p><!--l. 376--><p class="indent" >   <div class="code urbiscript">
+<!--l. 376--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677008r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> subscriber = Ros.Topic.new(</span><!--l. 377--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/example&#x0022;</span></span></span><span class="cmtt-10x-x-109">)| </span><br /><span class="label"><a
+ id="x36-677009r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (subscriber.onMessage?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> m)) </span><br /><span class="label"><a
+ id="x36-677010r3"></a></span><span class="cmtt-10x-x-109">  echo(m[</span><!--l. 379--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x36-677011r4"></a></span><span class="cmtt-10x-x-109">subscriber.subscribe; </span><br /><span class="label"><a
+ id="x36-677012r5"></a></span><!--l. 381--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Let the &#x0022;is now listening&#x0022; message arrive.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677013r6"></a></span><span class="cmtt-10x-x-109">sleep(200ms); </span><br /><span class="label"><a
+ id="x36-677014r7"></a></span><!--l. 383--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026580] *** /urbi is now listening on /example</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677015r8"></a></span></pre>
+   </div>
+<!--l. 386--><p class="indent" >   The structure for the messages are, of course, equal between the subscriber and the
+publisher.
+</p><!--l. 389--><p class="indent" >   <div class="code urbiassert">
+<!--l. 389--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677016r1"></a></span><span class="cmtt-10x-x-109">subscriber.structure == publisher.structure;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677017r2"></a></span></pre>
+   </div>
+<!--l. 393--><p class="indent" >   Now we can send a message, and get it back through the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> in the section above. To do this we
+ﬁrst copy the template structure and then ﬁll the ﬁeld ‘<span
+class="cmtt-10x-x-109">data</span>&#x2019; with our message.
+</p><!--l. 397--><p class="indent" >   <div class="code urbiscript">
+<!--l. 397--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677018r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> message = publisher.structure.new; </span><br /><span class="label"><a
+ id="x36-677019r2"></a></span><!--l. 399--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00098963] [&#x0022;data&#x0022; =&#x003E; &#x0022;&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677020r3"></a></span><span class="cmtt-10x-x-109">message[</span><!--l. 400--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = </span><!--l. 400--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello world!&#x0022;</span></span></span><span class="cmtt-10x-x-109">|; </span><br /><span class="label"><a
+ id="x36-677021r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677022r5"></a></span><!--l. 402--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// publish the message.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677023r6"></a></span><span class="cmtt-10x-x-109">publisher &#x003C;&#x003C; message; </span><br /><span class="label"><a
+ id="x36-677024r7"></a></span><!--l. 404--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Leave some time to asynchronous communications before shutting down.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677025r8"></a></span><span class="cmtt-10x-x-109">sleep(200ms); </span><br /><span class="label"><a
+ id="x36-677026r9"></a></span><!--l. 406--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00098964] *** Hello world!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677027r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677028r11"></a></span><span class="cmtt-10x-x-109">subscriber.unsubscribe; </span><br /><span class="label"><a
+ id="x36-677029r12"></a></span><!--l. 409--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Let the &#x0022;is no longer&#x0022; message arrive.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677030r13"></a></span><span class="cmtt-10x-x-109">sleep(200ms); </span><br /><span class="label"><a
+ id="x36-677031r14"></a></span><!--l. 411--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00252566] *** /urbi is no longer listening on /example</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-677032r15"></a></span></pre>
+   </div>
+<!--l. 415--><p class="indent" >
+<a
+ id="x36-677033r403"></a>
+</p><!--l. 415--><p class="noindent" ><span
+class="cmbx-12x-x-120">22.3</span>   <a
+ id="object:Ros.Service"></a><a
+ id="x36-677034"></a><span
+class="cmbx-12x-x-120">Ros.Service</span>
+<a
+ id="Q1-36-797"></a>
+</p><!--l. 417--><p class="indent" >   This <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> provides a handy way to call services provided by other ROS nodes.
+</p><!--l. 421--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.3.1   </span> <a
+href="contents.html#QQ2-36-798" id="x36-67800022.3.1">Construction</a></h4>
+<!--l. 423--><p class="noindent" >To create a new instance of this object, call <span class="lstinline"><span class="cmtt-10x-x-109">Ros.Service.new</span></span> with a string representing which
+service you want to use, and a Boolean stating whether the connection between you and the
+service provider should be kept opened (pass <span class="lstinline"><span
+class="cmtt-10x-x-109">true</span></span> for better performances on multiple
+requests).
+</p><!--l. 429--><p class="indent" >   The service name can only contain alphanumerical characters, ‘<span
+class="cmtt-10x-x-109">/</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">_</span>&#x2019;, and cannot be empty. If the
+service name is invalid, an exception is thrown, and the object is not created.
+</p><!--l. 433--><p class="indent" >   Then if the service does not exist, an other exception is thrown. Since the initialization is
+asynchronous internally, you need to wait for <span class="lstinline"><span
+class="cmitt-10x-x-109">service</span><span class="cmtt-10x-x-109">.initialized</span></span> to be true to be able to call
+<span class="lstinline"><span
+class="cmtt-10x-x-109">request</span></span>.
+</p><!--l. 439--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">22.3.2   </span> <a
+href="contents.html#QQ2-36-799" id="x36-67900022.3.2">Slots</a></h4>
+     <ul class="itemize1">
+     <li class="itemize"><a
+ id="slot:Ros.Service.initialized"></a><a
+ id="x36-679001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">initialized</span></span> <br
+class="newline" />Boolean. Whether the method <span
+class="cmitt-10x-x-109">request </span>is ready to be called, and whether <a
+href="#slot:Ros.Service.resStruct"><span class="lstinline"><span
+class="cmtt-10x-x-109">resStruct</span></span></a> and
+     <a
+href="#slot:Ros.Service.reqStruct"><span class="lstinline"><span
+class="cmtt-10x-x-109">reqStruct</span></span></a> are ﬁlled. <div class="code urbiscript">
+        <!--l. 445--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> logService = Ros.Service.new(</span><!--l. 446--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/rosout/get_loggers&#x0022;</span></span></span><span class="cmtt-10x-x-109">, false)|; </span><br /><span class="label"><a
+ id="x36-679003r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span><span class="cmtt-10x-x-109">(logService.initialized);</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679004r3"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Service.name"></a><a
+ id="x36-679005"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">name</span></span> <br
+class="newline" />The name of the current service. <div class="code urbiscript">
+        <!--l. 453--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679006r1"></a></span><span class="cmtt-10x-x-109">logService.name; </span><br /><span class="label"><a
+ id="x36-679007r2"></a></span><!--l. 455--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00036689] &#x0022;/rosout/get_loggers&#x0022;</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679008r3"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Service.reqStruct"></a><a
+ id="x36-679009"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">reqStruct</span></span> <br
+class="newline" />Get the template of the request message type, with default values for each type (empty strings,
+     zeros, &hellip;). This template is made of dictionaries. <div class="code urbiscript">
+        <!--l. 463--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679010r1"></a></span><span class="cmtt-10x-x-109">logService.reqStruct; </span><br /><span class="label"><a
+ id="x36-679011r2"></a></span><!--l. 465--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00029399] [ =&#x003E; ]</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679012r3"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Service.request"></a><a
+ id="x36-679013"></a><span class="lstinline"><span class="cmtt-10x-x-109">request(</span><span
+class="cmitt-10x-x-109">req</span><span
+class="cmtt-10x-x-109">)</span></span> <br
+class="newline" />Synchronous call to the service, providing <span
+class="cmitt-10x-x-109">req </span>as your request (following the structure of
+     <a
+href="#slot:Ros.Service.reqStruct"><span class="lstinline"><span
+class="cmtt-10x-x-109">reqStruct</span></span></a>). The returned value is a <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a> following the structure of <a
+href="#slot:Ros.Service.resStruct"><span class="lstinline"><span
+class="cmtt-10x-x-109">resStruct</span></span></a>,
+     containing the response to your request. <div class="code urbiscript">
+        <!--l. 474--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679014r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> item </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> logService.request([=&#x003E;])[</span><!--l. 475--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;loggers&#x0022;</span></span></span><span class="cmtt-10x-x-109">]) </span><br /><span class="label"><a
+ id="x36-679015r2"></a></span><span class="cmtt-10x-x-109">  echo(item); </span><br /><span class="label"><a
+ id="x36-679016r3"></a></span><!--l. 477--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00034567] *** [&#x0022;level&#x0022; =&#x003E; &#x0022;INFO&#x0022;, &#x0022;name&#x0022; =&#x003E; &#x0022;ros&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679017r4"></a></span><!--l. 478--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00034571] *** [&#x0022;level&#x0022; =&#x003E; &#x0022;INFO&#x0022;, &#x0022;name&#x0022; =&#x003E; &#x0022;ros.roscpp&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679018r5"></a></span><!--l. 479--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00034575] *** [&#x0022;level&#x0022; =&#x003E; &#x0022;INFO&#x0022;, &#x0022;name&#x0022; =&#x003E; &#x0022;ros.roscpp.roscpp_internal&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679019r6"></a></span><!--l. 480--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00034586] *** [&#x0022;level&#x0022; =&#x003E; &#x0022;WARN&#x0022;, &#x0022;name&#x0022; =&#x003E; &#x0022;ros.roscpp.superdebug&#x0022;]</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679020r7"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize"><a
+ id="slot:Ros.Service.resStruct"></a><a
+ id="x36-679021"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">resStruct</span></span> <br
+class="newline" />Get the template of the response message type, with default values for each type (empty strings,
+     zeros, &hellip;). This template is made of dictionaries. <div class="code urbiscript">
+        <!--l. 488--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679022r1"></a></span><span class="cmtt-10x-x-109">logService.resStruct; </span><br /><span class="label"><a
+ id="x36-679023r2"></a></span><!--l. 490--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00029399] [&#x0022;loggers&#x0022; =&#x003E; []]</span></span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x36-679024r3"></a></span></pre>
+     </div>
+     </li></ul>
+</body></html>

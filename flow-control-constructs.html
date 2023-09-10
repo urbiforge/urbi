@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>5 Flow Control Constructs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="advanced-functions-and-scoping.html" >Next</a><a
+href="urbiscript-user-manual.html#flow-control-constructs.html" >Up</a><a
+href="basic-objects-value-model.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 5</span><br /><a
+href="index.html#QQ2-9-35" id="x9-290005">Flow Control Constructs</a></h2>
+<!--l. 12--><p class="noindent" >In this section, we&#x2019;ll introduce some ﬂow control structures that will prove handy later. Most of them
+are inspired by C/C++.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >5.1 <a
+href="#x9-300005.1">if</a></span>
+<br />    <span class="sectionToc" >5.2 <a
+href="#x9-310005.2">while</a></span>
+<br />    <span class="sectionToc" >5.3 <a
+href="#x9-320005.3">for</a></span>
+<br />    <span class="sectionToc" >5.4 <a
+href="#x9-330005.4">switch</a></span>
+<br />    <span class="sectionToc" >5.5 <a
+href="#x9-340005.5">do</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">5.1   </span> <a
+href="index.html#QQ2-9-36" id="x9-300005.1">if</a></h3>
+<!--l. 17--><p class="noindent" >The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span></span> construct is the same has C/C++&#x2019;s one. The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span></span> keyword is followed by a condition between
+parentheses and an expression, and optionally the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span></span> keyword and another expression. If the
+condition evaluates to true, the ﬁrst expression is evaluated. Otherwise, the second expression is
+evaluated if present.
+</p><!--l. 24--><p class="indent" >   <div class="code urbiscript">
+<!--l. 24--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-30001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (true) </span><br /><span class="label"><a
+ id="x9-30002r2"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 26--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ok&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x9-30003r3"></a></span><!--l. 27--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ok</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-30004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (false) </span><br /><span class="label"><a
+ id="x9-30005r5"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 29--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ko&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><br /><span class="label"><a
+ id="x9-30006r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-30007r7"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 31--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ok&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x9-30008r8"></a></span><!--l. 32--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ok</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-30009r9"></a></span></pre>
+   </div>
+<!--l. 35--><p class="indent" >   The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span></span> construct is an expression: it has a value.
+</p><!--l. 37--><p class="indent" >   <div class="code urbiscript">
+<!--l. 37--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-30010r1"></a></span><span class="cmtt-10x-x-109">echo({ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (false) </span><!--l. 38--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;a&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 38--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;b&#x0022;</span></span></span><span class="cmtt-10x-x-109"> }); </span><br /><span class="label"><a
+ id="x9-30011r2"></a></span><!--l. 39--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** b</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-30012r3"></a></span></pre>
+   </div>
+<!--l. 42--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">5.2   </span> <a
+href="index.html#QQ2-9-37" id="x9-310005.2">while</a></h3>
+<!--l. 44--><p class="noindent" >The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span></span> construct is, again, the same as in C/C++. The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span></span> keyword is followed by a condition
+between parentheses and an expression. If the condition evaluation is false, the execution jumps after
+the while block; otherwise, the expression is evaluated and control jumps before the while
+block.
+</p><!--l. 51--><p class="indent" >   <div class="code urbiscript">
+<!--l. 51--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-31001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 2; </span><br /><span class="label"><a
+ id="x9-31002r2"></a></span><!--l. 53--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-31003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span><span class="cmtt-10x-x-109"> (x &#x003C; 40) </span><br /><span class="label"><a
+ id="x9-31004r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x9-31005r5"></a></span><span class="cmtt-10x-x-109">  x += 10; </span><br /><span class="label"><a
+ id="x9-31006r6"></a></span><span class="cmtt-10x-x-109">  echo(x); </span><br /><span class="label"><a
+ id="x9-31007r7"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x9-31008r8"></a></span><!--l. 59--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 12</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-31009r9"></a></span><!--l. 60--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 22</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-31010r10"></a></span><!--l. 61--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 32</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-31011r11"></a></span><!--l. 62--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-31012r12"></a></span></pre>
+   </div>
+<!--l. 65--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">5.3   </span> <a
+href="index.html#QQ2-9-38" id="x9-320005.3">for</a></h3>
+<!--l. 67--><p class="noindent" >The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span></span> keyword supports diﬀerent constructs, as in languages such as Java, C#, or even the
+forthcoming C++ revision.
+</p><!--l. 70--><p class="indent" >   The ﬁrst construct is hardly more than syntactic sugar for a <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span></span> loop.
+</p><!--l. 73--><p class="indent" >   <div class="code urbiscript">
+<!--l. 73--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 2; x &#x003C; 40; x += 10) </span><br /><span class="label"><a
+ id="x9-32002r2"></a></span><span class="cmtt-10x-x-109">  echo(x); </span><br /><span class="label"><a
+ id="x9-32003r3"></a></span><!--l. 76--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32004r4"></a></span><!--l. 77--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 12</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32005r5"></a></span><!--l. 78--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 22</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32006r6"></a></span><!--l. 79--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 32</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32007r7"></a></span></pre>
+   </div>
+<!--l. 82--><p class="indent" >   The second construct allows to iterate over members of a collection, such as a list. The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span></span>
+keyword, followed by <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span>, an identiﬁer, a colon (or <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span></span>), an expression and a scope, executes the scope
+for every element in the collection resulting of the evaluation of the expression, with the variable
+named with the identiﬁer referring to the list members.
+</p><!--l. 89--><p class="indent" >   <div class="code urbiscript">
+<!--l. 89--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32008r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> e : [1, 2, 3]) { echo(e) }; </span><br /><span class="label"><a
+ id="x9-32009r2"></a></span><!--l. 91--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32010r3"></a></span><!--l. 92--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32011r4"></a></span><!--l. 93--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-32012r5"></a></span></pre>
+   </div>
+<!--l. 96--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">5.4   </span> <a
+href="index.html#QQ2-9-39" id="x9-330005.4">switch</a></h3>
+<!--l. 98--><p class="noindent" >The syntax of the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">switch</span></span></span> construct is similar to C/C++&#x2019;s one, except it works on any kind of
+object, not only integral ones. Comparison is done by semantic equality (operator <span class="lstinline"><span
+class="cmtt-10x-x-109">==</span></span>).
+Execution will jump out of the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">switch</span></span></span>-block after a case has been executed (no need to
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">break</span></span></span>). Also, contrary to C++, the whole construct has a value: that of the matching
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">case</span></span></span>.
+</p><!--l. 106--><p class="indent" >   <div class="code urbiscript">
+<!--l. 106--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-33001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">switch</span></span><span class="cmtt-10x-x-109"> (</span><!--l. 107--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bar&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><br /><span class="label"><a
+ id="x9-33002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x9-33003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">case</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 109--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">:  0; </span><br /><span class="label"><a
+ id="x9-33004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">case</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 110--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bar&#x0022;</span></span></span><span class="cmtt-10x-x-109">:  1; </span><br /><span class="label"><a
+ id="x9-33005r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">case</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 111--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;baz&#x0022;</span></span></span><span class="cmtt-10x-x-109">:  2; </span><br /><span class="label"><a
+ id="x9-33006r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">case</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 112--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;qux&#x0022;</span></span></span><span class="cmtt-10x-x-109">:  3; </span><br /><span class="label"><a
+ id="x9-33007r7"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x9-33008r8"></a></span><!--l. 114--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-33009r9"></a></span></pre>
+   </div>
+<!--l. 117--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">5.5   </span> <a
+href="index.html#QQ2-9-40" id="x9-340005.5">do</a></h3>
+<!--l. 120--><p class="noindent" >A <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span> scope is a shorthand to perform several actions on an object.
+</p><!--l. 123--><p class="indent" >   <div class="code urbiscript">
+<!--l. 123--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o1 = Object.clone(); </span><br /><span class="label"><a
+ id="x9-34002r2"></a></span><!--l. 125--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x423a0708</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o1.one = 1; </span><br /><span class="label"><a
+ id="x9-34004r4"></a></span><!--l. 127--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o1.two = 2; </span><br /><span class="label"><a
+ id="x9-34006r6"></a></span><!--l. 129--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34007r7"></a></span><span class="cmtt-10x-x-109">echo(o1.uid); </span><br /><span class="label"><a
+ id="x9-34008r8"></a></span><!--l. 131--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 0x423a0708</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34009r9"></a></span></pre>
+   </div>
+<!--l. 134--><p class="indent" >   The same result can be obtained with a short <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span> scope, that redirect method calls to their target,
+as in the listing below. This is similar to the Pascal “<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">with</span></span></span>” construct. The value of the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span>-block is the
+target itself.
+</p><!--l. 140--><p class="indent" >   <div class="code urbiscript">
+<!--l. 140--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34010r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o2 = Object.clone(); </span><br /><span class="label"><a
+ id="x9-34011r2"></a></span><!--l. 142--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x42339e08</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34012r3"></a></span><!--l. 143--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// All the message in this scope are destined to o.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34013r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (o2) </span><br /><span class="label"><a
+ id="x9-34014r5"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x9-34015r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> one = 1; </span><!--l. 146--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// var is a shortcut for the setSlot</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34016r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> two = 2; </span><!--l. 147--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// message, so it applies on obj too.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34017r8"></a></span><span class="cmtt-10x-x-109">  echo(uid); </span><br /><span class="label"><a
+ id="x9-34018r9"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x9-34019r10"></a></span><!--l. 150--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 0x42339e08</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34020r11"></a></span><!--l. 151--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x42339e08</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x9-34021r12"></a></span></pre>
+   </div>
+</body></html>

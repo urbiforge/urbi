@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>11 Event-based Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="ros-tutorial.html" >Next</a><a
+href="urbiscript-user-manual.html#event-based-programming.html" >Up</a><a
+href="parallelism-concurrent-flow-control.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 11</span><br /><a
+href="index.html#QQ2-15-73" id="x15-6700011">Event-based Programming</a></h2>
+<!--l. 12--><p class="noindent" >When dealing with highly interactive agent programming, sequential programming is inconvenient. We
+want to react to external, random events, not execute code linearly with a predeﬁned ﬂow. urbiscript
+has a strong support for event-based programming.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >11.1 <a
+href="#x15-6800011.1">Watchdog constructs</a></span>
+<br />    <span class="sectionToc" >11.2 <a
+href="#x15-6900011.2">Events</a></span>
+<br />     <span class="subsectionToc" >11.2.1 <a
+href="#x15-7000011.2.1">Emitting Events</a></span>
+<br />     <span class="subsectionToc" >11.2.2 <a
+href="#x15-7100011.2.2">Emitting events with a payload</a></span>
+<br />     <span class="subsectionToc" >11.2.3 <a
+href="#x15-7200011.2.3">waituntil</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">11.1   </span> <a
+href="index.html#QQ2-15-74" id="x15-6800011.1">Watchdog constructs</a></h3>
+<!--l. 19--><p class="noindent" >The ﬁrst construct we will study uses the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> keyword. Given a condition and a statement, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> will
+evaluate the statement each time the condition <span
+class="cmti-10x-x-109">becomes </span>true. That is, when a rising edge occurs on the
+condition.
+</p><!--l. 24--><p class="indent" >   <div class="code urbiscript">
+<!--l. 24--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 0; </span><br /><span class="label"><a
+ id="x15-68002r2"></a></span><!--l. 26--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (x &#x003E; 5) </span><br /><span class="label"><a
+ id="x15-68004r4"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 28--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-68005r5"></a></span><span class="cmtt-10x-x-109">x = 5; </span><br /><span class="label"><a
+ id="x15-68006r6"></a></span><!--l. 30--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 5</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68007r7"></a></span><!--l. 31--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This triggers the event.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68008r8"></a></span><span class="cmtt-10x-x-109">x = 6; </span><br /><span class="label"><a
+ id="x15-68009r9"></a></span><!--l. 33--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 6</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68010r10"></a></span><!--l. 34--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68011r11"></a></span><!--l. 35--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Does not trigger, since the condition is already true.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68012r12"></a></span><span class="cmtt-10x-x-109">x = 7; </span><br /><span class="label"><a
+ id="x15-68013r13"></a></span><!--l. 37--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 7</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68014r14"></a></span><!--l. 38--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The condition becomes false here.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68015r15"></a></span><span class="cmtt-10x-x-109">x = 3; </span><br /><span class="label"><a
+ id="x15-68016r16"></a></span><!--l. 40--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68017r17"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68018r18"></a></span><span class="cmtt-10x-x-109">x = 10; </span><br /><span class="label"><a
+ id="x15-68019r19"></a></span><!--l. 43--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 10</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68020r20"></a></span><!--l. 44--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68021r21"></a></span></pre>
+   </div>
+<!--l. 47--><p class="indent" >   An <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">onleave</span></span></span> block can be appended to execute an expression when the expression <span
+class="cmti-10x-x-109">becomes </span>false —
+that is, on falling edges.
+</p><!--l. 50--><p class="indent" >   <div class="code urbiscript">
+<!--l. 50--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68022r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = false; </span><br /><span class="label"><a
+ id="x15-68023r2"></a></span><!--l. 52--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68024r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (x) </span><br /><span class="label"><a
+ id="x15-68025r4"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 54--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><br /><span class="label"><a
+ id="x15-68026r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">onleave</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68027r6"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 56--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;!x&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-68028r7"></a></span><span class="cmtt-10x-x-109">x = true; </span><br /><span class="label"><a
+ id="x15-68029r8"></a></span><!--l. 58--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68030r9"></a></span><!--l. 59--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** x</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68031r10"></a></span><span class="cmtt-10x-x-109">x = false; </span><br /><span class="label"><a
+ id="x15-68032r11"></a></span><!--l. 61--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68033r12"></a></span><!--l. 62--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** !x</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-68034r13"></a></span></pre>
+   </div>
+<!--l. 65--><p class="indent" >   See <a
+href="urbiscript-language-reference-manual.html#x31-36100020.11.1">Listing 20.11.1</a> for more details on <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> statements.
+</p><!--l. 69--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">11.2   </span> <a
+href="index.html#QQ2-15-75" id="x15-6900011.2">Events</a></h3>
+<!--l. 72--><p class="noindent" >In addition to monitoring an expression with a watchdog, urbiscript enables you to deﬁne events that
+can be caught with the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> construct we saw earlier. You can create events by instantiating the <a
+href="urbiscript-standard-library.html#object:Event"><span class="lstinline"><span
+class="cmtt-10x-x-109">Event</span></span></a>
+prototype. They can then be emitted with the <span class="lstinline"><span
+class="cmtt-10x-x-109">!</span></span> keyword.
+</p><!--l. 77--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">11.2.1   </span> <a
+href="contents.html#QQ2-15-76" id="x15-7000011.2.1">Emitting Events</a></h4>
+<!--l. 79--><p class="noindent" ><div class="code urbiscript">
+<!--l. 79--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myEvent = Event.new(); </span><br /><span class="label"><a
+ id="x15-70002r2"></a></span><!--l. 81--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Event_0xb5579008</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (myEvent?) </span><br /><span class="label"><a
+ id="x15-70004r4"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 83--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-70005r5"></a></span><span class="cmtt-10x-x-109">myEvent!; </span><br /><span class="label"><a
+ id="x15-70006r6"></a></span><!--l. 85--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70007r7"></a></span><!--l. 86--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// events work well with parallelism</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70008r8"></a></span><span class="cmtt-10x-x-109">myEvent! &#x0026; myEvent!; </span><br /><span class="label"><a
+ id="x15-70009r9"></a></span><!--l. 88--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70010r10"></a></span><!--l. 89--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70011r11"></a></span></pre>
+   </div>
+<!--l. 92--><p class="noindent" ><span class="lstinline"><span class="cmtt-10x-x-109">myEvent!</span></span> triggers an instantaneous event, which has no eﬀect on <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> registered after it:
+</p><!--l. 95--><p class="indent" >   <div class="code urbiscript">
+<!--l. 95--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70012r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> ev = Event.new(); </span><br /><span class="label"><a
+ id="x15-70013r2"></a></span><!--l. 97--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Event_0xb5579008</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70014r3"></a></span><span class="cmtt-10x-x-109">ev!; </span><br /><span class="label"><a
+ id="x15-70015r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109">(ev?) echo(</span><!--l. 99--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-70016r5"></a></span><!--l. 100--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Nothing happens unless ev is emitted again.</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70017r6"></a></span></pre>
+   </div>
+<!--l. 103--><p class="indent" >   Events can be emited for a given duration using the <span class="lstinline"><span
+class="cmsy-10x-x-109">&sim;</span><span class="cmtt-10x-x-109">(duration)</span></span> construct after the <span class="lstinline"><span
+class="cmtt-10x-x-109">!</span></span>
+:
+</p><!--l. 106--><p class="indent" >   <div class="code urbiscript">
+<!--l. 106--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70018r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> event = Event.new(); </span><br /><span class="label"><a
+ id="x15-70019r2"></a></span><!--l. 108--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Event_0xb5579008</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70020r3"></a></span><!--l. 109--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// emit event for 1 second in parallel with the scope</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70021r4"></a></span><span class="cmtt-10x-x-109">event!</span><span
+class="cmsy-10x-x-109">&sim;</span><span class="cmtt-10x-x-109">(1s), </span><br /><span class="label"><a
+ id="x15-70022r5"></a></span><!--l. 111--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Use an at 100ms later, the event is still in triggered state.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70023r6"></a></span><span class="cmtt-10x-x-109">sleep(100ms) | </span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109">(event?) echo(</span><!--l. 112--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-70024r7"></a></span><span class="cmtt-10x-x-109">sleep(1s); </span><br /><span class="label"><a
+ id="x15-70025r8"></a></span><!--l. 114--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-70026r9"></a></span></pre>
+   </div>
+<!--l. 117--><p class="indent" >   Note in the example above that <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> only triggers once for the whole duration of the
+emit.
+</p><!--l. 120--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">11.2.2   </span> <a
+href="contents.html#QQ2-15-77" id="x15-7100011.2.2">Emitting events with a payload</a></h4>
+<!--l. 123--><p class="noindent" >Events behave very much like “channels”: listeners use <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span>, and producers use <span class="lstinline"><span
+class="cmtt-10x-x-109">!</span></span>. Fortunately, the
+messages can include a <span
+class="cmti-10x-x-109">payload</span><a
+ id="x15-71001"></a>, i.e., something sent in the “message”. The Event then behaves very
+much like an identiﬁer of the message type. To send/catch the payload, just pass arguments to <span class="lstinline"><span
+class="cmtt-10x-x-109">!</span></span> and
+<span class="lstinline"><span
+class="cmtt-10x-x-109">?</span></span>:
+</p><!--l. 130--><p class="indent" >   <div class="code urbiscript">
+<!--l. 130--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> event = Event.new(); </span><br /><span class="label"><a
+ id="x15-71003r2"></a></span><!--l. 132--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Event_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71004r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71005r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (event?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> payload)) </span><br /><span class="label"><a
+ id="x15-71006r5"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 135--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;received: &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + payload) </span><br /><span class="label"><a
+ id="x15-71007r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">onleave</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71008r7"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 137--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;had received: &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + payload); </span><br /><span class="label"><a
+ id="x15-71009r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71010r9"></a></span><span class="cmtt-10x-x-109">event!(1); </span><br /><span class="label"><a
+ id="x15-71011r10"></a></span><!--l. 140--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000008] *** received: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71012r11"></a></span><!--l. 141--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000009] *** had received: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71013r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71014r13"></a></span><span class="cmtt-10x-x-109">event!([</span><!--l. 143--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;string&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 124]); </span><br /><span class="label"><a
+ id="x15-71015r14"></a></span><!--l. 144--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000010] *** received: [&#x0022;string&#x0022;, 124]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71016r15"></a></span><!--l. 145--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000011] *** had received: [&#x0022;string&#x0022;, 124]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71017r16"></a></span></pre>
+   </div>
+<!--l. 148--><p class="indent" >   Like functions, events have an <span
+class="cmti-10x-x-109">arity</span><a
+ id="x15-71018"></a>, i.e., they depend on the number of arguments:
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (</span><span
+class="cmitt-10x-x-109">event</span><span
+class="cmtt-10x-x-109">?(</span><span
+class="cmitt-10x-x-109">arg</span><span
+class="cmtt-10x-x-109">))</span></span> will only match emissions whose payload contain exactly one argument, i.e.,
+<span class="lstinline"><span
+class="cmitt-10x-x-109">event</span><span
+class="cmtt-10x-x-109">!(</span><span
+class="cmitt-10x-x-109">arg</span><span
+class="cmtt-10x-x-109">)</span></span>.
+</p><!--l. 153--><p class="indent" >   <div class="code urbiscript">
+<!--l. 153--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71019r1"></a></span><!--l. 154--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Too many arguments.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71020r2"></a></span><span class="cmtt-10x-x-109">event!(1, 2); </span><br /><span class="label"><a
+ id="x15-71021r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71022r4"></a></span><!--l. 157--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Not enough arguments.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71023r5"></a></span><span class="cmtt-10x-x-109">event!; </span><br /><span class="label"><a
+ id="x15-71024r6"></a></span><span class="cmtt-10x-x-109">event!();</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71025r7"></a></span></pre>
+   </div>
+<!--l. 162--><p class="indent" >   Event handlers that do not specify their arity (i.e., without parentheses) match event emissions of
+any arity.
+</p><!--l. 165--><p class="indent" >   <div class="code urbiscript">
+<!--l. 165--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71026r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (event?) </span><br /><span class="label"><a
+ id="x15-71027r2"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 167--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;received an event&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><br /><span class="label"><a
+ id="x15-71028r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">onleave</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71029r4"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 169--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;had received an event&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-71030r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71031r6"></a></span><span class="cmtt-10x-x-109">event!; </span><br /><span class="label"><a
+ id="x15-71032r7"></a></span><!--l. 172--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000014] *** received an event</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71033r8"></a></span><!--l. 173--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000015] *** had received an event</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71034r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71035r10"></a></span><span class="cmtt-10x-x-109">event!(1); </span><br /><span class="label"><a
+ id="x15-71036r11"></a></span><!--l. 176--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000016] *** received: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71037r12"></a></span><!--l. 177--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000017] *** had received: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71038r13"></a></span><!--l. 178--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000018] *** received an event</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71039r14"></a></span><!--l. 179--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000019] *** had received an event</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71040r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71041r16"></a></span><span class="cmtt-10x-x-109">event!(1, 2); </span><br /><span class="label"><a
+ id="x15-71042r17"></a></span><!--l. 182--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000020] *** received an event</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71043r18"></a></span><!--l. 183--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000021] *** had received an event</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71044r19"></a></span></pre>
+   </div>
+<!--l. 186--><p class="indent" >   Actually, the feature is much more powerful than this: full pattern matching applies, as with the
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">switch</span></span></span>/<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">case</span></span></span> construct.
+</p><!--l. 189--><p class="indent" >   <div class="code urbiscript">
+<!--l. 189--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71045r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> e = Event.new()|; </span><br /><span class="label"><a
+ id="x15-71046r2"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71047r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (e?) </span><br /><span class="label"><a
+ id="x15-71048r4"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 193--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;e&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-71049r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71050r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (e?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x)) </span><br /><span class="label"><a
+ id="x15-71051r7"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 196--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;e(x)&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-71052r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71053r9"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (e?(1)) </span><br /><span class="label"><a
+ id="x15-71054r10"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 199--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;e(1)&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-71055r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71056r12"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (e?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> x.isA(Float) &#x0026;&#x0026; x % 2) </span><br /><span class="label"><a
+ id="x15-71057r13"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 202--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;e(odd)&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x15-71058r14"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71059r15"></a></span><!--l. 204--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Payload must be a list of three members, the first two being 1 and 2, and</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71060r16"></a></span><!--l. 205--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// the third one being greater than 2, when converted as a Float.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71061r17"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (e?([1, 2, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x]) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> 2 &#x003C; x.asFloat()) </span><br /><span class="label"><a
+ id="x15-71062r18"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 207--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;e([1, 2, x = %s])&#x0022;</span></span></span><span class="cmtt-10x-x-109"> % x); </span><br /><span class="label"><a
+ id="x15-71063r19"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71064r20"></a></span><span class="cmtt-10x-x-109">e!; </span><br /><span class="label"><a
+ id="x15-71065r21"></a></span><!--l. 210--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000845] *** e</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71066r22"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71067r23"></a></span><span class="cmtt-10x-x-109">e!(0); </span><br /><span class="label"><a
+ id="x15-71068r24"></a></span><!--l. 213--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00011902] *** e</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71069r25"></a></span><!--l. 214--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00011902] *** e(x)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71070r26"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71071r27"></a></span><span class="cmtt-10x-x-109">e!(1); </span><br /><span class="label"><a
+ id="x15-71072r28"></a></span><!--l. 217--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00023327] *** e</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71073r29"></a></span><!--l. 218--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00023327] *** e(x)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71074r30"></a></span><!--l. 219--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00023327] *** e(1)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71075r31"></a></span><!--l. 220--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00023327] *** e(odd)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71076r32"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71077r33"></a></span><span class="cmtt-10x-x-109">e!([1, 2, 1]); </span><br /><span class="label"><a
+ id="x15-71078r34"></a></span><!--l. 223--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00024327] *** e</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71079r35"></a></span><!--l. 224--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00024327] *** e(x)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71080r36"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71081r37"></a></span><span class="cmtt-10x-x-109">e!([1, 2, 3]); </span><br /><span class="label"><a
+ id="x15-71082r38"></a></span><!--l. 227--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00025327] *** e</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71083r39"></a></span><!--l. 228--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00025327] *** e(x)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71084r40"></a></span><!--l. 229--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00025327] *** e([1, 2, x = 3])</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71085r41"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71086r42"></a></span><span class="cmtt-10x-x-109">e!([1, 2, </span><!--l. 231--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;4&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x15-71087r43"></a></span><!--l. 232--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** e</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71088r44"></a></span><!--l. 233--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** e(x)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71089r45"></a></span><!--l. 234--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** e([1, 2, x = 4])</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71090r46"></a></span></pre>
+   </div>
+<!--l. 237--><p class="indent" >   Remember <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">stopif</span></span></span><a
+href="parallelism-concurrent-flow-control.html#x14-6500010.4.2">10.4.2<!--tex4ht:ref: sec:tut:stopif --></a> and <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">freezeif</span></span></span><a
+href="parallelism-concurrent-flow-control.html#x14-6500010.4.2">10.4.2<!--tex4ht:ref: sec:tut:freezeif --></a> from the previous section? They also accept an event
+in their condition:
+</p><!--l. 241--><p class="indent" >   <div class="code urbiscript">
+<!--l. 241--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71091r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> e = Event.new()|; </span><br /><span class="label"><a
+ id="x15-71092r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> counter = 3|; </span><br /><span class="label"><a
+ id="x15-71093r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">stopif</span></span><span class="cmtt-10x-x-109">(e?(0)) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span><span class="cmtt-10x-x-109">(true) { echo(counter); e!(counter); counter--;}; </span><br /><span class="label"><a
+ id="x15-71094r4"></a></span><!--l. 245--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71095r5"></a></span><!--l. 246--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71096r6"></a></span><!--l. 247--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71097r7"></a></span><!--l. 248--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00026327] *** 0</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-71098r8"></a></span></pre>
+   </div>
+<!--l. 251--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">11.2.3   </span> <a
+href="contents.html#QQ2-15-78" id="x15-7200011.2.3">waituntil</a></h4>
+<!--l. 253--><p class="noindent" >Sometimes it is useful to wait until a condition becomes true, or an event triggers. This task can be
+accomplished with the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span></span><a
+href="urbiscript-language-reference-manual.html#x31-37100020.11.2">20.11.2<!--tex4ht:ref: sec:lang:waituntil --></a> construct:
+</p><!--l. 257--><p class="indent" >   <div class="code urbiscript">
+<!--l. 257--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72001r1"></a></span><span class="cmtt-10x-x-109">counter = 0|; </span><br /><span class="label"><a
+ id="x15-72002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span><span class="cmtt-10x-x-109">(counter == 2) | echo(</span><!--l. 259--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Now!&#x0022;</span></span></span><span class="cmtt-10x-x-109">), </span><!--l. 259--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// in parallel</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> i: 4) { echo(i); counter = i}; </span><br /><span class="label"><a
+ id="x15-72004r4"></a></span><!--l. 261--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72005r5"></a></span><!--l. 262--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72006r6"></a></span><!--l. 263--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72007r7"></a></span><!--l. 264--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** Now!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72008r8"></a></span><!--l. 265--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x15-72009r9"></a></span></pre>
+   </div>
+</body></html>

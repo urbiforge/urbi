@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head>
+   <title>The Urbi Software Development Kit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+   <div class="maketitle">
+<h2 class="titleHead">The Urbi Software Development Kit</h2><br />
+<span
+class="cmbx-12x-x-144">Version 3.0.0</span>
+<div class="author" ></div><br />
+<div class="date" ><span
+class="cmr-12x-x-120">January 31, 2013</span><br />
+<span
+class="cmr-12x-x-120">(Revision 3.0)</span></div><br />
+<div class="abstractenv"><div class="minipage"><span
+class="cmr-12x-x-120">Urbi </span>is an open source software component platform. It features a
+C++/Java middleware, UObject, to interface components, and an
+innovative scripting language, urbiscript, with built-in support for
+parallel and event-based programming.</div></div>
+   </div>
+   <div class="tableofcontents">
+   <span class="chapterToc" >1 <a
+href="introduction.html#x2-10001" id="QQ2-2-1">Introduction</a></span>
+<br />    <span class="sectionToc" >1.1 <a
+href="introduction.html#x2-20001.1" id="QQ2-2-2">Urbi and UObjects</a></span>
+<br />    <span class="sectionToc" >1.2 <a
+href="introduction.html#x2-30001.2" id="QQ2-2-3">The Big Picture</a></span>
+<br />    <span class="sectionToc" >1.3 <a
+href="introduction.html#x2-40001.3" id="QQ2-2-5">Urbi and urbiscript</a></span>
+<br />    <span class="sectionToc" >1.4 <a
+href="introduction.html#x2-50001.4" id="QQ2-2-6">Genesis</a></span>
+<br />    <span class="sectionToc" >1.5 <a
+href="introduction.html#x2-80001.5" id="QQ2-2-9">Outline</a></span>
+<br />    <span class="sectionToc" >1.6 <a
+href="introduction.html#x2-90001.6" id="QQ2-2-10">Documentation</a></span>
+<br />   <span class="likechapterToc" ><a
+href="contents.html#x3-100001.6" id="QQ2-3-11">Contents</a></span>
+<br />   <span class="chapterToc" >2 <a
+href="getting-started.html#x4-110002" id="QQ2-4-12">Getting Started</a></span>
+<br />   <span class="partToc" >I  <a
+href="urbiscript-user-manual.html#x5-12000I" id="QQ2-5-18">urbiscript User Manual</a></span>
+<br />   <span class="likechapterToc" ><a
+href="about-this-part.html#x6-13000I" id="QQ2-6-19">About This Part</a></span>
+<br />   <span class="chapterToc" >3 <a
+href="first-steps.html#x7-140003" id="QQ2-7-20">First Steps</a></span>
+<br />    <span class="sectionToc" >3.1 <a
+href="first-steps.html#x7-150003.1" id="QQ2-7-21">Comments</a></span>
+<br />    <span class="sectionToc" >3.2 <a
+href="first-steps.html#x7-160003.2" id="QQ2-7-22">Literal values</a></span>
+<br />    <span class="sectionToc" >3.3 <a
+href="first-steps.html#x7-170003.3" id="QQ2-7-23">Function calls</a></span>
+<br />    <span class="sectionToc" >3.4 <a
+href="first-steps.html#x7-180003.4" id="QQ2-7-24">Variables</a></span>
+<br />    <span class="sectionToc" >3.5 <a
+href="first-steps.html#x7-190003.5" id="QQ2-7-25">Scopes</a></span>
+<br />    <span class="sectionToc" >3.6 <a
+href="first-steps.html#x7-200003.6" id="QQ2-7-26">Method calls</a></span>
+<br />    <span class="sectionToc" >3.7 <a
+href="first-steps.html#x7-210003.7" id="QQ2-7-27">Function deﬁnition</a></span>
+<br />    <span class="sectionToc" >3.8 <a
+href="first-steps.html#x7-220003.8" id="QQ2-7-28">Conclusion</a></span>
+<br />   <span class="chapterToc" >4 <a
+href="basic-objects-value-model.html#x8-230004" id="QQ2-8-29">Basic Objects, Value Model</a></span>
+<br />    <span class="sectionToc" >4.1 <a
+href="basic-objects-value-model.html#x8-240004.1" id="QQ2-8-30">Objects in urbiscript</a></span>
+<br />    <span class="sectionToc" >4.2 <a
+href="basic-objects-value-model.html#x8-250004.2" id="QQ2-8-31">Methods</a></span>
+<br />    <span class="sectionToc" >4.3 <a
+href="basic-objects-value-model.html#x8-260004.3" id="QQ2-8-32">Everything is an object</a></span>
+<br />    <span class="sectionToc" >4.4 <a
+href="basic-objects-value-model.html#x8-270004.4" id="QQ2-8-33">The urbiscript values model</a></span>
+<br />    <span class="sectionToc" >4.5 <a
+href="basic-objects-value-model.html#x8-280004.5" id="QQ2-8-34">Conclusion</a></span>
+<br />   <span class="chapterToc" >5 <a
+href="flow-control-constructs.html#x9-290005" id="QQ2-9-35">Flow Control Constructs</a></span>
+<br />    <span class="sectionToc" >5.1 <a
+href="flow-control-constructs.html#x9-300005.1" id="QQ2-9-36">if</a></span>
+<br />    <span class="sectionToc" >5.2 <a
+href="flow-control-constructs.html#x9-310005.2" id="QQ2-9-37">while</a></span>
+<br />    <span class="sectionToc" >5.3 <a
+href="flow-control-constructs.html#x9-320005.3" id="QQ2-9-38">for</a></span>
+<br />    <span class="sectionToc" >5.4 <a
+href="flow-control-constructs.html#x9-330005.4" id="QQ2-9-39">switch</a></span>
+<br />    <span class="sectionToc" >5.5 <a
+href="flow-control-constructs.html#x9-340005.5" id="QQ2-9-40">do</a></span>
+<br />   <span class="chapterToc" >6 <a
+href="advanced-functions-and-scoping.html#x10-350006" id="QQ2-10-41">Advanced Functions and Scoping</a></span>
+<br />    <span class="sectionToc" >6.1 <a
+href="advanced-functions-and-scoping.html#x10-360006.1" id="QQ2-10-42">Scopes as expressions</a></span>
+<br />    <span class="sectionToc" >6.2 <a
+href="advanced-functions-and-scoping.html#x10-370006.2" id="QQ2-10-43">Advanced scoping</a></span>
+<br />    <span class="sectionToc" >6.3 <a
+href="advanced-functions-and-scoping.html#x10-380006.3" id="QQ2-10-44">Local functions</a></span>
+<br />    <span class="sectionToc" >6.4 <a
+href="advanced-functions-and-scoping.html#x10-390006.4" id="QQ2-10-45">Lexical closures</a></span>
+<br />   <span class="chapterToc" >7 <a
+href="objective-programming-urbiscript-object-model.html#x11-400007" id="QQ2-11-46">Objective Programming, urbiscript Object Model</a></span>
+<br />    <span class="sectionToc" >7.1 <a
+href="objective-programming-urbiscript-object-model.html#x11-410007.1" id="QQ2-11-47">Prototype-Based Programming in urbiscript</a></span>
+<br />    <span class="sectionToc" >7.2 <a
+href="objective-programming-urbiscript-object-model.html#x11-420007.2" id="QQ2-11-48">Prototypes and Slot Lookup</a></span>
+<br />    <span class="sectionToc" >7.3 <a
+href="objective-programming-urbiscript-object-model.html#x11-430007.3" id="QQ2-11-49">Copy on Write</a></span>
+<br />    <span class="sectionToc" >7.4 <a
+href="objective-programming-urbiscript-object-model.html#x11-440007.4" id="QQ2-11-50">Deﬁning Pseudo-Classes</a></span>
+<br />    <span class="sectionToc" >7.5 <a
+href="objective-programming-urbiscript-object-model.html#x11-450007.5" id="QQ2-11-51">Constructors</a></span>
+<br />    <span class="sectionToc" >7.6 <a
+href="objective-programming-urbiscript-object-model.html#x11-460007.6" id="QQ2-11-52">Operators</a></span>
+<br />    <span class="sectionToc" >7.7 <a
+href="objective-programming-urbiscript-object-model.html#x11-470007.7" id="QQ2-11-53">Properties</a></span>
+<br />    <span class="sectionToc" >7.8 <a
+href="objective-programming-urbiscript-object-model.html#x11-500007.8" id="QQ2-11-56">Getters and setters</a></span>
+<br />   <span class="chapterToc" >8 <a
+href="organizing-your-code-using-package-and-import.html#x12-520008" id="QQ2-12-58">Organizing your code using package and import</a></span>
+<br />    <span class="sectionToc" >8.1 <a
+href="organizing-your-code-using-package-and-import.html#x12-530008.1" id="QQ2-12-59">Why object lookup is not enough</a></span>
+<br />    <span class="sectionToc" >8.2 <a
+href="organizing-your-code-using-package-and-import.html#x12-540008.2" id="QQ2-12-60">Import and package</a></span>
+<br />   <span class="chapterToc" >9 <a
+href="functional-programming.html#x13-550009" id="QQ2-13-61">Functional Programming</a></span>
+<br />    <span class="sectionToc" >9.1 <a
+href="functional-programming.html#x13-560009.1" id="QQ2-13-62">First class functions</a></span>
+<br />    <span class="sectionToc" >9.2 <a
+href="functional-programming.html#x13-570009.2" id="QQ2-13-63">Lambda functions</a></span>
+<br />    <span class="sectionToc" >9.3 <a
+href="functional-programming.html#x13-580009.3" id="QQ2-13-64">Lazy arguments</a></span>
+<br />   <span class="chapterToc" >10 <a
+href="parallelism-concurrent-flow-control.html#x14-5900010" id="QQ2-14-65">Parallelism, Concurrent Flow Control</a></span>
+<br />    <span class="sectionToc" >10.1 <a
+href="parallelism-concurrent-flow-control.html#x14-6000010.1" id="QQ2-14-66">Parallelism operators</a></span>
+<br />    <span class="sectionToc" >10.2 <a
+href="parallelism-concurrent-flow-control.html#x14-6100010.2" id="QQ2-14-67">Detach</a></span>
+<br />    <span class="sectionToc" >10.3 <a
+href="parallelism-concurrent-flow-control.html#x14-6200010.3" id="QQ2-14-68">Tags for parallel control ﬂows</a></span>
+<br />    <span class="sectionToc" >10.4 <a
+href="parallelism-concurrent-flow-control.html#x14-6300010.4" id="QQ2-14-69">timeout, freezeif and stopif</a></span>
+<br />    <span class="sectionToc" >10.5 <a
+href="parallelism-concurrent-flow-control.html#x14-6600010.5" id="QQ2-14-72">Advanced example with parallelism and tags</a></span>
+<br />   <span class="chapterToc" >11 <a
+href="event-based-programming.html#x15-6700011" id="QQ2-15-73">Event-based Programming</a></span>
+<br />    <span class="sectionToc" >11.1 <a
+href="event-based-programming.html#x15-6800011.1" id="QQ2-15-74">Watchdog constructs</a></span>
+<br />    <span class="sectionToc" >11.2 <a
+href="event-based-programming.html#x15-6900011.2" id="QQ2-15-75">Events</a></span>
+<br />   <span class="chapterToc" >12 <a
+href="ros-tutorial.html#x16-7300012" id="QQ2-16-79">Urbi for ROS Users</a></span>
+<br />    <span class="sectionToc" >12.1 <a
+href="ros-tutorial.html#x16-7400012.1" id="QQ2-16-80">Communication on topics</a></span>
+<br />    <span class="sectionToc" >12.2 <a
+href="ros-tutorial.html#x16-8000012.2" id="QQ2-16-86">Using Services</a></span>
+<br />    <span class="sectionToc" >12.3 <a
+href="ros-tutorial.html#x16-8100012.3" id="QQ2-16-87">Image Publisher from ROS to Urbi</a></span>
+<br />    <span class="sectionToc" >12.4 <a
+href="ros-tutorial.html#x16-8600012.4" id="QQ2-16-93">Image Subscriber from Urbi to ROS</a></span>
+<br />    <span class="sectionToc" >12.5 <a
+href="ros-tutorial.html#x16-8900012.5" id="QQ2-16-96">Remote communication</a></span>
+<br />   <span class="partToc" >II  <a
+href="guidelines-and-cook-books.html#x20-91000II" id="QQ2-20-98">Guidelines and Cook Books</a></span>
+<br />   <span class="likechapterToc" ><a
+href="urbi-sdkli3.html#x21-92000II" id="QQ2-21-99">About This Part</a></span>
+<br />   <span class="chapterToc" >13 <a
+href="installation.html#x22-9300013" id="QQ2-22-100">Installation</a></span>
+<br />    <span class="sectionToc" >13.1 <a
+href="installation.html#x22-9400013.1" id="QQ2-22-101">Download</a></span>
+<br />    <span class="sectionToc" >13.2 <a
+href="installation.html#x22-9700013.2" id="QQ2-22-104">Install &#x0026; Check</a></span>
+<br />   <span class="chapterToc" >14 <a
+href="faq.html#x23-10100014" id="QQ2-23-108">Frequently Asked Questions</a></span>
+<br />    <span class="sectionToc" >14.1 <a
+href="faq.html#x23-10200014.1" id="QQ2-23-109">Build Issues</a></span>
+<br />    <span class="sectionToc" >14.2 <a
+href="faq.html#x23-10900014.2" id="QQ2-23-116">Troubleshooting</a></span>
+<br />    <span class="sectionToc" >14.3 <a
+href="faq.html#x23-12100014.3" id="QQ2-23-128">urbiscript</a></span>
+<br />    <span class="sectionToc" >14.4 <a
+href="faq.html#x23-14800014.4" id="QQ2-23-155">UObjects</a></span>
+<br />    <span class="sectionToc" >14.5 <a
+href="faq.html#x23-15400014.5" id="QQ2-23-161">Miscellaneous</a></span>
+<br />   <span class="chapterToc" >15 <a
+href="urbi-guideline.html#x24-15800015" id="QQ2-24-165">Urbi Guideline</a></span>
+<br />    <span class="sectionToc" >15.1 <a
+href="urbi-guideline.html#x24-15900015.1" id="QQ2-24-166">urbiscript Programming Guideline</a></span>
+<br />   <span class="chapterToc" >16 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16200016" id="QQ2-25-169">Migration from urbiscript 1 to urbiscript 2</a></span>
+<br />    <span class="sectionToc" >16.1 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16300016.1" id="QQ2-25-170">$(Foo)</a></span>
+<br />    <span class="sectionToc" >16.2 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16400016.2" id="QQ2-25-171">delete Foo</a></span>
+<br />    <span class="sectionToc" >16.3 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16500016.3" id="QQ2-25-172">emit Foo</a></span>
+<br />    <span class="sectionToc" >16.4 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16600016.4" id="QQ2-25-173">eval(Foo)</a></span>
+<br />    <span class="sectionToc" >16.5 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16700016.5" id="QQ2-25-174">foreach</a></span>
+<br />    <span class="sectionToc" >16.6 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16800016.6" id="QQ2-25-175">group</a></span>
+<br />    <span class="sectionToc" >16.7 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16900016.7" id="QQ2-25-176">loopn</a></span>
+<br />    <span class="sectionToc" >16.8 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-17000016.8" id="QQ2-25-177">new Foo</a></span>
+<br />    <span class="sectionToc" >16.9 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-17100016.9" id="QQ2-25-178">self</a></span>
+<br />    <span class="sectionToc" >16.10 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-17200016.10" id="QQ2-25-179">stop Foo</a></span>
+<br />    <span class="sectionToc" >16.11 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-17300016.11" id="QQ2-25-180"># line</a></span>
+<br />    <span class="sectionToc" >16.12 <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-17400016.12" id="QQ2-25-181">tag+end</a></span>
+<br />   <span class="chapterToc" >17 <a
+href="migration-from-urbiscript-2-to-urbiscript-3.html#x26-17500017" id="QQ2-26-182">Migration from urbiscript 2 to urbiscript 3</a></span>
+<br />    <span class="sectionToc" >17.1 <a
+href="migration-from-urbiscript-2-to-urbiscript-3.html#x26-17600017.1" id="QQ2-26-183">Automatic function evaluation without parenthesis</a></span>
+<br />    <span class="sectionToc" >17.2 <a
+href="migration-from-urbiscript-2-to-urbiscript-3.html#x26-17700017.2" id="QQ2-26-184">getSlot and setSlot</a></span>
+<br />    <span class="sectionToc" >17.3 <a
+href="migration-from-urbiscript-2-to-urbiscript-3.html#x26-17800017.3" id="QQ2-26-185">Packages</a></span>
+<br />   <span class="chapterToc" >18 <a
+href="build.html#x27-17900018" id="QQ2-27-186">Building Urbi SDK</a></span>
+<br />    <span class="sectionToc" >18.1 <a
+href="build.html#x27-18000018.1" id="QQ2-27-187">Building</a></span>
+<br />    <span class="sectionToc" >18.2 <a
+href="build.html#x27-18600018.2" id="QQ2-27-193">Run</a></span>
+<br />    <span class="sectionToc" >18.3 <a
+href="build.html#x27-18700018.3" id="QQ2-27-194">Check</a></span>
+<br />    <span class="sectionToc" >18.4 <a
+href="build.html#x27-19000018.4" id="QQ2-27-197">Debug</a></span>
+<br />   <span class="partToc" >III  <a
+href="urbi-sdk-reference-manual.html#x28-192000III" id="QQ2-28-199">Urbi SDK Reference Manual</a></span>
+<br />   <span class="likechapterToc" ><a
+href="urbi-sdkli4.html#x29-193000III" id="QQ2-29-200">About This Part</a></span>
+<br />   <span class="chapterToc" >19 <a
+href="programs.html#x30-19400019" id="QQ2-30-201">Programs</a></span>
+<br />    <span class="sectionToc" >19.1 <a
+href="programs.html#x30-19500019.1" id="QQ2-30-202">Environment Variables</a></span>
+<br />    <span class="sectionToc" >19.2 <a
+href="programs.html#x30-19900019.2" id="QQ2-30-206">Special Files</a></span>
+<br />    <span class="sectionToc" >19.3 <a
+href="programs.html#x30-20000019.3" id="QQ2-30-207"><span
+class="cmtt-10x-x-109">urbi </span>— Running an Urbi Server</a></span>
+<br />    <span class="sectionToc" >19.4 <a
+href="programs.html#x30-20700019.4" id="QQ2-30-214"><span
+class="cmtt-10x-x-109">urbi-image </span>— Querying Images from a Server</a></span>
+<br />    <span class="sectionToc" >19.5 <a
+href="programs.html#x30-21200019.5" id="QQ2-30-219"><span
+class="cmtt-10x-x-109">urbi-launch </span>— Running a UObject</a></span>
+<br />    <span class="sectionToc" >19.6 <a
+href="programs.html#x30-22200019.6" id="QQ2-30-229"><span
+class="cmtt-10x-x-109">urbi-launch-java </span>— Running a Java UObject</a></span>
+<br />    <span class="sectionToc" >19.7 <a
+href="programs.html#x30-22700019.7" id="QQ2-30-234"><span
+class="cmtt-10x-x-109">urbi-ping </span>— Checking the Delays with a Server</a></span>
+<br />    <span class="sectionToc" >19.8 <a
+href="programs.html#x30-23200019.8" id="QQ2-30-239"><span
+class="cmtt-10x-x-109">urbi-send </span>— Sending urbiscript Commands to a Server</a></span>
+<br />    <span class="sectionToc" >19.9 <a
+href="programs.html#x30-23300019.9" id="QQ2-30-240"><span
+class="cmtt-10x-x-109">urbi-sound </span>— Querying Sounds from a Server</a></span>
+<br />    <span class="sectionToc" >19.10 <a
+href="programs.html#x30-23800019.10" id="QQ2-30-245"><span
+class="cmtt-10x-x-109">umake </span>— Compiling UObject Components</a></span>
+<br />   <span class="chapterToc" >20 <a
+href="urbiscript-language-reference-manual.html#x31-24500020" id="QQ2-31-252">urbiscript Language Reference Manual</a></span>
+<br />    <span class="sectionToc" >20.1 <a
+href="urbiscript-language-reference-manual.html#x31-24600020.1" id="QQ2-31-253">Syntax</a></span>
+<br />    <span class="sectionToc" >20.2 <a
+href="urbiscript-language-reference-manual.html#x31-27900020.2" id="QQ2-31-299">Scopes and local variables</a></span>
+<br />    <span class="sectionToc" >20.3 <a
+href="urbiscript-language-reference-manual.html#x31-28200020.3" id="QQ2-31-302">Functions</a></span>
+<br />    <span class="sectionToc" >20.4 <a
+href="urbiscript-language-reference-manual.html#x31-29200020.4" id="QQ2-31-312">Objects</a></span>
+<br />    <span class="sectionToc" >20.5 <a
+href="urbiscript-language-reference-manual.html#x31-30700020.5" id="QQ2-31-327">Enumeration types</a></span>
+<br />    <span class="sectionToc" >20.6 <a
+href="urbiscript-language-reference-manual.html#x31-30800020.6" id="QQ2-31-328">Structural Pattern Matching</a></span>
+<br />    <span class="sectionToc" >20.7 <a
+href="urbiscript-language-reference-manual.html#x31-31200020.7" id="QQ2-31-332">Imperative ﬂow control</a></span>
+<br />    <span class="sectionToc" >20.8 <a
+href="urbiscript-language-reference-manual.html#x31-33400020.8" id="QQ2-31-355">Exceptions</a></span>
+<br />    <span class="sectionToc" >20.9 <a
+href="urbiscript-language-reference-manual.html#x31-34300020.9" id="QQ2-31-364">Assertions</a></span>
+<br />    <span class="sectionToc" >20.10 <a
+href="urbiscript-language-reference-manual.html#x31-34600020.10" id="QQ2-31-367">Parallel Flow Control</a></span>
+<br />    <span class="sectionToc" >20.11 <a
+href="urbiscript-language-reference-manual.html#x31-36000020.11" id="QQ2-31-381">Event Handling</a></span>
+<br />    <span class="sectionToc" >20.12 <a
+href="urbiscript-language-reference-manual.html#x31-37800020.12" id="QQ2-31-399">Trajectories</a></span>
+<br />    <span class="sectionToc" >20.13 <a
+href="urbiscript-language-reference-manual.html#x31-37900020.13" id="QQ2-31-403">Garbage Collection and Limitations</a></span>
+<br />   <span class="chapterToc" >21 <a
+href="urbiscript-standard-library.html#x35-38000021" id="QQ2-35-404">urbiscript Standard Library</a></span>
+<br />    <span class="likesectionToc" ><a
+href="urbiscript-standard-library.html#x35-38100021" id="QQ2-35-405"></a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-406">21.1             Barrier</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-410">21.2             Binary</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-414">21.3             Boolean</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-419">21.4             CallMessage</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-425">21.5             Channel</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-429">21.6             Code</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-433">21.7             Comparable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-437">21.8             Container</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-440">21.9             Control</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-443">21.10            Date</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-447">21.11            Dictionary</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-453">21.12            Directory</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-457">21.13            Duration</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-461">21.14            Enumeration</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-466">21.15            Event</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-477">21.16            Exception</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-483">21.17            Executable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-487">21.18            File</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-491">21.19            Finalizable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-496">21.20            Float</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-501">21.21            Float.limits</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-504">21.22            FormatInfo</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-508">21.23            Formatter</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-512">21.24            Global</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-515">21.25            Group</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-520">21.26            Hash</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-524">21.27            InputStream</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-529">21.28            IoService</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-534">21.29            Job</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-538">21.30            Kernel1</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-542">21.31            Lazy</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-550">21.32            List</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-554">21.33            Loadable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-559">21.34            Lobby</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-564">21.35            Location</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-568">21.36            Logger</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-574">21.37            Math</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-578">21.38            Matrix</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-582">21.39            Mutex</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-586">21.40            nil</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-590">21.41            Object</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-594">21.42            Orderable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-598">21.43            OutputStream</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-602">21.44            Pair</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-606">21.45            Path</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-610">21.46            Pattern</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-614">21.47            Position</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-618">21.48            Primitive</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-622">21.49            Process</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-628">21.50            Proﬁle</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-635">21.51            Proﬁle.Function</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-639">21.52            PseudoLazy</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-642">21.53            PubSub</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-646">21.54            PubSub.Subscriber</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-650">21.55            RangeIterable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-653">21.56            Regexp</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-657">21.57            Semaphore</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-661">21.58            Serializables</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-664">21.59            Server</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-668">21.60            Singleton</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-672">21.61            Slot</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-679">21.62            Socket</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-684">21.63            StackFrame</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-688">21.64            Stream</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-692">21.65            String</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-697">21.66            Subscription</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-701">21.67            System</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-706">21.68            System.PackageInfo</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-709">21.69            System.Platform</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-712">21.70            Tag</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-724">21.71            Timeout</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-729">21.72            Traceable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-732">21.73            TrajectoryGenerator</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-755">21.74            Triplet</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-759">21.75            Tuple</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-763">21.76            UObject</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-766">21.77            uobjects</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-769">21.78            UValue</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-772">21.79            UValueSerializable</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-776">21.80            Vector</a></span>
+<br />    <span class="sectionToc" ><a
+href="urbiscript-standard-library.html#Q1-35-780">21.81            void</a></span>
+<br />   <span class="chapterToc" >22 <a
+href="ros.html#x36-66700022" id="QQ2-36-784">Communication with ROS</a></span>
+<br />    <span class="sectionToc" ><a
+href="ros.html#Q1-36-787">22.1             Ros</a></span>
+<br />    <span class="sectionToc" ><a
+href="ros.html#Q1-36-790">22.2             Ros.Topic</a></span>
+<br />    <span class="sectionToc" ><a
+href="ros.html#Q1-36-797">22.3             Ros.Service</a></span>
+<br />   <span class="chapterToc" >23 <a
+href="urbi-standard-robotics-api.html#x37-68000023" id="QQ2-37-800">Urbi Standard Robotics API</a></span>
+<br />    <span class="sectionToc" >23.1 <a
+href="urbi-standard-robotics-api.html#x37-68100023.1" id="QQ2-37-801">The Structure Tree</a></span>
+<br />    <span class="sectionToc" >23.2 <a
+href="urbi-standard-robotics-api.html#x37-68200023.2" id="QQ2-37-802">Frame of Reference</a></span>
+<br />    <span class="sectionToc" >23.3 <a
+href="urbi-standard-robotics-api.html#x37-68300023.3" id="QQ2-37-803">Component naming</a></span>
+<br />    <span class="sectionToc" >23.4 <a
+href="urbi-standard-robotics-api.html#x37-68400023.4" id="QQ2-37-804">Localization</a></span>
+<br />    <span class="sectionToc" >23.5 <a
+href="urbi-standard-robotics-api.html#x37-68500023.5" id="QQ2-37-805">Interface</a></span>
+<br />    <span class="sectionToc" >23.6 <a
+href="urbi-standard-robotics-api.html#x37-71500023.6" id="QQ2-37-835">Standard Components</a></span>
+<br />    <span class="sectionToc" >23.7 <a
+href="urbi-standard-robotics-api.html#x37-71800023.7" id="QQ2-37-838">Compact notation</a></span>
+<br />    <span class="sectionToc" >23.8 <a
+href="urbi-standard-robotics-api.html#x37-71900023.8" id="QQ2-37-839">Support classes</a></span>
+<br />   <span class="partToc" >IV  <a
+href="uobjects.html#x38-720000IV" id="QQ2-38-843">Urbi and UObjects User Manual</a></span>
+<br />   <span class="likechapterToc" ><a
+href="urbi-sdkli5.html#x39-721000IV" id="QQ2-39-844">About This Part</a></span>
+<br />   <span class="chapterToc" >24 <a
+href="quick-start.html#x40-72200024" id="QQ2-40-845">Quick Start</a></span>
+<br />    <span class="sectionToc" >24.1 <a
+href="quick-start.html#x40-72300024.1" id="QQ2-40-846">UObject Basics</a></span>
+<br />    <span class="sectionToc" >24.2 <a
+href="quick-start.html#x40-72900024.2" id="QQ2-40-856">Using urbiscript</a></span>
+<br />    <span class="sectionToc" >24.3 <a
+href="quick-start.html#x40-73400024.3" id="QQ2-40-861">Conclusion</a></span>
+<br />   <span class="chapterToc" >25 <a
+href="the-uobject-api.html#x41-73500025" id="QQ2-41-862">The UObject API</a></span>
+<br />    <span class="sectionToc" >25.1 <a
+href="the-uobject-api.html#x41-73600025.1" id="QQ2-41-863">Compiling UObjects</a></span>
+<br />    <span class="sectionToc" >25.2 <a
+href="the-uobject-api.html#x41-74100025.2" id="QQ2-41-868">Creating a class, binding variables and functions</a></span>
+<br />    <span class="sectionToc" >25.3 <a
+href="the-uobject-api.html#x41-74200025.3" id="QQ2-41-869">Creating new instances</a></span>
+<br />    <span class="sectionToc" >25.4 <a
+href="the-uobject-api.html#x41-74300025.4" id="QQ2-41-870">Binding functions</a></span>
+<br />    <span class="sectionToc" >25.5 <a
+href="the-uobject-api.html#x41-74700025.5" id="QQ2-41-874">Notiﬁcation of a variable change or access</a></span>
+<br />    <span class="sectionToc" >25.6 <a
+href="the-uobject-api.html#x41-74900025.6" id="QQ2-41-876">Data-ﬂow based programming: exchanging UVars</a></span>
+<br />    <span class="sectionToc" >25.7 <a
+href="the-uobject-api.html#x41-75000025.7" id="QQ2-41-877">Data-ﬂow based programming: InputPort</a></span>
+<br />    <span class="sectionToc" >25.8 <a
+href="the-uobject-api.html#x41-75200025.8" id="QQ2-41-879">Timers</a></span>
+<br />    <span class="sectionToc" >25.9 <a
+href="the-uobject-api.html#x41-75300025.9" id="QQ2-41-880">The special case of sensor/actuator variables</a></span>
+<br />    <span class="sectionToc" >25.10 <a
+href="the-uobject-api.html#x41-75400025.10" id="QQ2-41-881">Using Urbi variables</a></span>
+<br />    <span class="sectionToc" >25.11 <a
+href="the-uobject-api.html#x41-75500025.11" id="QQ2-41-882">Emitting events</a></span>
+<br />    <span class="sectionToc" >25.12 <a
+href="the-uobject-api.html#x41-75600025.12" id="QQ2-41-883">UObject and Threads</a></span>
+<br />    <span class="sectionToc" >25.13 <a
+href="the-uobject-api.html#x41-75700025.13" id="QQ2-41-884">Using binary types</a></span>
+<br />    <span class="sectionToc" >25.14 <a
+href="the-uobject-api.html#x41-76100025.14" id="QQ2-41-888">Direct communication between UObjects</a></span>
+<br />    <span class="sectionToc" >25.15 <a
+href="the-uobject-api.html#x41-76200025.15" id="QQ2-41-889">Using hubs to group objects</a></span>
+<br />    <span class="sectionToc" >25.16 <a
+href="the-uobject-api.html#x41-76300025.16" id="QQ2-41-890">Sending urbiscript code</a></span>
+<br />    <span class="sectionToc" >25.17 <a
+href="the-uobject-api.html#x41-76400025.17" id="QQ2-41-891">Using RTP transport in remote mode</a></span>
+<br />    <span class="sectionToc" >25.18 <a
+href="the-uobject-api.html#x41-76700025.18" id="QQ2-41-894">Extending the cast system</a></span>
+<br />   <span class="chapterToc" >26 <a
+href="the-uobject-java-api.html#x42-77000026" id="QQ2-42-897">The UObject Java API</a></span>
+<br />    <span class="sectionToc" >26.1 <a
+href="the-uobject-java-api.html#x42-77100026.1" id="QQ2-42-898">Compiling and running UObjects</a></span>
+<br />    <span class="sectionToc" >26.2 <a
+href="the-uobject-java-api.html#x42-77400026.2" id="QQ2-42-901">Creating a class, binding variables and functions</a></span>
+<br />    <span class="sectionToc" >26.3 <a
+href="the-uobject-java-api.html#x42-77500026.3" id="QQ2-42-902">Creating new instances</a></span>
+<br />    <span class="sectionToc" >26.4 <a
+href="the-uobject-java-api.html#x42-77600026.4" id="QQ2-42-903">Binding functions</a></span>
+<br />    <span class="sectionToc" >26.5 <a
+href="the-uobject-java-api.html#x42-77700026.5" id="QQ2-42-904">Notiﬁcation of a variable change or access</a></span>
+<br />    <span class="sectionToc" >26.6 <a
+href="the-uobject-java-api.html#x42-77800026.6" id="QQ2-42-905">Timers</a></span>
+<br />    <span class="sectionToc" >26.7 <a
+href="the-uobject-java-api.html#x42-77900026.7" id="QQ2-42-906">Using Urbi variables</a></span>
+<br />    <span class="sectionToc" >26.8 <a
+href="the-uobject-java-api.html#x42-78000026.8" id="QQ2-42-907">Sending Urbi code</a></span>
+<br />    <span class="sectionToc" >26.9 <a
+href="the-uobject-java-api.html#x42-78100026.9" id="QQ2-42-908">Providing a main class or not</a></span>
+<br />    <span class="sectionToc" >26.10 <a
+href="the-uobject-java-api.html#x42-78200026.10" id="QQ2-42-909">Import the examples with Eclipse</a></span>
+<br />    <span class="sectionToc" >26.11 <a
+href="the-uobject-java-api.html#x42-78300026.11" id="QQ2-42-910">Run the UObject Java examples</a></span>
+<br />   <span class="chapterToc" >27 <a
+href="use-cases.html#x43-78400027" id="QQ2-43-911">Use Cases</a></span>
+<br />    <span class="sectionToc" >27.1 <a
+href="use-cases.html#x43-78500027.1" id="QQ2-43-912">Writing a Servomotor Device</a></span>
+<br />    <span class="sectionToc" >27.2 <a
+href="use-cases.html#x43-78800027.2" id="QQ2-43-915">Using Hubs to Group Objects</a></span>
+<br />    <span class="sectionToc" >27.3 <a
+href="use-cases.html#x43-79000027.3" id="QQ2-43-917">Writing a Camera Device</a></span>
+<br />    <span class="sectionToc" >27.4 <a
+href="use-cases.html#x43-79200027.4" id="QQ2-43-919">Writing a Speaker or Microphone Device</a></span>
+<br />    <span class="sectionToc" >27.5 <a
+href="use-cases.html#x43-79300027.5" id="QQ2-43-920">Writing a Softdevice: Ball Detection</a></span>
+<br />   <span class="partToc" >V  <a
+href="tables-and-indexes.html#x44-794000V" id="QQ2-44-921">Tables and Indexes</a></span>
+<br />   <span class="likechapterToc" ><a
+href="urbi-sdkli6.html#x45-795000V" id="QQ2-45-922">About This Part</a></span>
+<br />   <span class="chapterToc" >28 <a
+href="notations.html#x46-79600028" id="QQ2-46-923">Notations</a></span>
+<br />    <span class="sectionToc" >28.1 <a
+href="notations.html#x46-79700028.1" id="QQ2-46-924">Words</a></span>
+<br />    <span class="sectionToc" >28.2 <a
+href="notations.html#x46-79800028.2" id="QQ2-46-925">Frames</a></span>
+<br />   <span class="chapterToc" >29 <a
+href="grammar.html#x47-80500029" id="QQ2-47-932">Grammar</a></span>
+<br />   <span class="chapterToc" >30 <a
+href="release-notes.html#x48-80600030" id="QQ2-48-933">Release Notes</a></span>
+<br />    <span class="sectionToc" >30.1 <a
+href="release-notes.html#x48-80700030.1" id="QQ2-48-934">Urbi SDK 3.0</a></span>
+<br />    <span class="sectionToc" >30.2 <a
+href="release-notes.html#x48-81900030.2" id="QQ2-48-946">Urbi SDK 2.7.5</a></span>
+<br />    <span class="sectionToc" >30.3 <a
+href="release-notes.html#x48-82400030.3" id="QQ2-48-951">Urbi SDK 2.7.4</a></span>
+<br />    <span class="sectionToc" >30.4 <a
+href="release-notes.html#x48-82800030.4" id="QQ2-48-955">Urbi SDK 2.7.3</a></span>
+<br />    <span class="sectionToc" >30.5 <a
+href="release-notes.html#x48-83200030.5" id="QQ2-48-959">Urbi SDK 2.7.2</a></span>
+<br />    <span class="sectionToc" >30.6 <a
+href="release-notes.html#x48-83400030.6" id="QQ2-48-961">Urbi SDK 2.7.1</a></span>
+<br />    <span class="sectionToc" >30.7 <a
+href="release-notes.html#x48-83800030.7" id="QQ2-48-965">Urbi SDK 2.7</a></span>
+<br />    <span class="sectionToc" >30.8 <a
+href="release-notes.html#x48-84200030.8" id="QQ2-48-969">Urbi SDK 2.6</a></span>
+<br />    <span class="sectionToc" >30.9 <a
+href="release-notes.html#x48-84700030.9" id="QQ2-48-974">Urbi SDK 2.5</a></span>
+<br />    <span class="sectionToc" >30.10 <a
+href="release-notes.html#x48-85200030.10" id="QQ2-48-979">Urbi SDK 2.4</a></span>
+<br />    <span class="sectionToc" >30.11 <a
+href="release-notes.html#x48-85600030.11" id="QQ2-48-983">Urbi SDK 2.3</a></span>
+<br />    <span class="sectionToc" >30.12 <a
+href="release-notes.html#x48-85900030.12" id="QQ2-48-986">Urbi SDK 2.2</a></span>
+<br />    <span class="sectionToc" >30.13 <a
+href="release-notes.html#x48-86300030.13" id="QQ2-48-990">Urbi SDK 2.1</a></span>
+<br />    <span class="sectionToc" >30.14 <a
+href="release-notes.html#x48-86800030.14" id="QQ2-48-995">Urbi SDK 2.0.3</a></span>
+<br />    <span class="sectionToc" >30.15 <a
+href="release-notes.html#x48-87200030.15" id="QQ2-48-999">Urbi SDK 2.0.2</a></span>
+<br />    <span class="sectionToc" >30.16 <a
+href="release-notes.html#x48-87600030.16" id="QQ2-48-1003">Urbi SDK 2.0.1</a></span>
+<br />    <span class="sectionToc" >30.17 <a
+href="release-notes.html#x48-88000030.17" id="QQ2-48-1007">Urbi SDK 2.0</a></span>
+<br />    <span class="sectionToc" >30.18 <a
+href="release-notes.html#x48-88600030.18" id="QQ2-48-1013">Urbi SDK 2.0 RC 4</a></span>
+<br />    <span class="sectionToc" >30.19 <a
+href="release-notes.html#x48-89200030.19" id="QQ2-48-1019">Urbi SDK 2.0 RC 3</a></span>
+<br />    <span class="sectionToc" >30.20 <a
+href="release-notes.html#x48-89700030.20" id="QQ2-48-1024">Urbi SDK 2.0 RC 2</a></span>
+<br />    <span class="sectionToc" >30.21 <a
+href="release-notes.html#x48-90900030.21" id="QQ2-48-1036">Urbi SDK 2.0 RC 1</a></span>
+<br />    <span class="sectionToc" >30.22 <a
+href="release-notes.html#x48-91600030.22" id="QQ2-48-1043">Urbi SDK 2.0 beta 4</a></span>
+<br />    <span class="sectionToc" >30.23 <a
+href="release-notes.html#x48-92600030.23" id="QQ2-48-1053">Urbi SDK 2.0 beta 3</a></span>
+<br />    <span class="sectionToc" >30.24 <a
+href="release-notes.html#x48-93300030.24" id="QQ2-48-1060">Urbi SDK 2.0 beta 2</a></span>
+<br />   <span class="chapterToc" >31 <a
+href="licenses.html#x52-94000031" id="QQ2-52-1067">Licenses</a></span>
+<br />    <span class="sectionToc" >31.1 <a
+href="licenses.html#x52-94100031.1" id="QQ2-52-1068">Boost Software License 1.0</a></span>
+<br />    <span class="sectionToc" >31.2 <a
+href="licenses.html#x52-94200031.2" id="QQ2-52-1070">BSD License</a></span>
+<br />    <span class="sectionToc" >31.3 <a
+href="licenses.html#x52-94300031.3" id="QQ2-52-1072">Expat License</a></span>
+<br />    <span class="sectionToc" >31.4 <a
+href="licenses.html#x52-94400031.4" id="QQ2-52-1074">gnu.bytecode</a></span>
+<br />    <span class="sectionToc" >31.5 <a
+href="licenses.html#x52-94500031.5" id="QQ2-52-1076">ICU License</a></span>
+<br />    <span class="sectionToc" >31.6 <a
+href="licenses.html#x52-94600031.6" id="QQ2-52-1078">Independent JPEG Group&#x2019;s Software License</a></span>
+<br />    <span class="sectionToc" >31.7 <a
+href="licenses.html#x52-94700031.7" id="QQ2-52-1080">Libcoroutine License</a></span>
+<br />    <span class="sectionToc" >31.8 <a
+href="licenses.html#x52-94800031.8" id="QQ2-52-1082">OpenSSL License</a></span>
+<br />    <span class="sectionToc" >31.9 <a
+href="licenses.html#x52-94900031.9" id="QQ2-52-1084">ROS</a></span>
+<br />    <span class="sectionToc" >31.10 <a
+href="licenses.html#x52-95000031.10" id="QQ2-52-1086">Urbi Open Source Contributor Agreement</a></span>
+<br />   <span class="chapterToc" >32 <a
+href="bibliography.html#x53-95100032" id="QQ2-53-1087">Bibliography</a></span>
+<br />   <span class="chapterToc" >33 <a
+href="glossary.html#x54-95200033" id="QQ2-54-1088">Glossary</a></span>
+<br />   <span class="chapterToc" >34 <a
+href="list-of-tables.html#x55-95300034" id="QQ2-55-1093">List of Tables</a></span>
+<br />   <span class="chapterToc" >35 <a
+href="list-of-figures.html#x56-95400035" id="QQ2-56-1094">List of Figures</a></span>
+<br />   <span class="likechapterToc" ><a
+href="index-of-terms.html#x57-95500035" id="QQ2-57-1095">Index</a></span>
+   </div>
+<!--l. 9--><p class="indent" >
+</p>
+<!--l. 9--><p class="indent" >
+</p><!--l. 9--><p class="indent" >
+</p>
+<!--l. 9--><p class="indent" >
+</p><!--l. 9--><p class="indent" >
+</p>
+<!--l. 9--><p class="indent" >
+</p><!--l. 9--><p class="indent" >
+</p>
+<!--l. 9--><p class="indent" >
+</p><!--l. 9--><p class="indent" >
+</p><div class="header"><a href="index-of-terms.html">Index</a><a
+href="introduction.html" id="tailurbi-sdk" >Next</a><a href="index.html">Urbi SDK 3.0.0</a></div>
+</body></html>
+<!--</js>-->

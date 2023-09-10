@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>12 Urbi for ROS Users</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="guidelines-and-cook-books.html" >Next</a><a
+href="urbiscript-user-manual.html#ros-tutorial.html" >Up</a><a
+href="event-based-programming.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 12</span><br /><a
+href="index.html#QQ2-16-79" id="x16-7300012">Urbi for ROS Users</a></h2>
+<!--l. 21--><p class="noindent" ><!-- tex4ht:FileName="ros-tutorial" -->
+</p><!--l. 25--><p class="indent" >   This  chapter  extends  the  <a
+href="http://www.ros.org/wiki/ROS/Tutorials" >ROS  oﬃcial
+tutorials</a><span class="footnote-mark"><!--\def\jstoday{2016-05-08 14:32:00} \input onmouseover.4ht   <js>-->  <a
+href="urbi-sdk17.html#fn1x14"
+onmouseover="tex4ht.body=tex4ht.fn1x14; tex4ht.caption='1'; return overlib(tex4ht.body,FULLHTML);"
+onmouseout="nd();"
+ ><sup class="textsuperscript">1</sup></a></span><a
+ id="x16-73001f1"></a> .
+Be sure to complete this tutorial before reading this document.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >12.1 <a
+href="#x16-7400012.1">Communication on topics</a></span>
+<br />     <span class="subsectionToc" >12.1.1 <a
+href="#x16-7500012.1.1">Starting a process from Urbi</a></span>
+<br />     <span class="subsectionToc" >12.1.2 <a
+href="#x16-7600012.1.2">Listening to Topics</a></span>
+<br />     <span class="subsectionToc" >12.1.3 <a
+href="#x16-7700012.1.3">Advertising on Topics</a></span>
+<br />    <span class="sectionToc" >12.2 <a
+href="#x16-8000012.2">Using Services</a></span>
+<br />    <span class="sectionToc" >12.3 <a
+href="#x16-8100012.3">Image Publisher from ROS to Urbi</a></span>
+<br />    <span class="sectionToc" >12.4 <a
+href="#x16-8600012.4">Image Subscriber from Urbi to ROS</a></span>
+<br />    <span class="sectionToc" >12.5 <a
+href="#x16-8900012.5">Remote communication</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">12.1   </span> <a
+href="index.html#QQ2-16-80" id="x16-7400012.1">Communication on topics</a></h3>
+<!--l. 30--><p class="noindent" >First we will take back examples about topics; make sure that talker and listener in the
+‘<span class="cmtt-10x-x-109">beginner_tutorial</span>&#x2019; package are compiled. You can recompile it with the following command:
+</p><!--l. 34--><p class="indent" >   <div class="code shell">
+<!--l. 34--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-74001r1"></a></span><span class="cmtt-10x-x-109">$ rosmake beginner_tutorial</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-74002r2"></a></span></pre>
+   </div>
+<!--l. 38--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">12.1.1   </span> <a
+href="contents.html#QQ2-16-81" id="x16-7500012.1.1">Starting a process from Urbi</a></h4>
+<!--l. 40--><p class="noindent" >To communicate with ROS components, you need to launch them. You can do it by hand, or
+ask Urbi to do it for you. To launch new processes through Urbi, we will use the class
+<a
+href="urbiscript-standard-library.html#object:Process"><span class="lstinline"><span
+class="cmtt-10x-x-109">Process</span></span></a>.
+</p><!--l. 44--><p class="indent" >   Let&#x2019;s say we want to start <span
+class="cmtt-10x-x-109">roscore</span>, and the talker of the beginner tutorial. Open an Urbi shell by
+typing the command ‘<span
+class="cmtt-10x-x-109">rlwrap urbi -i</span>&#x2019;. Here <span
+class="cmtt-10x-x-109">rlwrap </span>makes ‘<span
+class="cmtt-10x-x-109">urbi -i</span>&#x2019; acts like a shell prompt, with
+features like line editing, history, &hellip;
+</p><!--l. 49--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 49--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-75001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> core = Process.new(</span><!--l. 50--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;roscore&#x0022;</span></span></span><span class="cmtt-10x-x-109">, []); </span><br /><span class="label"><a
+ id="x16-75002r2"></a></span><!--l. 51--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] Process roscore</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-75003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> talker = Process.new(</span><!--l. 52--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;rosrun&#x0022;</span></span></span><span class="cmtt-10x-x-109">, [</span><!--l. 52--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;beginner_tutorial&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 52--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;talker&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x16-75004r4"></a></span><!--l. 53--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] Process rosrun</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-75005r5"></a></span><span class="cmtt-10x-x-109">core.run; </span><br /><span class="label"><a
+ id="x16-75006r6"></a></span><span class="cmtt-10x-x-109">talker.run;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-75007r7"></a></span></pre>
+   </div>
+<!--l. 58--><p class="indent" >   At this point, the processes are launched. The ﬁrst argument of <span class="lstinline"><span class="cmtt-10x-x-109">Process.new</span></span> is the name of the
+command to launch, the second is a list of arguments.
+</p><!--l. 62--><p class="indent" >   Then you can check the status of the processes, get their stdout/stderr buﬀers, kill them in
+urbiscript (see <a
+href="urbiscript-standard-library.html#object:Process"><span class="lstinline"><span
+class="cmtt-10x-x-109">Process</span></span></a>).
+</p><!--l. 66--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">12.1.2   </span> <a
+href="contents.html#QQ2-16-82" id="x16-7600012.1.2">Listening to Topics</a></h4>
+<!--l. 68--><p class="noindent" >First you need to make sure that <span
+class="cmtt-10x-x-109">roscore </span>is running, and the ROS module is loaded correctly:
+</p><!--l. 71--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 71--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76001r1"></a></span><span class="cmtt-10x-x-109">Global.hasLocalSlot(</span><!--l. 72--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Ros&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x16-76002r2"></a></span><!--l. 73--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00016931] true</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76003r3"></a></span></pre>
+   </div>
+<!--l. 76--><p class="noindent" >Then we can get the list of launched nodes:
+</p><!--l. 79--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 79--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76004r1"></a></span><span class="cmtt-10x-x-109">Ros.nodes;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76005r2"></a></span></pre>
+   </div>
+<!--l. 83--><p class="indent" >   This returns a <a
+href="urbiscript-standard-library.html#object:Dictionary"><span class="lstinline"><span
+class="cmtt-10x-x-109">Dictionary</span></span></a> with the name of the node as key, and a dictionary with topics
+subscribed, topics advertised, topics advertised as value.
+</p><!--l. 87--><p class="indent" >   We can check that our talker is registered, and on which channel it advertises:
+</p><!--l. 90--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 90--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76006r1"></a></span><!--l. 91--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Get the structure.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76007r2"></a></span><!--l. 92--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// &#x0022;|;&#x0022; is an idiom to discard the display of the return value.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76008r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> nodes = Ros.nodes|; </span><br /><span class="label"><a
+ id="x16-76009r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76010r5"></a></span><!--l. 95--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// List of nodes (keys).</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76011r6"></a></span><span class="cmtt-10x-x-109">nodes.keys; </span><br /><span class="label"><a
+ id="x16-76012r7"></a></span><!--l. 97--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] [&#x0022;/rosout&#x0022;, &#x0022;/urbi_1273060422295250703&#x0022;, &#x0022;/talker&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76013r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76014r9"></a></span><!--l. 99--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Details of the node &#x0022;talker&#x0022;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76015r10"></a></span><span class="cmtt-10x-x-109">nodes[</span><!--l. 100--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;talker&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">][</span><!--l. 100--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;publish&#x0022;</span></span></span><span class="cmtt-10x-x-109">]; </span><br /><span class="label"><a
+ id="x16-76016r11"></a></span><!--l. 101--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000003] [&#x0022;/rosout&#x0022;, &#x0022;/chatter&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76017r12"></a></span></pre>
+   </div>
+<!--l. 104--><p class="indent" >   Here we see that this node advertises ‘<span
+class="cmtt-10x-x-109">/rosout</span>&#x2019; and ‘<span
+class="cmtt-10x-x-109">/chatter</span>&#x2019;. Let&#x2019;s subscribe to
+‘<span
+class="cmtt-10x-x-109">/chatter</span>&#x2019;:
+</p><!--l. 107--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 107--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76018r1"></a></span><!--l. 108--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Initialize the subscription object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76019r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> chatter = Ros.Topic.new(</span><!--l. 109--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/chatter&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x16-76020r3"></a></span><!--l. 110--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Subscribe.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76021r4"></a></span><span class="cmtt-10x-x-109">chatter.subscribe; </span><br /><span class="label"><a
+ id="x16-76022r5"></a></span><!--l. 112--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is the way we are called on new message.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76023r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> chatTag = Tag.new|; </span><br /><span class="label"><a
+ id="x16-76024r7"></a></span><span class="cmtt-10x-x-109">chatTag: </span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (chatter.onMessage?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> e)) </span><br /><span class="label"><a
+ id="x16-76025r8"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 115--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This will be executed on each message.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76026r9"></a></span><span class="cmtt-10x-x-109">  echo(e);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76027r10"></a></span></pre>
+   </div>
+<!--l. 119--><p class="indent" >   In this code, <span class="lstinline"><span
+class="cmtt-10x-x-109">e</span></span> is a Dictionary that follows the structure of the ROS message. Here is an example of
+what this code produces:
+</p><!--l. 122--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 122--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76028r1"></a></span><!--l. 123--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004] *** [&#x0022;data&#x0022; =&#x003E; &#x0022;Hello there! This is message [4]&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76029r2"></a></span><!--l. 124--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000005] *** [&#x0022;data&#x0022; =&#x003E; &#x0022;Hello there! This is message [5]&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76030r3"></a></span><!--l. 125--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000006] *** [&#x0022;data&#x0022; =&#x003E; &#x0022;Hello there! This is message [6]&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76031r4"></a></span></pre>
+   </div>
+<!--l. 128--><p class="indent" >   We can also get a template for the message structure on this channel with:
+</p><!--l. 130--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 130--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76032r1"></a></span><span class="cmtt-10x-x-109">chatter.structure; </span><br /><span class="label"><a
+ id="x16-76033r2"></a></span><!--l. 132--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000007] [&#x0022;data&#x0022; =&#x003E; &#x0022;&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-76034r3"></a></span></pre>
+   </div>
+<!--l. 135--><p class="indent" >   To stop temporarily the <a
+href="urbiscript-standard-library.html#slot:Global.echo"><span class="lstinline"><span class="cmtt-10x-x-109">Global.echo</span></span></a>, we take advantages of tags (<a
+href="parallelism-concurrent-flow-control.html#x14-6200010.3">Section 10.3<!--tex4ht:ref: sec:lang:waituntil --></a>), by doing
+<span class="lstinline"><span class="cmtt-10x-x-109">chatTag.freeze</span></span>. Same thing goes with unfreeze. Of course you could also call <span class="lstinline"><span class="cmtt-10x-x-109">chatter.unsubscribe</span></span>,
+which unsubscribes you completely from this channel.
+</p><!--l. 142--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">12.1.3   </span> <a
+href="contents.html#QQ2-16-83" id="x16-7700012.1.3">Advertising on Topics</a></h4>
+<!--l. 144--><p class="noindent" >To advertise a topic, this is roughly the same procedure.
+</p><!--l. 147--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">12.1.3.1   </span> <a
+href="contents.html#QQ2-16-84" id="x16-7800012.1.3.1">Simple Talker</a></h5>
+<!--l. 149--><p class="noindent" >Here is a quick example:
+</p><!--l. 151--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 151--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-78001r1"></a></span><!--l. 152--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Initialize our object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-78002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> talker = Ros.Topic.new(</span><!--l. 153--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/chatter&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x16-78003r3"></a></span><!--l. 154--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Advertise (providing the ROS Type of this topic).</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-78004r4"></a></span><span class="cmtt-10x-x-109">talker.advertise(</span><!--l. 155--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;std_msgs/String&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x16-78005r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-78006r6"></a></span><!--l. 157--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Get a template of our structure.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-78007r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> msg = talker.structure.new; </span><br /><span class="label"><a
+ id="x16-78008r8"></a></span><span class="cmtt-10x-x-109">msg[</span><!--l. 159--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = </span><!--l. 159--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello ROS world&#x0022;</span></span></span><span class="cmtt-10x-x-109">|; </span><br /><span class="label"><a
+ id="x16-78009r9"></a></span><span class="cmtt-10x-x-109">talker &#x003C;&#x003C; msg;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-78010r10"></a></span></pre>
+   </div>
+<!--l. 163--><p class="indent" >   We have just sent our ﬁrst message to ROS, here if you launch the chatter, you will be able to get
+the message we have just sent.
+</p><!--l. 166--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x003C;&#x003C;</span></span> operator is an convenient alias for <a
+href="ros.html#slot:Ros.Topic.publish"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.Topic.publish</span></span></a>.
+</p><!--l. 171--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">12.1.3.2   </span> <a
+href="contents.html#QQ2-16-85" id="x16-7900012.1.3.2">Turtle Simulation</a></h5>
+<!--l. 174--><p class="noindent" >Now we are going to move the turtle with Urbi. First let&#x2019;s launch the turtle node:
+</p><!--l. 177--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 177--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> turtle = Process.new(</span><!--l. 178--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;rosrun&#x0022;</span></span></span><span class="cmtt-10x-x-109">, [</span><!--l. 178--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;turtlesim&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 178--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;turtlesim_node&#x0022;</span></span></span><span class="cmtt-10x-x-109">])|; </span><br /><span class="label"><a
+ id="x16-79002r2"></a></span><span class="cmtt-10x-x-109">turtle.run;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79003r3"></a></span></pre>
+   </div>
+<!--l. 182--><p class="indent" >   <a
+href="ros.html#slot:Ros.topics"><span class="lstinline"><span class="cmtt-10x-x-109">Ros.topics</span></span></a> shows that this turtle subscribes to a topic ‘<span class="cmtt-10x-x-109">/turtle1/command_velocity</span>&#x2019;. Let&#x2019;s
+advertise on it:
+</p><!--l. 185--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 185--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79004r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> velocity = Ros.Topic.new(</span><!--l. 186--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/turtle1/command_velocity&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x16-79005r2"></a></span><span class="cmtt-10x-x-109">velocity.advertise(</span><!--l. 187--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;turtlesim/Velocity&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x16-79006r3"></a></span><span class="cmtt-10x-x-109">velocity.structure; </span><br /><span class="label"><a
+ id="x16-79007r4"></a></span><!--l. 189--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] [&#x0022;linear&#x0022; =&#x003E; 0, &#x0022;angular&#x0022; =&#x003E; 0]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79008r5"></a></span></pre>
+   </div>
+<!--l. 193--><p class="indent" >   Now we want to have it moving in circle with a small sinusoid wave. This goes in two step.
+First, we set up the infrastructure so that changes in Urbi are seamlessly published in
+ROS.
+</p><!--l. 197--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 197--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79009r1"></a></span><!--l. 198--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Get our template structure.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79010r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> m = velocity.structure.new |; </span><br /><span class="label"><a
+ id="x16-79011r3"></a></span><span class="cmtt-10x-x-109">m[</span><!--l. 200--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;linear&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = 0.8 |; </span><br /><span class="label"><a
+ id="x16-79012r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> angular = 0 |; </span><br /><span class="label"><a
+ id="x16-79013r5"></a></span><!--l. 202--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Every time angular is changed, we send a message.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79014r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (angular-&#x003E;changed?) </span><br /><span class="label"><a
+ id="x16-79015r7"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x16-79016r8"></a></span><span class="cmtt-10x-x-109">  m[</span><!--l. 205--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;angular&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = angular; </span><br /><span class="label"><a
+ id="x16-79017r9"></a></span><span class="cmtt-10x-x-109">  velocity &#x003C;&#x003C; m </span><br /><span class="label"><a
+ id="x16-79018r10"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79019r11"></a></span></pre>
+   </div>
+<!--l. 210--><p class="noindent" >In the future Urbi will provide helping functions to spare the user from the need to perform this
+“binding”. But once this binding done, all the features of urbiscript can be used transparently.
+</p>
+   <table class="multicols" id="multicols-1"><tr><td class="multicol-1">
+<!--l. 216--><p class="indent" >   For instance we can assign a sinusoidal trajectory to ‘<span
+class="cmtt-10x-x-109">angular</span>&#x2019;, which results in the screen-shot on
+the right-hand side.
+</p><!--l. 219--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 219--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79020r1"></a></span><!--l. 220--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// For 20 seconds, bind &#x0022;angular&#x0022; to a sine.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79021r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">timeout</span></span><span class="cmtt-10x-x-109"> (20s) </span><br /><span class="label"><a
+ id="x16-79022r3"></a></span><span class="cmtt-10x-x-109">  angular = 0.3 sin: 2s ampli: 2;</span>
+   <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79023r4"></a></span></pre>
+   </div>
+<!--l. 225--><p class="indent" >   Every time <span class="lstinline"><span
+class="cmtt-10x-x-109">angular</span></span> is changed, a new message is sent on the Topic ‘<span class="cmtt-10x-x-109">/turtle1/command_velocity</span>&#x2019;,
+thus updating the position of the turtle. After 20 seconds the command is stopped.
+</p>
+   </td><td class="multicol-2">
+<div class="center"
+>
+<!--l. 231--><p class="noindent" >
+</p><!--l. 232--><p class="noindent" ><img
+src="urbi-sdk2x.png" alt="PIC" class="graphics" width="204.85846pt" height="214.13664pt"  /><!--tex4ht:graphics
+name="urbi-sdk2x.png" src="img/turtlesim-tutorial.eps"
+--></p></div>
+   </td></tr></table>
+<!--l. 239--><p class="indent" >   Alternatively, <a
+href="urbiscript-standard-library.html#object:Tag"><span class="lstinline"><span
+class="cmtt-10x-x-109">Tags</span></span></a> could have been used to get more control over the trajectory:
+</p><!--l. 242--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 242--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79024r1"></a></span><!--l. 243--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// A Tag to control the following endless statement.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79025r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> angTag = Tag.new|; </span><br /><span class="label"><a
+ id="x16-79026r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79027r4"></a></span><span class="cmtt-10x-x-109">angTag: </span><br /><span class="label"><a
+ id="x16-79028r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 247--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind &#x0022;angular&#x0022; to a trajectory.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79029r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 248--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Put in background thanks to &#x0022;,&#x0022;, since this statement is never ending.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79030r7"></a></span><span class="cmtt-10x-x-109">  angular = 0.3 sin: 2s ampli: 2, </span><br /><span class="label"><a
+ id="x16-79031r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79032r9"></a></span><!--l. 251--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Leave 20 seconds to the turtle...</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79033r10"></a></span><span class="cmtt-10x-x-109">sleep(20s); </span><br /><span class="label"><a
+ id="x16-79034r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79035r12"></a></span><!--l. 254--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// before freezing it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79036r13"></a></span><span class="cmtt-10x-x-109">angTag.freeze;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-79037r14"></a></span></pre>
+   </div>
+<!--l. 258--><p class="indent" >   We won&#x2019;t cover this code in details, but the general principle is that <span class="lstinline"><span
+class="cmtt-10x-x-109">angular</span></span> is updated every
+20ms with the values of a sinusoid wave trajectory with 0.3 as average value, 2 seconds for the period
+and 2 for the amplitude. See <a
+href="urbiscript-standard-library.html#object:TrajectoryGenerator"><span class="lstinline"><span
+class="cmtt-10x-x-109">TrajectoryGenerator</span></span></a> for more information. After 20 seconds the tag is
+frozen, pausing the trajectory generation and the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span>.
+</p><!--l. 267--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">12.2   </span> <a
+href="index.html#QQ2-16-86" id="x16-8000012.2">Using Services</a></h3>
+<!--l. 269--><p class="noindent" >Services work the same way topics do, with minor diﬀerences.
+</p><!--l. 271--><p class="indent" >   Let&#x2019;s take back the turtle simulation example (<a
+href="#x16-7900012.1.3.2">Section 12.1.3.2<!--tex4ht:ref: sec:lang:waituntil --></a>). Then we can list the available
+services, and ﬁlter out loggers:
+</p><!--l. 274--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 274--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> logger = Regexp.new(</span><!--l. 275--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;(get|set)_logger&#x0022;</span></span></span><span class="cmtt-10x-x-109">) |; </span><br /><span class="label"><a
+ id="x16-80002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> services = Ros.services.keys |; </span><br /><span class="label"><a
+ id="x16-80003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> s </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> services) </span><br /><span class="label"><a
+ id="x16-80004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (s </span><span class="textkwd"><span
+class="cmtt-10x-x-109">not</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> logger) </span><br /><span class="label"><a
+ id="x16-80005r5"></a></span><span class="cmtt-10x-x-109">    echo(s); </span><br /><span class="label"><a
+ id="x16-80006r6"></a></span><!--l. 280--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/clear&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80007r7"></a></span><!--l. 281--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/kill&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80008r8"></a></span><!--l. 282--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/turtle1/teleport_absolute&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80009r9"></a></span><!--l. 283--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/turtle1/teleport_relative&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80010r10"></a></span><!--l. 284--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/turtle1/set_pen&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80011r11"></a></span><!--l. 285--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/reset&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80012r12"></a></span><!--l. 286--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** &#x0022;/spawn&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80013r13"></a></span></pre>
+   </div>
+<!--l. 289--><p class="indent" >   The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">closure</span></span></span> construct allows us to keep access to the local variables, here <span class="lstinline"><span
+class="cmtt-10x-x-109">logger</span></span>.
+</p><!--l. 292--><p class="indent" >   Now there is a service called ‘<span
+class="cmtt-10x-x-109">/spawn</span>&#x2019;; to initialize it:
+</p><!--l. 294--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 294--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80014r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> spawn = Ros.Service.new(</span><!--l. 295--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/spawn&#x0022;</span></span></span><span class="cmtt-10x-x-109">, false) |; </span><br /><span class="label"><a
+ id="x16-80015r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">waituntil</span></span><span class="cmtt-10x-x-109">(spawn.initialized);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80016r3"></a></span></pre>
+   </div>
+<!--l. 299--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span> function takes the service name as ﬁrst argument, and as second argument whether the
+connection should be kept alive.
+</p><!--l. 302--><p class="indent" >   Since the creation of this object checks the service name, you should wait until <span class="lstinline"><span
+class="cmtt-10x-x-109">initialized</span></span> is true
+to use this service. You can also see the structure of the request with <span class="lstinline"><span class="cmtt-10x-x-109">spawn.reqStruct</span></span>, and the
+structure of the response with <span class="lstinline"><span class="cmtt-10x-x-109">spawn.resStruct</span></span>.
+</p><!--l. 307--><p class="indent" >   Now let&#x2019;s spawn a turtle called Jenny, at position (4, 4).
+</p><!--l. 309--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 309--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80017r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> req = spawn.reqStruct.new |; </span><br /><span class="label"><a
+ id="x16-80018r2"></a></span><span class="cmtt-10x-x-109">req[</span><!--l. 311--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = 4 | </span><br /><span class="label"><a
+ id="x16-80019r3"></a></span><span class="cmtt-10x-x-109">req[</span><!--l. 312--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;y&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = 4 | </span><br /><span class="label"><a
+ id="x16-80020r4"></a></span><span class="cmtt-10x-x-109">req[</span><!--l. 313--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;name&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = </span><!--l. 313--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Jenny&#x0022;</span></span></span><span class="cmtt-10x-x-109"> |; </span><br /><span class="label"><a
+ id="x16-80021r5"></a></span><span class="cmtt-10x-x-109">spawn.request(req); </span><br /><span class="label"><a
+ id="x16-80022r6"></a></span><!--l. 315--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] [&#x0022;name&#x0022; =&#x003E; &#x0022;Jenny&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-80023r7"></a></span></pre>
+   </div>
+<!--l. 318--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">12.3   </span> <a
+href="index.html#QQ2-16-87" id="x16-8100012.3">Image Publisher from ROS to Urbi</a></h3>
+<!--l. 320--><p class="noindent" >This section will use topics manipulation with advertising and subscription. Be sure to understand
+these topics before doing this tutorial.
+</p>
+<!--l. 323--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-8200012.3" id="x16-8200012.3"><span
+class="cmbx-10x-x-109">Requirements</span></a></span>
+   You have to ﬁnish the image Publisher/Subscriber tutorial (<a
+href="http://www.ros.org/wiki/image_transport/Tutorials" ><span
+class="cmtt-10x-x-109">http://www.ros.org/wiki/image_transport/Tutorials</span></a>)
+before doing this tutorial.
+</p><!--l. 329--><p class="indent" >   First, we will make a ROS Publisher and subscribe to it with Urbi. Make sure that Publisher
+‘<span class="cmtt-10x-x-109">learning_image_transport</span>&#x2019; package is compiled:
+</p><!--l. 332--><p class="indent" >   <div class="code shell">
+<!--l. 332--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82001r1"></a></span><span class="cmtt-10x-x-109">$ rosmake learning_image_transport</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82002r2"></a></span></pre>
+   </div>
+<!--l. 336--><p class="indent" >   We will also run <span
+class="cmtt-10x-x-109">urbi </span>with a network connection opened (e.g., on port 54000) to allow <span
+class="cmtt-10x-x-109">urbi-image</span>
+(<a
+href="programs.html#x30-20700019.4">Section 19.4<!--tex4ht:ref: sec:lang:waituntil --></a>) to connect to it.
+</p><!--l. 340--><p class="indent" >   <div class="code shell">
+<!--l. 340--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82003r1"></a></span><span class="cmtt-10x-x-109">$ urbi --host=127.0.0.1 --port=54000 -- -f</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82004r2"></a></span></pre>
+   </div>
+<!--l. 344--><p class="indent" >   Also, you have to run <span
+class="cmtt-10x-x-109">roscore </span>to communicate with ROS.
+</p><!--l. 346--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 346--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82005r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> core = Process.new(</span><!--l. 347--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;roscore&#x0022;</span></span></span><span class="cmtt-10x-x-109">, []); </span><br /><span class="label"><a
+ id="x16-82006r2"></a></span><!--l. 348--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] Process roscore</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82007r3"></a></span><span class="cmtt-10x-x-109">core.run;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-82008r4"></a></span></pre>
+   </div>
+<!--l. 353--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-8300012.3" id="x16-8300012.3"><span
+class="cmbx-10x-x-109">Run the Publisher</span></a></span>
+   The Publisher is a process that will send a image and wait for a Subscriber to get it.
+</p><!--l. 357--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 357--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-83001r1"></a></span><!--l. 358--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// In this example the image is in the current directory.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-83002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> publisher = </span><br /><span class="label"><a
+ id="x16-83003r3"></a></span><span class="cmtt-10x-x-109">  Process.new(</span><!--l. 360--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;rosrun&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><br /><span class="label"><a
+ id="x16-83004r4"></a></span><span class="cmtt-10x-x-109">              [</span><!--l. 361--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;learning_image_transport&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 361--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;my_publisher&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 361--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;test.jpg&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x16-83005r5"></a></span><!--l. 362--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[0000002] Process rosrun</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-83006r6"></a></span><span class="cmtt-10x-x-109">publisher.run;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-83007r7"></a></span></pre>
+   </div>
+<!--l. 366--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-8400012.3" id="x16-8400012.3"><span
+class="cmbx-10x-x-109">Using a camera to display</span></a></span>
+   By default, <span
+class="cmtt-10x-x-109">urbi-image </span>displays the images that are available via the <span class="lstinline"><span
+class="cmtt-10x-x-109">camera</span></span> device (see
+<a
+href="programs.html#x30-20700019.4">Section 19.4<!--tex4ht:ref: sec:lang:waituntil --></a>). To simplify the setup, let&#x2019;s deﬁne a pseudo <span class="lstinline"><span
+class="cmtt-10x-x-109">camera</span></span> which will store the data
+received:
+</p><!--l. 372--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 372--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-84001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Global.camera: Loadable </span><br /><span class="label"><a
+ id="x16-84002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x16-84003r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 375--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// A variable to store image data.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-84004r4"></a></span><span class="cmtt-10x-x-109">  UVar.new(this, </span><!--l. 376--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;val&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x16-84005r5"></a></span><span class="cmtt-10x-x-109">  val = 0; </span><br /><span class="label"><a
+ id="x16-84006r6"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-84007r7"></a></span></pre>
+   </div>
+<!--l. 382--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-8500012.3" id="x16-8500012.3"><span
+class="cmbx-10x-x-109">Subscribe to the topic</span></a></span>
+   Now, our Publisher is running and we have a camera waiting for data. All we need to do is
+connecting to the Publisher with a topic, the Subscriber.
+</p>
+   <hr class="figure" /><div class="figure"
+>
+<a
+ id="x16-850011"></a>
+<!--l. 388--><p class="noindent" ><img
+src="urbi-sdk3x.png" alt="PIC" class="graphics" width="409.71692pt" height="201.30933pt"  /><!--tex4ht:graphics
+name="urbi-sdk3x.png" src="img/ros-image-publisher.eps"
+-->
+<br /> </p><div class="caption"
+><span class="id">Figure 12.1: </span><span
+class="content">Output from <span
+class="cmtt-10x-x-109">rxgraph</span></span></div><!--tex4ht:label?: x16-850011 -->
+   </div><hr class="endfigure" />
+<!--l. 393--><p class="indent" >   Have a look at the diﬀerent topics created by the Publisher, for instance by running <span
+class="cmtt-10x-x-109">rxgraph</span>, which
+generates the graph in <a
+href="#x16-850011">paragraph 12.1<!--tex4ht:ref: sec:lang:waituntil --></a>. As you can see, seven topics are available for the camera. We will
+use the ‘<span
+class="cmtt-10x-x-109">/camera/image/compressed</span>&#x2019; topic for this example. For further information about the image
+format in ROS see <a
+href="http://www.ros.org/doc/api/sensor_msgs/html/msg/CompressedImage.html" ><span
+class="cmtt-10x-x-109">http://www.ros.org/doc/api/sensor_msgs/html/msg/CompressedImage.html</span></a>.
+</p><!--l. 400--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 400--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> cameraTopic = Ros.Topic.new(</span><!--l. 401--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/camera/image/compressed&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x16-85003r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (cameraTopic.onMessage?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> imgMsg)) </span><br /><span class="label"><a
+ id="x16-85004r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x16-85005r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 404--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Converting the ROS image to Urbi format.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85006r5"></a></span><span class="cmtt-10x-x-109">  imgMsg[</span><!--l. 405--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109">].keywords = imgMsg[</span><!--l. 405--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;format&#x0022;</span></span></span><span class="cmtt-10x-x-109">]| </span><br /><span class="label"><a
+ id="x16-85007r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 406--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We can now store the data into camera.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85008r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (!camera.val) </span><br /><span class="label"><a
+ id="x16-85009r8"></a></span><span class="cmtt-10x-x-109">    echo(</span><!--l. 408--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Image well received. Store the image into the camera&#x0022;</span></span></span><span class="cmtt-10x-x-109">) | </span><br /><span class="label"><a
+ id="x16-85010r9"></a></span><span class="cmtt-10x-x-109">  camera.val = imgMsg[</span><!--l. 409--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109">]; </span><br /><span class="label"><a
+ id="x16-85011r10"></a></span><span class="cmtt-10x-x-109">}, </span><br /><span class="label"><a
+ id="x16-85012r11"></a></span><!--l. 411--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Waiting for the &#x0022;publisher&#x0022; Process to be set up.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85013r12"></a></span><span class="cmtt-10x-x-109">sleep(2s); </span><br /><span class="label"><a
+ id="x16-85014r13"></a></span><span class="cmtt-10x-x-109">cameraTopic.subscribe;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85015r14"></a></span></pre>
+   </div>
+<!--l. 416--><p class="indent" >   We are now connected and ready to display.
+</p><!--l. 418--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 418--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85016r1"></a></span><!--l. 419--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000003] *** Image well received. Store the image into the camera</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85017r2"></a></span></pre>
+   </div>
+<!--l. 422--><p class="indent" >   In a new terminal run <span
+class="cmtt-10x-x-109">urbi-image</span>:
+</p><!--l. 424--><p class="indent" >   <div class="code shell">
+<!--l. 424--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85018r1"></a></span><span class="cmtt-10x-x-109">$ urbi-image </span><br /><span class="label"><a
+ id="x16-85019r2"></a></span><span class="cmtt-10x-x-109">Monitor created window 62914561 </span><br /><span class="label"><a
+ id="x16-85020r3"></a></span><span class="cmtt-10x-x-109">***Frame rate: 5.000000 fps***</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-85021r4"></a></span></pre>
+   </div>
+<!--l. 430--><p class="indent" >   You have now your image displayed in a window.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">12.4   </span> <a
+href="index.html#QQ2-16-93" id="x16-8600012.4">Image Subscriber from Urbi to ROS</a></h3>
+<!--l. 434--><p class="noindent" >Now, we want to send images to ROS using a Urbi Publisher. Make sure <span
+class="cmtt-10x-x-109">roscore </span>is running and
+‘<span class="cmtt-10x-x-109">learning_image_transport</span>&#x2019; package is compiled.
+</p>
+<!--l. 438--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-8700012.4" id="x16-8700012.4"><span
+class="cmbx-10x-x-109">Run the Subscriber</span></a></span>
+   The basic Subscriber in the ‘<span class="cmtt-10x-x-109">learning_image_transport</span>&#x2019; package is expecting a ‘<span
+class="cmtt-10x-x-109">/camera/image</span>&#x2019;
+topic. To avoid modifying the Subscriber code in ROS, we will simply ask to the Subscriber topic to
+accept ‘<span
+class="cmtt-10x-x-109">/camera/image/compressed</span>&#x2019; topics.
+</p><!--l. 445--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 445--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-87001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> subscriber = </span><br /><span class="label"><a
+ id="x16-87002r2"></a></span><span class="cmtt-10x-x-109">  Process.new(</span><!--l. 447--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;rosrun&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><br /><span class="label"><a
+ id="x16-87003r3"></a></span><span class="cmtt-10x-x-109">              [</span><!--l. 448--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;learning_image_transport&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 448--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;my_subscriber&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><br /><span class="label"><a
+ id="x16-87004r4"></a></span><span class="cmtt-10x-x-109">              </span><!--l. 449--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;_image_transport:=compressed&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x16-87005r5"></a></span><!--l. 450--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00037651] Process rosrun</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-87006r6"></a></span><span class="cmtt-10x-x-109">subscriber.run;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-87007r7"></a></span></pre>
+   </div>
+<!--l. 454--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-8800012.4" id="x16-8800012.4"><span
+class="cmbx-10x-x-109">Publishing images with Urbi</span></a></span>
+   The ‘<span class="cmtt-10x-x-109">sensor_msgs/CompressedImage</span>&#x2019; message format provides a structure that requires a few
+changes.
+</p><!--l. 459--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 459--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88001r1"></a></span><!--l. 460--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// File.new(&#x0022;...&#x0022;).content returns a Binary.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> urbiImage = File.new(</span><!--l. 461--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;test.jpg&#x0022;</span></span></span><span class="cmtt-10x-x-109">).content|; </span><br /><span class="label"><a
+ id="x16-88003r3"></a></span><span class="cmtt-10x-x-109">urbiImage.keywords = </span><!--l. 462--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;jpeg&#x0022;</span></span></span><span class="cmtt-10x-x-109">|; </span><br /><span class="label"><a
+ id="x16-88004r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> publisher = Ros.Topic.new(</span><!--l. 464--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;/camera/image/compressed&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x16-88006r6"></a></span><!--l. 465--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Advertising the type of message used.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88007r7"></a></span><span class="cmtt-10x-x-109">publisher.advertise(</span><!--l. 466--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;sensor_msgs/CompressedImage&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x16-88008r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88009r9"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> rosImg = publisher.structure.new|; </span><br /><span class="label"><a
+ id="x16-88010r10"></a></span><!--l. 469--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The rosImg is a dictionary containing a Binary and a String.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88011r11"></a></span><span class="cmtt-10x-x-109">rosImg[</span><!--l. 470--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;data&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = urbiImage|; </span><br /><span class="label"><a
+ id="x16-88012r12"></a></span><span class="cmtt-10x-x-109">rosImg[</span><!--l. 471--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;format&#x0022;</span></span></span><span class="cmtt-10x-x-109">] = </span><!--l. 471--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;jpeg&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88013r13"></a></span></pre>
+   </div>
+<!--l. 474--><p class="indent" >   This message contains more ﬁelds but you need only these two to send an image.
+</p><!--l. 477--><p class="indent" >   Now, you just have to publish the image.
+</p><!--l. 479--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 479--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88014r1"></a></span><!--l. 480--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Publishing at regular intervals.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88015r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109"> (500ms) </span><br /><span class="label"><a
+ id="x16-88016r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x16-88017r4"></a></span><span class="cmtt-10x-x-109">  publisher &#x003C;&#x003C; img; </span><br /><span class="label"><a
+ id="x16-88018r5"></a></span><span
+class="cmtt-10x-x-109">},</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x16-88019r6"></a></span></pre>
+   </div>
+<!--l. 487--><p class="indent" >   Communication is done, the image should be displayed.
+</p><!--l. 489--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">12.5   </span> <a
+href="index.html#QQ2-16-96" id="x16-8900012.5">Remote communication</a></h3>
+<!--l. 491--><p class="noindent" >We have worked with a <span
+class="cmtt-10x-x-109">roscore </span>running on the machine as the ROS processes but
+the purpose of using ROS with Urbi is to communicate with a remote machine. All
+you need is to setup your network conﬁguration to avoid unexpected behaviors (see
+<a
+href="http://www.ros.org/wiki/ROS/NetworkSetup" >NetworkSetup</a><span class="footnote-mark"><a
+href="urbi-sdk18.html#fn2x14"
+onmouseover="tex4ht.body=tex4ht.fn2x14; tex4ht.caption='2'; return overlib(tex4ht.body,FULLHTML);"
+onmouseout="nd();"
+ ><sup class="textsuperscript">2</sup></a></span><a
+ id="x16-89001f2"></a> ).
+</p><!--l. 496--><p class="indent" >   Make sure the ROS environment variables are well set, especially <span class="cmtt-10x-x-109">ROS_URI</span>, <span class="cmtt-10x-x-109">ROS_HOSTNAME</span>,
+<span class="cmtt-10x-x-109">ROS_IP</span>.
+</p><!--l. 499--><p class="indent" >   See <a
+href="http://www.ros.org/wiki/ROS/Tutorials/MultipleMachines" >Tutorials/MultipleMachines</a><span class="footnote-mark"><a
+href="urbi-sdk19.html#fn3x14"
+onmouseover="tex4ht.body=tex4ht.fn3x14; tex4ht.caption='3'; return overlib(tex4ht.body,FULLHTML);"
+onmouseout="nd();"
+ ><sup class="textsuperscript">3</sup></a></span><a
+ id="x16-89002f3"></a>
+for additional information.
+</p><!--l. 501--><p class="indent" >   Try our tutorials remotely to check if the connection is set correctly.
+</p>
+<!--l. 503--><p class="noindent" ><span class="paragraphHead"><a
+href="#x16-9000012.5" id="x16-9000012.5"><span
+class="cmbx-10x-x-109">To go further</span><span
+class="cmbx-10x-x-109">&hellip;</span></a></span>
+   Please see the Urbi/ROS Reference Manual, <a
+href="ros.html#x36-66700022">Section 22<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p>
+</body></html>

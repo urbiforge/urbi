@@ -1,0 +1,1568 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>25 The UObject API</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="the-uobject-java-api.html" >Next</a><a
+href="uobjects.html#the-uobject-api.html" >Up</a><a
+href="quick-start.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 25</span><br /><a
+href="index.html#QQ2-41-862" id="x41-73500025">The UObject API</a></h2>
+<!--l. 12--><p class="noindent" >The UObject API can be used to add new objects written in C++ to the urbiscript language, and to
+interact from C++ with the objects that are already deﬁned. We cover the use cases of controlling a
+physical device (servomotor, speaker, camera&hellip;), and interfacing higher-lever components (voice
+recognition, object detection&hellip;) with Urbi.
+</p><!--l. 19--><p class="indent" >   The C++ API deﬁnes the UObject class. To each instance of a C++ class deriving from
+UObject will correspond an urbiscript object sharing some of its methods and attributes.
+The API provides methods to declare which elements of your object are to be shared. To
+share a variable with Urbi, you have to give it the type UVar. This type is a container
+that provides conversion and assignment operators for all types known to Urbi: <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span></span>,
+<span class="lstinline"><span class="cmtt-10x-x-109">std::string</span></span> and <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">char</span></span><span
+class="cmtt-10x-x-109">*</span></span>, and the binary-holding structures <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">UImage</span></span>.
+This type can also read from and write to the liburbi UValue class. The API provides
+methods to set up callbacks functions that will be notiﬁed when a variable is modiﬁed or
+read from Urbi code. Instance methods of any prototype can be rendered accessible from
+urbiscript, providing all the parameters types and the return type can be converted to/from
+UValue.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >25.1 <a
+href="#x41-73600025.1">Compiling UObjects</a></span>
+<br />     <span class="subsectionToc" >25.1.1 <a
+href="#x41-73700025.1.1">Compiling with qibuild</a></span>
+<br />     <span class="subsectionToc" >25.1.2 <a
+href="#x41-73800025.1.2">Compiling by hand</a></span>
+<br />     <span class="subsectionToc" >25.1.3 <a
+href="#x41-73900025.1.3">The <span
+class="cmtt-10x-x-109">umake-* </span>family of tools</a></span>
+<br />     <span class="subsectionToc" >25.1.4 <a
+href="#x41-74000025.1.4">Using the Visual C++ Wizard</a></span>
+<br />    <span class="sectionToc" >25.2 <a
+href="#x41-74100025.2">Creating a class, binding variables and functions</a></span>
+<br />    <span class="sectionToc" >25.3 <a
+href="#x41-74200025.3">Creating new instances</a></span>
+<br />    <span class="sectionToc" >25.4 <a
+href="#x41-74300025.4">Binding functions</a></span>
+<br />     <span class="subsectionToc" >25.4.1 <a
+href="#x41-74400025.4.1">Simple binding</a></span>
+<br />     <span class="subsectionToc" >25.4.2 <a
+href="#x41-74500025.4.2">Multiple bindings</a></span>
+<br />     <span class="subsectionToc" >25.4.3 <a
+href="#x41-74600025.4.3">Asynchronous binding</a></span>
+<br />    <span class="sectionToc" >25.5 <a
+href="#x41-74700025.5">Notiﬁcation of a variable change or access</a></span>
+<br />     <span class="subsectionToc" >25.5.1 <a
+href="#x41-74800025.5.1">Threaded notiﬁcation</a></span>
+<br />    <span class="sectionToc" >25.6 <a
+href="#x41-74900025.6">Data-ﬂow based programming: exchanging UVars</a></span>
+<br />    <span class="sectionToc" >25.7 <a
+href="#x41-75000025.7">Data-ﬂow based programming: InputPort</a></span>
+<br />     <span class="subsectionToc" >25.7.1 <a
+href="#x41-75100025.7.1">Customizing data-ﬂow links</a></span>
+<br />    <span class="sectionToc" >25.8 <a
+href="#x41-75200025.8">Timers</a></span>
+<br />    <span class="sectionToc" >25.9 <a
+href="#x41-75300025.9">The special case of sensor/actuator variables</a></span>
+<br />    <span class="sectionToc" >25.10 <a
+href="#x41-75400025.10">Using Urbi variables</a></span>
+<br />    <span class="sectionToc" >25.11 <a
+href="#x41-75500025.11">Emitting events</a></span>
+<br />    <span class="sectionToc" >25.12 <a
+href="#x41-75600025.12">UObject and Threads</a></span>
+<br />    <span class="sectionToc" >25.13 <a
+href="#x41-75700025.13">Using binary types</a></span>
+<br />     <span class="subsectionToc" >25.13.1 <a
+href="#x41-75800025.13.1">UVar conversion and memory management</a></span>
+<br />     <span class="subsectionToc" >25.13.2 <a
+href="#x41-75900025.13.2">Binary conversion</a></span>
+<br />     <span class="subsectionToc" >25.13.3 <a
+href="#x41-76000025.13.3">0-copy mode</a></span>
+<br />    <span class="sectionToc" >25.14 <a
+href="#x41-76100025.14">Direct communication between UObjects</a></span>
+<br />    <span class="sectionToc" >25.15 <a
+href="#x41-76200025.15">Using hubs to group objects</a></span>
+<br />    <span class="sectionToc" >25.16 <a
+href="#x41-76300025.16">Sending urbiscript code</a></span>
+<br />    <span class="sectionToc" >25.17 <a
+href="#x41-76400025.17">Using RTP transport in remote mode</a></span>
+<br />     <span class="subsectionToc" >25.17.1 <a
+href="#x41-76500025.17.1">Enabling RTP</a></span>
+<br />     <span class="subsectionToc" >25.17.2 <a
+href="#x41-76600025.17.2">Per-UVar control of RTP mode</a></span>
+<br />    <span class="sectionToc" >25.18 <a
+href="#x41-76700025.18">Extending the cast system</a></span>
+<br />     <span class="subsectionToc" >25.18.1 <a
+href="#x41-76800025.18.1">Principle</a></span>
+<br />     <span class="subsectionToc" >25.18.2 <a
+href="#x41-76900025.18.2">Casting simple structures</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">25.1   </span> <a
+href="index.html#QQ2-41-863" id="x41-73600025.1">Compiling UObjects</a></h3>
+<!--l. 36--><p class="noindent" >UObjects can be compiled easily directly with any regular compiler. Nevertheless, Urbi SDK provides
+two tools to compile UObject seamlessly.
+</p><!--l. 39--><p class="indent" >   The following sections work again on the running example of <a
+href="quick-start.html#x40-72200024">Listing 24<!--tex4ht:ref: sec:tut:import --></a>. We will try to compile a
+shared library named ‘<span
+class="cmtt-10x-x-109">machine.so</span>&#x2019; (or ‘<span
+class="cmtt-10x-x-109">machine.dll</span>&#x2019; on Windows platforms) from a set of four ﬁles:
+‘<span
+class="cmtt-10x-x-109">machine.hh</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">machine.cc</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">umachine.hh</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">umachine.cc</span>&#x2019; (see their listings in <a
+href="quick-start.html#x40-72300024.1">Section 24.1<!--tex4ht:ref: sec:tut:import --></a>). These
+ﬁles are stored in a ‘<span
+class="cmtt-10x-x-109">machine.uob</span>&#x2019; directory; its name bares no importance, yet the ‘<span
+class="cmtt-10x-x-109">*.uob</span>&#x2019; extension
+makes clear that it is a UObject.
+</p><!--l. 47--><p class="indent" >   In what follows, <span
+class="cmitt-10x-x-109">urbi-root </span>denotes the top-level directory of your Urbi SDK package, see
+<a
+href="installation.html#x22-9700013.2">Section 13.2<!--tex4ht:ref: sec:tut:import --></a>.
+</p><!--l. 50--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.1.1   </span> <a
+href="contents.html#QQ2-41-864" id="x41-73700025.1.1">Compiling with qibuild</a></h4>
+<!--l. 52--><p class="noindent" ><a
+href="https://community.aldebaran-robotics.com/doc/qibuild/" >qibuild</a> is a set of tools on top of cmake to help manage dependencies, among other things. The link
+above contains instructions to install qibuild and to get you started.
+</p><!--l. 56--><p class="indent" >   Once qibuild is installed, add urbi-sdk to a new toolchain using the <span class="lstinline"><span class="cmtt-10x-x-109">toolchain.xml</span></span> ﬁle provided in
+the root directory of urbi:
+</p><!--l. 59--><p class="indent" >   <div class="code shell">
+<!--l. 59--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737001r1"></a></span><span class="cmtt-10x-x-109">$ qitoolchain create urbi-sdk toolchain.xml</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737002r2"></a></span></pre>
+   </div>
+<!--l. 63--><p class="indent" >   Then setup a new work directory for your uobject:
+</p><!--l. 65--><p class="indent" >   <div class="code shell">
+<!--l. 65--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737003r1"></a></span><span class="cmtt-10x-x-109">$ mkdir work </span><br /><span class="label"><a
+ id="x41-737004r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">cd</span></span><span class="cmtt-10x-x-109"> work </span><br /><span class="label"><a
+ id="x41-737005r3"></a></span><span class="cmtt-10x-x-109">$ qibuild init</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737006r4"></a></span></pre>
+   </div>
+<!--l. 71--><p class="indent" >   In this new working directory, create a new project for your uobject:
+</p><!--l. 73--><p class="indent" >   <div class="code shell">
+<!--l. 73--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737007r1"></a></span><span class="cmtt-10x-x-109">$ qisrc create uobject </span><br /><span class="label"><a
+ id="x41-737008r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">cd</span></span><span class="cmtt-10x-x-109"> uobject</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737009r3"></a></span></pre>
+   </div>
+<!--l. 78--><p class="indent" >   This will create the uobject directory, with a skeleton CMakeLists.txt in it. Modify it to add your
+uobject, assuming you have one source ﬁle named uobject.cc :
+</p>
+   <div class="verbatim" id="verbatim-14">
+      <!--l. 81--><pre class="listings"> <br /><span class="label"><a
+ id="x41-737010r1"></a></span>cmake_minimum_required(VERSION 2.8) <br /><span class="label"><a
+ id="x41-737011r2"></a></span>project(uobject) <br /><span class="label"><a
+ id="x41-737012r3"></a></span> <br /><span class="label"><a
+ id="x41-737013r4"></a></span>find_package(qibuild) <br /><span class="label"><a
+ id="x41-737014r5"></a></span> <br /><span class="label"><a
+ id="x41-737015r6"></a></span>find_package(urbi REQUIRED) <br /><span class="label"><a
+ id="x41-737016r7"></a></span># Workaround a long-standing glitch <br /><span class="label"><a
+ id="x41-737017r8"></a></span>add_definitions(-D_USE_MATH_DEFINES) <br /><span class="label"><a
+ id="x41-737018r9"></a></span>qi_create_lib(uobject MODULE uobject.cc DEPENDS uobject)
+       <br /><span class="label"><a
+ id="x41-737019r10"></a></span></pre>
+</div>
+<!--l. 91--><p class="nopar" >
+</p><!--l. 93--><p class="indent" >   Conﬁgure and build using:
+</p><!--l. 95--><p class="indent" >   <div class="code shell">
+<!--l. 95--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737020r1"></a></span><span class="cmtt-10x-x-109">$ qibuild configure -c urbi-sdk </span><br /><span class="label"><a
+ id="x41-737021r2"></a></span><span class="cmtt-10x-x-109">$ qibuild make -c urbi-sdk</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-737022r3"></a></span></pre>
+   </div>
+<!--l. 100--><p class="indent" >   This will produce the ﬁle <span class="lstinline"><span class="cmtt-10x-x-109">build-urbi-sdk/lib/uobject.dll</span></span>, or uobject.so depending on your
+architecture.
+</p><!--l. 103--><p class="indent" >   You can then load this uobject using urbi-launch(<a
+href="programs.html#x30-21800019.5.3">19.5.3<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>).
+</p><!--l. 106--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.1.2   </span> <a
+href="contents.html#QQ2-41-865" id="x41-73800025.1.2">Compiling by hand</a></h4>
+<!--l. 108--><p class="noindent" >On Unix platforms, compiling by hand into a shared library is straightforward:
+</p><!--l. 111--><p class="indent" >   <div class="code shell">
+<!--l. 111--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-738001r1"></a></span><span class="cmtt-10x-x-109">$ g++ -I </span><!--l. 112--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/include \ </span><br /><span class="label"><a
+ id="x41-738002r2"></a></span><span class="cmtt-10x-x-109">      -fPIC -shared \ </span><br /><span class="label"><a
+ id="x41-738003r3"></a></span><span class="cmtt-10x-x-109">      machine.uob/*cc -o machine.so </span><br /><span class="label"><a
+ id="x41-738004r4"></a></span><span class="cmtt-10x-x-109">$ file machine.so </span><br /><span class="label"><a
+ id="x41-738005r5"></a></span><span class="cmtt-10x-x-109">machine.so: ELF 32-bit LSB shared object, Intel 80386, \ </span><br /><span class="label"><a
+ id="x41-738006r6"></a></span><span class="cmtt-10x-x-109">  version 1 (SYSV), dynamically linked, not stripped</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-738007r7"></a></span></pre>
+   </div>
+<!--l. 120--><p class="indent" >   On Mac OS X the ﬂag ‘<span class="cmtt-10x-x-109">-Wl,-undefined,dynamic_lookup</span>&#x2019; is needed:
+</p><!--l. 122--><p class="indent" >   <div class="code shell">
+<!--l. 122--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-738008r1"></a></span><span class="cmtt-10x-x-109">$ g++ -I </span><!--l. 123--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/include \ </span><br /><span class="label"><a
+ id="x41-738009r2"></a></span><span class="cmtt-10x-x-109">      -shared -Wl,-undefined,dynamic_lookup \ </span><br /><span class="label"><a
+ id="x41-738010r3"></a></span><span class="cmtt-10x-x-109">      machine.uob/*.cc -o machine.so </span><br /><span class="label"><a
+ id="x41-738011r4"></a></span><span class="cmtt-10x-x-109">$ file machine.so </span><br /><span class="label"><a
+ id="x41-738012r5"></a></span><span class="cmtt-10x-x-109">machine.so: Mach-O 64-bit dynamically linked shared library x86_64</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-738013r6"></a></span></pre>
+   </div>
+<!--l. 130--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.1.3   </span> <a
+href="contents.html#QQ2-41-866" id="x41-73900025.1.3">The <span
+class="cmtt-10x-x-109">umake-* </span>family of tools</a></h4>
+<!--l. 132--><p class="noindent" ><span
+class="cmtt-10x-x-109">umake </span>can be used to compile UObjects. See <a
+href="programs.html#x30-23800019.10">Section 19.10<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a> for its documentation.
+</p><!--l. 135--><p class="indent" >   You can give it a list of ﬁles to compile: <div class="code shell">
+<!--l. 136--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-739001r1"></a></span><span class="cmtt-10x-x-109">$ umake -q --shared-library machine.uob/*.cc -o machine.so </span><br /><span class="label"><a
+ id="x41-739002r2"></a></span><span class="cmtt-10x-x-109">umake: running to build library.</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-739003r3"></a></span></pre>
+   </div>
+<!--l. 141--><p class="noindent" >or directories in which C++ sources are looked for:
+</p><!--l. 144--><p class="indent" >   <div class="code shell">
+<!--l. 144--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-739004r1"></a></span><span class="cmtt-10x-x-109">$ umake -q --shared-library machine.uob -o machine.so </span><br /><span class="label"><a
+ id="x41-739005r2"></a></span><span class="cmtt-10x-x-109">umake: running to build library.</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-739006r3"></a></span></pre>
+   </div>
+<!--l. 149--><p class="noindent" >or ﬁnally, if you give no argument at all, the sources in the current directory:
+</p><!--l. 153--><p class="indent" >   <div class="code shell">
+<!--l. 153--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-739007r1"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">cd</span></span><span class="cmtt-10x-x-109"> machine.uob </span><br /><span class="label"><a
+ id="x41-739008r2"></a></span><span class="cmtt-10x-x-109">$ umake -q --shared-library -o machine.so </span><br /><span class="label"><a
+ id="x41-739009r3"></a></span><span class="cmtt-10x-x-109">umake: running to build library.</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-739010r4"></a></span></pre>
+   </div>
+<!--l. 159--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.1.4   </span> <a
+href="contents.html#QQ2-41-867" id="x41-74000025.1.4">Using the Visual C++ Wizard</a></h4>
+<!--l. 161--><p class="noindent" >If you installed Urbi SDK using its installer, and if you had Visual C++ installed, then the UObject
+wizard was installed. Use it to create your UObject code:
+</p>
+<div class="center"
+>
+<!--l. 165--><p class="noindent" >
+</p><!--l. 166--><p class="noindent" ><img
+src="urbi-sdk23x.png" alt="PIC" class="graphics" width="273.14923pt" height="187.83446pt"  /><!--tex4ht:graphics
+name="urbi-sdk23x.png" src="img/visual-wizard-1.eps"
+--></p></div>
+<!--l. 169--><p class="indent" >   Then, compile your UObject.
+</p>
+<div class="center"
+>
+<!--l. 171--><p class="noindent" >
+</p><!--l. 172--><p class="noindent" ><img
+src="urbi-sdk24x.png" alt="PIC" class="graphics" width="273.14923pt" height="208.51755pt"  /><!--tex4ht:graphics
+name="urbi-sdk24x.png" src="img/visual-wizard-2.eps"
+--></p></div>
+<!--l. 175--><p class="indent" >   And run it.
+</p>
+<div class="center"
+>
+<!--l. 177--><p class="noindent" >
+</p><!--l. 178--><p class="noindent" ><img
+src="urbi-sdk25x.png" alt="PIC" class="graphics" width="273.14923pt" height="196.20474pt"  /><!--tex4ht:graphics
+name="urbi-sdk25x.png" src="img/visual-wizard-3.eps"
+--></p></div>
+<!--l. 182--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.2   </span> <a
+href="index.html#QQ2-41-868" id="x41-74100025.2">Creating a class, binding variables and functions</a></h3>
+<!--l. 185--><p class="noindent" >Let&#x2019;s illustrate those concepts by deﬁning a simple object: <span class="lstinline"><span
+class="cmtt-10x-x-109">adder</span></span>. This object has one variable <span class="lstinline"><span
+class="cmtt-10x-x-109">v</span></span>, and a
+method <span class="lstinline"><span
+class="cmtt-10x-x-109">add</span></span> that returns the sum of this variable and its argument.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">First the required include:
+     <!--l. 192--><p class="noindent" ><div class="code cxx">
+<!--l. 192--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741001r1"></a></span><!--l. 193--><span class="listings-nested"><span class="textkwd"><span class="cmtt-10x-x-109">#include</span></span><span class="cmtt-10x-x-109"> &#x003C;urbi/uobject.hh&#x003E;</span></span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741002r2"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize">Then we declare our <span class="lstinline"><span
+class="cmtt-10x-x-109">adder</span></span> class: <div class="code cxx">
+        <!--l. 197--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741003r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> adder : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><!--l. 198--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Must inherit from UObject.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741004r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-741005r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x41-741006r4"></a></span><span class="cmtt-10x-x-109">   </span><!--l. 201--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The class must have a single constructor taking a string.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741007r5"></a></span><span class="cmtt-10x-x-109">   adder(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;); </span><br /><span class="label"><a
+ id="x41-741008r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741009r7"></a></span><span class="cmtt-10x-x-109">   </span><!--l. 204--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Our variable.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741010r8"></a></span><span class="cmtt-10x-x-109">   urbi::UVar v; </span><br /><span class="label"><a
+ id="x41-741011r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741012r10"></a></span><span class="cmtt-10x-x-109">   </span><!--l. 207--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Our method.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741013r11"></a></span><span class="cmtt-10x-x-109">   </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> add(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> rhs) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x41-741014r12"></a></span><span
+class="cmtt-10x-x-109">};</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741015r13"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize">The implementation of the constructor. <div class="code cxx">
+        <!--l. 213--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741016r1"></a></span><!--l. 214--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// the constructor defines what is available from Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741017r2"></a></span><span class="cmtt-10x-x-109">adder::adder(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; s) </span><br /><span class="label"><a
+ id="x41-741018r3"></a></span><span class="cmtt-10x-x-109">  : urbi::UObject(s) </span><!--l. 216--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// required</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741019r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-741020r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 218--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind the variable.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741021r6"></a></span><span class="cmtt-10x-x-109">  UBindVar(adder, v); </span><br /><span class="label"><a
+ id="x41-741022r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741023r8"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 221--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind the function.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741024r9"></a></span><span class="cmtt-10x-x-109">  UBindFunction(adder, add); </span><br /><span class="label"><a
+ id="x41-741025r10"></a></span><span
+class="cmtt-10x-x-109">}</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741026r11"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize">The implementation of our <span class="lstinline"><span
+class="cmtt-10x-x-109">add</span></span> method. <div class="code cxx">
+        <!--l. 227--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741027r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741028r2"></a></span><span class="cmtt-10x-x-109">adder::add(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> rhs) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741029r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-741030r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> ((</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">) v) + rhs; </span><br /><span class="label"><a
+ id="x41-741031r5"></a></span><span
+class="cmtt-10x-x-109">}</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741032r6"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize">And register this class: <div class="code cxx">
+        <!--l. 235--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741033r1"></a></span><!--l. 236--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Register the class to the Urbi kernel.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741034r2"></a></span><span class="cmtt-10x-x-109">UStart(adder);</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-741035r3"></a></span></pre>
+     </div>
+     </li></ul>
+<!--l. 241--><p class="indent" >   To summarize:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Declare your object class as inheriting from <span class="lstinline"><span class="cmtt-10x-x-109">urbi::UObject</span></span>.
+     </li>
+     <li class="itemize">Declare a single constructor taking a string, and pass this string to the constructor of
+     <span class="lstinline"><span class="cmtt-10x-x-109">urbi::UObject</span></span>.
+     </li>
+     <li class="itemize">Declare the variables you want to share with Urbi with the type <span class="lstinline"><span class="cmtt-10x-x-109">urbi::UVar</span></span>.
+     </li>
+     <li class="itemize">In the constructor, use the macros <span class="lstinline"><span class="cmtt-10x-x-109">UBindVar(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">variable</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span> for each <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>
+     you want as an instance variable, and <span class="lstinline"><span class="cmtt-10x-x-109">UBindFunction(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">function</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span> for
+     each function you want to bind.
+     </li>
+     <li class="itemize">Call the macro <span class="lstinline"><span
+class="cmtt-10x-x-109">UStart</span></span> for each object.</li></ul>
+<!--l. 258--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.3   </span> <a
+href="index.html#QQ2-41-869" id="x41-74200025.3">Creating new instances</a></h3>
+<!--l. 260--><p class="noindent" >When you start an Urbi server, an object of each class registered with <span class="lstinline"><span
+class="cmtt-10x-x-109">UStart</span></span> is created with the same
+name as the class. New instances can be created from Urbi using the <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span> method. For each instance
+created in Urbi, a corresponding instance of the C++ object is created. You can get the arguments
+passed to the constructor by deﬁning and binding a method named <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> with the appropriate number
+of arguments.
+</p><!--l. 268--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.4   </span> <a
+href="index.html#QQ2-41-870" id="x41-74300025.4">Binding functions</a></h3>
+<!--l. 270--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.4.1   </span> <a
+href="contents.html#QQ2-41-871" id="x41-74400025.4.1">Simple binding</a></h4>
+<!--l. 272--><p class="noindent" >You can register any member function of your <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> using the macro <a
+ id="x41-744001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UBindFunction</span></span>:
+</p><!--l. 276--><p class="indent" >   <span class="lstinline"><span class="cmtt-10x-x-109">UBindFunction(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">function</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span>.
+</p><!--l. 278--><p class="indent" >   Once done, the function can be called from urbiscript.
+</p><!--l. 280--><p class="indent" >   The following types for arguments and return value are supported:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Basic integer and ﬂoating types (int, double, ﬂoat...).
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;</span></span> or <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">char</span></span><span
+class="cmtt-10x-x-109">*</span></span>.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">urbi::UValue</span></span> or any of its subtypes (<span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">UList</span></span>...).
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">boost::numeric::ublas::vector&#x003C;ufloat&#x003E;</span></span>                                  and
+     <span class="lstinline"><span class="cmtt-10x-x-109">boost::numeric::ublas::matrix&#x003C;ufloat&#x003E;</span></span>
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">UObject*</span></span>. Just pass the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> from urbiscript.
+     </li>
+     <li class="itemize"><span class="lstinline"><span
+class="cmtt-10x-x-109">UVar&#x0026;</span></span>. Pass <span class="lstinline"><span
+class="cmitt-10x-x-109">object</span><span
+class="cmtt-10x-x-109">.&#x0026;</span><span
+class="cmitt-10x-x-109">uvar</span></span> from urbiscript.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">std::list</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">std::vector</span></span> or <span class="lstinline"><span class="cmtt-10x-x-109">boost::unordered_map</span></span> of the above types.</li></ul>
+<!--l. 294--><p class="indent" >   The procedure to register new types to this system is explained in <a
+href="#x41-76700025.18">Section 25.18<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>.
+</p><!--l. 297--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.4.2   </span> <a
+href="contents.html#QQ2-41-872" id="x41-74500025.4.2">Multiple bindings</a></h4>
+<!--l. 298--><p class="noindent" >If you have multiple functions to bind, you can use the <a
+ id="x41-745001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UBindFunctions</span></span> macro to bind multiple
+functions at once:
+</p><!--l. 301--><p class="indent" >   <span class="lstinline"><span class="cmtt-10x-x-109">UBindFunctions(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">function1</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">function2</span><span
+class="cmtt-10x-x-109">...)</span></span>.
+</p><!--l. 303--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.4.3   </span> <a
+href="contents.html#QQ2-41-873" id="x41-74600025.4.3">Asynchronous binding</a></h4>
+<!--l. 305--><p class="noindent" >Functions bound using <span class="lstinline"><span
+class="cmtt-10x-x-109">UBindFunction</span></span> are called synchronously, and thus block everything until they
+return.
+</p><!--l. 308--><p class="indent" >   If you wish to bind a function that requires a non-negligible amount of time to execute, you can
+have it execute in a separate thread by calling <a
+ id="x41-746001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UBindThreadedFunction</span></span>:
+</p><!--l. 313--><p class="indent" >   <span class="lstinline"><span class="cmtt-10x-x-109">UBindThreadedFunction(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">function</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">lock</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">mode</span><span
+class="cmtt-10x-x-109">)</span></span>.
+</p><!--l. 315--><p class="indent" >   The function code will be executed in a separate thread without breaking the urbiscript execution
+semantics.
+</p><!--l. 318--><p class="indent" >   The <span
+class="cmitt-10x-x-109">lock-mode </span>argument can be used to prevent parallel execution of multiple bound functions if
+your code is not thread-safe. It can be any of the following values. </p>
+     <ul class="itemize1">
+     <li class="itemize"><a
+ id="x41-746002"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_NONE</span></span><br
+class="newline" />No locking is performed.
+     </li>
+     <li class="itemize"><a
+ id="x41-746003"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_FUNCTION</span></span><br
+class="newline" />Parallel execution is limited to one instance of the bound function.
+     </li>
+     <li class="itemize"><a
+ id="x41-746004"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_FUNCTION_DROP</span></span><br
+class="newline" />Same as <span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_FUNCTION</span></span>, but operations are dropped instead of being queued if one is
+     already running.
+     </li>
+     <li class="itemize"><a
+ id="x41-746005"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_FUNCTION_KEEP_ONE</span></span><br
+class="newline" />Same as <span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_FUNCTION</span></span>, but the queue is limited to one, and subsequent calls are dropped.
+     </li>
+     <li class="itemize"><a
+ id="x41-746006"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_INSTANCE</span></span><br
+class="newline" />Parallel execution is limited to one bound function for each object instance.
+     </li>
+     <li class="itemize"><a
+ id="x41-746007"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_CLASS</span></span><br
+class="newline" />Parallel execution is limited to one bound function for the class.
+     </li>
+     <li class="itemize"><a
+ id="x41-746008"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_MODULE</span></span><br
+class="newline" />Parallel execution is limited to one bound function for the whole module (shared object).</li></ul>
+<!--l. 342--><p class="indent" >   Other queue sizes can be used by passing <span class="lstinline"><span class="cmtt-10x-x-109">LockSpec(LOCK_FUNCTION, </span><span
+class="cmitt-10x-x-109">my</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">queue</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">size</span><span
+class="cmtt-10x-x-109">)</span></span> as
+<span
+class="cmitt-10x-x-109">lock-mode</span>.
+</p><!--l. 345--><p class="indent" >   There is a restriction to the locking mechanism: <span
+class="cmti-10x-x-109">you cannot mix multiple locking modes</span>. For
+instance a function bound with <span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_FUNCTION</span></span> mode will not prevent another function bound with
+<span class="lstinline"><span
+class="cmtt-10x-x-109">LOCK_INSTANCE</span></span> from executing in parallel.
+</p><!--l. 350--><p class="indent" >   You can perform your own locking using semaphores if your code needs a more complex locking
+model.
+</p><!--l. 353--><p class="indent" >   You can limit the maximum number of threads that can run in parallel by using the
+<span class="lstinline"><span
+class="cmtt-10x-x-109">setThreadLimit</span></span> function.
+</p><!--l. 356--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.5   </span> <a
+href="index.html#QQ2-41-874" id="x41-74700025.5">Notiﬁcation of a variable change or access</a></h3>
+<!--l. 358--><p class="noindent" >You can register a function that will be called each time a variable is modiﬁed by calling
+<a
+ id="x41-747001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span>: <span class="lstinline"><span class="cmtt-10x-x-109">UNotifyChange(</span><span
+class="cmitt-10x-x-109">var</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">func</span><span
+class="cmtt-10x-x-109">)</span></span>.
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><span
+class="cmitt-10x-x-109">var </span>must be either the name of an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>, or an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> itself.
+     </li>
+     <li class="itemize"><span
+class="cmitt-10x-x-109">func </span>must be a member function of your <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>. This function will be called each time
+     the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> receives a new value.</li></ul>
+<!--l. 368--><p class="indent" >   The function can take 0 or 1 argument. If the argument is of type <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar&#x0026;</span></span>, then the function will
+receive the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> that was passed to <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span>. If it is of any other type, then the new value in
+the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> will be converted to this type and passed to the function.
+</p><!--l. 373--><p class="indent" >   In plugin mode, there is a similar mechanism to create a <span
+class="cmti-10x-x-109">getter function</span><a
+ id="x41-747002"></a> that will be called each
+time an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> is accessed: the <a
+ id="x41-747003"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyAccess</span></span> function. It has the same signature as <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span>,
+and calls the given function each time someone tries to access the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>. The function can update the
+value in the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> before the access takes place. Usage of <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyAccess</span></span> should be reserved to
+infrequently used <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> that take a long time to update, as it disrupts the data ﬂow between
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>.
+</p><!--l. 383--><p class="indent" >   You can remove all notiﬁes associated to any given <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> by calling its <a
+ id="x41-747004"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">unnotify</span></span> function.
+</p><!--l. 386--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.5.1   </span> <a
+href="contents.html#QQ2-41-875" id="x41-74800025.5.1">Threaded notiﬁcation</a></h4>
+<!--l. 388--><p class="noindent" >In a manner similar to <span class="lstinline"><span
+class="cmtt-10x-x-109">UBindThreadedFunction</span></span>, you can request your callback function to be called in
+a separate thread by using <span class="lstinline"><span class="cmtt-10x-x-109">UNotifyThreadedChange(</span><span
+class="cmitt-10x-x-109">var</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">func</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">lock</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">mode</span><span
+class="cmtt-10x-x-109">)</span></span>.
+</p><!--l. 392--><p class="indent" >   The <span
+class="cmitt-10x-x-109">lock-mode </span>argument has the same semantic as for bound functions.
+</p><!--l. 394--><p class="indent" >   There is one restriction: the callback function must not take a <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar&#x0026;</span></span> as argument. This restriction
+is here to ensure that each invocation of your callback will receive the correct value that the source
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> had at call time.
+</p><!--l. 399--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.6   </span> <a
+href="index.html#QQ2-41-876" id="x41-74900025.6">Data-ﬂow based programming: exchanging UVars</a></h3>
+<!--l. 401--><p class="noindent" >The <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyAccess</span></span> features can be used to link multiple UObjects together,
+and perform data-ﬂow based programming: the <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span> can be called to monitor
+UVars from other UObjects. Those UVars can be transmitted through bound function
+calls.
+</p><!--l. 407--><p class="indent" >   One possible pattern is to have each data-processing UObject take its input from monitored UVars,
+given in its constructor, and output the result of its processing in other UVars. Consider the following
+example of an object-tracker:
+</p><!--l. 412--><p class="indent" >   <div class="code cxx">
+<!--l. 412--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> ObjectTracker: </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><br /><span class="label"><a
+ id="x41-749002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-749003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x41-749004r4"></a></span><span class="cmtt-10x-x-109">  ObjectTracker(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; n) </span><br /><span class="label"><a
+ id="x41-749005r5"></a></span><span class="cmtt-10x-x-109">    : urbi::UObject(n) </span><br /><span class="label"><a
+ id="x41-749006r6"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-749007r7"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 419--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind our constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749008r8"></a></span><span class="cmtt-10x-x-109">    UBindFunction(ObjectTracker, init); </span><br /><span class="label"><a
+ id="x41-749009r9"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-749010r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 422--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Take our data source in our constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749011r11"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init(UVar&#x0026; image) </span><br /><span class="label"><a
+ id="x41-749012r12"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-749013r13"></a></span><span class="cmtt-10x-x-109">    UNotifyChange(image, &#x0026;ObjectTracker::onImage); </span><br /><span class="label"><a
+ id="x41-749014r14"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 426--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind our output variable.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749015r15"></a></span><span class="cmtt-10x-x-109">    UBindVar(ObjectTracker, val); </span><br /><span class="label"><a
+ id="x41-749016r16"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-749017r17"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> onImage(UVar&#x0026; src) </span><br /><span class="label"><a
+ id="x41-749018r18"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-749019r19"></a></span><span class="cmtt-10x-x-109">    UBinary b = src; </span><br /><span class="label"><a
+ id="x41-749020r20"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 432--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Processing here.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749021r21"></a></span><span class="cmtt-10x-x-109">    val = processing_result; </span><br /><span class="label"><a
+ id="x41-749022r22"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-749023r23"></a></span><span class="cmtt-10x-x-109">  UVar val; </span><br /><span class="label"><a
+ id="x41-749024r24"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x41-749025r25"></a></span><span class="cmtt-10x-x-109">UStart(ObjectTracker);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749026r26"></a></span></pre>
+   </div>
+<!--l. 440--><p class="indent" >   The following urbiscript code would be used to initialize an ObjectTracker given a camera:
+</p><!--l. 443--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 443--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749027r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> tracker = ObjectTracker.new(camera.&#x0026;val);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-749028r2"></a></span></pre>
+   </div>
+<!--l. 447--><p class="indent" >   An other component could then take the tracker output as its input.
+</p><!--l. 449--><p class="indent" >   Using this model, chains of processing elements can be created. Each time the UObject at the start
+of the chain updates, all the notifyChange will be called synchronously in cascade to update the state
+of the intermediate components.
+</p><!--l. 453--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.7   </span> <a
+href="index.html#QQ2-41-877" id="x41-75000025.7">Data-ﬂow based programming: InputPort</a></h3>
+<!--l. 456--><p class="noindent" >Urbi provides a second and more standard way to perform data-ﬂow programming. In this approach,
+inputs of a component are declared as local <a
+ id="x41-750001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">InputPort</span></span>, and the binding between this InputPort and
+the output of another component is done in urbiscript using the <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x003E;&#x003E;</span></span> operator between two
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>:
+</p><!--l. 462--><p class="indent" >   <div class="code cxx">
+<!--l. 462--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> ObjectTracker: </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><br /><span class="label"><a
+ id="x41-750003r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-750004r3"></a></span><span class="cmtt-10x-x-109">  ObjectTracker(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; n) </span><br /><span class="label"><a
+ id="x41-750005r4"></a></span><span class="cmtt-10x-x-109">    : urbi::UObject(n) </span><br /><span class="label"><a
+ id="x41-750006r5"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-750007r6"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 468--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind our constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750008r7"></a></span><span class="cmtt-10x-x-109">    UBindFunction(ObjectTracker, init); </span><br /><span class="label"><a
+ id="x41-750009r8"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 470--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind our input port.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750010r9"></a></span><span class="cmtt-10x-x-109">    UBindVar(ObjectTracker, input); </span><br /><span class="label"><a
+ id="x41-750011r10"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 472--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// NotifyChange on our own input port</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750012r11"></a></span><span class="cmtt-10x-x-109">    UNotifyChange(input, &#x0026;ObjectTracker::onImage); </span><br /><span class="label"><a
+ id="x41-750013r12"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-750014r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750015r14"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 476--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Init is empty.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750016r15"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init() </span><br /><span class="label"><a
+ id="x41-750017r16"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-750018r17"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-750019r18"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750020r19"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 481--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// onImage is unchanged.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750021r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> onImage(UVar&#x0026; src) </span><br /><span class="label"><a
+ id="x41-750022r21"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-750023r22"></a></span><span class="cmtt-10x-x-109">    UBinary b = src; </span><br /><span class="label"><a
+ id="x41-750024r23"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 485--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Processing here.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750025r24"></a></span><span class="cmtt-10x-x-109">    val = processing_result; </span><br /><span class="label"><a
+ id="x41-750026r25"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-750027r26"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750028r27"></a></span><span class="cmtt-10x-x-109">  UVar val; </span><br /><span class="label"><a
+ id="x41-750029r28"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750030r29"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 491--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Declare our input port.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750031r30"></a></span><span class="cmtt-10x-x-109">  InputPort input; </span><br /><span class="label"><a
+ id="x41-750032r31"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x41-750033r32"></a></span><span class="cmtt-10x-x-109">UStart(ObjectTracker);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750034r33"></a></span></pre>
+   </div>
+<!--l. 497--><p class="indent" >   In this model, linking the components is done in urbiscript:
+</p><!--l. 499--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 499--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750035r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> tracker = ObjectTracker.new(); </span><br /><span class="label"><a
+ id="x41-750036r2"></a></span><span class="cmtt-10x-x-109">camera.&#x0026;val &#x003E;&#x003E; tracker.&#x0026;input;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-750037r3"></a></span></pre>
+   </div>
+<!--l. 504--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.7.1   </span> <a
+href="contents.html#QQ2-41-878" id="x41-75100025.7.1">Customizing data-ﬂow links</a></h4>
+<!--l. 506--><p class="noindent" >The <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x003E;&#x003E;</span></span> operator to establish a data-ﬂow link between two <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> returns an object of type <a
+href="#object:UConnection"><span class="lstinline"><span
+class="cmtt-10x-x-109">UConnection</span></span></a>
+that can be used to customize the link.
+</p><!--l. 510--><p class="indent" >   This object is also present in the slot <span class="lstinline"><span
+class="cmtt-10x-x-109">changeConnections</span></span> of the source <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>.
+</p><!--l. 513--><p class="indent" >   The function <a
+href="urbiscript-standard-library.html#slot:uobjects.connectionStats"><span class="lstinline"><span class="cmtt-10x-x-109">uobjects.connectionStats</span></span></a> displays the statistics of all the connections, and
+<a
+href="urbiscript-standard-library.html#slot:uobjects.resetConnectionStats"><span class="lstinline"><span class="cmtt-10x-x-109">uobjects.resetConnectionStats</span></span></a> resets all the statistics.
+</p><!--l. 517--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.8   </span> <a
+href="index.html#QQ2-41-879" id="x41-75200025.8">Timers</a></h3>
+<!--l. 520--><p class="noindent" >The API provides two methods to have a function called periodically: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> urbi::UObject::USetUpdate(ufloat period)</span></span> <br
+class="newline" /><a
+ id="x41-752001"></a>Set up a timer that calls the virtual method <span class="lstinline"><span class="cmtt-10x-x-109">UObject::update()</span></span> with the speciﬁed period
+     (in milliseconds). Disable updates if <span
+class="cmitt-10x-x-109">period </span>is -1.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">urbi::TimerHandle urbi::UObject::USetTimer&#x003C;T&#x003E;(ufloat period, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> (T::*fun)())</span></span> <br
+class="newline" /><a
+ id="x41-752002"></a>Invoke  an  UObject  member  function  <span
+class="cmitt-10x-x-109">fun </span>every  <span
+class="cmitt-10x-x-109">period </span>milliseconds.  <span
+class="cmitt-10x-x-109">fun </span>is  a  regular
+     member-function pointer, for instance <span class="lstinline"><span class="cmtt-10x-x-109">MyUObject::my_function</span></span>. The function returns a
+     <span class="lstinline"><span
+class="cmtt-10x-x-109">TimerHandle</span></span> that can be passed to the <span class="lstinline"><span class="cmtt-10x-x-109">UObject::removeTimer(h)</span></span> function to disable
+     the timer.</li></ul>
+<!--l. 537--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.9   </span> <a
+href="index.html#QQ2-41-880" id="x41-75300025.9">The special case of sensor/actuator variables</a></h3>
+<!--l. 539--><p class="noindent" >In Urbi, a variable can have a diﬀerent meaning depending on whether you are reading or writing it:
+you can use the same variable to represent the target value of an actuator and the current value
+measured by an associated sensor. This special mode is activated by the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> deﬁning
+the variable by calling <span class="lstinline"><span
+class="cmtt-10x-x-109">UOwned</span></span> after calling <a
+ id="x41-753001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UBindVar</span></span>. This call has the following eﬀects:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">When Urbi code or code in other modules read the variable, they read the current value.
+     </li>
+     <li class="itemize">When Urbi code or code in other modules write the variable, they set the target value.
+     </li>
+     <li class="itemize">When the module that called <span class="lstinline"><span
+class="cmtt-10x-x-109">UOwned</span></span> reads the variable, it reads the target value. When
+     it writes the variable, it writes the current value.</li></ul>
+<!--l. 555--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.10   </span> <a
+href="index.html#QQ2-41-881" id="x41-75400025.10">Using Urbi variables</a></h3>
+<!--l. 557--><p class="noindent" >The C++ class <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> is used to represent any Urbi slot in C++. To bind the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> to a speciﬁc slot,
+pass its name to the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> constructor, or its <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> method. Once the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> is bound, you can write any
+compatible type to it, and the new value will be visible in urbiscript. Similarly, you can cast the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>
+(or use the <span class="lstinline"><span class="cmtt-10x-x-109">as()</span></span> method) to convert the current urbiscript value held to any compatible
+type.
+</p><!--l. 564--><p class="indent" >   Compatible types are the same as for bound functions (see <a
+href="#x41-74400025.4.1">Section 25.4.1<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a> and <a
+href="#x41-76700025.18">Section 25.18<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>).
+</p><!--l. 567--><p class="indent" >   <div class="code cxx">
+<!--l. 567--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754001r1"></a></span><!--l. 568--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Set the camera format to 0 if it is 1.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754002r2"></a></span><span class="cmtt-10x-x-109">UVar v; </span><br /><span class="label"><a
+ id="x41-754003r3"></a></span><span class="cmtt-10x-x-109">v.init(</span><!--l. 570--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;camera&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 570--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;format&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-754004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (v == 1) </span><br /><span class="label"><a
+ id="x41-754005r5"></a></span><span class="cmtt-10x-x-109"> v = 0;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754006r6"></a></span></pre>
+   </div>
+<!--l. 575--><p class="indent" >   Some care must be taken in remote mode: changes on the variable coming from Urbi code or an
+other module can take time to propagate to the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>. By default, all changes to the value will be sent
+to the remote <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>. To have more control on the bandwidth used, you can disable the
+automatic update by calling <a
+ id="x41-754007"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">unnotify</span></span>. Then you can get the value on demand by calling
+<span class="lstinline"><span class="cmtt-10x-x-109">UVar::syncValue()</span></span>.
+</p><!--l. 582--><p class="indent" >   <div class="code cxx">
+<!--l. 582--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754008r1"></a></span><span class="cmtt-10x-x-109">UVar v(</span><!--l. 583--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Global&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 583--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-754009r2"></a></span><span class="cmtt-10x-x-109">send(</span><!--l. 584--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;every|(100ms) Global.x = time,&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-754010r3"></a></span><!--l. 585--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// At this point, v is updated approximately every 100 milliseconds.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754011r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754012r5"></a></span><span class="cmtt-10x-x-109">v.unnotify(); </span><br /><span class="label"><a
+ id="x41-754013r6"></a></span><!--l. 588--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// At this point v is no longer updated. If v was the only UVar pointing to</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754014r7"></a></span><!--l. 589--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// &#x2019;Global.x&#x2019;, the value is no longer transmitted.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754015r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754016r9"></a></span><span class="cmtt-10x-x-109">v.syncValue(); </span><br /><span class="label"><a
+ id="x41-754017r10"></a></span><!--l. 592--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The previous call will ask for the value of Global.x once, and block until</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754018r11"></a></span><!--l. 593--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// the value is written to v.</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-754019r12"></a></span></pre>
+   </div>
+<!--l. 596--><p class="indent" >   You can read and write all the Urbi properties of an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> by reading and writing the appropriate
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UProp</span></span> object in the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>.
+</p><!--l. 600--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.11   </span> <a
+href="index.html#QQ2-41-882" id="x41-75500025.11">Emitting events</a></h3>
+<!--l. 602--><p class="noindent" >The <span class="lstinline"><span
+class="cmtt-10x-x-109">UEvent</span></span> class can be used to create and emit urbiscript events. Instances are created and initialized
+exactly as <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>: either by using the <a
+ id="x41-755001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UBindEvent</span></span> macro, or by calling one of its constructors or the
+<a
+ id="x41-755002"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> function.
+</p><!--l. 607--><p class="indent" >   Once initialized, the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">emit</span></span></span> function will trigger the emission of the associated urbiscript event. It
+can be called with any number of arguments, of any compatible type.
+</p><!--l. 611--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.12   </span> <a
+href="index.html#QQ2-41-883" id="x41-75600025.12">UObject and Threads</a></h3>
+<!--l. 613--><p class="noindent" >The <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> API is thread-safe in both plugin and remote mode: All API calls including operations on
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> can be performed from any thread.
+</p><!--l. 616--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.13   </span> <a
+href="index.html#QQ2-41-884" id="x41-75700025.13">Using binary types</a></h3>
+<a
+ id="x41-757001"></a>
+<a
+ id="x41-757002"></a>
+<!--l. 620--><p class="noindent" >Urbi can store binary objects of any type in a generic container, and provides speciﬁc structures for
+sound and images. The generic containers is called <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> and is deﬁned in the ‘<span
+class="cmtt-10x-x-109">urbi/ubinary.hh</span>&#x2019;
+header. It contains an enum ﬁeld type giving the type of the binary (<a
+ id="x41-757003"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">UNKNOWN</span></span>, <a
+ id="x41-757004"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">SOUND</span></span> or <a
+ id="x41-757005"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">IMAGE</span></span>), and an
+union of a <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">UImage</span></span> struct containing a pointer to the data, the size of the data and
+type-speciﬁc meta-information.
+</p><!--l. 628--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.13.1   </span> <a
+href="contents.html#QQ2-41-885" id="x41-75800025.13.1">UVar conversion and memory management</a></h4>
+<!--l. 629--><p class="noindent" >The <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> manages its memory: when destroyed (or going out-of-scope), it frees all its allocated
+data. The <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">UImage</span></span> do not.
+<a
+ id="x41-758001"></a>
+</p><!--l. 633--><p class="indent" >   By default, reading an <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> from a <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>, and writing a <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> or <span class="lstinline"><span
+class="cmtt-10x-x-109">UImage</span></span> to an
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> performs a deep-copy of the data. See <a
+href="#x41-76000025.13.3">Section 25.13.3<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a> to avoid this deep-copy in
+plugin-mode.
+<a
+ id="x41-758002"></a>
+</p><!--l. 638--><p class="indent" >   Reading a <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> or <span class="lstinline"><span
+class="cmtt-10x-x-109">UImage</span></span> from an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> directly will perform a shallow copy from the internal
+data. The structure content is only guaranteed to be valid until the function returns, and should not be
+modiﬁed.
+</p><!--l. 642--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.13.2   </span> <a
+href="contents.html#QQ2-41-886" id="x41-75900025.13.2">Binary conversion</a></h4>
+<!--l. 644--><p class="noindent" >To convert between various sound and image formats, two functions are provided in the header
+‘<span
+class="cmtt-10x-x-109">urbi/uconversion.hh</span>&#x2019;:
+</p><!--l. 647--><p class="indent" >   <div class="code cxx">
+<!--l. 647--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> urbi::convert(UImage&#x0026; source, UImage&#x0026; destination); </span><br /><span class="label"><a
+ id="x41-759002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> urbi::convert(USound&#x0026; source, USound&#x0026; destination);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759003r3"></a></span></pre>
+   </div>
+<!--l. 652--><p class="indent" >   For those functions to work, destination must be ﬁlled correctly:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">data and size can be both 0, in which case data will be allocated for you using <span class="lstinline"><span
+class="cmtt-10x-x-109">malloc</span></span>. If
+     data is set but size is too small to ﬁt the value, data will be reallocated using <span class="lstinline"><span
+class="cmtt-10x-x-109">realloc</span></span>.
+     </li>
+     <li class="itemize">all the description ﬁelds must be set. It is possible to set any ﬁeld to 0, in which case the
+     value from <span class="lstinline"><span
+class="cmtt-10x-x-109">source</span></span> will be used.</li></ul>
+<!--l. 662--><p class="indent" >   Consider this example of a sound algorithm requiring 8-bit mono input:
+</p><!--l. 664--><p class="indent" >   <div class="code cxx">
+<!--l. 664--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759004r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> SoundAlgorithm: </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> UObject </span><br /><span class="label"><a
+ id="x41-759005r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-759006r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x41-759007r4"></a></span><span class="cmtt-10x-x-109">  &#x003C;...&#x003E; </span><br /><span class="label"><a
+ id="x41-759008r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init(); </span><br /><span class="label"><a
+ id="x41-759009r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> onData(UVar&#x0026; v); </span><br /><span class="label"><a
+ id="x41-759010r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 671--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We reuse the same USound for converted data to avoid reallocation.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759011r8"></a></span><span class="cmtt-10x-x-109">  USound convertedData; </span><br /><span class="label"><a
+ id="x41-759012r9"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x41-759013r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759014r11"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> SoundAlgorithm::init(UVar&#x0026; dataSource) </span><br /><span class="label"><a
+ id="x41-759015r12"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-759016r13"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 677--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// initialize convertedData</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759017r14"></a></span><span class="cmtt-10x-x-109">  convertedData.data = 0; </span><br /><span class="label"><a
+ id="x41-759018r15"></a></span><span class="cmtt-10x-x-109">  convertedData.size = 0; </span><!--l. 679--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Let convert allocate for us</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759019r16"></a></span><span class="cmtt-10x-x-109">  convertedData.soundFormat = SOUND_RAW; </span><br /><span class="label"><a
+ id="x41-759020r17"></a></span><span class="cmtt-10x-x-109">  convertedData.channels = 1; </span><br /><span class="label"><a
+ id="x41-759021r18"></a></span><span class="cmtt-10x-x-109">  convertedData.rate = 0; </span><!--l. 682--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Use sample rate of the source</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759022r19"></a></span><span class="cmtt-10x-x-109">  convertedData.sampleSize = 8; </span><br /><span class="label"><a
+ id="x41-759023r20"></a></span><span class="cmtt-10x-x-109">  convertedData.sampleFormat = SAMPLE_UNSIGNED; </span><br /><span class="label"><a
+ id="x41-759024r21"></a></span><span class="cmtt-10x-x-109">  UNotifyChange(dataSource, &#x0026;SoundAlgorithm::onData); </span><br /><span class="label"><a
+ id="x41-759025r22"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x41-759026r23"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759027r24"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> SoundAlgorithm::onData(UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x41-759028r25"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-759029r26"></a></span><span class="cmtt-10x-x-109">  USound src = v; </span><br /><span class="label"><a
+ id="x41-759030r27"></a></span><span class="cmtt-10x-x-109">  convert(src, convertedData); </span><br /><span class="label"><a
+ id="x41-759031r28"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 692--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Work on convertedData.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759032r29"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-759033r30"></a></span></pre>
+   </div>
+<!--l. 696--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.13.3   </span> <a
+href="contents.html#QQ2-41-887" id="x41-76000025.13.3">0-copy mode</a></h4>
+<!--l. 699--><p class="noindent" >In plugin mode, you can setup any <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> in 0-copy mode by calling <span class="lstinline"><span class="cmtt-10x-x-109">setBypass(true)</span></span>. In this mode,
+binary data written to the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> is not copied, but a reference is kept. As a consequence, the data is
+only available from within registered <span class="lstinline"><span
+class="cmtt-10x-x-109">notifyChange</span></span> callbacks. Those callbacks can use <span class="lstinline"><span class="cmtt-10x-x-109">UVar::val()</span></span> or
+cast the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> to a <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary&#x0026;</span></span> to retrieve the reference. Attempts to read the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> from
+outside <span class="lstinline"><span
+class="cmtt-10x-x-109">notifyChange</span></span> will block until the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> is updated again, and copy the value at this
+time.
+</p><!--l. 708--><p class="indent" >   An example will certainly clarify: Let us ﬁrst declare an UObject that will generate binary data
+using 0-copy mode.
+</p><!--l. 711--><p class="indent" >   <div class="code cxx">
+<!--l. 711--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760001r1"></a></span><!--l. 712--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Declare an UObject producing images in 0-copy optimized mode.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> OptimizedImageSource: </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> UObject </span><br /><span class="label"><a
+ id="x41-760003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-760004r4"></a></span><span class="cmtt-10x-x-109">  &#x003C;...&#x003E; </span><br /><span class="label"><a
+ id="x41-760005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x41-760006r6"></a></span><span class="cmtt-10x-x-109">  UVar val; </span><br /><span class="label"><a
+ id="x41-760007r7"></a></span><span class="cmtt-10x-x-109">  UBinary imageData; </span><br /><span class="label"><a
+ id="x41-760008r8"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x41-760009r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760010r10"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> OptimizedImageSource::init() </span><br /><span class="label"><a
+ id="x41-760011r11"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-760012r12"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 723--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Bind val</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760013r13"></a></span><span class="cmtt-10x-x-109">  UBindVar(OptimizedImageSource, val); </span><br /><span class="label"><a
+ id="x41-760014r14"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 725--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Mark it as bypass mode</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760015r15"></a></span><span class="cmtt-10x-x-109">  val.setBypass(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">true</span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-760016r16"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 727--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Start a timer.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760017r17"></a></span><span class="cmtt-10x-x-109">  USetUpdate(10); </span><br /><span class="label"><a
+ id="x41-760018r18"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x41-760019r19"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760020r20"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> OptimizedImageSource::update() </span><br /><span class="label"><a
+ id="x41-760021r21"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-760022r22"></a></span><span class="cmtt-10x-x-109">  &#x003C;Update imageData here&#x003E; </span><br /><span class="label"><a
+ id="x41-760023r23"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 734--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Notify all notifyChange callbacks without copying the data.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760024r24"></a></span><span class="cmtt-10x-x-109">  val = imageData; </span><br /><span class="label"><a
+ id="x41-760025r25"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760026r26"></a></span></pre>
+   </div>
+<!--l. 739--><p class="indent" >   Let us then declare an other component that will access this binary data without any
+copy:
+</p><!--l. 742--><p class="indent" >   <div class="code cxx">
+<!--l. 742--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760027r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> BinaryProcessor: </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> UObject </span><br /><span class="label"><a
+ id="x41-760028r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-760029r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x41-760030r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init(); </span><br /><span class="label"><a
+ id="x41-760031r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> onData(UVar&#x0026; v); </span><br /><span class="label"><a
+ id="x41-760032r6"></a></span><span class="cmtt-10x-x-109">  InputPort binaryIn; </span><br /><span class="label"><a
+ id="x41-760033r7"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x41-760034r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760035r9"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> BinaryProcessor::init() </span><br /><span class="label"><a
+ id="x41-760036r10"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-760037r11"></a></span><span class="cmtt-10x-x-109">  UBindVar(BinaryProcessor, binaryIn); </span><br /><span class="label"><a
+ id="x41-760038r12"></a></span><span class="cmtt-10x-x-109">  UNotifyChange(binaryIn, &#x0026;BinaryProcessor::onData); </span><br /><span class="label"><a
+ id="x41-760039r13"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x41-760040r14"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760041r15"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> BinaryProcessor::onData(UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x41-760042r16"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-760043r17"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> UBinary&#x0026; b = v; </span><br /><span class="label"><a
+ id="x41-760044r18"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 760--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// If in urbiscript you connect the two components using:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760045r19"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 761--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//  OptimizedImageSource.&#x0026;val &#x003E;&#x003E; BinaryProcessor.&#x0026;binaryIn</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760046r20"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 762--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// then b will be OptimizedImageSource.binaryData, not a copy.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760047r21"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-760048r22"></a></span></pre>
+   </div>
+<!--l. 766--><p class="indent" >   Typing <span class="lstinline"><span class="cmtt-10x-x-109">OptimizedImageSource.val</span></span> in urbiscript will wait for the next update from
+<span class="lstinline"><span class="cmtt-10x-x-109">OptimizedImageSource::update</span></span> and copy the data at this point.
+</p><!--l. 770--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.14   </span> <a
+href="index.html#QQ2-41-888" id="x41-76100025.14">Direct communication between UObjects</a></h3>
+<!--l. 773--><p class="noindent" >For modularity reasons, all interactions between <span class="lstinline"><span
+class="cmtt-10x-x-109">UObjects</span></span> should go through the various middleware
+communication mechanisms, mainly <span class="lstinline"><span
+class="cmtt-10x-x-109">InputPort</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span>. But it is possible to access
+directly the C++ instance of an <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">by binding a function taking a <span class="lstinline"><span class="cmtt-10x-x-109">UObject*</span></span> as argument, and calling it from urbiscript,
+     passing the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> itself.
+     </li>
+     <li class="itemize">by calling the C++ function <span class="lstinline"><span class="cmtt-10x-x-109">getUObject(</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span>. <span
+class="cmitt-10x-x-109">name </span>must be the canonical <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>
+     name, passed to your constructor, and stored in the <span class="lstinline"><span
+class="cmtt-10x-x-109">__name</span></span> member.</li></ul>
+<!--l. 787--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.15   </span> <a
+href="index.html#QQ2-41-889" id="x41-76200025.15">Using hubs to group objects</a></h3>
+<!--l. 789--><p class="noindent" >Sometimes, you need to perform actions for a group of <span class="lstinline"><span
+class="cmtt-10x-x-109">UObjects</span></span>, for instance devices that need to be
+updated together. The API provides the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObjectHub</span></span> class for this purpose. To create a hub, simply
+declare a subclass of <span class="lstinline"><span
+class="cmtt-10x-x-109">UObjectHub</span></span>, and register it by calling once the macro <span class="lstinline"><span class="cmtt-10x-x-109">UStartHub(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span>.
+A single instance of this class will then be created upon server start-up. <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> instances can then
+register to this hub by calling <span class="lstinline"><span class="cmtt-10x-x-109">URegister(</span><span
+class="cmitt-10x-x-109">hub</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span>. Timers can be attached to <span class="lstinline"><span
+class="cmtt-10x-x-109">UObjectHub</span></span>
+the same way as to <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> (see <a
+href="#x41-75200025.8">Section 25.8<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>). A hub instance can be retrieved by calling
+<span class="lstinline"><span class="cmtt-10x-x-109">getUObjectHub (string </span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmitt-10x-x-109">-</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span>. The hub also holds the list of registered UObject in its
+members attribute.
+</p><!--l. 802--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.16   </span> <a
+href="index.html#QQ2-41-890" id="x41-76300025.16">Sending urbiscript code</a></h3>
+<!--l. 804--><p class="noindent" >If you need to send urbiscript code to the server, the <span class="lstinline"><span
+class="cmtt-10x-x-109">URBI</span></span> macro is available, as well as the <span class="lstinline"><span
+class="cmtt-10x-x-109">send</span></span>
+function. You can either pass it a string, or directly urbiscript code inside a <span
+class="cmti-10x-x-109">double </span>pair of
+parentheses:
+</p><!--l. 808--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 808--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-763001r1"></a></span><span class="cmtt-10x-x-109">send (</span><!--l. 809--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;myTag:1+1;&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-763002r2"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-763003r3"></a></span><span class="cmtt-10x-x-109">URBI (( </span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (myEvent?(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x)) { myTag:echo x; }; ));</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-763004r4"></a></span></pre>
+   </div>
+<!--l. 814--><p class="indent" >   You can also use the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">call</span></span></span> method to invoke an urbiscript function:
+</p><!--l. 816--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 816--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-763005r1"></a></span><!--l. 817--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// C++ equivalent of urbiscript &#x2019;System.someFunc(12, &#x0022;foo&#x0022;);&#x2019;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-763006r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">call</span></span><span
+class="cmtt-10x-x-109">(</span><!--l. 818--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;System&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 818--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;someFunc&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 12, </span><!--l. 818--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-763007r3"></a></span></pre>
+   </div>
+<!--l. 821--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.17   </span> <a
+href="index.html#QQ2-41-891" id="x41-76400025.17">Using RTP transport in remote mode</a></h3>
+<!--l. 824--><p class="noindent" >By default, Urbi uses TCP connections for all communications between the engine and remote
+UObjects. Urbi also supports the UDP-based <span
+class="cmti-10x-x-109">RTP</span><a
+ id="x41-764001"></a> protocol for more eﬃcient transmission of updated
+variable values. RTP will provide a lower latency at the cost of possible packet loss, especially in bad
+wireless network conditions.
+</p><!--l. 830--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.17.1   </span> <a
+href="contents.html#QQ2-41-892" id="x41-76500025.17.1">Enabling RTP</a></h4>
+<!--l. 832--><p class="noindent" >To enable RTP connections, both the engine and the remote-mode urbi-launch containing your remote
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> must load the RTP <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>. This can be achieved by passing <span class="lstinline"><span class="cmtt-10x-x-109">urbi/rtp</span></span> as an extra
+argument to both urbi-launch command lines (one for the engine, the other for your remote
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span>).
+</p><!--l. 838--><p class="indent" >   Once done, all binary data transfer (like sound and image) in both directions will by default use a
+RTP connection.
+</p><!--l. 841--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.17.2   </span> <a
+href="contents.html#QQ2-41-893" id="x41-76600025.17.2">Per-UVar control of RTP mode</a></h4>
+<!--l. 843--><p class="noindent" >You can control whether a speciﬁc <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> uses RTP mode by calling its <span class="lstinline"><span class="cmtt-10x-x-109">useRTP(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">bool</span></span><span
+class="cmtt-10x-x-109">)</span></span> function. Each
+binary-type <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> will have its own RTP connection, and all non-binary <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> will share
+one.
+</p><!--l. 847--><p class="indent" >   From urbiscript, you can also write to the <span class="lstinline"><span
+class="cmtt-10x-x-109">rtp</span></span> slot of each UVar. Existing notiﬁes will be modiﬁed
+to use rtp if you set it to true.
+</p><!--l. 851--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">25.18   </span> <a
+href="index.html#QQ2-41-894" id="x41-76700025.18">Extending the cast system</a></h3>
+<!--l. 854--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.18.1   </span> <a
+href="contents.html#QQ2-41-895" id="x41-76800025.18.1">Principle</a></h4>
+<!--l. 856--><p class="noindent" >The same cast system is used both for bound function&#x2019;s arguments and return values, and for
+reading/writing <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>.
+</p><!--l. 859--><p class="indent" >   Should you want to add new type <span class="lstinline"><span
+class="cmtt-10x-x-109">MyType</span></span> to the system you must deﬁne two functions:
+</p><!--l. 862--><p class="indent" >   <div class="code cxx">
+<!--l. 862--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-768001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">namespace</span></span><span class="cmtt-10x-x-109"> urbi </span><br /><span class="label"><a
+ id="x41-768002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-768003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span class="cmtt-10x-x-109">, (UValue&#x0026; v, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> MyType&#x0026; t) </span><br /><span class="label"><a
+ id="x41-768004r4"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-768005r5"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 867--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Here you must fill v with the serialized representation of t.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-768006r6"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-768007r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-768008r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">template</span></span><span class="cmtt-10x-x-109">&#x003C;&#x003E; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">struct</span></span><span class="cmtt-10x-x-109"> uvalue_caster&#x003C;MyType&#x003E; </span><br /><span class="label"><a
+ id="x41-768009r9"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-768010r10"></a></span><span class="cmtt-10x-x-109">    MyType </span><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span class="cmtt-10x-x-109">()(UValue&#x0026; v) </span><br /><span class="label"><a
+ id="x41-768011r11"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x41-768012r12"></a></span><span class="cmtt-10x-x-109">      </span><!--l. 874--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Here you must return a MyType made with the information in v.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-768013r13"></a></span><span class="cmtt-10x-x-109">    } </span><br /><span class="label"><a
+ id="x41-768014r14"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x41-768015r15"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-768016r16"></a></span></pre>
+   </div>
+<!--l. 880--><p class="indent" >   Once done, you will be able without any other change to </p>
+     <ul class="itemize1">
+     <li class="itemize">Take <span class="lstinline"><span
+class="cmtt-10x-x-109">MyType</span></span> as argument to a bound function.
+     </li>
+     <li class="itemize">Return a <span class="lstinline"><span
+class="cmtt-10x-x-109">MyType</span></span> from a bound function.
+     </li>
+     <li class="itemize">Write a <span class="lstinline"><span
+class="cmtt-10x-x-109">MyType</span></span> to an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>.
+     </li>
+     <li class="itemize">Convert an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> to <span class="lstinline"><span
+class="cmtt-10x-x-109">MyType</span></span> using the <span class="lstinline"><span class="cmtt-10x-x-109">UVar::as</span></span> function.</li></ul>
+<!--l. 889--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">25.18.2   </span> <a
+href="contents.html#QQ2-41-896" id="x41-76900025.18.2">Casting simple structures</a></h4>
+<!--l. 892--><p class="noindent" >The system provides facilities to serialize simple structures by value between C++ and urbiscript. This
+system uses two declarations of each structure, one in C++ and the other in Urbi, and maps between
+the two.
+</p><!--l. 896--><p class="indent" >   Here is a complete commented example to map a simple Point structure between urbiscript and
+C++. <div class="code cxx">
+<!--l. 898--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">struct</span></span><span class="cmtt-10x-x-109"> Point </span><br /><span class="label"><a
+ id="x41-769002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-769003r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 901--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Your struct must have a default constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769004r4"></a></span><span class="cmtt-10x-x-109">  Point() </span><br /><span class="label"><a
+ id="x41-769005r5"></a></span><span class="cmtt-10x-x-109">    : x(0), y(0) </span><br /><span class="label"><a
+ id="x41-769006r6"></a></span><span class="cmtt-10x-x-109">  {} </span><br /><span class="label"><a
+ id="x41-769007r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> x, y; </span><br /><span class="label"><a
+ id="x41-769008r8"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x41-769009r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769010r10"></a></span><!--l. 908--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Declare the structure to the cast system. First argument is the struct,</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769011r11"></a></span><!--l. 909--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// following arguments are the field names.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769012r12"></a></span><span class="cmtt-10x-x-109">URBI_REGISTER_STRUCT(Point, x, y);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769013r13"></a></span></pre>
+   </div>
+<!--l. 913--><p class="indent" >   Declare the urbiscript structure. It must be globally accessible, and inheriting from
+<a
+href="urbiscript-standard-library.html#object:UValueSerializable"><span class="lstinline"><span
+class="cmtt-10x-x-109">UValueSerializable</span></span></a>. <div class="code urbiscript">
+<!--l. 915--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769014r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Global.Point: UValueSerializable </span><br /><span class="label"><a
+ id="x41-769015r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-769016r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 0; </span><br /><span class="label"><a
+ id="x41-769017r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> y = 0; </span><br /><span class="label"><a
+ id="x41-769018r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769019r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> xx = 0, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> yy = 0) </span><br /><span class="label"><a
+ id="x41-769020r7"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-769021r8"></a></span><span class="cmtt-10x-x-109">    x = xx| </span><br /><span class="label"><a
+ id="x41-769022r9"></a></span><span class="cmtt-10x-x-109">    y = yy </span><br /><span class="label"><a
+ id="x41-769023r10"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x41-769024r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769025r12"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> asString() </span><br /><span class="label"><a
+ id="x41-769026r13"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x41-769027r14"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 929--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x003C;%s, %s&#x003E;&#x0022;</span></span></span><span class="cmtt-10x-x-109"> % [x, y] </span><br /><span class="label"><a
+ id="x41-769028r15"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x41-769029r16"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769030r17"></a></span></pre>
+   </div>
+<!--l. 934--><p class="noindent" >Add the class to <a
+href="urbiscript-standard-library.html#object:Serializables"><span class="lstinline"><span
+class="cmtt-10x-x-109">Serializables</span></span></a> to register it.
+</p><!--l. 937--><p class="indent" >   <div class="code urbiscript">
+<!--l. 937--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769031r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Serializables.Point = Global.Point|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769032r2"></a></span></pre>
+   </div>
+<!--l. 941--><p class="indent" >   Once done, you can call bound functions taking a C++ Point by passing them an urbiscript Point
+and exchange Point between both worlds through <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> read/write:
+</p><!--l. 945--><p class="indent" >   <div class="code cxx">
+<!--l. 945--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769033r1"></a></span><!--l. 946--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This function can be bound using UBindFunction.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769034r2"></a></span><span class="cmtt-10x-x-109">Point MyObject::opposite(Point p) </span><br /><span class="label"><a
+ id="x41-769035r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-769036r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> Point(-p.x, -p.y); </span><br /><span class="label"><a
+ id="x41-769037r5"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x41-769038r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769039r7"></a></span><!--l. 952--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Writing a Point to an UVar is OK.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769040r8"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> MyObject::writePoint(Point p) </span><br /><span class="label"><a
+ id="x41-769041r9"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-769042r10"></a></span><span class="cmtt-10x-x-109">  UVar v(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">, </span><!--l. 955--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;val&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-769043r11"></a></span><span class="cmtt-10x-x-109">  v = p; </span><br /><span class="label"><a
+ id="x41-769044r12"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x41-769045r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769046r14"></a></span><!--l. 959--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Converting an UVar to a Point is easy.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769047r15"></a></span><span class="cmtt-10x-x-109">ufloat MyObject::xCoord() </span><br /><span class="label"><a
+ id="x41-769048r16"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x41-769049r17"></a></span><span class="cmtt-10x-x-109">  UVar v(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">, </span><!--l. 962--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;val&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x41-769050r18"></a></span><span class="cmtt-10x-x-109">  Point p; </span><br /><span class="label"><a
+ id="x41-769051r19"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 964--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Fill p with content of v.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769052r20"></a></span><span class="cmtt-10x-x-109">  v.fill(p); </span><br /><span class="label"><a
+ id="x41-769053r21"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 966--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Alternate for the above.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769054r22"></a></span><span class="cmtt-10x-x-109">  p = v.as&#x003C;Point&#x003E;(); </span><br /><span class="label"><a
+ id="x41-769055r23"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> v.x; </span><br /><span class="label"><a
+ id="x41-769056r24"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x41-769057r25"></a></span></pre>
+   </div>
+</body></html>

@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>28 Notations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="grammar.html" >Next</a><a
+href="tables-and-indexes.html#notations.html" >Up</a><a
+href="urbi-sdkli6.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 28</span><br /><a
+href="index.html#QQ2-46-923" id="x46-79600028">Notations</a></h2>
+<!--l. 12--><p class="noindent" >This chapter deﬁnes the <span
+class="cmti-10x-x-109">notations</span><a
+ id="x46-796001"></a> used in this document.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >28.1 <a
+href="#x46-79700028.1">Words</a></span>
+<br />    <span class="sectionToc" >28.2 <a
+href="#x46-79800028.2">Frames</a></span>
+<br />     <span class="subsectionToc" >28.2.1 <a
+href="#x46-79900028.2.1">C++ Code</a></span>
+<br />     <span class="subsectionToc" >28.2.2 <a
+href="#x46-80000028.2.2">Grammar Excerpts</a></span>
+<br />     <span class="subsectionToc" >28.2.3 <a
+href="#x46-80100028.2.3">Java Code</a></span>
+<br />     <span class="subsectionToc" >28.2.4 <a
+href="#x46-80200028.2.4">Shell Sessions</a></span>
+<br />     <span class="subsectionToc" >28.2.5 <a
+href="#x46-80300028.2.5">urbiscript Sessions</a></span>
+<br />     <span class="subsectionToc" >28.2.6 <a
+href="#x46-80400028.2.6">urbiscript Assertions</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">28.1   </span> <a
+href="index.html#QQ2-46-924" id="x46-79700028.1">Words</a></h3>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span
+class="cmtt-10x-x-109">code</span></span><br
+class="newline" />A <span
+class="cmti-10x-x-109">piece of code</span><a
+ id="x46-797001"></a> (urbiscript, Java, C++ &hellip;).
+     </li>
+     <li class="itemize"><span class="textcmt">comment</span><br
+class="newline" />A <span
+class="cmti-10x-x-109">comment</span><a
+ id="x46-797002"></a> in some programming language. For instance, <span class="lstinline"><span class="textcmt"><span class="cmtt-10x-x-109">/* hello /* world */ ! */</span></span></span>
+     is a comment in urbiscript.
+     </li>
+     <li class="itemize"><span
+class="cmtt-10x-x-109">environment-variable</span><br
+class="newline" />An <span
+class="cmti-10x-x-109">environment variable</span><a
+ id="x46-797003"></a> name, e.g., <span
+class="cmtt-10x-x-109">PATH</span>.
+     </li>
+     <li class="itemize">‘<span
+class="cmtt-10x-x-109">file-name</span>&#x2019;<br
+class="newline" />A <span
+class="cmti-10x-x-109">ﬁle name</span><a
+ id="x46-797004"></a>.
+     </li>
+     <li class="itemize"><span class="textkwd">keyword</span><br
+class="newline" />A <span
+class="cmti-10x-x-109">keyword</span><a
+ id="x46-797005"></a> in some programming language. For instance, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">watch</span></span></span> is an urbiscript keyword.
+     </li>
+     <li class="itemize"><span
+class="cmitt-10x-x-109">meta-variable</span><br
+class="newline" />Depending on the context, a <span
+class="cmti-10x-x-109">variable</span><a
+ id="x46-797006"></a> name (i.e., an identiﬁer in C++ or urbiscript), or a
+     <span
+class="cmti-10x-x-109">meta-variable</span><a
+ id="x46-797007"></a> name. A meta-variable denotes a place where some syntactic construct may
+     be entered. For instance, in <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span><span class="cmtt-10x-x-109"> (</span><span
+class="cmitt-10x-x-109">expression</span><span class="cmtt-10x-x-109">) </span><span
+class="cmitt-10x-x-109">statement</span></span>, <span
+class="cmitt-10x-x-109">expression </span>and <span
+class="cmitt-10x-x-109">statement</span>
+     do  not  denote  two  variable  names,  but  two  placeholders  which  can  be  ﬁlled  with  an
+     arbitrary expression, and an arbitrary statement. For instance:
+     <!--l. 43--><p class="noindent" ><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span><span class="cmtt-10x-x-109"> (!tasks.empty) { tasks.removeFront.process }</span></span>.
+     </p></li>
+     <li class="itemize"><span class="textstr">string</span><br
+class="newline" />A <span
+class="cmti-10x-x-109">string</span><a
+ id="x46-797008"></a> in some programming language. For instance, <span class="lstinline"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello, world!&#x0022;</span></span></span> is a string in
+     urbiscript.</li></ul>
+<!--l. 50--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">28.2   </span> <a
+href="index.html#QQ2-46-925" id="x46-79800028.2">Frames</a></h3>
+<!--l. 52--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">28.2.1   </span> <a
+href="contents.html#QQ2-46-926" id="x46-79900028.2.1">C++ Code</a></h4>
+<!--l. 55--><p class="noindent" >C++ source code is presented in frames as follows.
+</p><!--l. 57--><p class="indent" >   <div class="code cxx">
+<!--l. 57--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-799001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Int </span><br /><span class="label"><a
+ id="x46-799002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x46-799003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x46-799004r4"></a></span><span class="cmtt-10x-x-109">  Foo(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> v = 0) </span><br /><span class="label"><a
+ id="x46-799005r5"></a></span><span class="cmtt-10x-x-109">    : val_(v) </span><br /><span class="label"><a
+ id="x46-799006r6"></a></span><span class="cmtt-10x-x-109">  {} </span><br /><span class="label"><a
+ id="x46-799007r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-799008r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span
+class="cmtt-10x-x-109">(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> v) </span><br /><span class="label"><a
+ id="x46-799009r9"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x46-799010r10"></a></span><span class="cmtt-10x-x-109">    std::swap(v, val_); </span><br /><span class="label"><a
+ id="x46-799011r11"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> v; </span><br /><span class="label"><a
+ id="x46-799012r12"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x46-799013r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-799014r14"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span class="cmtt-10x-x-109">() </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-799015r15"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x46-799016r16"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> val_; </span><br /><span class="label"><a
+ id="x46-799017r17"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x46-799018r18"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-799019r19"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">private</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x46-799020r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> val_; </span><br /><span class="label"><a
+ id="x46-799021r21"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-799022r22"></a></span></pre>
+   </div>
+<!--l. 82--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">28.2.2   </span> <a
+href="contents.html#QQ2-46-927" id="x46-80000028.2.2">Grammar Excerpts</a></h4>
+<!--l. 85--><p class="noindent" >The <span
+class="cmti-10x-x-109">grammar fragments</span><a
+ id="x46-800001"></a> are written in <span
+class="cmti-10x-x-109">EBNF</span><a
+ id="x46-800002"></a> (<span
+class="cmti-10x-x-109">Extended Backus-Naur Form</span><a
+ id="x46-800003"></a>). The symbol <a
+ id="x46-800004"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">::=</span></span>
+separates the left-hand symbol from the right-hand side part of the rule. Inﬁx <span class="lstinline"><span
+class="cmtt-10x-x-109">|</span></span> denotes alternation,
+postﬁx-<span class="lstinline"><span
+class="cmtt-10x-x-109">*</span></span> 0-or-more repetition, postﬁx-<span class="lstinline"><span
+class="cmtt-10x-x-109">+</span></span> 1-or-more repetition, and postﬁx-<span class="lstinline"><span
+class="cmtt-10x-x-109">?</span></span> denotes optional parts.
+Terminal symbols are written in double-quotes, and non-terminals in angle-brackets. Parentheses
+group.
+</p><!--l. 93--><p class="indent" >   The following frame deﬁnes the grammar syntax expressed in the same grammar syntax.
+</p><!--l. 96--><p class="indent" >   <div class="code bnf">
+<!--l. 96--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800005r1"></a></span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">grammar</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">::=</span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rule</span><span
+class="cmsy-10x-x-109">⟩</span><span class="textkwd">+</span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800006r2"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800007r3"></a></span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rule</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">::=</span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">symbol</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><!--l. 99--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;::=&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800008r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800009r5"></a></span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">::=</span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span class="textkwd"><span
+class="cmsy-10x-x-109">&lowast;</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800010r6"></a></span><span class="cmtt-10x-x-109">        </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><!--l. 102--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;|&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800011r7"></a></span><span class="cmtt-10x-x-109">        </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd">(</span><!--l. 103--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;?&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 103--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;*&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 103--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;+&#x0022;</span></span></span><span class="textkwd">)</span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800012r8"></a></span><span class="cmtt-10x-x-109">        </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 104--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;(&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">rhs</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><!--l. 104--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;)&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800013r9"></a></span><span class="cmtt-10x-x-109">        </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">symbol</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800014r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800015r11"></a></span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">symbol</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">::=</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 107--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x003C;&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span
+class="cmtt-10x-x-109">identifier</span><span
+class="cmsy-10x-x-109">⟩</span><span
+class="cmtt-10x-x-109"> </span><!--l. 107--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x003E;&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800016r12"></a></span><span class="cmtt-10x-x-109">           </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 108--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x2019;&#x0022;&#x2019;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span class="cmtt-10x-x-109">escaped-character</span><span
+class="cmsy-10x-x-109">⟩</span><span class="textkwd"><span
+class="cmsy-10x-x-109">&lowast;</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 108--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x2019;&#x0022;&#x2019;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800017r13"></a></span><span class="cmtt-10x-x-109">           </span><span class="textkwd"><span
+class="cmmi-10x-x-109">∣</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 109--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x2019;&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span
+class="cmsy-10x-x-109">⟨</span><span class="cmtt-10x-x-109">escaped-character</span><span
+class="cmsy-10x-x-109">⟩</span><span class="textkwd"><span
+class="cmsy-10x-x-109">&lowast;</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 109--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x2019;&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-800018r14"></a></span></pre>
+   </div>
+<!--l. 113--><p class="indent" >   <a
+href="grammar.html#x47-80500029">Listing 29<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a> provides the grammar of urbiscript.
+</p><!--l. 115--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">28.2.3   </span> <a
+href="contents.html#QQ2-46-928" id="x46-80100028.2.3">Java Code</a></h4>
+<!--l. 118--><p class="noindent" >Java source code is presented in frames as follows.
+</p><!--l. 120--><p class="indent" >   <div class="code java">
+<!--l. 120--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-801001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">import</span></span><span class="cmtt-10x-x-109"> liburbi.main.*; </span><br /><span class="label"><a
+ id="x46-801002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Main </span><br /><span class="label"><a
+ id="x46-801003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x46-801004r4"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 124--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Load urbijava library.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-801005r5"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-801006r6"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x46-801007r7"></a></span><span class="cmtt-10x-x-109">        System.loadLibrary(</span><!--l. 127--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;urbijava&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x46-801008r8"></a></span><span class="cmtt-10x-x-109">    } </span><br /><span class="label"><a
+ id="x46-801009r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-801010r10"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> main(String argv[]) </span><br /><span class="label"><a
+ id="x46-801011r11"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x46-801012r12"></a></span><span class="cmtt-10x-x-109">      </span><!--l. 132--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Does nothing for now.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-801013r13"></a></span><span class="cmtt-10x-x-109">    } </span><br /><span class="label"><a
+ id="x46-801014r14"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-801015r15"></a></span></pre>
+   </div>
+<!--l. 137--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">28.2.4   </span> <a
+href="contents.html#QQ2-46-929" id="x46-80200028.2.4">Shell Sessions</a></h4>
+<!--l. 140--><p class="noindent" >Interactive sessions with a (Unix) shell are represented as follows.
+</p><!--l. 142--><p class="indent" >   <div class="code shell">
+<!--l. 142--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-802001r1"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">echo</span></span><span class="cmtt-10x-x-109"> toto </span><br /><span class="label"><a
+ id="x46-802002r2"></a></span><span
+class="cmtt-10x-x-109">toto</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-802003r3"></a></span></pre>
+   </div>
+<!--l. 147--><p class="indent" >   The user entered ‘<span
+class="cmtt-10x-x-109">echo toto</span>&#x2019;, and the system answered ‘<span
+class="cmtt-10x-x-109">toto</span>&#x2019;. ‘<span
+class="cmtt-10x-x-109">$</span>&#x2019; is the <span
+class="cmti-10x-x-109">prompt</span><a
+ id="x46-802004"></a>: it starts the lines
+where the system invites the user to enter her commands.
+</p><!--l. 151--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">28.2.5   </span> <a
+href="contents.html#QQ2-46-930" id="x46-80300028.2.5">urbiscript Sessions</a></h4>
+<!--l. 154--><p class="noindent" >Interactive sessions with Urbi are represented as follows.
+</p><!--l. 156--><p class="indent" >   <div class="code urbiscript">
+<!--l. 156--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-803001r1"></a></span><span class="cmtt-10x-x-109">echo(</span><!--l. 157--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;toto&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x46-803002r2"></a></span><!--l. 158--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** toto</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-803003r3"></a></span></pre>
+   </div>
+<!--l. 161--><p class="indent" >   Contrary to shell interaction (see <a
+href="#x46-80200028.2.4">Section 28.2.4<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>), there is no prompt that marks the user-entered
+lines (here <span class="lstinline"><span class="cmtt-10x-x-109">echo(</span><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;toto&#x0022;</span></span><span
+class="cmtt-10x-x-109">);</span></span>, but, on the contrary, answers from the Urbi server start with a label that
+includes a timestamp (here ‘<span
+class="cmtt-10x-x-109">00000001</span>&#x2019;), and possibly a channel name, ‘<span
+class="cmtt-10x-x-109">output</span>&#x2019; in the following
+example.
+</p><!--l. 167--><p class="indent" >   <div class="code urbiscript">
+<!--l. 167--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-803004r1"></a></span><span class="cmtt-10x-x-109">cout &#x003C;&#x003C; </span><!--l. 168--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;toto&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x46-803005r2"></a></span><!--l. 169--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002:output] &#x0022;toto&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-803006r3"></a></span></pre>
+   </div>
+<!--l. 173--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">28.2.6   </span> <a
+href="contents.html#QQ2-46-931" id="x46-80400028.2.6">urbiscript Assertions</a></h4>
+<!--l. 176--><p class="noindent" >The following <span
+class="cmti-10x-x-109">assertion frame</span><a
+ id="x46-804001"></a>:
+</p><!--l. 178--><p class="indent" >   <div class="code urbiassert">
+<!--l. 178--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-804002r1"></a></span><span class="cmtt-10x-x-109">true; </span><br /><span class="label"><a
+ id="x46-804003r2"></a></span><span class="cmtt-10x-x-109">1 &#x003C; 2; </span><br /><span class="label"><a
+ id="x46-804004r3"></a></span><span class="cmtt-10x-x-109">1 + 2 * 3 == 7; </span><br /><span class="label"><a
+ id="x46-804005r4"></a></span><!--l. 182--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foobar&#x0022;</span></span></span><span class="cmtt-10x-x-109">[0, 3] == </span><!--l. 182--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x46-804006r5"></a></span><span class="cmtt-10x-x-109">[1, 2, 3].map (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> (a) { a * a }) == [1, 4, 9]; </span><br /><span class="label"><a
+ id="x46-804007r6"></a></span><span class="cmtt-10x-x-109">[ =&#x003E; ].empty;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-804008r7"></a></span></pre>
+   </div>
+<!--l. 187--><p class="noindent" >denotes the following assertion-block (see <a
+href="urbiscript-language-reference-manual.html#x31-34300020.9">Section 20.9<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>) in an urbiscript-session frame:
+</p><!--l. 191--><p class="indent" >   <div class="code urbiscript">
+<!--l. 191--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-804009r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-804010r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x46-804011r3"></a></span><span class="cmtt-10x-x-109">  true; </span><br /><span class="label"><a
+ id="x46-804012r4"></a></span><span class="cmtt-10x-x-109">  1 &#x003C; 2; </span><br /><span class="label"><a
+ id="x46-804013r5"></a></span><span class="cmtt-10x-x-109">  1 + 2 * 3 == 7; </span><br /><span class="label"><a
+ id="x46-804014r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 197--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foobar&#x0022;</span></span></span><span class="cmtt-10x-x-109">[0, 3] == </span><!--l. 197--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x46-804015r7"></a></span><span class="cmtt-10x-x-109">  [1, 2, 3].map (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> (a) { a * a }) == [1, 4, 9]; </span><br /><span class="label"><a
+ id="x46-804016r8"></a></span><span class="cmtt-10x-x-109">  [ =&#x003E; ].empty; </span><br /><span class="label"><a
+ id="x46-804017r9"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x46-804018r10"></a></span></pre>
+   </div>
+</body></html>

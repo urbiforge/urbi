@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>8 Organizing your code using package and import</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="functional-programming.html" >Next</a><a
+href="urbiscript-user-manual.html#organizing-your-code-using-package-and-import.html" >Up</a><a
+href="objective-programming-urbiscript-object-model.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 8</span><br /><a
+href="index.html#QQ2-12-58" id="x12-520008">Organizing your code using package and import</a></h2>
+<!--l. 12--><p class="noindent" >In addition to the lookup mechanism described in the previous chapter, urbiscript provides a secondary
+lookup mechanism similar to the one found in most languages, through the <span class="lstinline"><span
+class="cmtt-10x-x-109">import</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">package</span></span>
+keywords.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >8.1 <a
+href="#x12-530008.1">Why object lookup is not enough</a></span>
+<br />    <span class="sectionToc" >8.2 <a
+href="#x12-540008.2">Import and package</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">8.1   </span> <a
+href="index.html#QQ2-12-59" id="x12-530008.1">Why object lookup is not enough</a></h3>
+<!--l. 19--><p class="noindent" >Consider the example below, where one would try to emulate a C++ namespace or Java package using
+only object lookup in urbiscript.
+</p><!--l. 22--><p class="indent" >   <div class="code urbiscript">
+<!--l. 22--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53001r1"></a></span><!--l. 23--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Make a globally-accessible &#x2019;namespace&#x2019; Shapes.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Global.Shapes </span><br /><span class="label"><a
+ id="x12-53003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x12-53004r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 26--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create an object representing a point</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53005r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Point { </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x=0; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> y=0}; </span><br /><span class="label"><a
+ id="x12-53006r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 28--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// And one representing a color</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53007r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Color { </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> r=0; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> g=0; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b=0}; </span><br /><span class="label"><a
+ id="x12-53008r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53009r9"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 31--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Now try a colored point using the objects below.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53010r10"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> ColoredPoint </span><br /><span class="label"><a
+ id="x12-53011r11"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x12-53012r12"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> point; </span><br /><span class="label"><a
+ id="x12-53013r13"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> color; </span><br /><span class="label"><a
+ id="x12-53014r14"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init() </span><br /><span class="label"><a
+ id="x12-53015r15"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x12-53016r16"></a></span><span class="cmtt-10x-x-109">      point = Point.new(); </span><br /><span class="label"><a
+ id="x12-53017r17"></a></span><span class="cmtt-10x-x-109">      color = Color.new(); </span><br /><span class="label"><a
+ id="x12-53018r18"></a></span><span class="cmtt-10x-x-109">    } </span><br /><span class="label"><a
+ id="x12-53019r19"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x12-53020r20"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53021r21"></a></span></pre>
+   </div>
+<!--l. 45--><p class="indent" >   This looks ﬁne, except that Point and Color are not visible from within ColoredPoint.init:
+</p><!--l. 48--><p class="indent" >   <div class="code urbiscript">
+<!--l. 48--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53022r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> cp = Global.Shapes.ColoredPoint.new(); </span><br /><span class="label"><a
+ id="x12-53023r2"></a></span><!--l. 50--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001:error] !!! lookup failed: Point</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53024r3"></a></span><span class="cmtt-10x-x-109">[01234567:error] !!!    called from: new</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-53025r4"></a></span></pre>
+   </div>
+<!--l. 54--><p class="indent" >   One would need to make ColoredPoint <span
+class="cmti-10x-x-109">inherit </span>from <span class="lstinline"><span
+class="cmtt-10x-x-109">Shapes</span></span>, instead of simply having it as one of
+its variables, or make all classes in Shapes globally accessible. Those are not satisfying
+solutions.
+</p><!--l. 58--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8.2   </span> <a
+href="index.html#QQ2-12-60" id="x12-540008.2">Import and package</a></h3>
+<!--l. 60--><p class="noindent" ><span class="lstinline"><span
+class="cmtt-10x-x-109">package</span></span> works in the way one would expect:
+</p><!--l. 62--><p class="indent" >   <div class="code urbiscript">
+<!--l. 62--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54001r1"></a></span><span class="cmtt-10x-x-109">package Shapes </span><br /><span class="label"><a
+ id="x12-54002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x12-54003r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 65--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create an object representing a point</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Point { </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x=0; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> y=0}; </span><br /><span class="label"><a
+ id="x12-54005r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 67--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// And one representing a color</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54006r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Color { </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> r=0; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> g=0; </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b=0}; </span><br /><span class="label"><a
+ id="x12-54007r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 69--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Now try a colored point using the objects below.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54008r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> ColoredPoint </span><br /><span class="label"><a
+ id="x12-54009r9"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x12-54010r10"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init() </span><br /><span class="label"><a
+ id="x12-54011r11"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x12-54012r12"></a></span><span class="cmtt-10x-x-109">      </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.point = Point.new(); </span><br /><span class="label"><a
+ id="x12-54013r13"></a></span><span class="cmtt-10x-x-109">      </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.color = Color.new(); </span><br /><span class="label"><a
+ id="x12-54014r14"></a></span><span class="cmtt-10x-x-109">    }; </span><br /><span class="label"><a
+ id="x12-54015r15"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x12-54016r16"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = ColoredPoint.new(); </span><br /><span class="label"><a
+ id="x12-54017r17"></a></span><span class="cmtt-10x-x-109">  p.print(); </span><br /><span class="label"><a
+ id="x12-54018r18"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x12-54019r19"></a></span><!--l. 81--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] ColoredPoint_0x00000000</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54020r20"></a></span></pre>
+   </div>
+<!--l. 84--><p class="indent" >   Do not nest package declarations, use <span class="lstinline"><span
+class="cmtt-10x-x-109">package</span></span> and then <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> as in the example above.
+</p><!--l. 87--><p class="indent" >   <span class="lstinline"><span
+class="cmtt-10x-x-109">import</span></span> has two syntax: <span class="lstinline"><span class="cmtt-10x-x-109">import foo.bar</span></span> to make <span class="lstinline"><span class="cmtt-10x-x-109">foo.bar</span></span> visible as bar in the current scope, and
+<span class="lstinline"><span class="cmtt-10x-x-109">import foo.*</span></span> to make everything in the package <span class="lstinline"><span
+class="cmtt-10x-x-109">foo</span></span> visible in the local scope.
+</p><!--l. 92--><p class="indent" >   <div class="code urbiscript">
+<!--l. 92--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54021r1"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x12-54022r2"></a></span><span class="cmtt-10x-x-109">  import Shapes.*; </span><br /><span class="label"><a
+ id="x12-54023r3"></a></span><span class="cmtt-10x-x-109">  Point; </span><br /><span class="label"><a
+ id="x12-54024r4"></a></span><span class="cmtt-10x-x-109">  Color; </span><br /><span class="label"><a
+ id="x12-54025r5"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x12-54026r6"></a></span><!--l. 98--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] Color</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54027r7"></a></span><!--l. 99--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// It only applies to the scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54028r8"></a></span><span class="cmtt-10x-x-109">Point; </span><br /><span class="label"><a
+ id="x12-54029r9"></a></span><span class="cmtt-10x-x-109">[01234567:error] !!! lookup failed: Point </span><br /><span class="label"><a
+ id="x12-54030r10"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x12-54031r11"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 103--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Import only Point from Shapes</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54032r12"></a></span><span class="cmtt-10x-x-109">  import Shapes.Point; </span><br /><span class="label"><a
+ id="x12-54033r13"></a></span><span class="cmtt-10x-x-109">  Point; </span><br /><span class="label"><a
+ id="x12-54034r14"></a></span><span class="cmtt-10x-x-109">  Color; </span><br /><span class="label"><a
+ id="x12-54035r15"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x12-54036r16"></a></span><span class="cmtt-10x-x-109">[01234567:error] !!! lookup failed: Color </span><br /><span class="label"><a
+ id="x12-54037r17"></a></span><!--l. 109--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Packages have visibility over themselves as one might expect,</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54038r18"></a></span><!--l. 110--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// like an implicit &#x2019;import this.*&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54039r19"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x12-54040r20"></a></span><span class="cmtt-10x-x-109">  import Shapes.ColoredPoint; </span><br /><span class="label"><a
+ id="x12-54041r21"></a></span><span class="cmtt-10x-x-109">  ColoredPoint.new(); </span><br /><span class="label"><a
+ id="x12-54042r22"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x12-54043r23"></a></span><!--l. 115--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] ColoredPoint_0x00000001</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x12-54044r24"></a></span></pre>
+   </div>
+</body></html>

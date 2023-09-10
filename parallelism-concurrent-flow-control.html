@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>10 Parallelism, Concurrent Flow Control</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="event-based-programming.html" >Next</a><a
+href="urbiscript-user-manual.html#parallelism-concurrent-flow-control.html" >Up</a><a
+href="functional-programming.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 10</span><br /><a
+href="index.html#QQ2-14-65" id="x14-5900010">Parallelism, Concurrent Flow Control</a></h2>
+<!--l. 12--><p class="noindent" >Parallelism is a major feature of urbiscript. So far, all we&#x2019;ve seen already existed in other
+languages — although we tried to pick, mix and adapt features and paradigms to create a nice
+scripting language. Parallelism is one of the corner stones of its paradigm, and what makes
+it so well suited to high-level scripting of interactive agents, in ﬁelds such as robotics or
+AI.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >10.1 <a
+href="#x14-6000010.1">Parallelism operators</a></span>
+<br />    <span class="sectionToc" >10.2 <a
+href="#x14-6100010.2">Detach</a></span>
+<br />    <span class="sectionToc" >10.3 <a
+href="#x14-6200010.3">Tags for parallel control ﬂows</a></span>
+<br />    <span class="sectionToc" >10.4 <a
+href="#x14-6300010.4">timeout, freezeif and stopif</a></span>
+<br />     <span class="subsectionToc" >10.4.1 <a
+href="#x14-6400010.4.1">timeout</a></span>
+<br />     <span class="subsectionToc" >10.4.2 <a
+href="#x14-6500010.4.2">stopif and freezeif</a></span>
+<br />    <span class="sectionToc" >10.5 <a
+href="#x14-6600010.5">Advanced example with parallelism and tags</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">10.1   </span> <a
+href="index.html#QQ2-14-66" id="x14-6000010.1">Parallelism operators</a></h3>
+<!--l. 21--><p class="noindent" >For now, we&#x2019;ve separated our diﬀerent commands with a semicolon (<span class="lstinline"><span
+class="cmtt-10x-x-109">;</span></span>). There are actually four
+statement separators in urbiscript:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">“<span class="lstinline"><span
+class="cmtt-10x-x-109">;</span></span>”: Serialization operator. Wait for the left operand to ﬁnish before continuing.
+     </li>
+     <li class="itemize">“<span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span>”: Parallelism n-ary operator. All its operands are started simultaneously, and executed
+     in parallel. The <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span> block itself ﬁnishes when all the operands have ﬁnished. <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span> has higher
+     precedence than other separators.
+     </li>
+     <li class="itemize">“<span class="lstinline"><span
+class="cmtt-10x-x-109">,</span></span>”: Background operator. Its left operand is started, and then it proceeds immediately to
+     its right operand. This operator is bound to scopes: when used inside a scope, the scope
+     itself ﬁnishes only when all the statements backgrounded with ‘<span
+class="cmtt-10x-x-109">,</span>&#x2019; have ﬁnished.</li></ul>
+<!--l. 37--><p class="indent" >   The example below demonstrates the use of <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span> to launch two functions in parallel.
+</p><!--l. 40--><p class="indent" >   <div class="code urbiscript">
+<!--l. 40--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> test(name) </span><br /><span class="label"><a
+ id="x14-60002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x14-60003r3"></a></span><span class="cmtt-10x-x-109">  echo(name + </span><!--l. 43--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: 1&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60004r4"></a></span><span class="cmtt-10x-x-109">  echo(name + </span><!--l. 44--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: 2&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60005r5"></a></span><span class="cmtt-10x-x-109">  echo(name + </span><!--l. 45--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: 3&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60006r6"></a></span><span class="cmtt-10x-x-109">} |; </span><br /><span class="label"><a
+ id="x14-60007r7"></a></span><!--l. 47--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Serialized executions</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60008r8"></a></span><span class="cmtt-10x-x-109">test(</span><!--l. 48--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;left&#x0022;</span></span></span><span class="cmtt-10x-x-109">) ; test (</span><!--l. 48--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;middle&#x0022;</span></span></span><span class="cmtt-10x-x-109">); test (</span><!--l. 48--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;right&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60009r9"></a></span><!--l. 49--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60010r10"></a></span><!--l. 50--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60011r11"></a></span><!--l. 51--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60012r12"></a></span><!--l. 52--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** middle: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60013r13"></a></span><!--l. 53--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** middle: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60014r14"></a></span><!--l. 54--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** middle: 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60015r15"></a></span><!--l. 55--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60016r16"></a></span><!--l. 56--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60017r17"></a></span><!--l. 57--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right: 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60018r18"></a></span><!--l. 58--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Parallel execution</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60019r19"></a></span><span class="cmtt-10x-x-109">test(</span><!--l. 59--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;left&#x0022;</span></span></span><span class="cmtt-10x-x-109">) &#x0026; test(</span><!--l. 59--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;middle&#x0022;</span></span></span><span class="cmtt-10x-x-109">) &#x0026; test (</span><!--l. 59--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;right&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60020r20"></a></span><!--l. 60--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60021r21"></a></span><!--l. 61--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** middle: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60022r22"></a></span><!--l. 62--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60023r23"></a></span><!--l. 63--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60024r24"></a></span><!--l. 64--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** middle: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60025r25"></a></span><!--l. 65--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60026r26"></a></span><!--l. 66--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60027r27"></a></span><!--l. 67--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** middle: 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60028r28"></a></span><!--l. 68--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right: 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60029r29"></a></span></pre>
+   </div>
+<!--l. 71--><p class="indent" >   In this test, we see that the <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span> runs its operands simultaneously.
+</p><!--l. 74--><p class="indent" >   The diﬀerence between “<span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span>” and “<span class="lstinline"><span
+class="cmtt-10x-x-109">,</span></span>” is rather subtle:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">In the top level, no operand of a job will start “<span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span>” until all are known. So if you send a
+     line ending with “<span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span>”, the system will wait for the right operand (in fact, it will wait for
+     a “<span class="lstinline"><span
+class="cmtt-10x-x-109">,</span></span>” or a “<span class="lstinline"><span
+class="cmtt-10x-x-109">;</span></span>”) before ﬁring its left operand. A statement ending with “<span class="lstinline"><span
+class="cmtt-10x-x-109">,</span></span>” will be ﬁred
+     immediately.
+     </li>
+     <li class="itemize">Execution is blocked after a “<span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span>” group until all its children have ﬁnished.</li></ul>
+<!--l. 87--><p class="indent" >   <div class="code urbiscript">
+<!--l. 87--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60030r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> test(name) </span><br /><span class="label"><a
+ id="x14-60031r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x14-60032r3"></a></span><span class="cmtt-10x-x-109">  echo(name + </span><!--l. 90--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: 1&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60033r4"></a></span><span class="cmtt-10x-x-109">  echo(name + </span><!--l. 91--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: 2&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60034r5"></a></span><span class="cmtt-10x-x-109">  echo(name + </span><!--l. 92--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: 3&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60035r6"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x14-60036r7"></a></span><!--l. 94--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Run test and echo(&#x0022;right&#x0022;) in parallel,</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60037r8"></a></span><!--l. 95--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// and wait until both are done before continuing</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60038r9"></a></span><span class="cmtt-10x-x-109">test(</span><!--l. 96--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;left&#x0022;</span></span></span><span class="cmtt-10x-x-109">) &#x0026; echo(</span><!--l. 96--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;right&#x0022;</span></span></span><span class="cmtt-10x-x-109">); echo(</span><!--l. 96--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;done&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60039r10"></a></span><!--l. 97--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60040r11"></a></span><!--l. 98--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60041r12"></a></span><!--l. 99--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60042r13"></a></span><!--l. 100--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60043r14"></a></span><!--l. 101--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** done</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60044r15"></a></span><!--l. 102--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Run test in background, then both echos without waiting.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60045r16"></a></span><span class="cmtt-10x-x-109">test(</span><!--l. 103--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;left&#x0022;</span></span></span><span class="cmtt-10x-x-109">) , echo(</span><!--l. 103--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;right&#x0022;</span></span></span><span class="cmtt-10x-x-109">); echo(</span><!--l. 103--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;done&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-60046r17"></a></span><!--l. 104--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60047r18"></a></span><!--l. 105--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** right</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60048r19"></a></span><!--l. 106--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60049r20"></a></span><!--l. 107--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** done</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60050r21"></a></span><!--l. 108--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** left: 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-60051r22"></a></span></pre>
+   </div>
+<!--l. 111--><p class="indent" >   That&#x2019;s about all there is to say about these operators. Although they&#x2019;re rather simple,
+they are really powerful and enables you to include parallelism anywhere at no syntactical
+cost.
+</p><!--l. 115--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">10.2   </span> <a
+href="index.html#QQ2-14-67" id="x14-6100010.2">Detach</a></h3>
+<!--l. 117--><p class="noindent" >The <a
+ id="x14-61001"></a><span class="lstinline"><span class="cmtt-10x-x-109">Control.detach</span></span> function backgrounds the execution of its argument. Its behavior is the same as
+the comma (<span class="lstinline"><span
+class="cmtt-10x-x-109">,</span></span>) operator, except that the execution is completely detached, and not waited for at the
+end of the scope.
+</p><!--l. 122--><p class="indent" >   <div class="code urbiscript">
+<!--l. 122--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-61002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> test() </span><br /><span class="label"><a
+ id="x14-61003r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x14-61004r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 125--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Wait for one second, and echo &#x0022;foo&#x0022;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-61005r4"></a></span><span class="cmtt-10x-x-109">  detach({sleep(1s); echo(</span><!--l. 126--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">)}); </span><br /><span class="label"><a
+ id="x14-61006r5"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x14-61007r6"></a></span><span class="cmtt-10x-x-109">test(); </span><br /><span class="label"><a
+ id="x14-61008r7"></a></span><span class="cmtt-10x-x-109">echo(</span><!--l. 129--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Not blocked&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-61009r8"></a></span><!--l. 130--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Job&#x003C;shell_15&#x003E;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-61010r9"></a></span><!--l. 131--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** Not blocked</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-61011r10"></a></span><span class="cmtt-10x-x-109">sleep(2s); </span><br /><span class="label"><a
+ id="x14-61012r11"></a></span><span class="cmtt-10x-x-109">echo(</span><!--l. 133--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;End of sleep&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-61013r12"></a></span><!--l. 134--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00001000] *** foo</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-61014r13"></a></span><!--l. 135--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00002000] *** End of sleep</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-61015r14"></a></span></pre>
+   </div>
+<!--l. 138--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">10.3   </span> <a
+href="index.html#QQ2-14-68" id="x14-6200010.3">Tags for parallel control ﬂows</a></h3>
+<!--l. 141--><p class="noindent" >A <a
+href="urbiscript-standard-library.html#object:Tag"><span class="lstinline"><span
+class="cmtt-10x-x-109">Tag</span></span></a> is a multipurpose code execution control and instrumentation feature. Any chunk of code can be
+tagged, by preceding it with a tag and a colon (<span class="lstinline"><span
+class="cmtt-10x-x-109">:</span></span>). Tag can be created with <span class="lstinline"><span class="cmtt-10x-x-109">Tag.new(</span><span
+class="cmitt-10x-x-109">name</span><span
+class="cmtt-10x-x-109">)</span></span>. Naming
+tags is optional, yet it&#x2019;s a good idea since it will be used for many features. The example below
+illustrates how to tag chunks of code.
+</p><!--l. 148--><p class="indent" >   <div class="code urbiscript">
+<!--l. 148--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62001r1"></a></span><!--l. 149--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create a new tag</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> mytag = Tag.new(</span><!--l. 150--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;name&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-62003r3"></a></span><!--l. 151--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Tag&#x003C;name&#x003E;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62004r4"></a></span><!--l. 152--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Tag the evaluation of 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62005r5"></a></span><span class="cmtt-10x-x-109">mytag: 42; </span><br /><span class="label"><a
+ id="x14-62006r6"></a></span><!--l. 154--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62007r7"></a></span><!--l. 155--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Tag the evaluation of a block.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62008r8"></a></span><span class="cmtt-10x-x-109">mytag: { </span><!--l. 156--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">; 51 }; </span><br /><span class="label"><a
+ id="x14-62009r9"></a></span><!--l. 157--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62010r10"></a></span><!--l. 158--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Tag a function call.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62011r11"></a></span><span class="cmtt-10x-x-109">mytag: echo(</span><!--l. 159--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;tagged&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-62012r12"></a></span><!--l. 160--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** tagged</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62013r13"></a></span></pre>
+   </div>
+<!--l. 163--><p class="indent" >   You can use tags that were not declared previously, they will be created implicitly (see below).
+However, this is not recommended since tags will be created in a global scope, the <span class="lstinline"><span
+class="cmtt-10x-x-109">Tag</span></span> object. This
+feature can be used when inputting test code in the top level to avoid bothering to declare each tag,
+yet it is considered poor practice in regular code.
+</p><!--l. 170--><p class="indent" >   <div class="code urbiscript">
+<!--l. 170--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62014r1"></a></span><!--l. 171--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Since mytag is not declared, this will first do:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62015r2"></a></span><!--l. 172--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// var Tag.mytag = Tag.new(&#x0022;mytag&#x0022;);</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62016r3"></a></span><span class="cmtt-10x-x-109">mytag : 42; </span><br /><span class="label"><a
+ id="x14-62017r4"></a></span><!--l. 174--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62018r5"></a></span></pre>
+   </div>
+<!--l. 177--><p class="indent" >   So you can tag code, yet what&#x2019;s the use? One of the primary purpose of tags is to be able to
+control the execution of code running in parallel. Tags have a few control methods (see
+<a
+href="urbiscript-standard-library.html#object:Tag"><span class="lstinline"><span
+class="cmtt-10x-x-109">Tag</span></span></a>):
+     </p><dl class="description"><dt class="description">
+<span
+class="cmbx-10x-x-109">freeze</span> </dt><dd
+class="description">Suspend execution of all tagged code.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">unfreeze</span> </dt><dd
+class="description">Resume execution of previously frozen code.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">stop</span> </dt><dd
+class="description">Stop the execution of the tagged code. The ﬂows of execution that where stopped jump
+     immediately at the end of the tagged block. (if you are familiar with exceptions, imagine
+     that  <span class="lstinline"><span class="cmtt-10x-x-109">tag.stop()</span></span> throws  an  exception  in  all  tasks  tagged  by  tag,  that  is  caught  by
+     outermost occurence of <span class="lstinline"><span class="cmtt-10x-x-109">tag:</span></span>).
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">block</span> </dt><dd
+class="description">Block the execution of the tagged code, that is:
+          <ul class="itemize1">
+          <li class="itemize">Stop it.
+          </li>
+          <li class="itemize">When an execution ﬂow encounters the tagged block, it simply skips it.</li></ul>
+     <!--l. 196--><p class="noindent" >You can think of <span class="lstinline"><span
+class="cmtt-10x-x-109">block</span></span> like a permanent <span class="lstinline"><span
+class="cmtt-10x-x-109">stop</span></span>.
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">unblock</span> </dt><dd
+class="description">Stop blocking the tagged code.</dd></dl>
+<!--l. 200--><p class="indent" >   The three following examples illustrate these features.
+</p><!--l. 202--><p class="indent" >   <div class="code urbiscript">
+<!--l. 202--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62019r1"></a></span><!--l. 203--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Launch in background (using the comma) code that prints &#x0022;ping&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62020r2"></a></span><!--l. 204--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// every second.  Tag it to keep control over it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62021r3"></a></span><span class="cmtt-10x-x-109">mytag: </span><br /><span class="label"><a
+ id="x14-62022r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109"> (1s) </span><br /><span class="label"><a
+ id="x14-62023r5"></a></span><span class="cmtt-10x-x-109">    echo(</span><!--l. 207--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">), </span><br /><span class="label"><a
+ id="x14-62024r6"></a></span><span class="cmtt-10x-x-109">sleep(2.5s); </span><br /><span class="label"><a
+ id="x14-62025r7"></a></span><!--l. 209--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62026r8"></a></span><!--l. 210--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00001000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62027r9"></a></span><!--l. 211--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00002000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62028r10"></a></span><!--l. 212--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Suspend execution</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62029r11"></a></span><span class="cmtt-10x-x-109">mytag.freeze(); </span><br /><span class="label"><a
+ id="x14-62030r12"></a></span><!--l. 214--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// No printing anymore</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62031r13"></a></span><span class="cmtt-10x-x-109">sleep(1s); </span><br /><span class="label"><a
+ id="x14-62032r14"></a></span><!--l. 216--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Resume execution</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62033r15"></a></span><span class="cmtt-10x-x-109">mytag.unfreeze(); </span><br /><span class="label"><a
+ id="x14-62034r16"></a></span><span class="cmtt-10x-x-109">sleep(1s); </span><br /><span class="label"><a
+ id="x14-62035r17"></a></span><!--l. 219--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00007000] *** ping</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62036r18"></a></span></pre>
+   </div>
+<!--l. 222--><p class="indent" >   <div class="code urbiscript">
+<!--l. 222--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62037r1"></a></span><!--l. 223--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Now, we print out a message when we get out of the tag.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62038r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x14-62039r3"></a></span><span class="cmtt-10x-x-109">  mytag: </span><br /><span class="label"><a
+ id="x14-62040r4"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109"> (1s) </span><br /><span class="label"><a
+ id="x14-62041r5"></a></span><span class="cmtt-10x-x-109">      echo(</span><!--l. 227--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-62042r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 228--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Execution flow jumps here if mytag is stopped.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62043r7"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 229--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Background job stopped&#x0022;</span></span></span><span class="cmtt-10x-x-109">)| </span><br /><span class="label"><a
+ id="x14-62044r8"></a></span><span class="cmtt-10x-x-109">}, </span><br /><span class="label"><a
+ id="x14-62045r9"></a></span><span class="cmtt-10x-x-109">sleep(2.5s); </span><br /><span class="label"><a
+ id="x14-62046r10"></a></span><!--l. 232--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62047r11"></a></span><!--l. 233--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00001000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62048r12"></a></span><!--l. 234--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00002000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62049r13"></a></span><!--l. 235--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Stop the tag</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62050r14"></a></span><span class="cmtt-10x-x-109">mytag.stop(); </span><br /><span class="label"><a
+ id="x14-62051r15"></a></span><!--l. 237--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00002500] *** Background job stopped</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62052r16"></a></span><!--l. 238--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Our background job finished.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62053r17"></a></span><!--l. 239--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Unfreezing the tag has no effect.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62054r18"></a></span><span class="cmtt-10x-x-109">mytag.unfreeze();</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62055r19"></a></span></pre>
+   </div>
+<!--l. 243--><p class="indent" >   <div class="code urbiscript">
+<!--l. 243--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62056r1"></a></span><!--l. 244--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Now, print out a message when we get out of the tag.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62057r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">loop</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62058r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x14-62059r4"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 247--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); sleep(1s); </span><br /><span class="label"><a
+ id="x14-62060r5"></a></span><span class="cmtt-10x-x-109">  mytag: { echo(</span><!--l. 248--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;pong&#x0022;</span></span></span><span class="cmtt-10x-x-109">); sleep(1s); }; </span><br /><span class="label"><a
+ id="x14-62061r6"></a></span><span class="cmtt-10x-x-109">}, </span><br /><span class="label"><a
+ id="x14-62062r7"></a></span><span class="cmtt-10x-x-109">sleep(3.5s); </span><br /><span class="label"><a
+ id="x14-62063r8"></a></span><!--l. 251--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62064r9"></a></span><!--l. 252--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00001000] *** pong</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62065r10"></a></span><!--l. 253--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00002000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62066r11"></a></span><!--l. 254--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00003000] *** pong</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62067r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62068r13"></a></span><!--l. 256--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Block printing of pong.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62069r14"></a></span><span class="cmtt-10x-x-109">mytag.block(); </span><br /><span class="label"><a
+ id="x14-62070r15"></a></span><span class="cmtt-10x-x-109">sleep(3s); </span><br /><span class="label"><a
+ id="x14-62071r16"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62072r17"></a></span><!--l. 260--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The second half of the while isn&#x2019;t executed anymore.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62073r18"></a></span><!--l. 261--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00004000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62074r19"></a></span><!--l. 262--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00005000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62075r20"></a></span><!--l. 263--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00006000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62076r21"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62077r22"></a></span><!--l. 265--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Reactivate pong</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62078r23"></a></span><span class="cmtt-10x-x-109">mytag.unblock(); </span><br /><span class="label"><a
+ id="x14-62079r24"></a></span><span class="cmtt-10x-x-109">sleep(3.5s); </span><br /><span class="label"><a
+ id="x14-62080r25"></a></span><!--l. 268--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00008000] *** pong</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62081r26"></a></span><!--l. 269--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00009000] *** ping</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62082r27"></a></span><!--l. 270--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00010000] *** pong</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62083r28"></a></span><!--l. 271--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00011000] *** ping</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-62084r29"></a></span></pre>
+   </div>
+<!--l. 275--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">10.4   </span> <a
+href="index.html#QQ2-14-69" id="x14-6300010.4">timeout, freezeif and stopif</a></h3>
+<!--l. 278--><p class="noindent" ><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">timeout</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">freezeif</span></span></span> and <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">stopif</span></span></span> are three keywords that take advantage of the primitive parallelism
+tools we&#x2019;ve seen above to provide useful constructs.
+</p><!--l. 282--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">10.4.1   </span> <a
+href="contents.html#QQ2-14-70" id="x14-6400010.4.1">timeout</a></h4>
+<!--l. 284--><p class="noindent" ><div class="code urbiscript">
+<!--l. 284--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-64001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> countdown = 3|; </span><br /><span class="label"><a
+ id="x14-64002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">timeout</span></span><span class="cmtt-10x-x-109">(3.5s) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109">(1s) { echo(countdown); countdown --;}; echo(</span><!--l. 286--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;stopped&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-64003r3"></a></span><!--l. 287--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-64004r4"></a></span><!--l. 288--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-64005r5"></a></span><!--l. 289--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-64006r6"></a></span><!--l. 290--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-64007r7"></a></span><!--l. 291--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** stopped</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-64008r8"></a></span></pre>
+   </div>
+<!--l. 294--><p class="noindent" >As you can see from the above example, timeout stops (in a similar fashion to <span class="lstinline"><span class="cmtt-10x-x-109">Tag.stop()</span></span>) the given
+code after given duration.
+</p><!--l. 297--><p class="indent" >   The timeout itself does not detach, so the timeout command lasts for the given duration, or until
+the command ﬁnishes, whichever comes ﬁrst.
+</p><!--l. 300--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">10.4.2   </span> <a
+href="contents.html#QQ2-14-71" id="x14-6500010.4.2">stopif and freezeif</a></h4>
+<!--l. 304--><p class="noindent" ><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">freezeif</span></span></span> and <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">stopif</span></span></span> use similar construct, and freeze/stop (respectively) the given code when the
+condition is true.
+</p><!--l. 307--><p class="indent" >   <div class="code urbiscript">
+<!--l. 307--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b = false|; </span><br /><span class="label"><a
+ id="x14-65002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">timeout</span></span><span class="cmtt-10x-x-109">(3.2s) detach({ </span><br /><span class="label"><a
+ id="x14-65003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">freezeif</span></span><span class="cmtt-10x-x-109">(b) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109">(500ms) echo(</span><!--l. 310--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;tick&#x0022;</span></span></span><span class="cmtt-10x-x-109">), </span><br /><span class="label"><a
+ id="x14-65004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">freezeif</span></span><span class="cmtt-10x-x-109">(!b) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109">(500ms) echo(</span><!--l. 311--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;tack&#x0022;</span></span></span><span class="cmtt-10x-x-109">) </span><br /><span class="label"><a
+ id="x14-65005r5"></a></span><span class="cmtt-10x-x-109">  })|; </span><br /><span class="label"><a
+ id="x14-65006r6"></a></span><span class="cmtt-10x-x-109">sleep(1.2s); b = true; </span><br /><span class="label"><a
+ id="x14-65007r7"></a></span><!--l. 314--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tick</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65008r8"></a></span><!--l. 315--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tick</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65009r9"></a></span><!--l. 316--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tick</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65010r10"></a></span><!--l. 317--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65011r11"></a></span><span class="cmtt-10x-x-109">sleep(1s); b = false; </span><br /><span class="label"><a
+ id="x14-65012r12"></a></span><!--l. 319--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tack</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65013r13"></a></span><!--l. 320--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tack</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65014r14"></a></span><!--l. 321--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tack</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65015r15"></a></span><!--l. 322--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65016r16"></a></span><span class="cmtt-10x-x-109">sleep(1s); echo(</span><!--l. 323--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;done&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-65017r17"></a></span><!--l. 324--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tick</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65018r18"></a></span><!--l. 325--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** tick</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65019r19"></a></span><!--l. 326--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** done</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-65020r20"></a></span></pre>
+   </div>
+<!--l. 331--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">10.5   </span> <a
+href="index.html#QQ2-14-72" id="x14-6600010.5">Advanced example with parallelism and tags</a></h3>
+<!--l. 333--><p class="noindent" >In this section, we implement a more advanced example with parallelism.
+</p><!--l. 336--><p class="indent" >   The listing below presents how to implement a <span class="lstinline"><span
+class="cmtt-10x-x-109">timeOut</span></span> function, that takes code to execute and a
+timeout as arguments. It executes the code, and returns its value. However, if the code execution takes
+longer than the given timeout, it aborts it, prints <span class="lstinline"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Timeout!&#x0022;</span></span></span> and returns <span class="lstinline"><span
+class="cmtt-10x-x-109">void</span></span>. In this example, we
+use:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Lazy evaluation, since we want to delay the execution of the given code, to keep control
+     on it.
+     </li>
+     <li class="itemize">Concurrency operators, to launch a timeout job in background.</li></ul>
+<!--l. 349--><p class="indent" >   <div class="code urbiscript">
+<!--l. 349--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66001r1"></a></span><!--l. 350--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// timeout (Code, Duration).</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> timeOut </span><br /><span class="label"><a
+ id="x14-66003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x14-66004r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 353--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// In background, launch a timeout job that waits</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66005r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 354--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// for the given duration before aborting the function.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66006r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 355--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// call.evalArgAt(1) is the second argument, the duration.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66007r7"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x14-66008r8"></a></span><span class="cmtt-10x-x-109">    sleep(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">call</span></span><span class="cmtt-10x-x-109">.evalArgAt(1)); </span><br /><span class="label"><a
+ id="x14-66009r9"></a></span><span class="cmtt-10x-x-109">    echo(</span><!--l. 358--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Timeout!&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x14-66010r10"></a></span><span class="cmtt-10x-x-109">    return; </span><br /><span class="label"><a
+ id="x14-66011r11"></a></span><span class="cmtt-10x-x-109">  }, </span><br /><span class="label"><a
+ id="x14-66012r12"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 361--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Run the Code and return its value.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66013r13"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">call</span></span><span class="cmtt-10x-x-109">.evalArgAt(0); </span><br /><span class="label"><a
+ id="x14-66014r14"></a></span><span class="cmtt-10x-x-109">} |; </span><br /><span class="label"><a
+ id="x14-66015r15"></a></span><span class="cmtt-10x-x-109">timeOut({sleep(1s); echo(</span><!--l. 364--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;On time&#x0022;</span></span></span><span class="cmtt-10x-x-109">); 42}, 2s); </span><br /><span class="label"><a
+ id="x14-66016r16"></a></span><!--l. 365--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** On time</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66017r17"></a></span><!--l. 366--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66018r18"></a></span><span class="cmtt-10x-x-109">timeOut({sleep(2s); echo(</span><!--l. 367--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;On time&#x0022;</span></span></span><span class="cmtt-10x-x-109">); 42}, 1s); </span><br /><span class="label"><a
+ id="x14-66019r19"></a></span><!--l. 368--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** Timeout!</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x14-66020r20"></a></span></pre>
+   </div>
+</body></html>

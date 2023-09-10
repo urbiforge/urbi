@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>7 Objective Programming, urbiscript Object Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="organizing-your-code-using-package-and-import.html" >Next</a><a
+href="urbiscript-user-manual.html#objective-programming-urbiscript-object-model.html" >Up</a><a
+href="advanced-functions-and-scoping.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 7</span><br /><a
+href="index.html#QQ2-11-46" id="x11-400007">Objective Programming, urbiscript Object Model</a></h2>
+<!--l. 12--><p class="noindent" >This section presents object programming in urbiscript: the prototype-based object model of
+urbiscript, and how to deﬁne and use classes.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >7.1 <a
+href="#x11-410007.1">Prototype-Based Programming in urbiscript</a></span>
+<br />    <span class="sectionToc" >7.2 <a
+href="#x11-420007.2">Prototypes and Slot Lookup</a></span>
+<br />    <span class="sectionToc" >7.3 <a
+href="#x11-430007.3">Copy on Write</a></span>
+<br />    <span class="sectionToc" >7.4 <a
+href="#x11-440007.4">Deﬁning Pseudo-Classes</a></span>
+<br />    <span class="sectionToc" >7.5 <a
+href="#x11-450007.5">Constructors</a></span>
+<br />    <span class="sectionToc" >7.6 <a
+href="#x11-460007.6">Operators</a></span>
+<br />    <span class="sectionToc" >7.7 <a
+href="#x11-470007.7">Properties</a></span>
+<br />     <span class="subsectionToc" >7.7.1 <a
+href="#x11-480007.7.1">Features of Values</a></span>
+<br />     <span class="subsectionToc" >7.7.2 <a
+href="#x11-490007.7.2">Features of Slots</a></span>
+<br />    <span class="sectionToc" >7.8 <a
+href="#x11-500007.8">Getters and setters</a></span>
+<br />     <span class="subsectionToc" >7.8.1 <a
+href="#x11-510007.8.1">When to use properties?</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">7.1   </span> <a
+href="index.html#QQ2-11-47" id="x11-410007.1">Prototype-Based Programming in urbiscript</a></h3>
+<!--l. 17--><p class="noindent" >You&#x2019;re probably already familiar with class-based object programming, since this is the C++, Java,
+C# model. Classes and objects are very diﬀerent entities. Classes and types are static entities that
+do not exist at run-time, while objects are dynamic entities that do not exist at compile
+time.
+</p><!--l. 23--><p class="indent" >   Prototype-based object programming is diﬀerent: the diﬀerence between classes and objects,
+between types and values, is blurred. Instead, you have an object, that is already an instance, and that
+you might clone to obtain a new one that you can modify afterward. Prototype-based programming
+was introduced by the Self language, and is used in several popular script languages such as Io or
+JavaScript.
+</p><!--l. 30--><p class="indent" >   Class-based programming can be considered with an industrial metaphor: classes are molds, from
+which objects are generated. Prototype-based programming is more biological: a prototype object is
+cloned into another object which can be modiﬁed during its lifetime.
+</p><!--l. 35--><p class="indent" >   Consider pairs for instance (see <a
+href="urbiscript-standard-library.html#object:Pair"><span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span></a>). Pairs hold two values, <span class="lstinline"><span
+class="cmtt-10x-x-109">first</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">second</span></span>, like an <span class="lstinline"><span class="cmtt-10x-x-109">std::pair</span></span>
+in C++. Since urbiscript is prototype-based, there is no pair class. Instead, <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> is really a pair
+(object).
+</p><!--l. 40--><p class="indent" >   <div class="code urbiscript">
+<!--l. 40--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41001r1"></a></span><span class="cmtt-10x-x-109">Pair; </span><br /><span class="label"><a
+ id="x11-41002r2"></a></span><!--l. 42--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41003r3"></a></span></pre>
+   </div>
+<!--l. 45--><p class="indent" >   We can see here that <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> is a pair whose two values are equal to <span class="lstinline"><span
+class="cmtt-10x-x-109">nil</span></span> — which is a reasonable
+default value. To get a pair of our own, we simply clone <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span>. We can then use it as a regular
+pair.
+</p><!--l. 50--><p class="indent" >   <div class="code urbiscript">
+<!--l. 50--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41004r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Pair.clone(); </span><br /><span class="label"><a
+ id="x11-41005r2"></a></span><!--l. 52--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41006r3"></a></span><span class="cmtt-10x-x-109">p.first = </span><!--l. 53--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;101010&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x11-41007r4"></a></span><!--l. 54--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;101010&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41008r5"></a></span><span class="cmtt-10x-x-109">p.second = true; </span><br /><span class="label"><a
+ id="x11-41009r6"></a></span><!--l. 56--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41010r7"></a></span><span class="cmtt-10x-x-109">p; </span><br /><span class="label"><a
+ id="x11-41011r8"></a></span><!--l. 58--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (&#x0022;101010&#x0022;, true)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41012r9"></a></span><span class="cmtt-10x-x-109">Pair; </span><br /><span class="label"><a
+ id="x11-41013r10"></a></span><!--l. 60--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41014r11"></a></span></pre>
+   </div>
+<!--l. 63--><p class="indent" >   Since <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> is a regular pair object, you can modify and use it at will. Yet this is not a good
+idea, since you will alter your base prototype, which alters any derivative, future and even
+past.
+</p><!--l. 67--><p class="indent" >   <div class="code urbiscript">
+<!--l. 67--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41015r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> before = Pair.clone(); </span><br /><span class="label"><a
+ id="x11-41016r2"></a></span><!--l. 69--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41017r3"></a></span><span class="cmtt-10x-x-109">Pair.first = false; </span><br /><span class="label"><a
+ id="x11-41018r4"></a></span><!--l. 71--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41019r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> after = Pair.clone(); </span><br /><span class="label"><a
+ id="x11-41020r6"></a></span><!--l. 73--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (false, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41021r7"></a></span><span class="cmtt-10x-x-109">before; </span><br /><span class="label"><a
+ id="x11-41022r8"></a></span><!--l. 75--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (false, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41023r9"></a></span><!--l. 76--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// before and after share the same first: that of Pair.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41024r10"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109">(Pair.first === before.first); </span><br /><span class="label"><a
+ id="x11-41025r11"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109">(Pair.first === after.first);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-41026r12"></a></span></pre>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">7.2   </span> <a
+href="index.html#QQ2-11-48" id="x11-420007.2">Prototypes and Slot Lookup</a></h3>
+<!--l. 85--><p class="noindent" >In prototype-based language, <span
+class="cmti-10x-x-109">is-a </span>relations (being an instance of some type) and inheritance relations
+(extending another type) are simpliﬁed in a single relation: prototyping. You can inspect an object
+prototypes with the <span class="lstinline"><span
+class="cmtt-10x-x-109">protos</span></span> method.
+</p><!--l. 90--><p class="indent" >   <div class="code urbiscript">
+<!--l. 90--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Pair.clone(); </span><br /><span class="label"><a
+ id="x11-42002r2"></a></span><!--l. 92--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42003r3"></a></span><span class="cmtt-10x-x-109">p.protos; </span><br /><span class="label"><a
+ id="x11-42004r4"></a></span><!--l. 94--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [(nil, nil)]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42005r5"></a></span></pre>
+   </div>
+<!--l. 97--><p class="indent" >   As expected, our fresh pair has one prototype, <span class="lstinline"><span class="cmtt-10x-x-109">(nil, nil)</span></span>, which is how <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> displays itself. We
+can check this as presented below.
+</p><!--l. 101--><p class="indent" >   <div class="code urbiscript">
+<!--l. 101--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42006r1"></a></span><!--l. 102--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// List.head returns the first element.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42007r2"></a></span><span class="cmtt-10x-x-109">p.protos.head(); </span><br /><span class="label"><a
+ id="x11-42008r3"></a></span><!--l. 104--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42009r4"></a></span><!--l. 105--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Check that the prototype is really Pair.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42010r5"></a></span><span class="cmtt-10x-x-109">p.protos.head() === Pair; </span><br /><span class="label"><a
+ id="x11-42011r6"></a></span><!--l. 107--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42012r7"></a></span></pre>
+   </div>
+<!--l. 110--><p class="indent" >   Prototypes are the base of the slot lookup mechanism. Slot lookup is the action of ﬁnding an object
+slot when the dot notation is used. So far, when we typed <span class="lstinline"><span
+class="cmitt-10x-x-109">obj</span><span
+class="cmtt-10x-x-109">.</span><span
+class="cmitt-10x-x-109">slot</span></span>, <span
+class="cmitt-10x-x-109">slot </span>was always a slot of <span
+class="cmitt-10x-x-109">obj</span>.
+Yet, this call can be valid even if <span
+class="cmitt-10x-x-109">obj </span>has no <span
+class="cmitt-10x-x-109">slot </span>slot, because slots are also looked up in prototypes.
+For instance, <span class="lstinline"><span
+class="cmtt-10x-x-109">p</span></span>, our clone of <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span>, has no <span class="lstinline"><span
+class="cmtt-10x-x-109">first</span></span> or <span class="lstinline"><span
+class="cmtt-10x-x-109">second</span></span> slots. Yet, <span class="lstinline"><span class="cmtt-10x-x-109">p.first</span></span> and <span class="lstinline"><span class="cmtt-10x-x-109">p.second</span></span>
+work, because these slots are present in <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span>, which is <span class="lstinline"><span
+class="cmtt-10x-x-109">p</span></span>&#x2019;s prototype. This is illustrated
+below.
+</p><!--l. 121--><p class="indent" >   <div class="code urbiscript">
+<!--l. 121--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42013r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Pair.clone(); </span><br /><span class="label"><a
+ id="x11-42014r2"></a></span><!--l. 123--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42015r3"></a></span><!--l. 124--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// p has no slots of its own.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42016r4"></a></span><span class="cmtt-10x-x-109">p.localSlotNames(); </span><br /><span class="label"><a
+ id="x11-42017r5"></a></span><!--l. 126--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] []</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42018r6"></a></span><!--l. 127--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Yet this works.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42019r7"></a></span><span class="cmtt-10x-x-109">p.first; </span><br /><span class="label"><a
+ id="x11-42020r8"></a></span><!--l. 129--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is because p has Pair for prototype, and Pair has a &#x2019;first&#x2019; slot.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42021r9"></a></span><span class="cmtt-10x-x-109">p.protos.head() === Pair; </span><br /><span class="label"><a
+ id="x11-42022r10"></a></span><!--l. 131--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42023r11"></a></span><!--l. 132--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;first&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> Pair.localSlotNames() &#x0026;&#x0026; </span><!--l. 132--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;second&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span class="cmtt-10x-x-109"> Pair.localSlotNames(); </span><br /><span class="label"><a
+ id="x11-42024r12"></a></span><!--l. 133--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42025r13"></a></span></pre>
+   </div>
+<!--l. 136--><p class="indent" >   As shown here, the <span class="lstinline"><span
+class="cmtt-10x-x-109">clone</span></span> method simply creates an empty object, with its target as
+prototype. The new object has the exact same behavior as the cloned on thanks to slot
+lookup.
+</p><!--l. 140--><p class="indent" >   Let&#x2019;s experience slot lookup by ourselves. In urbiscript, you can add and remove prototypes from
+an object thanks to <span class="lstinline"><span
+class="cmtt-10x-x-109">addProto</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">removeProto</span></span>.
+</p><!--l. 144--><p class="indent" >   <div class="code urbiscript">
+<!--l. 144--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42026r1"></a></span><!--l. 145--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We create a fresh object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42027r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> c = Object.clone(); </span><br /><span class="label"><a
+ id="x11-42028r3"></a></span><!--l. 147--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42029r4"></a></span><!--l. 148--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// As expected, it has no &#x2019;slot&#x2019; slot.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42030r5"></a></span><span class="cmtt-10x-x-109">c.slot; </span><br /><span class="label"><a
+ id="x11-42031r6"></a></span><!--l. 150--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: slot</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42032r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Object.clone(); </span><br /><span class="label"><a
+ id="x11-42033r8"></a></span><!--l. 152--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000002</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42034r9"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p.slot = 0; </span><br /><span class="label"><a
+ id="x11-42035r10"></a></span><!--l. 154--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42036r11"></a></span><span class="cmtt-10x-x-109">c.addProto(p); </span><br /><span class="label"><a
+ id="x11-42037r12"></a></span><!--l. 156--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42038r13"></a></span><!--l. 157--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Now, &#x2019;slot&#x2019; is found in c, because it is inherited from p.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42039r14"></a></span><span class="cmtt-10x-x-109">c.slot; </span><br /><span class="label"><a
+ id="x11-42040r15"></a></span><!--l. 159--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42041r16"></a></span><span class="cmtt-10x-x-109">c.removeProto(p); </span><br /><span class="label"><a
+ id="x11-42042r17"></a></span><!--l. 161--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42043r18"></a></span><!--l. 162--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Back to our good old lookup error.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42044r19"></a></span><span class="cmtt-10x-x-109">c.slot; </span><br /><span class="label"><a
+ id="x11-42045r20"></a></span><!--l. 164--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: slot</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42046r21"></a></span></pre>
+   </div>
+<!--l. 167--><p class="indent" >   The slot lookup algorithm in urbiscript in a depth-ﬁrst traversal of the object prototypes tree.
+Formally, when the <span
+class="cmitt-10x-x-109">s </span>slot is requested from <span
+class="cmitt-10x-x-109">x</span>:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">If <span
+class="cmitt-10x-x-109">x </span>itself has the slot, the requested value is found.
+     </li>
+     <li class="itemize">Otherwise, the same lookup algorithm is applied on all prototypes, most recent ﬁrst.</li></ul>
+<!--l. 176--><p class="indent" >   Thus, slots from the last prototype added take precedence over other prototype&#x2019;s slots.
+</p><!--l. 179--><p class="indent" >   <div class="code urbiscript">
+<!--l. 179--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42047r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> proto1 = Object.clone(); </span><br /><span class="label"><a
+ id="x11-42048r2"></a></span><!--l. 181--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x10000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42049r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> proto2 = Object.clone(); </span><br /><span class="label"><a
+ id="x11-42050r4"></a></span><!--l. 183--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x20000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42051r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o = Object.clone(); </span><br /><span class="label"><a
+ id="x11-42052r6"></a></span><!--l. 185--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x30000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42053r7"></a></span><span class="cmtt-10x-x-109">o.addProto(proto1); </span><br /><span class="label"><a
+ id="x11-42054r8"></a></span><!--l. 187--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x30000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42055r9"></a></span><span class="cmtt-10x-x-109">o.addProto(proto2); </span><br /><span class="label"><a
+ id="x11-42056r10"></a></span><!--l. 189--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x30000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42057r11"></a></span><!--l. 190--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We give o an x slot through proto1.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42058r12"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> proto1.x = 0; </span><br /><span class="label"><a
+ id="x11-42059r13"></a></span><!--l. 192--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42060r14"></a></span><span class="cmtt-10x-x-109">o.x; </span><br /><span class="label"><a
+ id="x11-42061r15"></a></span><!--l. 194--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42062r16"></a></span><!--l. 195--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// proto2 is visited first during lookup.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42063r17"></a></span><!--l. 196--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Thus its &#x0022;x&#x0022; slot takes precedence over proto1&#x2019;s.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42064r18"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> proto2.x = 1; </span><br /><span class="label"><a
+ id="x11-42065r19"></a></span><!--l. 198--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42066r20"></a></span><span class="cmtt-10x-x-109">o.x; </span><br /><span class="label"><a
+ id="x11-42067r21"></a></span><!--l. 200--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42068r22"></a></span><!--l. 201--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Of course, o&#x2019;s own slots have the highest precedence.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42069r23"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o.x = 2; </span><br /><span class="label"><a
+ id="x11-42070r24"></a></span><!--l. 203--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42071r25"></a></span><span class="cmtt-10x-x-109">o.x; </span><br /><span class="label"><a
+ id="x11-42072r26"></a></span><!--l. 205--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 2</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42073r27"></a></span></pre>
+   </div>
+<!--l. 208--><p class="indent" >   You can check where in the prototype hierarchy a slot is found with the <span class="lstinline"><span
+class="cmtt-10x-x-109">locateSlot</span></span> method. This
+is a very handful tool when inspecting an object.
+</p><!--l. 212--><p class="indent" >   <div class="code urbiscript">
+<!--l. 212--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42074r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Pair.clone(); </span><br /><span class="label"><a
+ id="x11-42075r2"></a></span><!--l. 214--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42076r3"></a></span><!--l. 215--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Check that the &#x2019;first&#x2019; slot is found in Pair</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42077r4"></a></span><span class="cmtt-10x-x-109">p.locateSlot(</span><!--l. 216--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;first&#x0022;</span></span></span><span class="cmtt-10x-x-109">) === Pair; </span><br /><span class="label"><a
+ id="x11-42078r5"></a></span><!--l. 217--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42079r6"></a></span><!--l. 218--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Where does locateSlot itself come from? Object itself!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42080r7"></a></span><span class="cmtt-10x-x-109">p.locateSlot(</span><!--l. 219--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;locateSlot&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x11-42081r8"></a></span><!--l. 220--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-42082r9"></a></span></pre>
+   </div>
+<!--l. 223--><p class="indent" >   The prototype model is rather simple: creating a fresh object simply consists in cloning a model
+object, a prototype, that was provided to you. Moreover, you can add behavior to an object at any
+time with a simple <span class="lstinline"><span
+class="cmtt-10x-x-109">addProto</span></span>: you can make any object a fully functional <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> with a simple
+<span class="lstinline"><span class="cmtt-10x-x-109">myObj.addProto(Pair)</span></span>.
+</p><!--l. 229--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.3   </span> <a
+href="index.html#QQ2-11-49" id="x11-430007.3">Copy on Write</a></h3>
+<!--l. 231--><p class="noindent" >One point might be bothering you though: what if you want to update a slot value in a clone of your
+prototype?
+</p><!--l. 234--><p class="indent" >   Say we implement a simple prototype, with an <span
+class="cmitt-10x-x-109">x </span>slot equal to <span class="lstinline"><span
+class="cmtt-10x-x-109">0</span></span>, and clone it twice. We
+have three objects with an <span
+class="cmitt-10x-x-109">x </span>slot, yet only one actual <span class="lstinline"><span
+class="cmtt-10x-x-109">0</span></span> integer. Will modifying <span
+class="cmitt-10x-x-109">x </span>in one of
+the clone change the prototype&#x2019;s <span
+class="cmitt-10x-x-109">x</span>, thus altering the prototype and the other clone as
+well?
+</p><!--l. 240--><p class="indent" >   The answer is, of course, no, as illustrated below.
+</p><!--l. 242--><p class="indent" >   <div class="code urbiscript">
+<!--l. 242--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> proto = Object.clone(); </span><br /><span class="label"><a
+ id="x11-43002r2"></a></span><!--l. 244--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> proto.x = 0; </span><br /><span class="label"><a
+ id="x11-43004r4"></a></span><!--l. 246--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o1 = proto.clone(); </span><br /><span class="label"><a
+ id="x11-43006r6"></a></span><!--l. 248--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000002</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43007r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o2 = proto.clone(); </span><br /><span class="label"><a
+ id="x11-43008r8"></a></span><!--l. 250--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000003</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43009r9"></a></span><!--l. 251--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Are we modifying proto&#x2019;s x slot here?</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43010r10"></a></span><span class="cmtt-10x-x-109">o1.x = 1; </span><br /><span class="label"><a
+ id="x11-43011r11"></a></span><!--l. 253--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43012r12"></a></span><!--l. 254--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Obviously not</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43013r13"></a></span><span class="cmtt-10x-x-109">o2.x; </span><br /><span class="label"><a
+ id="x11-43014r14"></a></span><!--l. 256--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43015r15"></a></span><span class="cmtt-10x-x-109">proto.x; </span><br /><span class="label"><a
+ id="x11-43016r16"></a></span><!--l. 258--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43017r17"></a></span><span class="cmtt-10x-x-109">o1.x; </span><br /><span class="label"><a
+ id="x11-43018r18"></a></span><!--l. 260--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43019r19"></a></span></pre>
+   </div>
+<!--l. 263--><p class="indent" >   This work thanks to <span
+class="cmti-10x-x-109">copy-on-write</span><a
+ id="x11-43020"></a>: slots are ﬁrst duplicated to the local object when they&#x2019;re
+updated, as we can check below.
+</p><!--l. 266--><p class="indent" >   <div class="code urbiscript">
+<!--l. 266--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43021r1"></a></span><!--l. 267--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is the continuation of previous example.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43022r2"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43023r3"></a></span><!--l. 269--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// As expected, o2 finds &#x0022;x&#x0022; in proto</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43024r4"></a></span><span class="cmtt-10x-x-109">o2.locateSlot(</span><!--l. 270--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">) === proto; </span><br /><span class="label"><a
+ id="x11-43025r5"></a></span><!--l. 271--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43026r6"></a></span><!--l. 272--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Yet o1 doesn&#x2019;t anymore</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43027r7"></a></span><span class="cmtt-10x-x-109">o1.locateSlot(</span><!--l. 273--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">) === proto; </span><br /><span class="label"><a
+ id="x11-43028r8"></a></span><!--l. 274--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43029r9"></a></span><!--l. 275--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Because the slot was duplicated locally</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43030r10"></a></span><span class="cmtt-10x-x-109">o1.locateSlot(</span><!--l. 276--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">) === o1; </span><br /><span class="label"><a
+ id="x11-43031r11"></a></span><!--l. 277--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-43032r12"></a></span></pre>
+   </div>
+<!--l. 280--><p class="indent" >   This is why, when we cloned Pair earlier, and modiﬁed the “ﬁrst” slot of our fresh Pair, we didn&#x2019;t
+alter Pair one all its other clones.
+</p><!--l. 283--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.4   </span> <a
+href="index.html#QQ2-11-50" id="x11-440007.4">Deﬁning Pseudo-Classes</a></h3>
+<!--l. 286--><p class="noindent" >Now that we know the internals of urbiscript&#x2019;s object model, we can start deﬁning our own
+classes.
+</p><!--l. 289--><p class="indent" >   But wait, we just said there are no classes in prototype-based object-oriented languages! That is
+true: there are no classes in the sense of C++, i.e., compile-time entities that are not objects. Instead,
+prototype-based languages rely on the existence of a canonical object (the <span
+class="cmti-10x-x-109">prototype</span><a
+ id="x11-44001"></a>) from which
+(pseudo) <span
+class="cmti-10x-x-109">instances </span>are derived. Yet, since the syntactic inspiration for urbiscript comes from languages
+such as Java, C++ and so forth, it is nevertheless the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> keyword that is used to deﬁne the
+pseudo-classes, i.e., prototypes.
+</p><!--l. 298--><p class="indent" >   As an example, we deﬁne our own <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> class. We just have to create a pair, with its <span class="lstinline"><span
+class="cmtt-10x-x-109">first</span></span> and
+<span class="lstinline"><span
+class="cmtt-10x-x-109">second</span></span> slots. For this we use the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span> scope described in <a
+href="flow-control-constructs.html#x9-340005.5">Section 5.5</a>. The listing below deﬁnes a new
+<span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> class. The <span class="lstinline"><span
+class="cmtt-10x-x-109">asString</span></span> function is simply used to customize pairs printing — don&#x2019;t give it too much
+attention for now.
+</p><!--l. 305--><p class="indent" >   <div class="code urbiscript">
+<!--l. 305--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> MyPair = Object.clone(); </span><br /><span class="label"><a
+ id="x11-44003r2"></a></span><!--l. 307--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44004r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (MyPair) </span><br /><span class="label"><a
+ id="x11-44005r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-44006r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> first = nil; </span><br /><span class="label"><a
+ id="x11-44007r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> second = nil; </span><br /><span class="label"><a
+ id="x11-44008r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> asString () </span><br /><span class="label"><a
+ id="x11-44009r8"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x11-44010r9"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 314--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;MyPair: &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + first + </span><!--l. 314--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;, &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + second </span><br /><span class="label"><a
+ id="x11-44011r10"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x11-44012r11"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x11-44013r12"></a></span><!--l. 317--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We just defined a pair</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44014r13"></a></span><span class="cmtt-10x-x-109">MyPair; </span><br /><span class="label"><a
+ id="x11-44015r14"></a></span><!--l. 319--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] MyPair: nil, nil</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44016r15"></a></span><!--l. 320--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Let&#x2019;s try it out</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44017r16"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = MyPair.clone(); </span><br /><span class="label"><a
+ id="x11-44018r17"></a></span><!--l. 322--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] MyPair: nil, nil</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44019r18"></a></span><span class="cmtt-10x-x-109">p.first = 0; </span><br /><span class="label"><a
+ id="x11-44020r19"></a></span><!--l. 324--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44021r20"></a></span><span class="cmtt-10x-x-109">p; </span><br /><span class="label"><a
+ id="x11-44022r21"></a></span><!--l. 326--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] MyPair: 0, nil</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44023r22"></a></span><span class="cmtt-10x-x-109">MyPair; </span><br /><span class="label"><a
+ id="x11-44024r23"></a></span><!--l. 328--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] MyPair: nil, nil</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44025r24"></a></span></pre>
+   </div>
+<!--l. 331--><p class="indent" >   That&#x2019;s it, we deﬁned a pair that can be cloned at will! urbiscript provides a shorthand to deﬁne
+classes as we did above: the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> keyword.
+</p><!--l. 334--><p class="indent" >   <div class="code urbiscript">
+<!--l. 334--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44026r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> MyPair </span><br /><span class="label"><a
+ id="x11-44027r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-44028r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> first = nil; </span><br /><span class="label"><a
+ id="x11-44029r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> second = nil; </span><br /><span class="label"><a
+ id="x11-44030r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> asString() { </span><!--l. 339--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;(&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + first + </span><!--l. 339--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;, &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + second + </span><!--l. 339--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;)&#x0022;</span></span></span><span class="cmtt-10x-x-109">; }; </span><br /><span class="label"><a
+ id="x11-44031r6"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x11-44032r7"></a></span><!--l. 341--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44033r8"></a></span></pre>
+   </div>
+<!--l. 344--><p class="indent" >   The <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> keyword simply creates <span class="lstinline"><span
+class="cmtt-10x-x-109">MyPair</span></span> with <span class="lstinline"><span class="cmtt-10x-x-109">Object.clone</span></span>, and provides you with
+a <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (MyPair)</span></span> scope. It actually also pre-deﬁnes a few slots, but this is not the point
+here.
+</p><!--l. 349--><p class="indent" >   It is also possible to specify a proto for the newly created “class”, using the same syntax as Java
+and C++:
+</p><!--l. 352--><p class="indent" >   <div class="code urbiscript">
+<!--l. 352--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44034r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Top </span><br /><span class="label"><a
+ id="x11-44035r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-44036r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> top = </span><!--l. 355--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;top&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x11-44037r4"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x11-44038r5"></a></span><!--l. 357--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Top</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44039r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44040r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Bottom : Top </span><br /><span class="label"><a
+ id="x11-44041r8"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-44042r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> bottom = </span><!--l. 361--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bottom&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x11-44043r10"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x11-44044r11"></a></span><!--l. 363--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Bottom</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44045r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44046r13"></a></span><span class="cmtt-10x-x-109">Bottom.new().top; </span><br /><span class="label"><a
+ id="x11-44047r14"></a></span><!--l. 366--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;top&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-44048r15"></a></span></pre>
+   </div>
+<!--l. 369--><p class="indent" >   For more details, see <a
+href="urbiscript-language-reference-manual.html#x31-26000020.1.6.8">Section 20.1.6.8</a>.
+</p><!--l. 371--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.5   </span> <a
+href="index.html#QQ2-11-51" id="x11-450007.5">Constructors</a></h3>
+<!--l. 373--><p class="noindent" >As we&#x2019;ve seen, we can use the <span class="lstinline"><span
+class="cmtt-10x-x-109">clone</span></span> method on any object to obtain an identical object. Yet, some
+classes provide more elaborate constructors, accessible by calling <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span> instead of <span class="lstinline"><span
+class="cmtt-10x-x-109">clone</span></span>, potentially
+passing arguments.
+</p><!--l. 378--><p class="indent" >   <div class="code urbiscript">
+<!--l. 378--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-45001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> p = Pair.new(</span><!--l. 379--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">, false); </span><br /><span class="label"><a
+ id="x11-45002r2"></a></span><!--l. 380--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (&#x0022;foo&#x0022;, false)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-45003r3"></a></span></pre>
+   </div>
+<!--l. 383--><p class="indent" >   While <span class="lstinline"><span
+class="cmtt-10x-x-109">clone</span></span> guarantees you obtain an empty fresh object inheriting from the prototype, <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span>
+behavior is left to the discretion of the cloned prototype — although its behavior is the same as <span class="lstinline"><span
+class="cmtt-10x-x-109">clone</span></span>
+by default.
+</p><!--l. 388--><p class="indent" >   To deﬁne such constructors, prototypes only need to provide an <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> method, that will be called
+with the arguments given to new. For instance, we can improve our previous <span class="lstinline"><span
+class="cmtt-10x-x-109">Pair</span></span> class with a
+constructor.
+</p><!--l. 393--><p class="indent" >   <div class="code urbiscript">
+<!--l. 393--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-45004r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> MyPair </span><br /><span class="label"><a
+ id="x11-45005r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-45006r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> first = nil; </span><br /><span class="label"><a
+ id="x11-45007r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> second = nil; </span><br /><span class="label"><a
+ id="x11-45008r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(f, s) { first = f;   second = s;  }; </span><br /><span class="label"><a
+ id="x11-45009r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> asString() { </span><!--l. 399--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;(&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + first + </span><!--l. 399--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;, &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + second + </span><!--l. 399--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;)&#x0022;</span></span></span><span class="cmtt-10x-x-109">; }; </span><br /><span class="label"><a
+ id="x11-45010r7"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x11-45011r8"></a></span><!--l. 401--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-45012r9"></a></span><span class="cmtt-10x-x-109">MyPair.new(0, 1); </span><br /><span class="label"><a
+ id="x11-45013r10"></a></span><!--l. 403--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (0, 1)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-45014r11"></a></span></pre>
+   </div>
+<!--l. 406--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.6   </span> <a
+href="index.html#QQ2-11-52" id="x11-460007.6">Operators</a></h3>
+<!--l. 409--><p class="noindent" >In urbiscript, operators such as <span class="lstinline"><span
+class="cmtt-10x-x-109">+</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;&#x0026;</span></span> and others, are regular functions that beneﬁt from a bit of
+syntactic sugar. To be more precise, <span class="lstinline"><span
+class="cmitt-10x-x-109">a</span><span
+class="cmtt-10x-x-109">+</span><span
+class="cmitt-10x-x-109">b</span></span> is exactly the same as <span class="lstinline"><span
+class="cmitt-10x-x-109">a</span><span class="cmtt-10x-x-109">.&#x2019;+&#x2019;(</span><span
+class="cmitt-10x-x-109">b</span><span
+class="cmtt-10x-x-109">)</span></span>. The rules to resolve slot
+names apply too, i.e., the <span class="lstinline"><span class="cmtt-10x-x-109">&#x2019;+&#x2019;</span></span> slot is looked for in <span
+class="cmitt-10x-x-109">a</span>, then in its prototypes.
+</p><!--l. 416--><p class="indent" >   The following example provides arithmetic between pairs.
+</p><!--l. 418--><p class="indent" >   <div class="code urbiscript">
+<!--l. 418--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-46001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> ArithPair </span><br /><span class="label"><a
+ id="x11-46002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-46003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> first = nil; </span><br /><span class="label"><a
+ id="x11-46004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> second = nil; </span><br /><span class="label"><a
+ id="x11-46005r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(f, s) { first = f;   second = s;  }; </span><br /><span class="label"><a
+ id="x11-46006r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> asString() { </span><!--l. 424--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;(&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + first + </span><!--l. 424--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;, &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + second + </span><!--l. 424--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;)&#x0022;</span></span></span><span class="cmtt-10x-x-109">; }; </span><br /><span class="label"><a
+ id="x11-46007r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 425--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;+&#x2019;</span></span><span class="cmtt-10x-x-109">(rhs) { new(first + rhs.first, second + rhs.second); }; </span><br /><span class="label"><a
+ id="x11-46008r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 426--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;-&#x2019;</span></span><span class="cmtt-10x-x-109">(rhs) { new(first - rhs.first, second - rhs.second); }; </span><br /><span class="label"><a
+ id="x11-46009r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 427--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;*&#x2019;</span></span><span class="cmtt-10x-x-109">(rhs) { new(first * rhs.first, second * rhs.second); }; </span><br /><span class="label"><a
+ id="x11-46010r10"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 428--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;/&#x2019;</span></span><span class="cmtt-10x-x-109">(rhs) { new(first / rhs.first, second / rhs.second); }; </span><br /><span class="label"><a
+ id="x11-46011r11"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x11-46012r12"></a></span><!--l. 430--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (nil, nil)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-46013r13"></a></span><span class="cmtt-10x-x-109">ArithPair.new(1, 10) + ArithPair.new(2, 20) * ArithPair.new(3, 30); </span><br /><span class="label"><a
+ id="x11-46014r14"></a></span><!--l. 432--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] (7, 610)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-46015r15"></a></span></pre>
+   </div>
+<!--l. 435--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.7   </span> <a
+href="index.html#QQ2-11-53" id="x11-470007.7">Properties</a></h3>
+<!--l. 438--><p class="noindent" >Sometimes one needs to attach attributes to a variable, and not the value it contains, for instance to
+store whether the variable is constant or not. In urbiscript we use objects named <a
+href="urbiscript-standard-library.html#object:Slot"><span class="lstinline"><span
+class="cmtt-10x-x-109">Slot</span></span></a>s that stands
+before the actual value, and persist when a new value is assigned to the variable. Variables of the <a
+href="urbiscript-standard-library.html#object:Slot"><span class="lstinline"><span
+class="cmtt-10x-x-109">Slot</span></span></a>
+are called <span class="lstinline"><span
+class="cmtt-10x-x-109">properties</span></span>.
+</p><!--l. 444--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">7.7.1   </span> <a
+href="contents.html#QQ2-11-54" id="x11-480007.7.1">Features of Values</a></h4>
+<!--l. 445--><p class="noindent" >In following example, we attach some random slot <span class="lstinline"><span
+class="cmtt-10x-x-109">foo</span></span> to the value pointed to by the slot
+<span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span>.
+</p><!--l. 448--><p class="indent" >   <div class="code urbiscript">
+<!--l. 448--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 123; </span><br /><span class="label"><a
+ id="x11-48002r2"></a></span><!--l. 450--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 123</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x.foo = 42; </span><br /><span class="label"><a
+ id="x11-48004r4"></a></span><!--l. 452--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48005r5"></a></span></pre>
+   </div>
+<!--l. 455--><p class="indent" >   If <span class="lstinline"><span
+class="cmtt-10x-x-109">y</span></span> is another slot to the value of <span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span>, then it provides the same <span class="lstinline"><span
+class="cmtt-10x-x-109">foo</span></span> feature:
+</p><!--l. 458--><p class="indent" >   <div class="code urbiscript">
+<!--l. 458--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48006r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> y = x; </span><br /><span class="label"><a
+ id="x11-48007r2"></a></span><!--l. 460--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 123</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48008r3"></a></span><span class="cmtt-10x-x-109">y.foo; </span><br /><span class="label"><a
+ id="x11-48009r4"></a></span><!--l. 462--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48010r5"></a></span><!--l. 463--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The value in the slots x and y are the same object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48011r6"></a></span><span class="cmtt-10x-x-109">x===y; </span><br /><span class="label"><a
+ id="x11-48012r7"></a></span><!--l. 465--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48013r8"></a></span><span class="cmtt-10x-x-109">x.foo = 43 | y.foo; </span><br /><span class="label"><a
+ id="x11-48014r9"></a></span><!--l. 467--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 43</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48015r10"></a></span></pre>
+   </div>
+<!--l. 470--><p class="indent" >   If <span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span> is bound to a new object (e.g., 456), then the feature <span class="lstinline"><span
+class="cmtt-10x-x-109">foo</span></span> is no longer present, since it&#x2019;s a
+feature of the <span
+class="cmti-10x-x-109">value </span>(i.e., 123), and not one of the slot (i.e., <span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span>).
+</p><!--l. 474--><p class="indent" >   <div class="code urbiscript">
+<!--l. 474--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48016r1"></a></span><span class="cmtt-10x-x-109">x = 456; </span><br /><span class="label"><a
+ id="x11-48017r2"></a></span><!--l. 476--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 456</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48018r3"></a></span><span class="cmtt-10x-x-109">x.foo; </span><br /><span class="label"><a
+ id="x11-48019r4"></a></span><!--l. 478--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: foo</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48020r5"></a></span></pre>
+   </div>
+<!--l. 481--><p class="indent" >   Of course, <span class="lstinline"><span
+class="cmtt-10x-x-109">y</span></span>, which is still linked to the original value (123), answers to queries to <span class="lstinline"><span
+class="cmtt-10x-x-109">foo</span></span>.
+</p><!--l. 484--><p class="indent" >   <div class="code urbiscript">
+<!--l. 484--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48021r1"></a></span><span class="cmtt-10x-x-109">y.foo; </span><br /><span class="label"><a
+ id="x11-48022r2"></a></span><!--l. 486--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 43</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-48023r3"></a></span></pre>
+   </div>
+<!--l. 489--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">7.7.2   </span> <a
+href="contents.html#QQ2-11-55" id="x11-490007.7.2">Features of Slots</a></h4>
+<!--l. 491--><p class="noindent" >If, on the contrary you want to attach a feature to the slot-as-a-name, rather than to the value it
+contains, use the <span
+class="cmti-10x-x-109">properties</span><a
+ id="x11-49001"></a>. The syntax is <span class="lstinline"><span
+class="cmitt-10x-x-109">slotName</span><span
+class="cmtt-10x-x-109">-&#x003E;</span><span
+class="cmitt-10x-x-109">propertyName</span></span>.
+</p><!--l. 495--><p class="indent" >   <div class="code urbiscript">
+<!--l. 495--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49002r1"></a></span><span class="cmtt-10x-x-109">x = 123; </span><br /><span class="label"><a
+ id="x11-49003r2"></a></span><!--l. 497--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 123</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49004r3"></a></span><span class="cmtt-10x-x-109">x-&#x003E;foo = 42; </span><br /><span class="label"><a
+ id="x11-49005r4"></a></span><!--l. 499--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49006r5"></a></span><span class="cmtt-10x-x-109">x-&#x003E;foo; </span><br /><span class="label"><a
+ id="x11-49007r6"></a></span><!--l. 501--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49008r7"></a></span></pre>
+   </div>
+<!--l. 504--><p class="indent" >   Copying the value contained by a slot does <span
+class="cmti-10x-x-109">not </span>propagate the properties of the slot:
+</p><!--l. 507--><p class="indent" >   <div class="code urbiscript">
+<!--l. 507--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49009r1"></a></span><span class="cmtt-10x-x-109">y = x; </span><br /><span class="label"><a
+ id="x11-49010r2"></a></span><!--l. 509--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 123</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49011r3"></a></span><span class="cmtt-10x-x-109">y-&#x003E;foo; </span><br /><span class="label"><a
+ id="x11-49012r4"></a></span><!--l. 511--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! property lookup failed: y-&#x003E;foo</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49013r5"></a></span></pre>
+   </div>
+<!--l. 514--><p class="indent" >   And if you assign a new value to a slot, the properties of the slot are preserved:
+</p><!--l. 517--><p class="indent" >   <div class="code urbiscript">
+<!--l. 517--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49014r1"></a></span><span class="cmtt-10x-x-109">x = 456; </span><br /><span class="label"><a
+ id="x11-49015r2"></a></span><!--l. 519--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 456</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49016r3"></a></span><span class="cmtt-10x-x-109">x-&#x003E;foo = 42; </span><br /><span class="label"><a
+ id="x11-49017r4"></a></span><!--l. 521--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-49018r5"></a></span></pre>
+   </div>
+<!--l. 524--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7.8   </span> <a
+href="index.html#QQ2-11-56" id="x11-500007.8">Getters and setters</a></h3>
+<!--l. 527--><p class="noindent" >All the properties with a special meaning are described in <a
+href="urbiscript-standard-library.html#object:Slot"><span class="lstinline"><span
+class="cmtt-10x-x-109">Slot</span></span></a>. Two of particular interest are <span class="lstinline"><span
+class="cmtt-10x-x-109">oget</span></span>
+and <span class="lstinline"><span
+class="cmtt-10x-x-109">oset</span></span>. They can be used to deﬁne a getter and a setter function, which are called each time the
+Slot is read or written to, respectively, thus implementing the <span class="lstinline"><span
+class="cmtt-10x-x-109">property</span></span> semantics as deﬁned in
+JavaScript. urbiscript also borrowed the JavaScript shortcut syntax <span class="lstinline"><span class="cmtt-10x-x-109">get foo</span></span> and <span class="lstinline"><span class="cmtt-10x-x-109">set foo</span></span> to deﬁne
+setter and getter properties.
+</p><!--l. 535--><p class="indent" >   Consider this example:
+</p><!--l. 537--><p class="indent" >   <div class="code urbiscript">
+<!--l. 537--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Vector </span><br /><span class="label"><a
+ id="x11-50002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x11-50003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x=0; </span><br /><span class="label"><a
+ id="x11-50004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> y=0; </span><br /><span class="label"><a
+ id="x11-50005r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(x=0, y=0) </span><br /><span class="label"><a
+ id="x11-50006r6"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x11-50007r7"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.x = x; </span><!--l. 544--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Here we use copy on write to create our own slot x.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50008r8"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.y = y; </span><!--l. 545--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Here we force local slot creation, both are valid.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50009r9"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x11-50010r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 547--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Return the L2 norm of the vector</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50011r11"></a></span><span class="cmtt-10x-x-109">  get norm() </span><!--l. 548--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// sugar for norm-&#x003E;oget = function()</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50012r12"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x11-50013r13"></a></span><span class="cmtt-10x-x-109">    (x*x+y*y).sqrt() </span><br /><span class="label"><a
+ id="x11-50014r14"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x11-50015r15"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 552--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Scale the vector so that its norm becomes newNorm</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50016r16"></a></span><span class="cmtt-10x-x-109">  set norm(newNorm) </span><!--l. 553--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// sugar for norm-&#x003E;oset = function(newNorm)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50017r17"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x11-50018r18"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> oldNorm = norm; </span><br /><span class="label"><a
+ id="x11-50019r19"></a></span><span class="cmtt-10x-x-109">    x *= newNorm/oldNorm; </span><br /><span class="label"><a
+ id="x11-50020r20"></a></span><span class="cmtt-10x-x-109">    y *= newNorm/oldNorm; </span><br /><span class="label"><a
+ id="x11-50021r21"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x11-50022r22"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> asString() </span><br /><span class="label"><a
+ id="x11-50023r23"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x11-50024r24"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 561--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x003C;&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + x + </span><!--l. 561--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;,&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + y + </span><!--l. 561--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x003E;&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50025r25"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x11-50026r26"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x11-50027r27"></a></span><!--l. 564--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x003C;0,0&#x003E;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50028r28"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> v = Vector.new(1, 1); </span><br /><span class="label"><a
+ id="x11-50029r29"></a></span><!--l. 566--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00016149] &#x003C;1,1&#x003E;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50030r30"></a></span><span class="cmtt-10x-x-109">v.norm; </span><br /><span class="label"><a
+ id="x11-50031r31"></a></span><!--l. 568--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00018036] 1.41421</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50032r32"></a></span><span class="cmtt-10x-x-109">v.norm = 2.sqrt() | v; </span><br /><span class="label"><a
+ id="x11-50033r33"></a></span><!--l. 570--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00177142] &#x003C;1,1&#x003E;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x11-50034r34"></a></span></pre>
+   </div>
+<!--l. 573--><p class="indent" >   If you use a setter without a getter, the value returned by your function will be stored if it is not
+void, as demonstrated in <a
+href="urbiscript-standard-library.html#slot:Slot.set"><span class="lstinline"><span class="cmtt-10x-x-109">Slot.set</span></span></a>.
+</p><!--l. 577--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">7.8.1   </span> <a
+href="contents.html#QQ2-11-57" id="x11-510007.8.1">When to use properties?</a></h4>
+<!--l. 579--><p class="noindent" >The <span class="lstinline"><span class="cmtt-10x-x-109">c#</span></span> documentation provides a very good explanation of when to use properties that we took the
+liberty to reproduce verbatim here:
+</p><!--l. 582--><p class="indent" >   In most cases, properties represent data, and methods perform actions. Properties are accessed like
+ﬁelds, which makes them easier to use. If a method takes no arguments and returns an object&#x2019;s state
+information, or accepts a single argument to set some part of an object&#x2019;s state, it is a good candidate
+for becoming a property.
+</p><!--l. 588--><p class="indent" >   Properties should behave as if they are ﬁelds; if the method cannot, it should not be changed to a
+property. Methods are preferable to properties in the following situations:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">The method performs a time-consuming operation. The method is perceivably slower than
+     the time it takes to set or get a ﬁeld&#x2019;s value.
+     </li>
+     <li class="itemize">The method performs a conversion. Accessing a ﬁeld does not return a converted version
+     of the data it stores.
+     </li>
+     <li class="itemize">The ”Get” method has an observable side eﬀect. Retrieving a ﬁeld&#x2019;s value does not produce
+     any side eﬀects.
+     </li>
+     <li class="itemize">The order of execution is important. Setting the value of a ﬁeld does not rely on other
+     operations having occurred.
+     </li>
+     <li class="itemize">Calling the method twice in succession creates diﬀerent results. The method is static but
+     returns an object that can be changed by the caller. Retrieving a ﬁeld&#x2019;s value does not
+     allow the caller to change the data stored by the ﬁeld.
+     </li></ul>
+</body></html>

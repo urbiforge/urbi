@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>4 Basic Objects, Value Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="flow-control-constructs.html" >Next</a><a
+href="urbiscript-user-manual.html#basic-objects-value-model.html" >Up</a><a
+href="first-steps.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 4</span><br /><a
+href="index.html#QQ2-8-29" id="x8-230004">Basic Objects, Value Model</a></h2>
+<!--l. 12--><p class="noindent" >In this section, we focus on urbiscript values as objects, and study urbiscript by-reference values
+model. We won&#x2019;t study classes and actual objective programming yet, these points will be presented in
+<a
+href="objective-programming-urbiscript-object-model.html#x11-400007">Listing 7</a>.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >4.1 <a
+href="#x8-240004.1">Objects in urbiscript</a></span>
+<br />    <span class="sectionToc" >4.2 <a
+href="#x8-250004.2">Methods</a></span>
+<br />    <span class="sectionToc" >4.3 <a
+href="#x8-260004.3">Everything is an object</a></span>
+<br />    <span class="sectionToc" >4.4 <a
+href="#x8-270004.4">The urbiscript values model</a></span>
+<br />    <span class="sectionToc" >4.5 <a
+href="#x8-280004.5">Conclusion</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">4.1   </span> <a
+href="index.html#QQ2-8-30" id="x8-240004.1">Objects in urbiscript</a></h3>
+<!--l. 19--><p class="noindent" >An object in urbiscript is a rather simple concept: a list of slots. A <span
+class="cmti-10x-x-109">slot</span><a
+ id="x8-24001"></a> is a value associated to
+a name. So an <span
+class="cmti-10x-x-109">object</span><a
+ id="x8-24002"></a> is a list of slot names, each of which indexes a value — just like a
+dictionary.
+</p><!--l. 24--><p class="indent" >   <div class="code urbiscript">
+<!--l. 24--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24003r1"></a></span><!--l. 25--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create a fresh object with two slots.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24004r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Foo </span><br /><span class="label"><a
+ id="x8-24005r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x8-24006r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a = 42; </span><br /><span class="label"><a
+ id="x8-24007r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b = </span><!--l. 29--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x8-24008r6"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x8-24009r7"></a></span><!--l. 31--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Foo</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24010r8"></a></span></pre>
+   </div>
+<!--l. 34--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">localSlotNames</span></span> method lists the names of the slots of an object (<a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a>).
+</p><!--l. 37--><p class="indent" >   <div class="code urbiscript">
+<!--l. 37--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24011r1"></a></span><!--l. 38--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Inspect it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24012r2"></a></span><span class="cmtt-10x-x-109">Foo.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-24013r3"></a></span><!--l. 40--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;a&#x0022;, &#x0022;asFoo&#x0022;, &#x0022;b&#x0022;, &#x0022;type&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24014r4"></a></span></pre>
+   </div>
+<!--l. 43--><p class="indent" >   You can get an object&#x2019;s slot value by using the dot (<span class="lstinline"><span
+class="cmtt-10x-x-109">.</span></span>) operator on this object, followed by the
+name of the slot.
+</p><!--l. 46--><p class="indent" >   <div class="code urbiscript">
+<!--l. 46--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24015r1"></a></span><!--l. 47--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We now know the name of its slots. Let&#x2019;s see their value.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24016r2"></a></span><span class="cmtt-10x-x-109">Foo.a; </span><br /><span class="label"><a
+ id="x8-24017r3"></a></span><!--l. 49--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24018r4"></a></span><span class="cmtt-10x-x-109">Foo.b; </span><br /><span class="label"><a
+ id="x8-24019r5"></a></span><!--l. 51--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;foo&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24020r6"></a></span></pre>
+   </div>
+<!--l. 54--><p class="indent" >   It&#x2019;s as simple as this. The <span class="lstinline"><span
+class="cmtt-10x-x-109">inspect</span></span> method provides a convenient short-hand to discover an object
+(<a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a>).
+</p><!--l. 57--><p class="indent" >   <div class="code urbiscript">
+<!--l. 57--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24021r1"></a></span><span class="cmtt-10x-x-109">Foo.inspect(); </span><br /><span class="label"><a
+ id="x8-24022r2"></a></span><!--l. 59--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** Inspecting Foo</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24023r3"></a></span><!--l. 60--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ** Prototypes:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24024r4"></a></span><!--l. 61--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] ***   Object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24025r5"></a></span><!--l. 62--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** ** Local Slots:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24026r6"></a></span><!--l. 63--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] ***   a : Float</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24027r7"></a></span><!--l. 64--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] ***   asFoo : Code</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24028r8"></a></span><!--l. 65--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] ***   b : String</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24029r9"></a></span><!--l. 66--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] ***   type : String</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24030r10"></a></span></pre>
+   </div>
+<!--l. 69--><p class="indent" >   Let&#x2019;s now try to build such an object. First, we want a fresh object to work on. In urbiscript,
+<span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span> is the parent type of every object (in fact, since urbiscript is prototype-based, <span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span> is the
+uppermost prototype of every object, but we&#x2019;ll talk about prototypes later). An instance of object, is
+an empty, neutral object, so let&#x2019;s start by instantiating one with the <span class="lstinline"><span
+class="cmtt-10x-x-109">clone</span></span> method of
+<span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span>.
+</p><!--l. 77--><p class="indent" >   <div class="code urbiscript">
+<!--l. 77--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24031r1"></a></span><!--l. 78--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create the o variable as a fresh object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24032r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o = Object.clone(); </span><br /><span class="label"><a
+ id="x8-24033r3"></a></span><!--l. 80--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24034r4"></a></span><!--l. 81--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Check its content</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24035r5"></a></span><span class="cmtt-10x-x-109">o.inspect(); </span><br /><span class="label"><a
+ id="x8-24036r6"></a></span><!--l. 83--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00006725] *** Inspecting Object_0x00000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24037r7"></a></span><!--l. 84--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00006725] *** ** Prototypes:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24038r8"></a></span><!--l. 85--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00006726] ***   Object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24039r9"></a></span><!--l. 86--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00006726] *** ** Local Slots:</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24040r10"></a></span></pre>
+   </div>
+<!--l. 89--><p class="indent" >   As you can see, we obtain an empty fresh object. Note that it still inherits from <span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span> features
+that all objects share, such as the <span class="lstinline"><span
+class="cmtt-10x-x-109">localSlotNames</span></span> method.
+</p><!--l. 93--><p class="indent" >   Also note how <span class="lstinline"><span
+class="cmtt-10x-x-109">o</span></span> is printed out: <span class="lstinline"><span
+class="cmtt-10x-x-109">Object_</span></span>, followed by an hexadecimal number. Since this object is
+empty, its printing is quite generic: its type (<span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span>), and its unique identiﬁer (every urbiscript object
+has one). Since these identiﬁers are often irrelevant and might diﬀer between two executions, they are
+often ﬁlled with zeroes in this document.
+</p><!--l. 100--><p class="indent" >   We&#x2019;re now getting back to our empty object. We want to give it two slots, <span class="lstinline"><span
+class="cmtt-10x-x-109">a</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">b</span></span>, with values <span class="lstinline"><span
+class="cmtt-10x-x-109">42</span></span>
+and <span class="lstinline"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span> respectively. We can do this with the <span class="lstinline"><span
+class="cmtt-10x-x-109">setSlotValue</span></span> method, which takes the slot name and
+its value.
+</p><!--l. 106--><p class="indent" >   <div class="code urbiscript">
+<!--l. 106--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24041r1"></a></span><span class="cmtt-10x-x-109">o.setSlotValue(</span><!--l. 107--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;a&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 42); </span><br /><span class="label"><a
+ id="x8-24042r2"></a></span><!--l. 108--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24043r3"></a></span><span class="cmtt-10x-x-109">o.inspect(); </span><br /><span class="label"><a
+ id="x8-24044r4"></a></span><!--l. 110--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00009837] *** Inspecting Object_0x00000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24045r5"></a></span><!--l. 111--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00009837] *** ** Prototypes:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24046r6"></a></span><!--l. 112--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00009837] ***   Object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24047r7"></a></span><!--l. 113--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00009838] *** ** Local Slots:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24048r8"></a></span><!--l. 114--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00009838] ***   a : Float</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24049r9"></a></span></pre>
+   </div>
+<!--l. 117--><p class="indent" >   Here we successfully created our ﬁrst slot, <span class="lstinline"><span
+class="cmtt-10x-x-109">a</span></span>. A good shorthand for setting slot is using the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span>
+keyword.
+</p><!--l. 120--><p class="indent" >   <div class="code urbiscript">
+<!--l. 120--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24050r1"></a></span><!--l. 121--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is equivalent to o.setSlotValue(&#x0022;b&#x0022;, &#x0022;foo&#x0022;).</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24051r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o.b = </span><!--l. 122--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x8-24052r3"></a></span><!--l. 123--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;foo&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24053r4"></a></span><span class="cmtt-10x-x-109">o.inspect(); </span><br /><span class="label"><a
+ id="x8-24054r5"></a></span><!--l. 125--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00072678] *** Inspecting Object_0x00000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24055r6"></a></span><!--l. 126--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00072678] *** ** Prototypes:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24056r7"></a></span><!--l. 127--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00072679] ***   Object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24057r8"></a></span><!--l. 128--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00072679] *** ** Local Slots:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24058r9"></a></span><!--l. 129--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00072679] ***   a : Float</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24059r10"></a></span><!--l. 130--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00072680] ***   b : String</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24060r11"></a></span></pre>
+   </div>
+<!--l. 133--><p class="indent" >   The latter form with <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> is preferred, but you need to know the name of the slot at the time of
+writing the code. With the former one, you can compute the slot name at execution time.
+Likewise, you can read a slot with a run-time determined name with the <span class="lstinline"><span
+class="cmtt-10x-x-109">getSlotValue</span></span>
+method, which takes the slot name as argument. The following listing illustrates the use of
+<span class="lstinline"><span
+class="cmtt-10x-x-109">getSlotValue</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">setSlotValue</span></span> to read and write slots whose names are unknown at code-writing
+time.
+</p><!--l. 144--><p class="indent" >   <div class="code urbiscript">
+<!--l. 144--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24061r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> set(object, name, value) </span><br /><span class="label"><a
+ id="x8-24062r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x8-24063r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 147--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We have to use setSlotValue here, since we don&#x2019;t</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24064r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 148--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// know the actual name of the slot.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24065r5"></a></span><span class="cmtt-10x-x-109">  object.setSlotValue(</span><!--l. 149--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x_&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + name, value) </span><br /><span class="label"><a
+ id="x8-24066r6"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x8-24067r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24068r8"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> get(object, name) </span><br /><span class="label"><a
+ id="x8-24069r9"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x8-24070r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 154--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We have to use getSlotValue here, since we don&#x2019;t</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24071r11"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 155--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// know the actual name of the slot.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24072r12"></a></span><span class="cmtt-10x-x-109">  object.getSlotValue(</span><!--l. 156--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x_&#x0022;</span></span></span><span class="cmtt-10x-x-109"> + name) </span><br /><span class="label"><a
+ id="x8-24073r13"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x8-24074r14"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24075r15"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = Object.clone(); </span><br /><span class="label"><a
+ id="x8-24076r16"></a></span><!--l. 160--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x42342448</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24077r17"></a></span><span class="cmtt-10x-x-109">set(x, </span><!--l. 161--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 0); </span><br /><span class="label"><a
+ id="x8-24078r18"></a></span><!--l. 162--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24079r19"></a></span><span class="cmtt-10x-x-109">set(x, </span><!--l. 163--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bar&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 1); </span><br /><span class="label"><a
+ id="x8-24080r20"></a></span><!--l. 164--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24081r21"></a></span><span class="cmtt-10x-x-109">x.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-24082r22"></a></span><!--l. 166--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;x_bar&#x0022;, &#x0022;x_foo&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24083r23"></a></span><span class="cmtt-10x-x-109">get(x, </span><!--l. 167--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-24084r24"></a></span><!--l. 168--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24085r25"></a></span><span class="cmtt-10x-x-109">get(x, </span><!--l. 169--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bar&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-24086r26"></a></span><!--l. 170--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24087r27"></a></span></pre>
+   </div>
+<!--l. 173--><p class="indent" >   Right, now we can create fresh objects, create slots in them and read them afterward, even if their
+name is dynamically computed, with <span class="lstinline"><span
+class="cmtt-10x-x-109">getSlotValue</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">setSlotValue</span></span>. Now, you might
+wonder if there&#x2019;s a method to update the value of the slot. Guess what, there&#x2019;s one, and it&#x2019;s
+named&hellip;<span class="lstinline"><span
+class="cmtt-10x-x-109">updateSlot</span></span> (originality award). Getting back to our <span class="lstinline"><span
+class="cmtt-10x-x-109">o</span></span> object, let&#x2019;s try to update one of its
+slots.
+</p><!--l. 181--><p class="indent" >   <div class="code urbiscript">
+<!--l. 181--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24088r1"></a></span><span class="cmtt-10x-x-109">o.a; </span><br /><span class="label"><a
+ id="x8-24089r2"></a></span><!--l. 183--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24090r3"></a></span><span class="cmtt-10x-x-109">o.updateSlot(</span><!--l. 184--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;a&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 51); </span><br /><span class="label"><a
+ id="x8-24091r4"></a></span><!--l. 185--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24092r5"></a></span><span class="cmtt-10x-x-109">o.a; </span><br /><span class="label"><a
+ id="x8-24093r6"></a></span><!--l. 187--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24094r7"></a></span></pre>
+   </div>
+<!--l. 190--><p class="indent" >   Again, there&#x2019;s a shorthand for <span class="lstinline"><span
+class="cmtt-10x-x-109">updateSlot</span></span>: operator <span class="lstinline"><span
+class="cmtt-10x-x-109">=</span></span>.
+</p><!--l. 193--><p class="indent" >   <div class="code urbiscript">
+<!--l. 193--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24095r1"></a></span><span class="cmtt-10x-x-109">o.b; </span><br /><span class="label"><a
+ id="x8-24096r2"></a></span><!--l. 195--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;foo&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24097r3"></a></span><!--l. 196--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Equivalent to o.updateSlot(&#x0022;b&#x0022;, &#x0022;bar&#x0022;)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24098r4"></a></span><span class="cmtt-10x-x-109">o.b = </span><!--l. 197--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bar&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x8-24099r5"></a></span><!--l. 198--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;bar&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24100r6"></a></span><span class="cmtt-10x-x-109">o.b; </span><br /><span class="label"><a
+ id="x8-24101r7"></a></span><!--l. 200--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;bar&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24102r8"></a></span></pre>
+   </div>
+<!--l. 203--><p class="indent" >   Likewise, prefer the &#x2019;<span class="lstinline"><span
+class="cmtt-10x-x-109">=</span></span>&#x2019; notation whenever possible, but you&#x2019;ll need <span class="lstinline"><span
+class="cmtt-10x-x-109">updateSlot</span></span> to update a slot
+whose name you don&#x2019;t know at code-writing time.
+</p><!--l. 207--><p class="indent" >   Note that deﬁning the same slot twice, be it with <span class="lstinline"><span
+class="cmtt-10x-x-109">setSlotValue</span></span> or <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span>, is an error. The
+slot must be deﬁned once with setSlotValue, and subsequent writes must be done with
+<span class="lstinline"><span
+class="cmtt-10x-x-109">updateSlot</span></span>.
+</p><!--l. 211--><p class="indent" >   <div class="code urbiscript">
+<!--l. 211--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24103r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o.c = 0; </span><br /><span class="label"><a
+ id="x8-24104r2"></a></span><!--l. 213--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24105r3"></a></span><!--l. 214--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Can&#x2019;t redefine a slot like this</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24106r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o.c = 1; </span><br /><span class="label"><a
+ id="x8-24107r5"></a></span><!--l. 216--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! slot redefinition: c</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24108r6"></a></span><!--l. 217--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Okay.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24109r7"></a></span><span class="cmtt-10x-x-109">o.c = 1; </span><br /><span class="label"><a
+ id="x8-24110r8"></a></span><!--l. 219--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24111r9"></a></span></pre>
+   </div>
+<!--l. 222--><p class="indent" >   Finally, use <span class="lstinline"><span
+class="cmtt-10x-x-109">removeLocalSlot</span></span> to delete a slot from an object.
+</p><!--l. 224--><p class="indent" >   <div class="code urbiscript">
+<!--l. 224--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24112r1"></a></span><span class="cmtt-10x-x-109">o.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-24113r2"></a></span><!--l. 226--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;a&#x0022;, &#x0022;b&#x0022;, &#x0022;c&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24114r3"></a></span><span class="cmtt-10x-x-109">o.removeLocalSlot(</span><!--l. 227--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;c&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-24115r4"></a></span><!--l. 228--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24116r5"></a></span><span class="cmtt-10x-x-109">o.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-24117r6"></a></span><!--l. 230--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;a&#x0022;, &#x0022;b&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24118r7"></a></span></pre>
+   </div>
+<!--l. 233--><p class="indent" >   Here we are, now you can inspect and modify objects at will. Don&#x2019;t hesitate to explore urbiscript
+objects you&#x2019;ll encounter through this documentation like this. Last point: reading, updating or
+removing a slot which does not exist is, of course, an error.
+</p><!--l. 238--><p class="indent" >   <div class="code urbiscript">
+<!--l. 238--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24119r1"></a></span><span class="cmtt-10x-x-109">o.d; </span><br /><span class="label"><a
+ id="x8-24120r2"></a></span><!--l. 240--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: d</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24121r3"></a></span><span class="cmtt-10x-x-109">o.d = 0; </span><br /><span class="label"><a
+ id="x8-24122r4"></a></span><!--l. 242--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: d</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-24123r5"></a></span></pre>
+   </div>
+<!--l. 245--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.2   </span> <a
+href="index.html#QQ2-8-31" id="x8-250004.2">Methods</a></h3>
+<!--l. 247--><p class="noindent" >Methods in urbiscript are simply object slots containing functions. Using <span class="lstinline"><span class="cmtt-10x-x-109">obj.slot</span></span> if <span class="lstinline"><span
+class="cmtt-10x-x-109">slot</span></span>
+contains a function will return the function itself. Use <span class="lstinline"><span class="cmtt-10x-x-109">obj.slot()</span></span> to evaluate the function
+instead.
+</p><!--l. 252--><p class="indent" >   Inside a method, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span> gives access to the target — as in C++. It can be omitted if there is no
+ambiguity with local variables.
+</p><!--l. 256--><p class="indent" >   <div class="code urbiscript">
+<!--l. 256--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o = Object.clone(); </span><br /><span class="label"><a
+ id="x8-25002r2"></a></span><!--l. 258--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25003r3"></a></span><!--l. 259--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This syntax stores the function in the &#x2019;f&#x2019; slot of &#x2019;o&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> o.f () </span><br /><span class="label"><a
+ id="x8-25005r5"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x8-25006r6"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 262--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;This is f with target &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-25007r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 42; </span><br /><span class="label"><a
+ id="x8-25008r8"></a></span><span class="cmtt-10x-x-109">} |; </span><br /><span class="label"><a
+ id="x8-25009r9"></a></span><!--l. 265--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The slot value is the function.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25010r10"></a></span><span class="cmtt-10x-x-109">o.getSlotValue(</span><!--l. 266--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;f&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-25011r11"></a></span><!--l. 267--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] function () {</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25012r12"></a></span><!--l. 268--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">  echo(&#x0022;This is f with target &#x0022;.&#x2019;+&#x2019;(this));</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25013r13"></a></span><!--l. 269--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">  return 42;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25014r14"></a></span><!--l. 270--><span class="listings-nested"><span class="urbianswer"><span
+class="cmtt-10x-x-109">}</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25015r15"></a></span><!--l. 271--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Huho, no parenthesis, no call.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25016r16"></a></span><span class="cmtt-10x-x-109">o.f; </span><br /><span class="label"><a
+ id="x8-25017r17"></a></span><!--l. 273--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] function () {</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25018r18"></a></span><!--l. 274--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">  echo(&#x0022;This is f with target &#x0022;.&#x2019;+&#x2019;(this));</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25019r19"></a></span><!--l. 275--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">  return 42;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25020r20"></a></span><!--l. 276--><span class="listings-nested"><span class="urbianswer"><span
+class="cmtt-10x-x-109">}</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25021r21"></a></span><span class="cmtt-10x-x-109">o.f(); </span><br /><span class="label"><a
+ id="x8-25022r22"></a></span><!--l. 278--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** This is f with target Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25023r23"></a></span><!--l. 279--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25024r24"></a></span></pre>
+   </div>
+<!--l. 282--><p class="indent" >   Let&#x2019;s use <span class="lstinline"><span
+class="cmtt-10x-x-109">getSlotValue</span></span> to introspect some functions:
+</p><!--l. 284--><p class="indent" >   <div class="code urbiscript">
+<!--l. 284--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25025r1"></a></span><!--l. 285--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The &#x2019;asList&#x2019; method of strings returns the characters in a list.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25026r2"></a></span><!--l. 286--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">.asList(); </span><br /><span class="label"><a
+ id="x8-25027r3"></a></span><!--l. 287--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00003447] [&#x0022;f&#x0022;, &#x0022;o&#x0022;, &#x0022;o&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25028r4"></a></span><!--l. 288--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Using getSlot, we can fetch the function without calling it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25029r5"></a></span><!--l. 289--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;&#x0022;</span></span></span><span class="cmtt-10x-x-109">.getSlotValue(</span><!--l. 289--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;asList&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-25030r6"></a></span><!--l. 290--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] function () { split(&#x0022;&#x0022;) }</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25031r7"></a></span></pre>
+   </div>
+<!--l. 293--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">asList</span></span> function simply bounces the task to <span class="lstinline"><span
+class="cmtt-10x-x-109">split</span></span>. Let&#x2019;s try <span class="lstinline"><span
+class="cmtt-10x-x-109">getSlotValue</span></span>&#x2019;ing another
+method:
+</p><!--l. 296--><p class="indent" >   <div class="code urbiscript">
+<!--l. 296--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25032r1"></a></span><!--l. 297--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">.isBlank(); </span><br /><span class="label"><a
+ id="x8-25033r2"></a></span><!--l. 298--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25034r3"></a></span><!--l. 299--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">.getSlotValue(</span><!--l. 299--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;isBlank&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x8-25035r4"></a></span><!--l. 300--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Primitive_0x422f0908</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-25036r5"></a></span></pre>
+   </div>
+<!--l. 303--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">isBlank</span></span> method of <a
+href="urbiscript-standard-library.html#object:String"><span class="lstinline"><span
+class="cmtt-10x-x-109">String</span></span></a> is another type of object: a <a
+href="urbiscript-standard-library.html#object:Primitive"><span class="lstinline"><span
+class="cmtt-10x-x-109">Primitive</span></span></a>. These objects are
+executable, like functions, but they are actually opaque primitives implemented in C++.
+</p><!--l. 308--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.3   </span> <a
+href="index.html#QQ2-8-32" id="x8-260004.3">Everything is an object</a></h3>
+<!--l. 310--><p class="noindent" >If you&#x2019;re wondering what is an object and what is not, the answer is simple: every single bit of value
+you manipulate in urbiscript is an object, including primitive types, types themselves, functions,
+&hellip;
+</p><!--l. 314--><p class="indent" >   <div class="code urbiscript">
+<!--l. 314--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 0; </span><br /><span class="label"><a
+ id="x8-26002r2"></a></span><!--l. 316--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26003r3"></a></span><span class="cmtt-10x-x-109">x.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-26004r4"></a></span><!--l. 318--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] []</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x.slot = 1; </span><br /><span class="label"><a
+ id="x8-26006r6"></a></span><!--l. 320--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26007r7"></a></span><span class="cmtt-10x-x-109">x.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-26008r8"></a></span><!--l. 322--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;slot&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26009r9"></a></span><span class="cmtt-10x-x-109">x.slot; </span><br /><span class="label"><a
+ id="x8-26010r10"></a></span><!--l. 324--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26011r11"></a></span><span class="cmtt-10x-x-109">x; </span><br /><span class="label"><a
+ id="x8-26012r12"></a></span><!--l. 326--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-26013r13"></a></span></pre>
+   </div>
+<!--l. 332--><p class="indent" >   As you can see, integers are objects just like any other value.
+</p><!--l. 334--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.4   </span> <a
+href="index.html#QQ2-8-33" id="x8-270004.4">The urbiscript values model</a></h3>
+<!--l. 336--><p class="noindent" >We are now going to focus on the urbiscript value model, that is how values are stored and passed
+around. The whole point is to understand when variables point to the same object. For this, we
+introduce <span class="lstinline"><span
+class="cmtt-10x-x-109">uid</span></span>, a method that returns the target&#x2019;s unique identiﬁer — the same one that was
+printed when we evaluated <span class="lstinline"><span class="cmtt-10x-x-109">Object.clone</span></span>. Since uids might vary from an execution to
+another, their values in this documentation are dummy, yet not null to be able to diﬀerentiate
+them.
+</p><!--l. 345--><p class="indent" >   <div class="code urbiscript">
+<!--l. 345--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> o = Object.clone(); </span><br /><span class="label"><a
+ id="x8-27002r2"></a></span><!--l. 347--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x100000</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27003r3"></a></span><span class="cmtt-10x-x-109">o.uid; </span><br /><span class="label"><a
+ id="x8-27004r4"></a></span><!--l. 349--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;0x100000&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27005r5"></a></span><span class="cmtt-10x-x-109">42.uid; </span><br /><span class="label"><a
+ id="x8-27006r6"></a></span><!--l. 351--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;0x200000&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27007r7"></a></span><span class="cmtt-10x-x-109">42.uid; </span><br /><span class="label"><a
+ id="x8-27008r8"></a></span><!--l. 353--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;0x300000&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27009r9"></a></span></pre>
+   </div>
+<!--l. 357--><p class="indent" >   Our objects have diﬀerent uids, reﬂecting the fact that they are diﬀerent objects. Note that
+entering the same integer twice (<span class="lstinline"><span
+class="cmtt-10x-x-109">42</span></span> here) yields diﬀerent objects. Let&#x2019;s introduce new operators before
+diving in this concept. First the equality operator: <span class="lstinline"><span
+class="cmtt-10x-x-109">==</span></span>. This operator is the exact same as C or C++&#x2019;s
+one, it simply returns whether its two operands are <span
+class="cmti-10x-x-109">semantically </span>equal. The second operator is <span class="lstinline"><span
+class="cmtt-10x-x-109">===</span></span>,
+which is the <span
+class="cmti-10x-x-109">physical </span>equality operator. It returns whether its two operands are the same object,
+which is equivalent to having the same uid. This can seem a bit confusing; let&#x2019;s have an
+example.
+</p><!--l. 368--><p class="indent" >   <div class="code urbiscript">
+<!--l. 368--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27010r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a = 42; </span><br /><span class="label"><a
+ id="x8-27011r2"></a></span><!--l. 370--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27012r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b = 42; </span><br /><span class="label"><a
+ id="x8-27013r4"></a></span><!--l. 372--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27014r5"></a></span><span class="cmtt-10x-x-109">a == b; </span><br /><span class="label"><a
+ id="x8-27015r6"></a></span><!--l. 374--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27016r7"></a></span><span class="cmtt-10x-x-109">a === b; </span><br /><span class="label"><a
+ id="x8-27017r8"></a></span><!--l. 376--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27018r9"></a></span></pre>
+   </div>
+<!--l. 379--><p class="indent" >   Here, the <span class="lstinline"><span
+class="cmtt-10x-x-109">==</span></span> operator reports that <span class="lstinline"><span
+class="cmtt-10x-x-109">a</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">b</span></span> are equal — indeed, they both evaluate to 42. Yet, the
+<span class="lstinline"><span
+class="cmtt-10x-x-109">===</span></span> operator shows that they are not the same object: they are two diﬀerent instances of integer
+objects, both equal 42.
+</p><!--l. 385--><p class="indent" >   Thanks to this operator, we can point out the fact that slots and local variables in urbiscript have a
+reference semantic. That is, when you deﬁning a local variable or a slot, you&#x2019;re not copying any value
+(as you would be in C or C++), you&#x2019;re only making it refer to an already existing value (as you would
+in Ruby or Java).
+</p><!--l. 391--><p class="indent" >   <div class="code urbiscript">
+<!--l. 391--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27019r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a = 42; </span><br /><span class="label"><a
+ id="x8-27020r2"></a></span><!--l. 393--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27021r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b = 42; </span><br /><span class="label"><a
+ id="x8-27022r4"></a></span><!--l. 395--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27023r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> c = a; </span><!--l. 396--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// c refers to the same object as a.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27024r6"></a></span><!--l. 397--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27025r7"></a></span><!--l. 398--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// a, b and c are equal: they have the same value.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27026r8"></a></span><span class="cmtt-10x-x-109">a == b &#x0026;&#x0026; a == c; </span><br /><span class="label"><a
+ id="x8-27027r9"></a></span><!--l. 400--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27028r10"></a></span><!--l. 401--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Yet only a and c are actually the same object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27029r11"></a></span><span class="cmtt-10x-x-109">a === b; </span><br /><span class="label"><a
+ id="x8-27030r12"></a></span><!--l. 403--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] false</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27031r13"></a></span><span class="cmtt-10x-x-109">a === c; </span><br /><span class="label"><a
+ id="x8-27032r14"></a></span><!--l. 405--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27033r15"></a></span></pre>
+   </div>
+<!--l. 408--><p class="indent" >   So here we see that <span class="lstinline"><span
+class="cmtt-10x-x-109">a</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">c</span></span> point to the same integer, while <span class="lstinline"><span
+class="cmtt-10x-x-109">b</span></span> points to a second one. This a
+non-trivial fact: any modiﬁcation on <span class="lstinline"><span
+class="cmtt-10x-x-109">a</span></span> will aﬀect <span class="lstinline"><span
+class="cmtt-10x-x-109">c</span></span> as well, as shown below.
+</p><!--l. 413--><p class="indent" >   <div class="code urbiscript">
+<!--l. 413--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27034r1"></a></span><span class="cmtt-10x-x-109">a.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27035r2"></a></span><!--l. 415--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] []</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27036r3"></a></span><span class="cmtt-10x-x-109">b.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27037r4"></a></span><!--l. 417--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] []</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27038r5"></a></span><span class="cmtt-10x-x-109">c.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27039r6"></a></span><!--l. 419--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] []</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27040r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a.flag; </span><!--l. 420--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create a slot in a.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27041r8"></a></span><span class="cmtt-10x-x-109">a.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27042r9"></a></span><!--l. 422--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;flag&#x0022;]</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27043r10"></a></span><span class="cmtt-10x-x-109">b.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27044r11"></a></span><!--l. 424--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] []</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27045r12"></a></span><span class="cmtt-10x-x-109">c.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27046r13"></a></span><!--l. 426--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;flag&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27047r14"></a></span></pre>
+   </div>
+<!--l. 429--><p class="indent" >   Updating slots or local variables does not update the referenced value. It simply redirects the
+variable to the new given value.
+</p><!--l. 432--><p class="indent" >   <div class="code urbiscript">
+<!--l. 432--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27048r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a = 42; </span><br /><span class="label"><a
+ id="x8-27049r2"></a></span><!--l. 434--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27050r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b = a; </span><br /><span class="label"><a
+ id="x8-27051r4"></a></span><!--l. 436--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27052r5"></a></span><!--l. 437--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// b and a point to the same integer.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27053r6"></a></span><span class="cmtt-10x-x-109">a === b; </span><br /><span class="label"><a
+ id="x8-27054r7"></a></span><!--l. 439--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] true</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27055r8"></a></span><!--l. 440--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Updating b won&#x2019;t change the referred value, 42,</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27056r9"></a></span><!--l. 441--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// it makes it reference a fresh integer with value 51.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27057r10"></a></span><span class="cmtt-10x-x-109">b = 51; </span><br /><span class="label"><a
+ id="x8-27058r11"></a></span><!--l. 443--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27059r12"></a></span><!--l. 444--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Thus, a is left unchanged:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27060r13"></a></span><span class="cmtt-10x-x-109">a; </span><br /><span class="label"><a
+ id="x8-27061r14"></a></span><!--l. 446--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27062r15"></a></span></pre>
+   </div>
+<!--l. 449--><p class="indent" >   Understanding the two latter examples is really important, to be aware of what your variable are
+referring to.
+</p><!--l. 452--><p class="indent" >   Finally, function and method arguments are also passed by reference: they can be modiﬁed by the
+function.
+</p><!--l. 455--><p class="indent" >   <div class="code urbiscript">
+<!--l. 455--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27063r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> test(arg) </span><br /><span class="label"><a
+ id="x8-27064r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x8-27065r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> arg.flag;  </span><!--l. 458--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// add a slot in arg</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27066r4"></a></span><span class="cmtt-10x-x-109">  echo(arg.uid); </span><!--l. 459--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// print its uid</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27067r5"></a></span><span class="cmtt-10x-x-109">} |; </span><br /><span class="label"><a
+ id="x8-27068r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = Object.clone(); </span><br /><span class="label"><a
+ id="x8-27069r7"></a></span><!--l. 462--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object_0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27070r8"></a></span><span class="cmtt-10x-x-109">x.uid; </span><br /><span class="label"><a
+ id="x8-27071r9"></a></span><!--l. 464--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;0x00000001&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27072r10"></a></span><span class="cmtt-10x-x-109">test(x); </span><br /><span class="label"><a
+ id="x8-27073r11"></a></span><!--l. 466--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 0x00000001</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27074r12"></a></span><span class="cmtt-10x-x-109">x.localSlotNames(); </span><br /><span class="label"><a
+ id="x8-27075r13"></a></span><!--l. 468--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] [&#x0022;flag&#x0022;]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27076r14"></a></span></pre>
+   </div>
+<!--l. 471--><p class="indent" >   Beware however that arguments are passed by reference, and the behavior might not be what you
+may expected.
+</p><!--l. 474--><p class="indent" >   <div class="code urbiscript">
+<!--l. 474--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27077r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> test(arg) </span><br /><span class="label"><a
+ id="x8-27078r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x8-27079r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 477--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Updates the local variable arg to refer 1.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27080r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 478--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Does not affect the referred value, nor the actual external argument.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27081r5"></a></span><span class="cmtt-10x-x-109">  arg = 1; </span><br /><span class="label"><a
+ id="x8-27082r6"></a></span><span class="cmtt-10x-x-109">} |; </span><br /><span class="label"><a
+ id="x8-27083r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 0; </span><br /><span class="label"><a
+ id="x8-27084r8"></a></span><!--l. 482--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27085r9"></a></span><span class="cmtt-10x-x-109">test(x); </span><br /><span class="label"><a
+ id="x8-27086r10"></a></span><!--l. 484--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27087r11"></a></span><!--l. 485--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// x wasn&#x2019;t modified</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27088r12"></a></span><span class="cmtt-10x-x-109">x; </span><br /><span class="label"><a
+ id="x8-27089r13"></a></span><!--l. 487--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x8-27090r14"></a></span></pre>
+   </div>
+<!--l. 490--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4.5   </span> <a
+href="index.html#QQ2-8-34" id="x8-280004.5">Conclusion</a></h3>
+<!--l. 492--><p class="noindent" >You should now understand the reference semantic of local variables, slots and arguments. It&#x2019;s very
+important to keep them in mind, otherwise you will end up modifying variables you didn&#x2019;t want, or
+change a copy of reference, failing to update the desired one.
+</p>
+</body></html>

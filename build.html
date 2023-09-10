@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>18 Building Urbi SDK</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="urbi-sdk-reference-manual.html" >Next</a><a
+href="guidelines-and-cook-books.html#build.html" >Up</a><a
+href="migration-from-urbiscript-2-to-urbiscript-3.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 18</span><br /><a
+href="index.html#QQ2-27-186" id="x27-17900018">Building Urbi SDK</a></h2>
+<!--l. 11--><p class="noindent" ><!-- tex4ht:FileName="build" -->
+</p><!--l. 21--><p class="indent" >   This section is meant for people who want to <span
+class="cmti-10x-x-109">build </span>the Urbi SDK. If you just want to install a
+pre-built Urbi SDK, see <a
+href="installation.html#x22-9300013">paragraph 13<!--tex4ht:ref: sec:tut:import --></a>.
+</p><!--l. 24--><p class="indent" >   A foreword that applies to any package, not just Urbi SDK: <span
+class="cmbx-10x-x-109">building or checking as root is a</span>
+<span
+class="cmbx-10x-x-109">bad idea</span>. Build as a regular user, and run ‘<span
+class="cmtt-10x-x-109">sudo make install</span>&#x2019; just for the install time <span
+class="cmti-10x-x-109">if you need</span>
+<span
+class="cmti-10x-x-109">privileges to install to the chosen destination</span>.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >18.1 <a
+href="#x27-18000018.1">Building</a></span>
+<br />     <span class="subsectionToc" >18.1.1 <a
+href="#x27-18100018.1.1">Getting and installing qibuild</a></span>
+<br />     <span class="subsectionToc" >18.1.2 <a
+href="#x27-18200018.1.2">Setting up an urbi worktree</a></span>
+<br />     <span class="subsectionToc" >18.1.3 <a
+href="#x27-18300018.1.3">Building</a></span>
+<br />     <span class="subsectionToc" >18.1.4 <a
+href="#x27-18400018.1.4">Modifying the grammar or the AST</a></span>
+<br />     <span class="subsectionToc" >18.1.5 <a
+href="#x27-18500018.1.5">Installing</a></span>
+<br />    <span class="sectionToc" >18.2 <a
+href="#x27-18600018.2">Run</a></span>
+<br />    <span class="sectionToc" >18.3 <a
+href="#x27-18700018.3">Check</a></span>
+<br />    <span class="sectionToc" >18.4 <a
+href="#x27-19000018.4">Debug</a></span>
+<br />     <span class="subsectionToc" >18.4.1 <a
+href="#x27-19100018.4.1">GDB commands</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">18.1   </span> <a
+href="index.html#QQ2-27-187" id="x27-18000018.1">Building</a></h3>
+<!--l. 32--><p class="noindent" >Urbi SDK uses qibuild as its buildsystem.
+</p><!--l. 34--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">18.1.1   </span> <a
+href="contents.html#QQ2-27-188" id="x27-18100018.1.1">Getting and installing qibuild</a></h4>
+<!--l. 36--><p class="noindent" >The simplest and recommended way if you have python and pip is:
+</p><!--l. 38--><p class="indent" >   <div class="code shell">
+<!--l. 38--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-181001r1"></a></span><span class="cmtt-10x-x-109">$ pip install qibuild</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-181002r2"></a></span></pre>
+   </div>
+<!--l. 42--><p class="indent" >   Otherwise you can build it from sources:
+</p><!--l. 44--><p class="indent" >   <div class="code shell">
+<!--l. 44--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-181003r1"></a></span><span class="cmtt-10x-x-109">$ git clone https://github.com/aldebaran/qibuild </span><br /><span class="label"><a
+ id="x27-181004r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">cd</span></span><span class="cmtt-10x-x-109"> qibuild </span><br /><span class="label"><a
+ id="x27-181005r3"></a></span><span class="cmtt-10x-x-109">$ python setup.py install </span><!--l. 47--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># without pip</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-181006r4"></a></span></pre>
+   </div>
+<!--l. 50--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">18.1.2   </span> <a
+href="contents.html#QQ2-27-189" id="x27-18200018.1.2">Setting up an urbi worktree</a></h4>
+<!--l. 52--><p class="noindent" ><div class="code shell">
+<!--l. 52--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-182001r1"></a></span><span class="cmtt-10x-x-109">$ mkdir work </span><br /><span class="label"><a
+ id="x27-182002r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">cd</span></span><span class="cmtt-10x-x-109"> work </span><br /><span class="label"><a
+ id="x27-182003r3"></a></span><span class="cmtt-10x-x-109">$ qisrc init </span><br /><span class="label"><a
+ id="x27-182004r4"></a></span><span class="cmtt-10x-x-109">$ qisrc add https://github.com/aldebaran/libport.git </span><br /><span class="label"><a
+ id="x27-182005r5"></a></span><span class="cmtt-10x-x-109">$ qisrc add https://github.com/aldebaran/urbi.git </span><br /><span class="label"><a
+ id="x27-182006r6"></a></span><span class="cmtt-10x-x-109">$ qisrc add https://github.com/aldebaran/libjpeg.git</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-182007r7"></a></span></pre>
+   </div>
+<!--l. 61--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">18.1.3   </span> <a
+href="contents.html#QQ2-27-190" id="x27-18300018.1.3">Building</a></h4>
+<!--l. 63--><p class="noindent" ><div class="code shell">
+<!--l. 63--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-183001r1"></a></span><span class="cmtt-10x-x-109">$ qibuild configure urbi </span><br /><span class="label"><a
+ id="x27-183002r2"></a></span><span class="cmtt-10x-x-109">$ qibuild make urbi</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-183003r3"></a></span></pre>
+   </div>
+<!--l. 68--><p class="noindent" >Add <span
+class="cmtt-10x-x-109">-</span>-release to make a release build.
+</p><!--l. 70--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">18.1.4   </span> <a
+href="contents.html#QQ2-27-191" id="x27-18400018.1.4">Modifying the grammar or the AST</a></h4>
+<!--l. 72--><p class="noindent" >The build procedure above will use pregenerated ﬁles for the grammar and the AST ﬁles.
+</p><!--l. 75--><p class="indent" >   If you wish to modify ugrammar.y, utoken.l, or ast.yml, you must enable grammar/ast processing
+by passing <span
+class="cmtt-10x-x-109">-</span>DHAVE_CUSTOM_BISON=On. This currently requires custom patches into bison that
+you can ﬁnd in urbi-sdk 2.7.5 source tarball.
+</p><!--l. 80--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">18.1.5   </span> <a
+href="contents.html#QQ2-27-192" id="x27-18500018.1.5">Installing</a></h4>
+<!--l. 82--><p class="noindent" ><div class="code shell">
+<!--l. 82--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-185001r1"></a></span><span class="cmtt-10x-x-109">$ qibuild install urbi &#x003C;INSTALL\_DIR&#x003E; </span><!--l. 83--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># add --release for release build</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-185002r2"></a></span></pre>
+   </div>
+<!--l. 86--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">18.2   </span> <a
+href="index.html#QQ2-27-193" id="x27-18600018.2">Run</a></h3>
+<!--l. 89--><p class="noindent" >You can now run the <span
+class="cmtt-10x-x-109">u</span>rbi-launch binary, either from the build directory or the install directory. See
+<a
+href="programs.html#x30-21200019.5">Section 19.5<!--tex4ht:ref: sec:tut:import --></a> for informations on its command line.
+</p><!--l. 93--><p class="indent" >   In addition to the “public” environment variables (<a
+href="programs.html#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:tut:import --></a>), some other, reserved for
+developers, alter the behavior of the programs.
+</p><!--l. 97--><p class="indent" >
+     </p><dl class="list1"><dt class="list">
+<a
+ id="x27-186001"></a><span class="cmtt-10x-x-109">URBI_ACCEPT_BINARY_MISMATCH</span> </dt><dd
+class="list">
+     <!--l. 98--><p class="noindent" >As a safety net, Urbi checks that loaded modules were compiled with exactly the same
+     version of Urbi SDK. Deﬁne this variable to skip this check, at your own risks.
+     </p></dd><dt class="list">
+<a
+ id="x27-186002"></a><span class="cmtt-10x-x-109">URBI_CHECK_MODE</span> </dt><dd
+class="list">
+     <!--l. 102--><p class="noindent" >Skip lines in input that look like Urbi output. A way to accept test ﬁles (‘<span
+class="cmtt-10x-x-109">*.chk</span>&#x2019;) as input.
+     </p></dd><dt class="list">
+<a
+ id="x27-186003"></a><span class="cmtt-10x-x-109">URBI_DESUGAR</span> </dt><dd
+class="list">
+     <!--l. 105--><p class="noindent" >Display the desugared ASTs instead of the original one.
+     </p></dd><dt class="list">
+<a
+ id="x27-186004"></a><span class="cmtt-10x-x-109">URBI_DOC</span> </dt><dd
+class="list">
+     <!--l. 108--><p class="noindent" >Where to ﬁnd the ﬁledoc directory, which contains ‘<span
+class="cmtt-10x-x-109">THANKS.txt</span>&#x2019; and so forth.
+     </p></dd><dt class="list">
+<a
+ id="x27-186005"></a><span class="cmtt-10x-x-109">URBI_IGNORE_URBI_U</span> </dt><dd
+class="list">
+     <!--l. 111--><p class="noindent" >Ignore failures (such as diﬀerences between kernel revision and ‘<span
+class="cmtt-10x-x-109">urbi.u</span>&#x2019; revision) during
+     the initialization.
+     </p></dd><dt class="list">
+<a
+ id="x27-186006"></a><span class="cmtt-10x-x-109">URBI_INTERACTIVE</span> </dt><dd
+class="list">
+     <!--l. 114--><p class="noindent" >Force the interactive mode, as if ‘<span
+class="cmtt-10x-x-109">--interactive</span>&#x2019; was passed.
+     </p></dd><dt class="list">
+<a
+ id="x27-186007"></a><span class="cmtt-10x-x-109">URBI_LAUNCH</span> </dt><dd
+class="list">
+     <!--l. 117--><p class="noindent" >The path to <span
+class="cmtt-10x-x-109">urbi-launch </span>that <span
+class="cmtt-10x-x-109">urbi.exe </span>will exec.
+     </p></dd><dt class="list">
+<a
+ id="x27-186008"></a><span class="cmtt-10x-x-109">URBI_NO_ICE_CATCHER</span> </dt><dd
+class="list">
+     <!--l. 120--><p class="noindent" >Don&#x2019;t try to catch SEGVs.
+     </p></dd><dt class="list">
+<a
+ id="x27-186009"></a><span class="cmtt-10x-x-109">URBI_PARSER</span> </dt><dd
+class="list">
+     <!--l. 122--><p class="noindent" >Enable Bison parser traces. Obsolete, use the <span
+class="cmtt-10x-x-109">Urbi.Parser </span>category and <span class="cmtt-10x-x-109">GD_CATEGORY</span>
+     instead (<a
+href="programs.html#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:tut:import --></a>).
+     </p></dd><dt class="list">
+<a
+ id="x27-186010"></a><span class="cmtt-10x-x-109">URBI_REPORT</span> </dt><dd
+class="list">
+     <!--l. 126--><p class="noindent" >Display statistics about execution rounds performed by the kernel.
+     </p></dd><dt class="list">
+<a
+ id="x27-186011"></a><span class="cmtt-10x-x-109">URBI_ROOT_LIB</span><span
+class="cmitt-10x-x-109">name</span> </dt><dd
+class="list">
+     <!--l. 129--><p class="noindent" >The  location  of  the  libraries  to  load,  without  the  extension.  The  <span
+class="cmtt-10x-x-109">LIB</span><span
+class="cmitt-10x-x-109">name  </span>are:
+     LIBJPEG4URBI, LIBPLUGIN (libuobject plugin), LIBPORT, LIBREMOTE (libuobject
+     remote), LIBSCHED, LIBSERIALIZE, LIBURBI.
+     </p></dd><dt class="list">
+<a
+ id="x27-186012"></a><span class="cmtt-10x-x-109">URBI_SCANNER</span> </dt><dd
+class="list">
+     <!--l. 134--><p class="noindent" >Enable Flex scanner traces. Obsolete, use the <span
+class="cmtt-10x-x-109">Urbi.Scanner </span>category and <span class="cmtt-10x-x-109">GD_CATEGORY</span>
+     instead (<a
+href="programs.html#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:tut:import --></a>).
+     </p></dd><dt class="list">
+<a
+ id="x27-186013"></a><span class="cmtt-10x-x-109">URBI_SHARE</span> </dt><dd
+class="list">
+     <!--l. 138--><p class="noindent" >Where   to   ﬁnd   the   ﬁleshare   directory,   which   contains   ‘<span
+class="cmtt-10x-x-109">images/gostai-logo</span>&#x2019;,
+     ‘<span
+class="cmtt-10x-x-109">urbi/urbi.u</span>&#x2019; and so forth.
+     </p></dd><dt class="list">
+<a
+ id="x27-186014"></a><span class="cmtt-10x-x-109">URBI_SHARE</span> </dt><dd
+class="list">
+     <!--l. 141--><p class="noindent" >Where   to   ﬁnd   the   ﬁleshare   directory,   which   contains   ‘<span
+class="cmtt-10x-x-109">images/gostai-logo</span>&#x2019;,
+     ‘<span
+class="cmtt-10x-x-109">urbi/urbi.u</span>&#x2019; and so forth.
+     </p></dd><dt class="list">
+<a
+ id="x27-186015"></a><span class="cmtt-10x-x-109">URBI_TEXT_MODE</span> </dt><dd
+class="list">
+     <!--l. 144--><p class="noindent" >Forbid binary communications with UObjects.
+     </p></dd><dt class="list">
+<a
+ id="x27-186016"></a><span class="cmtt-10x-x-109">URBI_TOPLEVEL</span> </dt><dd
+class="list">
+     <!--l. 146--><p class="noindent" >Force the display the result of the top-level evaluation into the lobby.</p></dd></dl>
+<!--l. 150--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">18.3   </span> <a
+href="index.html#QQ2-27-194" id="x27-18700018.3">Check</a></h3>
+<!--l. 153--><p class="noindent" ><span class="paragraphHead"><a
+href="#x27-18800018.3" id="x27-18800018.3"><span
+class="cmbx-10x-x-109">Root</span></a></span>
+   Running the test-suite as a super-user (root) is a bad idea (<a
+href="#x27-17900018">Listing 18<!--tex4ht:ref: sec:tut:import --></a>): some tests
+check that Urbi SDK respects ﬁle permissions, which of course cannot work if you are
+omnipotent.
+</p>
+<!--l. 158--><p class="noindent" ><span class="paragraphHead"><a
+href="#x27-18900018.3" id="x27-18900018.3"><span
+class="cmbx-10x-x-109">Parallel Tests</span></a></span>
+   There are several test suites that will be run if you run ‘<span
+class="cmtt-10x-x-109">qibuild test</span>&#x2019; (‘<span
+class="cmtt-10x-x-109">-j4</span>&#x2019; works on most
+machines).
+</p><!--l. 162--><p class="indent" >   Some tests are extremely “touchy”. Because the test suite exercises Urbi under extreme conditions,
+some tests may fail not because of a problem in Urbi, but because of non-determinism in the test itself.
+In this case, another run of ‘<span
+class="cmtt-10x-x-109">qibuild test</span>&#x2019; will give an opportunity for the test to pass (remind that
+the tests that passed will not be run again). Also, using ‘<span
+class="cmtt-10x-x-109">qibuild test -j16</span>&#x2019; is a sure means to have
+the Urbi scheduler behave insuﬃciently well for the test to pass. <span
+class="cmbx-10x-x-109">Do not send bug reports for such</span>
+<span
+class="cmbx-10x-x-109">failures.</span>. Before reporting bugs, make sure that the failures remain after a few ‘<span
+class="cmtt-10x-x-109">qibuild test -j1</span>&#x2019;
+invocations.
+</p><!--l. 174--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">18.4   </span> <a
+href="index.html#QQ2-27-197" id="x27-19000018.4">Debug</a></h3>
+<!--l. 177--><p class="noindent" >Urbi can be debugged with <span
+class="cmtt-10x-x-109">gdb</span>. It is highly recommended to use ‘<span
+class="cmtt-10x-x-109">--enable-compilation-mode=debug</span>&#x2019; to
+conﬁgure if you intend to debug (see <a
+href="#x27-17900018">Listing 18<!--tex4ht:ref: sec:tut:import --></a>).
+</p><!--l. 181--><p class="indent" >   When compiled in debug mode, gdb extensions would be installed in the library directory and
+inside the share directory. These extensions are also available if you run gdb inside the root of the
+source directory.
+</p><!--l. 185--><p class="indent" >   These extensions provide pretty printing of some C++ objects, such as AST nodes, Urbi objects,
+intrusive pointers. Additional commands are provided for printing an equivalent of the urbiscript
+backtrace and for adding and removing breakpoints set on urbiscript.
+</p><!--l. 190--><p class="indent" >   To beneﬁt from these extensions, install a recent gdb (higher than 7.2). Older versions may not be
+able to load the extensions, or may not provide the features on which the extensions rely. To avoid
+disturbance in case the extension cause much trouble than beneﬁts, gdb can be run with extra
+arguments to disable these extensions.
+</p><!--l. 196--><p class="indent" >   <div class="code shell">
+<!--l. 196--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-190001r1"></a></span><span class="cmtt-10x-x-109">$ gdb -xe </span><!--l. 197--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x2019;set auto-load-scripts no&#x2019;</span></span></span><span class="cmtt-10x-x-109"> urbi</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x27-190002r2"></a></span></pre>
+   </div>
+<!--l. 200--><p class="indent" >   The following sections assume that gdb is recent enough.
+</p><!--l. 202--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">18.4.1   </span> <a
+href="contents.html#QQ2-27-198" id="x27-19100018.4.1">GDB commands</a></h4>
+     <dl class="description"><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi stack</span> </dt><dd
+class="description">Print the backtrace of the current coroutine. The backtrace is indexed by the C++
+     frame numbers and includes frame which are manipulating the sources. Each primitive
+     object is pretty printed inside this backtrace.
+     <div class="verbatim" id="verbatim-8">
+        <!--l. 210--><pre class="listings"> <br /><span class="label"><a
+ id="x27-191001r1"></a></span><span class="textkwd">(gdb)</span> b urbi::object::system_backtrace <br /><span class="label"><a
+ id="x27-191002r2"></a></span>Breakpoint 1 at 0x7ffff4be229d: file system.cc, line 305. <br /><span class="label"><a
+ id="x27-191003r3"></a></span><span class="textkwd">(gdb)</span> c <br /><span class="label"><a
+ id="x27-191004r4"></a></span>Continuing. <br /><span class="label"><a
+ id="x27-191005r5"></a></span> <br /><span class="label"><a
+ id="x27-191006r6"></a></span>//#push 1 &#x0022;input.u&#x0022; <br /><span class="label"><a
+ id="x27-191007r7"></a></span>function foo (x) { backtrace }|; <br /><span class="label"><a
+ id="x27-191008r8"></a></span>for(var i: [1]) foo([i.asString =&#x003E; i]); <br /><span class="label"><a
+ id="x27-191009r9"></a></span> <br /><span class="label"><a
+ id="x27-191010r10"></a></span> <br /><span class="label"><a
+ id="x27-191011r11"></a></span>Breakpoint 1, urbi::object::system_backtrace () at system.cc:305 <br /><span class="label"><a
+ id="x27-191012r12"></a></span>305           runner::Job&#x0026; r = runner(); <br /><span class="label"><a
+ id="x27-191013r13"></a></span><span class="textkwd">(gdb)</span> urbi stack <br /><span class="label"><a
+ id="x27-191014r14"></a></span>#12 [input.u:1.20-29] Lobby_0x7ffff7f03208.backtrace() <br /><span class="label"><a
+ id="x27-191015r15"></a></span>#16 [input.u:1.20-29] Call backtrace <br /><span class="label"><a
+ id="x27-191016r16"></a></span>#19 [input.u:1.20-29] Scope <br /><span class="label"><a
+ id="x27-191017r17"></a></span>#22 [input.u:2.17-39] Lobby_0x7ffff7f03208.foo([&#x0022;1&#x0022; =&#x003E; 1]) <br /><span class="label"><a
+ id="x27-191018r18"></a></span>#26 [input.u:2.17-39] Call foo <br /><span class="label"><a
+ id="x27-191019r19"></a></span>#29 [input.u:2.17-39] Scope <br /><span class="label"><a
+ id="x27-191020r20"></a></span>#32 [flower/flower.cc:132.19-25] Scope <br /><span class="label"><a
+ id="x27-191021r21"></a></span>#35 [??] Code_0x7ffff7fbdfb8.each(1) <br /><span class="label"><a
+ id="x27-191022r22"></a></span>#48 [input.u:2.12-39] [1].each(Code_0x7ffff7fbdfb8) <br /><span class="label"><a
+ id="x27-191023r23"></a></span>#52 [input.u:2.12-39] Call each <br /><span class="label"><a
+ id="x27-191024r24"></a></span>#55 [input.u:2.1-40] Stmt
+         <br /><span class="label"><a
+ id="x27-191025r25"></a></span></pre>
+</div>
+     <!--l. 235--><p class="nopar" >
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi break</span> </dt><dd
+class="description">Set a breakpoint on an urbiscript function. A breakpoint is deﬁned with at least a
+     message and additional optional information such as a ﬁle, a line, a target and arguments can be
+     used as condition for the breakpoint. Be aware that the target and the arguments are lexically
+     compared with the pretty-printed versions.
+     <div class="verbatim" id="verbatim-9">
+        <!--l. 243--><pre class="listings"> <br /><span class="label"><a
+ id="x27-191026r1"></a></span><span class="textkwd">(gdb)</span> urbi break input.u:2 Lobby_0x7ffff7f03208.foo([&#x0022;2&#x0022; =&#x003E; 2]) <br /><span class="label"><a
+ id="x27-191027r2"></a></span>UBreakpoint 1: <br /><span class="label"><a
+ id="x27-191028r3"></a></span>        Location: input.u:2 <br /><span class="label"><a
+ id="x27-191029r4"></a></span>        Lobby_0x7ffff7f03208.foo([&#x0022;2&#x0022; =&#x003E; 2]) <br /><span class="label"><a
+ id="x27-191030r5"></a></span><span class="textkwd">(gdb)</span> c <br /><span class="label"><a
+ id="x27-191031r6"></a></span>Continuing. <br /><span class="label"><a
+ id="x27-191032r7"></a></span> <br /><span class="label"><a
+ id="x27-191033r8"></a></span>//#push 1 &#x0022;input.u&#x0022; <br /><span class="label"><a
+ id="x27-191034r9"></a></span>function foo (x) { backtrace }|; <br /><span class="label"><a
+ id="x27-191035r10"></a></span>for(var i: [1, 2, 3]) foo([i.asString =&#x003E; i]); <br /><span class="label"><a
+ id="x27-191036r11"></a></span> <br /><span class="label"><a
+ id="x27-191037r12"></a></span>[00219506:backtrace] foo (input.u:2.23-44) <br /><span class="label"><a
+ id="x27-191038r13"></a></span>[00219506:backtrace] each (input.u:2.12-44) <br /><span class="label"><a
+ id="x27-191039r14"></a></span>UBreakpoint 1: [input.u:2.23-45] Lobby_0x7ffff7f03208.foo([&#x0022;2&#x0022; =&#x003E; 2]) <br /><span class="label"><a
+ id="x27-191040r15"></a></span>Inside Job 0x6a2f70 <br /><span class="label"><a
+ id="x27-191041r16"></a></span><span class="textkwd">(gdb)</span>
+         <br /><span class="label"><a
+ id="x27-191042r17"></a></span></pre>
+</div>
+     <!--l. 260--><p class="nopar" >
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi delete</span> </dt><dd
+class="description">Remove a breakpoint set by <span
+class="cmtt-10x-x-109">urbi-break</span>. It expects one argument: the Urbi breakpoint
+     number.
+     <div class="verbatim" id="verbatim-10">
+        <!--l. 266--><pre class="listings"> <br /><span class="label"><a
+ id="x27-191043r1"></a></span><span class="textkwd">(gdb)</span> urbi break foo <br /><span class="label"><a
+ id="x27-191044r2"></a></span>UBreakpoint 2: <br /><span class="label"><a
+ id="x27-191045r3"></a></span>        &#x003C;any&#x003E;.foo(&#x003C;any&#x003E;) <br /><span class="label"><a
+ id="x27-191046r4"></a></span><span class="textkwd">(gdb)</span> urbi delete 2 <br /><span class="label"><a
+ id="x27-191047r5"></a></span>UBreakpoint 2: <br /><span class="label"><a
+ id="x27-191048r6"></a></span>        Removed
+         <br /><span class="label"><a
+ id="x27-191049r7"></a></span></pre>
+</div>
+     <!--l. 273--><p class="nopar" >
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi call</span> </dt><dd
+class="description">Evaluate its arguments as an urbiscript call to eval. Live objects can be manipulated easily
+     by using the object name followed by its address.
+     <div class="verbatim" id="verbatim-11">
+        <!--l. 279--><pre class="listings"> <br /><span class="label"><a
+ id="x27-191050r1"></a></span><span class="textkwd">(gdb)</span> urbi call Lobby_0x7ffff7f03208.echo(42) <br /><span class="label"><a
+ id="x27-191051r2"></a></span>[00219506] *** 42
+         <br /><span class="label"><a
+ id="x27-191052r3"></a></span></pre>
+</div>
+     <!--l. 282--><p class="nopar" >
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi print</span> </dt><dd
+class="description">Do the same as <span
+class="cmtt-10x-x-109">urbi call </span>except that the result of the expression is printed at the end of
+     the evaluation. Objects printed like that are likely to be destroyed at the end of the command
+     unless the value has been stored in a global variable.
+     <div class="verbatim" id="verbatim-12">
+        <!--l. 289--><pre class="listings"> <br /><span class="label"><a
+ id="x27-191053r1"></a></span><span class="textkwd">(gdb)</span> urbi print { var a = &#x0022;1&#x0022;; var b = [1]; [a =&#x003E; b] } <br /><span class="label"><a
+ id="x27-191054r2"></a></span>[&#x0022;1&#x0022; =&#x003E; [1]]
+         <br /><span class="label"><a
+ id="x27-191055r3"></a></span></pre>
+</div>
+     <!--l. 292--><p class="nopar" >
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi continue</span> </dt><dd
+class="description">Alias to <span
+class="cmtt-10x-x-109">continue</span>.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi ﬁnish</span> </dt><dd
+class="description">Execute until the end of the current function.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi next</span> </dt><dd
+class="description">Execute until next Urbi function call.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi next job</span> </dt><dd
+class="description">Execute until a function call is executed in another job.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">urbi step</span> </dt><dd
+class="description">Execute next Urbi function call until it return to the current function scope or leave the
+     current scope.
+     <div class="verbatim" id="verbatim-13">
+        <!--l. 301--><pre class="listings"> <br /><span class="label"><a
+ id="x27-191056r1"></a></span><span class="textkwd">(gdb)</span> urbi break foo <br /><span class="label"><a
+ id="x27-191057r2"></a></span>UBreakpoint 1: <br /><span class="label"><a
+ id="x27-191058r3"></a></span>        &#x003C;any&#x003E;.foo(&#x003C;any&#x003E;) <br /><span class="label"><a
+ id="x27-191059r4"></a></span><span class="textkwd">(gdb)</span> urbi continue <br /><span class="label"><a
+ id="x27-191060r5"></a></span> <br /><span class="label"><a
+ id="x27-191061r6"></a></span>//#push 1 &#x0022;input.u&#x0022; <br /><span class="label"><a
+ id="x27-191062r7"></a></span>function foo () { <br /><span class="label"><a
+ id="x27-191063r8"></a></span>  [1].map(closure (x) { x }); // yield <br /><span class="label"><a
+ id="x27-191064r9"></a></span>  [2].map(closure (x) { x }); // yield <br /><span class="label"><a
+ id="x27-191065r10"></a></span>  [3].map(closure (x) { x }) <br /><span class="label"><a
+ id="x27-191066r11"></a></span>}| <br /><span class="label"><a
+ id="x27-191067r12"></a></span>/* first */ foo &#x0026; foo /* second */; <br /><span class="label"><a
+ id="x27-191068r13"></a></span> <br /><span class="label"><a
+ id="x27-191069r14"></a></span>UBreakpoint 1: [input.u:6.1-4] Lobby_0x7ffff35137a8.foo() <br /><span class="label"><a
+ id="x27-191070r15"></a></span>Inside Job 0x6a2f70 <br /><span class="label"><a
+ id="x27-191071r16"></a></span><span class="textkwd">(gdb)</span> <!--l. 317--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">Go</span><span class="textcmt"> </span><span class="textcmt">deeper</span><span class="textcmt"> </span><span class="textcmt">inside</span><span class="textcmt"> </span><span class="textcmt">foo</span></span> <br /><span class="label"><a
+ id="x27-191072r17"></a></span><span class="textkwd">(gdb)</span> urbi next <br /><span class="label"><a
+ id="x27-191073r18"></a></span>[input.u:2.3-29] [1].map(Code_0x7ffff3659338) <br /><span class="label"><a
+ id="x27-191074r19"></a></span><span class="textkwd">(gdb)</span> urbi next <br /><span class="label"><a
+ id="x27-191075r20"></a></span>[urbi/list.u:129.18-130.18] [1].each|(Code_0x7ffff3658960) <br /><span class="label"><a
+ id="x27-191076r21"></a></span><span class="textkwd">(gdb)</span> <!--l. 322--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">The</span><span class="textcmt"> </span><span class="textcmt">current</span><span class="textcmt"> </span><span class="textcmt">coroutine</span><span class="textcmt"> </span><span class="textcmt">will</span><span class="textcmt"> </span><span class="textcmt">hold</span><span class="textcmt"> </span><span class="textcmt">on</span><span class="textcmt"> </span><span class="textcmt">the</span><span class="textcmt"> </span><span class="textcmt">next</span><span class="textcmt"> </span><span class="textcmt">function</span><span class="textcmt"> </span><span class="textcmt">call</span><span class="textcmt"> </span><span class="textcmt">after</span><span class="textcmt"> </span><span class="textcmt">map</span></span> <br /><span class="label"><a
+ id="x27-191077r22"></a></span><span class="textkwd">(gdb)</span> urbi finish <br /><span class="label"><a
+ id="x27-191078r23"></a></span>UBreakpoint 1: [input.u:6.7-10] Lobby_0x7ffff35137a8.foo() <br /><span class="label"><a
+ id="x27-191079r24"></a></span>Inside Job 0x9fab50 <br /><span class="label"><a
+ id="x27-191080r25"></a></span><span class="textkwd">(gdb)</span> <!--l. 326--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">The</span><span class="textcmt"> </span><span class="textcmt">breakpoint</span><span class="textcmt"> </span><span class="textcmt">has</span><span class="textcmt"> </span><span class="textcmt">hit</span><span class="textcmt"> </span><span class="textcmt">on</span><span class="textcmt"> </span><span class="textcmt">the</span><span class="textcmt"> </span><span class="textcmt">second</span><span class="textcmt"> </span><span class="textcmt">job</span><span class="textcmt"> </span><span class="textcmt">calling</span><span class="textcmt"> </span><span class="textcmt">foo</span><span class="textcmt">.</span></span> <br /><span class="label"><a
+ id="x27-191081r26"></a></span><span class="textkwd">(gdb)</span> <!--l. 327--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">Ignore</span><span class="textcmt"> </span><span class="textcmt">this</span><span class="textcmt"> </span><span class="textcmt">job,</span><span class="textcmt"> </span><span class="textcmt">with</span><span class="textcmt"> </span><span class="textcmt">&#x0022;</span><span class="textcmt">urbi</span><span class="textcmt"> </span><span class="textcmt">continue</span><span class="textcmt">&#x0022;</span></span> <br /><span class="label"><a
+ id="x27-191082r27"></a></span><span class="textkwd">(gdb)</span> urbi continue <br /><span class="label"><a
+ id="x27-191083r28"></a></span>[input.u:3.3-29] [2].map(Code_0x7ffff365ca10) <br /><span class="label"><a
+ id="x27-191084r29"></a></span>Inside Job 0x6a2f70 <br /><span class="label"><a
+ id="x27-191085r30"></a></span><span class="textkwd">(gdb)</span> <!--l. 331--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">Back</span><span class="textcmt"> </span><span class="textcmt">into</span><span class="textcmt"> </span><span class="textcmt">the</span><span class="textcmt"> </span><span class="textcmt">first</span><span class="textcmt"> </span><span class="textcmt">job</span><span class="textcmt"> </span><span class="textcmt">where</span><span class="textcmt"> </span><span class="textcmt">the</span><span class="textcmt"> </span><span class="textcmt">finish</span><span class="textcmt"> </span><span class="textcmt">has</span><span class="textcmt"> </span><span class="textcmt">ended</span><span class="textcmt">.</span></span> <br /><span class="label"><a
+ id="x27-191086r31"></a></span><span class="textkwd">(gdb)</span> <!--l. 332--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">Step</span><span class="textcmt"> </span><span class="textcmt">over</span><span class="textcmt"> </span><span class="textcmt">the</span><span class="textcmt"> </span><span class="textcmt">map</span><span class="textcmt"> </span><span class="textcmt">call</span><span class="textcmt">.</span></span> <br /><span class="label"><a
+ id="x27-191087r32"></a></span><span class="textkwd">(gdb)</span> urbi step <br /><span class="label"><a
+ id="x27-191088r33"></a></span>[input.u:4.3-29] [3].map(Code_0x7ffff36600e8) <br /><span class="label"><a
+ id="x27-191089r34"></a></span><span class="textkwd">(gdb)</span> <!--l. 335--><span class="listings-nested"><span class="textcmt">#</span><span class="textcmt"> </span><span class="textcmt">Switch</span><span class="textcmt"> </span><span class="textcmt">to</span><span class="textcmt"> </span><span class="textcmt">the</span><span class="textcmt"> </span><span class="textcmt">next</span><span class="textcmt"> </span><span class="textcmt">job</span><span class="textcmt"> </span><span class="textcmt">to</span><span class="textcmt"> </span><span class="textcmt">be</span><span class="textcmt"> </span><span class="textcmt">executed</span><span class="textcmt">.</span></span> <br /><span class="label"><a
+ id="x27-191090r35"></a></span><span class="textkwd">(gdb)</span> urbi next job <br /><span class="label"><a
+ id="x27-191091r36"></a></span>[input.u:4.3-29] [3].map(Code_0x7ffff365d6b8) <br /><span class="label"><a
+ id="x27-191092r37"></a></span>Inside Job 0x9fab50 <br /><span class="label"><a
+ id="x27-191093r38"></a></span><span class="textkwd">(gdb)</span>
+         <br /><span class="label"><a
+ id="x27-191094r39"></a></span></pre>
+</div>
+     <!--l. 340--><p class="nopar" >
+</p>
+     </dd></dl>
+</body></html>

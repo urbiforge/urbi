@@ -1,0 +1,1802 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>14 Frequently Asked Questions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="urbi-guideline.html" >Next</a><a
+href="guidelines-and-cook-books.html#faq.html" >Up</a><a
+href="installation.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 14</span><br /><a
+href="index.html#QQ2-23-108" id="x23-10100014">Frequently Asked Questions</a></h2>
+<!--l. 11--><p class="noindent" ><!-- tex4ht:FileName="faq" -->
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >14.1 <a
+href="#x23-10200014.1">Build Issues</a></span>
+<br />     <span class="subsectionToc" >14.1.1 <a
+href="#x23-10300014.1.1">Complaints about ‘<span
+class="cmtt-10x-x-109">+=</span>&#x2019;</a></span>
+<br />     <span class="subsectionToc" >14.1.2 <a
+href="#x23-10400014.1.2">error: ‘<span
+class="cmmi-10x-x-109">&#x003C;</span>anonymous<span
+class="cmmi-10x-x-109">&#x003E;</span>&#x2019; is used uninitialized in this function</a></span>
+<br />     <span class="subsectionToc" >14.1.3 <a
+href="#x23-10500014.1.3">AM_LANGINFO_CODESET</a></span>
+<br />     <span class="subsectionToc" >14.1.4 <a
+href="#x23-10600014.1.4">conﬁgure: error: The Java VM java failed</a></span>
+<br />     <span class="subsectionToc" >14.1.5 <a
+href="#x23-10700014.1.5">‘<span
+class="cmtt-10x-x-109">make check</span>&#x2019; fails</a></span>
+<br />     <span class="subsectionToc" >14.1.6 <a
+href="#x23-10800014.1.6">check: error: Unable to load native library: libjava.jnilib</a></span>
+<br />    <span class="sectionToc" >14.2 <a
+href="#x23-10900014.2">Troubleshooting</a></span>
+<br />     <span class="subsectionToc" >14.2.1 <a
+href="#x23-11000014.2.1">error while loading shared libraries: libport.so</a></span>
+<br />     <span class="subsectionToc" >14.2.2 <a
+href="#x23-11100014.2.2">Error 1723: “A DLL required for this install to complete
+could not be run.”</a></span>
+<br />     <span class="subsectionToc" >14.2.3 <a
+href="#x23-11200014.2.3">When executing a program, the message “The system cannot
+execute the speciﬁed program.” is raised.</a></span>
+<br />     <span class="subsectionToc" >14.2.4 <a
+href="#x23-11300014.2.4">When executing a program, the message “This application
+has failed to start” is raised.</a></span>
+<br />     <span class="subsectionToc" >14.2.5 <a
+href="#x23-11400014.2.5">The server dies with “stack exhaustion”</a></span>
+<br />     <span class="subsectionToc" >14.2.6 <a
+href="#x23-11500014.2.6">&#x2019;myuobject: ﬁle not found&#x2019;. What can I do?</a></span>
+<br />   <span class="subsubsectionToc" >14.2.6.1 <a
+href="#x23-11600014.2.6.1" id="QQ2-23-123">Getting a better diagnostic</a></span><br /><span class="subsubsectionToc" >14.2.6.2 <a
+href="#x23-11700014.2.6.2" id="QQ2-23-124">GNU/Linux</a></span><br /><span class="subsubsectionToc" >14.2.6.3 <a
+href="#x23-11800014.2.6.3" id="QQ2-23-125">Mac
+OS X</a></span><br /><span class="subsubsectionToc" >14.2.6.4 <a
+href="#x23-11900014.2.6.4" id="QQ2-23-126">Windows</a></span><br />
+<br />    <span class="sectionToc" >14.3 <a
+href="#x23-12100014.3">urbiscript</a></span>
+<br />     <span class="subsectionToc" >14.3.1 <a
+href="#x23-12200014.3.1">Objects lifetime</a></span>
+<br />   <span class="subsubsectionToc" >14.3.1.1 <a
+href="#x23-12300014.3.1.1" id="QQ2-23-130">How do I create a new Object derivative?</a></span><br /><span class="subsubsectionToc" >14.3.1.2 <a
+href="#x23-12400014.3.1.2" id="QQ2-23-131">How do
+I destroy an Object?</a></span><br />
+<br />     <span class="subsectionToc" >14.3.2 <a
+href="#x23-12500014.3.2">Slots and variables</a></span>
+<br />   <span class="subsubsectionToc" >14.3.2.1 <a
+href="#x23-12600014.3.2.1" id="QQ2-23-133">Is the lobby a scope?</a></span><br /><span class="subsubsectionToc" >14.3.2.2 <a
+href="#x23-13000014.3.2.2" id="QQ2-23-137">How do I add a new slot in an
+object?</a></span><br /><span class="subsubsectionToc" >14.3.2.3 <a
+href="#x23-13100014.3.2.3" id="QQ2-23-138">How do I modify a slot of my object?</a></span><br /><span class="subsubsectionToc" >14.3.2.4 <a
+href="#x23-13200014.3.2.4" id="QQ2-23-139">How do I create
+or modify a local variable?</a></span><br /><span class="subsubsectionToc" >14.3.2.5 <a
+href="#x23-13300014.3.2.5" id="QQ2-23-140">How do I make a constructor?</a></span><br /><span class="subsubsectionToc" >14.3.2.6
+<a
+href="#x23-13400014.3.2.6" id="QQ2-23-141">How do I call a constructor of a parent class?</a></span><br /><span class="subsubsectionToc" >14.3.2.7 <a
+href="#x23-13500014.3.2.7" id="QQ2-23-142">How can I manipulate
+the list of prototypes of my objects?</a></span><br /><span class="subsubsectionToc" >14.3.2.8 <a
+href="#x23-13600014.3.2.8" id="QQ2-23-143">How can I know the slots
+available for a given object?</a></span><br /><span class="subsubsectionToc" >14.3.2.9 <a
+href="#x23-13700014.3.2.9" id="QQ2-23-144">How do I create a new function?</a></span><br />
+<br />     <span class="subsectionToc" >14.3.3 <a
+href="#x23-13800014.3.3">Tags</a></span>
+<br />   <span class="subsubsectionToc" >14.3.3.1 <a
+href="#x23-13900014.3.3.1" id="QQ2-23-146">How do I create a tag?</a></span><br /><span class="subsubsectionToc" >14.3.3.2 <a
+href="#x23-14000014.3.3.2" id="QQ2-23-147">How do I stop a tag?</a></span><br /><span class="subsubsectionToc" >14.3.3.3
+<a
+href="#x23-14100014.3.3.3" id="QQ2-23-148">Can tagged statements return a value?</a></span><br />
+<br />     <span class="subsectionToc" >14.3.4 <a
+href="#x23-14200014.3.4">Events</a></span>
+<br />   <span class="subsubsectionToc" >14.3.4.1 <a
+href="#x23-14300014.3.4.1" id="QQ2-23-150">How do I create an event?</a></span><br /><span class="subsubsectionToc" >14.3.4.2 <a
+href="#x23-14400014.3.4.2" id="QQ2-23-151">How do I emit an event?</a></span><br /><span class="subsubsectionToc" >14.3.4.3
+<a
+href="#x23-14500014.3.4.3" id="QQ2-23-152">How do I catch an event?</a></span><br />
+<br />     <span class="subsectionToc" >14.3.5 <a
+href="#x23-14600014.3.5">Standard Library</a></span>
+<br />   <span class="subsubsectionToc" >14.3.5.1 <a
+href="#x23-14700014.3.5.1" id="QQ2-23-154">How can I iterate over a list?</a></span><br />
+<br />    <span class="sectionToc" >14.4 <a
+href="#x23-14800014.4">UObjects</a></span>
+<br />     <span class="subsectionToc" >14.4.1 <a
+href="#x23-14900014.4.1">Is the UObject API Thread-Safe?</a></span>
+<br />   <span class="subsubsectionToc" >14.4.1.1 <a
+href="#x23-15000014.4.1.1" id="QQ2-23-157">Plugin mode</a></span><br /><span class="subsubsectionToc" >14.4.1.2 <a
+href="#x23-15100014.4.1.2" id="QQ2-23-158">Remote mode</a></span><br />
+<br />    <span class="sectionToc" >14.5 <a
+href="#x23-15400014.5">Miscellaneous</a></span>
+<br />     <span class="subsectionToc" >14.5.1 <a
+href="#x23-15500014.5.1">What has changed since the latest release?</a></span>
+<br />     <span class="subsectionToc" >14.5.2 <a
+href="#x23-15600014.5.2">How can I contribute to the code?</a></span>
+<br />     <span class="subsectionToc" >14.5.3 <a
+href="#x23-15700014.5.3">How do I report a bug?</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">14.1   </span> <a
+href="index.html#QQ2-23-109" id="x23-10200014.1">Build Issues</a></h3>
+<!--l. 21--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.1.1   </span> <a
+href="contents.html#QQ2-23-110" id="x23-10300014.1.1">Complaints about ‘<span
+class="cmtt-10x-x-109">+=</span>&#x2019;</a></h4>
+<!--l. 22--><p class="noindent" >Although we tried to avoid it, there might still be shell scripts where we use ‘<span
+class="cmtt-10x-x-109">+=</span>&#x2019;, which
+Ash (aka, <span
+class="cmtt-10x-x-109">dash </span>and <span
+class="cmtt-10x-x-109">sash</span>) does not support. Please, use <span
+class="cmtt-10x-x-109">bash </span>or <span
+class="cmtt-10x-x-109">zsh </span>instead of Ash as
+<span
+class="cmtt-10x-x-109">/bin/sh</span>.
+</p><!--l. 27--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.1.2   </span> <a
+href="contents.html#QQ2-23-111" id="x23-10400014.1.2">error: ‘<span
+class="cmmi-10x-x-109">&#x003C;</span>anonymous<span
+class="cmmi-10x-x-109">&#x003E;</span>&#x2019; is used uninitialized in this function</a></h4>
+<!--l. 30--><p class="noindent" >If you encounter this error:
+</p>
+   <div class="verbatim" id="verbatim-1">
+      <!--l. 32--><pre class="listings"> <br /><span class="label"><a
+ id="x23-104001r1"></a></span>cc1plus: warnings being treated as errors <br /><span class="label"><a
+ id="x23-104002r2"></a></span>parser/ugrammar.hh: In member function \ <br /><span class="label"><a
+ id="x23-104003r3"></a></span>  ‘void yy::parser::yypush_(const char*, int, yy::parser::symbol_type&#x0026;)&#x2019;: <br /><span class="label"><a
+ id="x23-104004r4"></a></span>parser/ugrammar.hh:1240: error: ‘&#x003C;anonymous&#x003E;&#x2019; is used uninitialized \ <br /><span class="label"><a
+ id="x23-104005r5"></a></span>  in this function <br /><span class="label"><a
+ id="x23-104006r6"></a></span>parser/ugrammar.cc:1305: note: ‘&#x003C;anonymous&#x003E;&#x2019; was declared here <br /><span class="label"><a
+ id="x23-104007r7"></a></span>parser/ugrammar.hh: In member function \ <br /><span class="label"><a
+ id="x23-104008r8"></a></span>  ‘void yy::parser::yypush_(const char*, yy::parser::stack_symbol_type&#x0026;)&#x2019;: <br /><span class="label"><a
+ id="x23-104009r9"></a></span>parser/ugrammar.hh:1240: error: ‘&#x003C;anonymous&#x003E;&#x2019; is used uninitialized \ <br /><span class="label"><a
+ id="x23-104010r10"></a></span>  in this function <br /><span class="label"><a
+ id="x23-104011r11"></a></span>parser/ugrammar.cc:1475: note: ‘&#x003C;anonymous&#x003E;&#x2019; was declared here
+       <br /><span class="label"><a
+ id="x23-104012r12"></a></span></pre>
+</div>
+<!--l. 44--><p class="nopar" >
+</p><!--l. 46--><p class="noindent" >then you found a problem that we don&#x2019;t know how to resolved currently. Downgrade from GCC-4.4 to
+GCC-4.3.
+</p><!--l. 50--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.1.3   </span> <a
+href="contents.html#QQ2-23-112" id="x23-10500014.1.3">AM_LANGINFO_CODESET</a></h4>
+<!--l. 52--><p class="noindent" >If at bootstrap you have something like:
+</p>
+   <div class="verbatim" id="verbatim-2">
+      <!--l. 54--><pre class="listings"> <br /><span class="label"><a
+ id="x23-105001r1"></a></span>configure:12176: error: possibly undefined macro: AM_LANGINFO_CODESET <br /><span class="label"><a
+ id="x23-105002r2"></a></span> If this token and others are legitimate, please use m4_pattern_allow. <br /><span class="label"><a
+ id="x23-105003r3"></a></span> See the Autoconf documentation. <br /><span class="label"><a
+ id="x23-105004r4"></a></span>configure:12246: error: possibly undefined macro: gl_GLIBC21
+       <br /><span class="label"><a
+ id="x23-105005r5"></a></span></pre>
+</div>
+<!--l. 59--><p class="nopar" >
+</p><!--l. 61--><p class="noindent" >it probably means your Automake installation is incomplete. See the Automake item in
+<a
+href="build.html#x27-18000018.1">Section 18.1<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p><!--l. 88--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.1.4   </span> <a
+href="contents.html#QQ2-23-113" id="x23-10600014.1.4">conﬁgure: error: The Java VM java failed</a></h4>
+<!--l. 91--><p class="noindent" >If you experience the following failure:
+</p>
+   <div class="verbatim" id="verbatim-3">
+      <!--l. 93--><pre class="listings"> <br /><span class="label"><a
+ id="x23-106001r1"></a></span>checking if java works... <br /><span class="label"><a
+ id="x23-106002r2"></a></span>configure: error: The Java VM java failed <br /><span class="label"><a
+ id="x23-106003r3"></a></span>                 (see config.log, check the CLASSPATH?)
+       <br /><span class="label"><a
+ id="x23-106004r4"></a></span></pre>
+</div>
+<!--l. 97--><p class="nopar" >
+</p><!--l. 99--><p class="noindent" >and if you looked at ‘<span
+class="cmtt-10x-x-109">config.log</span>&#x2019;, you should ﬁnd something like:
+</p>
+   <div class="verbatim" id="verbatim-4">
+      <!--l. 102--><pre class="listings"> <br /><span class="label"><a
+ id="x23-106005r1"></a></span>Exception in thread &#x0022;main&#x0022; java.lang.NoClassDefFoundError: Test <br /><span class="label"><a
+ id="x23-106006r2"></a></span>Caused by: java.lang.ClassNotFoundException: Test <br /><span class="label"><a
+ id="x23-106007r3"></a></span>         at java.net.URLClassLoader$1.run(URLClassLoader.java:202) <br /><span class="label"><a
+ id="x23-106008r4"></a></span>         at java.security.AccessController.doPrivileged(Native Method) <br /><span class="label"><a
+ id="x23-106009r5"></a></span>         at java.net.URLClassLoader.findClass(URLClassLoader.java:190) <br /><span class="label"><a
+ id="x23-106010r6"></a></span>         at java.lang.ClassLoader.loadClass(ClassLoader.java:306) <br /><span class="label"><a
+ id="x23-106011r7"></a></span>         at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301) <br /><span class="label"><a
+ id="x23-106012r8"></a></span>         at java.lang.ClassLoader.loadClass(ClassLoader.java:247) <br /><span class="label"><a
+ id="x23-106013r9"></a></span> Could not find the main class: Test.  Program will exit.
+       <br /><span class="label"><a
+ id="x23-106014r10"></a></span></pre>
+</div>
+<!--l. 112--><p class="nopar" >
+</p><!--l. 114--><p class="indent" >   You might be trying to compile Urbi SDK from a directory with non-ASCII characters in its full
+name (for instance ‘<span class="cmtt-10x-x-109">/home/jessy/Téléchargements/Sources</span>&#x2019;). In that case the JVM fails to
+decode properly the path, and <span
+class="cmtt-10x-x-109">configure </span>fails with the above message.
+</p><!--l. 120--><p class="indent" >   Move you sources elsewhere, with only plain ASCII characters, such as ‘<span
+class="cmtt-10x-x-109">/home/jessy/Sources</span>&#x2019;.
+</p><!--l. 123--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.1.5   </span> <a
+href="contents.html#QQ2-23-114" id="x23-10700014.1.5">‘<span
+class="cmtt-10x-x-109">make check</span>&#x2019; fails</a></h4>
+<!--l. 125--><p class="noindent" >Be sure to read <a
+href="build.html#x27-18700018.3">Section 18.3<!--tex4ht:ref: sec:lang:waituntil --></a>. In particular, run ‘<span
+class="cmtt-10x-x-109">make check</span>&#x2019; several times (see <a
+href="build.html#x27-18700018.3">Section 18.3<!--tex4ht:ref: sec:lang:waituntil --></a> to know
+why). If the failures remain, please submit the ‘<span
+class="cmtt-10x-x-109">test-suite.log</span>&#x2019; ﬁle(s) (see <a
+href="#x23-15700014.5.3">Section 14.5.3<!--tex4ht:ref: sec:lang:waituntil --></a>).
+</p><!--l. 130--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.1.6   </span> <a
+href="contents.html#QQ2-23-115" id="x23-10800014.1.6">check: error: Unable to load native library: libjava.jnilib</a></h4>
+<!--l. 133--><p class="noindent" >If you experience the following failure on Mac OS X:
+</p>
+   <div class="verbatim" id="verbatim-5">
+      <!--l. 135--><pre class="listings"> <br /><span class="label"><a
+ id="x23-108001r1"></a></span>$ urbi-launch-java --port-file server.port tests/all/All.jar <br /><span class="label"><a
+ id="x23-108002r2"></a></span>Error occurred during initialization of VM <br /><span class="label"><a
+ id="x23-108003r3"></a></span>Unable to load native library: libjava.jnilib
+       <br /><span class="label"><a
+ id="x23-108004r4"></a></span></pre>
+</div>
+<!--l. 139--><p class="nopar" >
+</p><!--l. 141--><p class="noindent" >then you have something in the <span class="cmtt-10x-x-109">DYLD_LIBRARY_PATH </span>that annoys the Java VM. Although we have not
+pinpointed it exactly, it seems to be a problem in our libjpeg: ﬁrst run ‘<span
+class="cmtt-10x-x-109">make -C sdk-remote/jpeg</span>
+<span
+class="cmtt-10x-x-109">clean</span>&#x2019; then ‘<span
+class="cmtt-10x-x-109">make -S sdk-remote/jpeg</span>&#x2019;.
+</p><!--l. 148--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">14.2   </span> <a
+href="index.html#QQ2-23-116" id="x23-10900014.2">Troubleshooting</a></h3>
+<!--l. 150--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.2.1   </span> <a
+href="contents.html#QQ2-23-117" id="x23-11000014.2.1">error while loading shared libraries: libport.so</a></h4>
+<!--l. 152--><p class="noindent" >If on GNU/Linux you get an error such as:
+</p><!--l. 154--><p class="indent" >   <div class="code shell">
+<!--l. 154--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-110001r1"></a></span><span class="cmtt-10x-x-109">urbi-sdk/2.7.1 $ ./bin/urbi </span><br /><span class="label"><a
+ id="x23-110002r2"></a></span><span class="cmtt-10x-x-109">./bin/urbi: error </span><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span><span class="cmtt-10x-x-109"> loading shared libraries: libport.so: \ </span><br /><span class="label"><a
+ id="x23-110003r3"></a></span><span class="cmtt-10x-x-109">      cannot open shared object file: No such file or directory</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-110004r4"></a></span></pre>
+   </div>
+<!--l. 160--><p class="noindent" >then check that ‘<span
+class="cmtt-10x-x-109">/proc</span>&#x2019; is properly mounted. To make Urbi SDK relocatable, executables and libraries
+use a relative path to their peers. To resolve these paths into absolute paths, the loader needs to know
+where the program is located, a feature provided by ‘<span
+class="cmtt-10x-x-109">/proc</span>&#x2019;. If for instance you run Urbi SDK in a
+chrooted environment, then it is possible that you forgot to mount ‘<span
+class="cmtt-10x-x-109">/proc</span>&#x2019;. The traditional <span
+class="cmtt-10x-x-109">ps </span>utility
+also needs ‘<span
+class="cmtt-10x-x-109">/proc</span>&#x2019; to be mounted, so running it would also help checking if the setup is
+complete.
+</p><!--l. 172--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.2.2   </span> <a
+href="contents.html#QQ2-23-118" id="x23-11100014.2.2">Error 1723: “A DLL required for this install to complete could not be run.”</a></h4>
+<!--l. 174--><p class="noindent" >This error is raised when you try to install a program like <span
+class="cmtt-10x-x-109">vcredist-x86.exe</span>. This program use the
+“Windows Installer” which is probably outdated on your system.
+</p><!--l. 178--><p class="indent" >   To ﬁx this problem, update the “Windows Installer” and re-start the installation of vcredist which
+should no longer fail.
+</p><!--l. 182--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.2.3   </span> <a
+href="contents.html#QQ2-23-119" id="x23-11200014.2.3">When executing a program, the message “The system cannot execute the speciﬁed
+program.” is raised.</a></h4>
+<!--l. 185--><p class="noindent" >This library is necessary to start running any application. Run ‘<span
+class="cmtt-10x-x-109">vcredist-x86.exe</span>&#x2019; to install the
+missing libraries.
+</p><!--l. 188--><p class="indent" >   If you have used the Urbi SDK installer, it is ‘<span
+class="cmtt-10x-x-109">vcredist-x86.exe</span>&#x2019; in your install directory.
+Otherwise download it from the Microsoft web site. Be sure to get the one corresponding to the right
+Visual C++ version.
+</p><!--l. 193--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.2.4   </span> <a
+href="contents.html#QQ2-23-120" id="x23-11300014.2.4">When executing a program, the message “This application has failed to start” is
+raised.</a></h4>
+<!--l. 195--><p class="noindent" >Same answer as <a
+href="#x23-11200014.2.3">Section 14.2.3<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p><!--l. 197--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.2.5   </span> <a
+href="contents.html#QQ2-23-121" id="x23-11400014.2.5">The server dies with “stack exhaustion”</a></h4>
+<!--l. 198--><p class="noindent" >Your program might be deeply recursive, or use large temporary objects. Use ‘<span
+class="cmtt-10x-x-109">--stack-size</span>&#x2019; to
+augment the stack size, see <a
+href="programs.html#x30-20000019.3">Section 19.3<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p><!--l. 202--><p class="indent" >   Note that one stack is allocated per “light thread”. This can explain why programs that heavily
+rely on concurrency might succeed where sequential programs can fail. For instance the following
+program is very likely to quickly exhaust the (single) stack.
+</p><!--l. 207--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 207--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-114001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> consume (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> num) </span><br /><span class="label"><a
+ id="x23-114002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-114003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (num) </span><br /><span class="label"><a
+ id="x23-114004r4"></a></span><span class="cmtt-10x-x-109">    consume(num - 1) | consume(num - 1) </span><br /><span class="label"><a
+ id="x23-114005r5"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-114006r6"></a></span><span class="cmtt-10x-x-109">consume (512);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-114007r7"></a></span></pre>
+   </div>
+<!--l. 216--><p class="indent" >   But if you use <span class="lstinline"><span
+class="cmtt-10x-x-109">&#x0026;</span></span> instead of <span class="lstinline"><span
+class="cmtt-10x-x-109">|</span></span>, then each recursive call to <span class="lstinline"><span
+class="cmtt-10x-x-109">consume</span></span> will be spawn with a fresh stack,
+and therefore none will run out of stack space:
+</p><!--l. 220--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 220--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-114008r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> consume (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> num) </span><br /><span class="label"><a
+ id="x23-114009r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-114010r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (num) </span><br /><span class="label"><a
+ id="x23-114011r4"></a></span><span class="cmtt-10x-x-109">    consume(num - 1) &#x0026; consume(num - 1) </span><br /><span class="label"><a
+ id="x23-114012r5"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-114013r6"></a></span><span class="cmtt-10x-x-109">consume (512);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-114014r7"></a></span></pre>
+   </div>
+<!--l. 229--><p class="indent" >   However your machine will run out of resources: this heavily concurrent program aims at creating
+no less than 2<sup><span
+class="cmr-8">513</span></sup> threads, about 2<span
+class="cmmi-10x-x-109">.</span>68 <span
+class="cmsy-10x-x-109">× </span>10<sup><span
+class="cmr-8">156</span></sup> (a 156-digit long number, by far larger than the number
+of atoms in the observable universe, estimated to 10<sup><span
+class="cmr-8">80</span></sup>).
+</p><!--l. 235--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.2.6   </span> <a
+href="contents.html#QQ2-23-122" id="x23-11500014.2.6">&#x2019;myuobject: ﬁle not found&#x2019;. What can I do?</a></h4>
+<!--l. 236--><p class="noindent" >If <span
+class="cmtt-10x-x-109">urbi-launch </span>(or <span
+class="cmtt-10x-x-109">urbi</span>) fails to load an UObject (a shared library or <span
+class="cmcsc-10x-x-109">DLL</span>) although the ﬁle exists,
+then the most probable cause is an undeﬁned symbol in your shared library.
+</p>
+<!--l. 240--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.2.6.1</span><a
+href="#QQ2-23-123" id="x23-11600014.2.6.1">Getting a better diagnostic</a></h5> First, set the <span class="cmtt-10x-x-109">GD_LEVEL </span>environment variable (see
+<a
+href="programs.html#x30-19800019.1.2">Section 19.1.2<!--tex4ht:ref: sec:lang:waituntil --></a>) to some high level, say <span
+class="cmtt-10x-x-109">DUMP</span>, to log messages from <span
+class="cmtt-10x-x-109">urbi-launch</span>. You might notice
+that your library is not exactly where you thought <span
+class="cmtt-10x-x-109">urbi-launch </span>was looking at.
+</p>
+<!--l. 246--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.2.6.2</span><a
+href="#QQ2-23-124" id="x23-11700014.2.6.2">GNU/Linux</a></h5> A libltdl quirk prevents us from displaying a more accurate error message.
+You can use a tool named <span
+class="cmtt-10x-x-109">ltrace </span>to obtain the exact error message. Ltrace is a standard package on
+most Linux distributions. Run it with ‘<span
+class="cmtt-10x-x-109">ltrace -C -s 1024 urbi-launch ...</span>&#x2019;, and look for lines
+containing ‘<span
+class="cmtt-10x-x-109">dlerror</span>&#x2019; in the output. One will contain the exact message that occurred while trying to
+load your shared library.
+</p><!--l. 254--><p class="indent" >   It is also useful to use <span
+class="cmtt-10x-x-109">ldd </span>to check that the dependencies of your object are correct. See the
+documentation of <span
+class="cmtt-10x-x-109">ldd </span>on your machine (‘<span
+class="cmtt-10x-x-109">man ldd</span>&#x2019;). The following run is successful: every request
+(left-hand side of <span class="lstinline"><span
+class="cmtt-10x-x-109">=&#x003E;</span></span>) is satisﬁed (by the ﬁle shown on the right-hand side).
+</p><!--l. 260--><p class="indent" >   <div class="code shell">
+<!--l. 260--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117001r1"></a></span><span class="cmtt-10x-x-109">$ all.so </span><br /><span class="label"><a
+ id="x23-117002r2"></a></span><span class="cmtt-10x-x-109">        linux-gate.so.1 =&#x003E;  (0xb7fe8000) </span><br /><span class="label"><a
+ id="x23-117003r3"></a></span><span class="cmtt-10x-x-109">        libstdc++.so.6 =&#x003E; \ </span><br /><span class="label"><a
+ id="x23-117004r4"></a></span><span class="cmtt-10x-x-109">          /usr/lib/gcc/i686-pc-linux-gnu/4.4.1/libstdc++.so.6 (0xb7eba000) </span><br /><span class="label"><a
+ id="x23-117005r5"></a></span><span class="cmtt-10x-x-109">        libm.so.6 =&#x003E; /lib/libm.so.6 (0xb7e94000) </span><br /><span class="label"><a
+ id="x23-117006r6"></a></span><span class="cmtt-10x-x-109">        libc.so.6 =&#x003E; /lib/libc.so.6 (0xb7d51000) </span><br /><span class="label"><a
+ id="x23-117007r7"></a></span><span class="cmtt-10x-x-109">        libgcc_s.so.1 =&#x003E; \ </span><br /><span class="label"><a
+ id="x23-117008r8"></a></span><span class="cmtt-10x-x-109">          /usr/lib/gcc/i686-pc-linux-gnu/4.4.1/libgcc_s.so.1 (0xb7d35000) </span><br /><span class="label"><a
+ id="x23-117009r9"></a></span><span class="cmtt-10x-x-109">        /lib/ld-linux.so.2 (0xb7fe9000)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117010r10"></a></span></pre>
+   </div>
+<!--l. 272--><p class="indent" >   The following run shows a broken dependency.
+</p><!--l. 274--><p class="indent" >   <div class="code shell">
+<!--l. 274--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117011r1"></a></span><!--l. 275--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># A simple C++ program.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117012r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">echo</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 276--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x2019;int main() {}&#x2019;</span></span></span><span class="cmtt-10x-x-109"> &#x003E;foo.cc </span><br /><span class="label"><a
+ id="x23-117013r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117014r4"></a></span><!--l. 278--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Compile it, and depend on the libport shared library.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117015r5"></a></span><span class="cmtt-10x-x-109">$ g++ foo.cc -L</span><!--l. 279--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/gostai/lib -lport -o foo </span><br /><span class="label"><a
+ id="x23-117016r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117017r7"></a></span><!--l. 281--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Run it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117018r8"></a></span><span class="cmtt-10x-x-109">$ ./foo </span><br /><span class="label"><a
+ id="x23-117019r9"></a></span><span class="cmtt-10x-x-109">./foo: error </span><span class="textkwd"><span
+class="cmtt-10x-x-109">while</span></span><span class="cmtt-10x-x-109"> loading shared libraries: \ </span><br /><span class="label"><a
+ id="x23-117020r10"></a></span><span class="cmtt-10x-x-109">  libport.so: cannot open shared object file: No such file or directory </span><br /><span class="label"><a
+ id="x23-117021r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117022r12"></a></span><!--l. 286--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># See that ldd is unhappy.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117023r13"></a></span><span class="cmtt-10x-x-109">$ ldd foo </span><br /><span class="label"><a
+ id="x23-117024r14"></a></span><span class="cmtt-10x-x-109">        linux-gate.so.1 =&#x003E;  (0xb7fa4000) </span><br /><span class="label"><a
+ id="x23-117025r15"></a></span><span class="cmtt-10x-x-109">        libport.so =&#x003E; not found </span><br /><span class="label"><a
+ id="x23-117026r16"></a></span><span class="cmtt-10x-x-109">        libstdc++.so.6 =&#x003E; \ </span><br /><span class="label"><a
+ id="x23-117027r17"></a></span><span class="cmtt-10x-x-109">          /usr/lib/gcc/i686-pc-linux-gnu/4.4.1/libstdc++.so.6 (0xb7eae000) </span><br /><span class="label"><a
+ id="x23-117028r18"></a></span><span class="cmtt-10x-x-109">        libm.so.6 =&#x003E; /lib/libm.so.6 (0xb7e88000) </span><br /><span class="label"><a
+ id="x23-117029r19"></a></span><span class="cmtt-10x-x-109">        libgcc_s.so.1 =&#x003E; \ </span><br /><span class="label"><a
+ id="x23-117030r20"></a></span><span class="cmtt-10x-x-109">          /usr/lib/gcc/i686-pc-linux-gnu/4.4.1/libgcc_s.so.1 (0xb7e6c000) </span><br /><span class="label"><a
+ id="x23-117031r21"></a></span><span class="cmtt-10x-x-109">        libc.so.6 =&#x003E; /lib/libc.so.6 (0xb7d29000) </span><br /><span class="label"><a
+ id="x23-117032r22"></a></span><span class="cmtt-10x-x-109">        /lib/ld-linux.so.2 (0xb7fa5000)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117033r23"></a></span></pre>
+   </div>
+<!--l. 299--><p class="indent" >   Notice the ‘<span
+class="cmtt-10x-x-109">not found</span>&#x2019; message. The shared object could not be loaded because it is not found in
+the <span
+class="cmti-10x-x-109">runtime path</span><a
+ id="x23-117034"></a>, which is the list of directories where the system looks for shared objects to be loaded
+when running a program.
+</p><!--l. 304--><p class="indent" >   You may extend your <span class="cmtt-10x-x-109">LD_LIBRARY_PATH </span>to include the missing directory.
+</p><!--l. 307--><p class="indent" >   <div class="code shell">
+<!--l. 307--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117035r1"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">export</span></span><span class="cmtt-10x-x-109"> LD_LIBRARY_PATH=</span><!--l. 308--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/gostai/lib:$LD_LIBRARY_PATH </span><br /><span class="label"><a
+ id="x23-117036r2"></a></span><!--l. 309--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Run it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117037r3"></a></span><span class="cmtt-10x-x-109">$ ./foo</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-117038r4"></a></span></pre>
+   </div>
+<!--l. 313--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.2.6.3</span><a
+href="#QQ2-23-125" id="x23-11800014.2.6.3">Mac OS X</a></h5> Set the <span class="cmtt-10x-x-109">DYLD_PRINT_LIBRARIES </span>environment variable to 1 to make the shared
+library loader report the libraries it loads on the standard error stream.
+</p><!--l. 318--><p class="indent" >   Use <span
+class="cmtt-10x-x-109">otool </span>to check whether a shared object “ﬁnds” all its dependencies.
+</p><!--l. 321--><p class="indent" >   <div class="code shell">
+<!--l. 321--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118001r1"></a></span><span class="cmtt-10x-x-109">$ otool -L all.so </span><br /><span class="label"><a
+ id="x23-118002r2"></a></span><span class="cmtt-10x-x-109">all.so: </span><br /><span class="label"><a
+ id="x23-118003r3"></a></span><span class="cmtt-10x-x-109">        /usr/lib/libstdc++.6.dylib \ </span><br /><span class="label"><a
+ id="x23-118004r4"></a></span><span class="cmtt-10x-x-109">          (compatibility version 7.0.0, current version 7.4.0) </span><br /><span class="label"><a
+ id="x23-118005r5"></a></span><span class="cmtt-10x-x-109">        /usr/lib/libgcc_s.1.dylib \ </span><br /><span class="label"><a
+ id="x23-118006r6"></a></span><span class="cmtt-10x-x-109">          (compatibility version 1.0.0, current version 1.0.0) </span><br /><span class="label"><a
+ id="x23-118007r7"></a></span><span class="cmtt-10x-x-109">        /usr/lib/libSystem.B.dylib \ </span><br /><span class="label"><a
+ id="x23-118008r8"></a></span><span class="cmtt-10x-x-109">          (compatibility version 1.0.0, current version 111.1.4)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118009r9"></a></span></pre>
+   </div>
+<!--l. 332--><p class="indent" >   The following run shows a broken dependency.
+</p><!--l. 334--><p class="indent" >   <div class="code shell">
+<!--l. 334--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118010r1"></a></span><!--l. 335--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># A simple C++ program.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118011r2"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">echo</span></span><span
+class="cmtt-10x-x-109"> </span><!--l. 336--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x2019;int main() {}&#x2019;</span></span></span><span class="cmtt-10x-x-109"> &#x003E;foo.cc </span><br /><span class="label"><a
+ id="x23-118012r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118013r4"></a></span><!--l. 338--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Compile it, and depend on the libport shared library.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118014r5"></a></span><span class="cmtt-10x-x-109">$ g++ foo.cc -L</span><!--l. 339--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/gostai/lib -lport -o foo </span><br /><span class="label"><a
+ id="x23-118015r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118016r7"></a></span><!--l. 341--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Run it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118017r8"></a></span><span class="cmtt-10x-x-109">$ ./foo </span><br /><span class="label"><a
+ id="x23-118018r9"></a></span><span class="cmtt-10x-x-109">dyld: Library not loaded: @loader_path/libport.dylib </span><br /><span class="label"><a
+ id="x23-118019r10"></a></span><span class="cmtt-10x-x-109">  Referenced from: /private/tmp/./foo </span><br /><span class="label"><a
+ id="x23-118020r11"></a></span><span class="cmtt-10x-x-109">  Reason: image not found </span><br /><span class="label"><a
+ id="x23-118021r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118022r13"></a></span><!--l. 347--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># See that otool is unhappy.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118023r14"></a></span><span class="cmtt-10x-x-109">$ otool -L ./foo </span><br /><span class="label"><a
+ id="x23-118024r15"></a></span><span class="cmtt-10x-x-109">./foo: </span><br /><span class="label"><a
+ id="x23-118025r16"></a></span><span class="cmtt-10x-x-109">        @loader_path/libport.dylib \ </span><br /><span class="label"><a
+ id="x23-118026r17"></a></span><span class="cmtt-10x-x-109">          (compatibility version 0.0.0, current version 0.0.0) </span><br /><span class="label"><a
+ id="x23-118027r18"></a></span><span class="cmtt-10x-x-109">        /usr/lib/libstdc++.6.dylib \ </span><br /><span class="label"><a
+ id="x23-118028r19"></a></span><span class="cmtt-10x-x-109">          (compatibility version 7.0.0, current version 7.4.0) </span><br /><span class="label"><a
+ id="x23-118029r20"></a></span><span class="cmtt-10x-x-109">        /usr/lib/libgcc_s.1.dylib \ </span><br /><span class="label"><a
+ id="x23-118030r21"></a></span><span class="cmtt-10x-x-109">          (compatibility version 1.0.0, current version 1.0.0) </span><br /><span class="label"><a
+ id="x23-118031r22"></a></span><span class="cmtt-10x-x-109">        /usr/lib/libSystem.B.dylib \ </span><br /><span class="label"><a
+ id="x23-118032r23"></a></span><span class="cmtt-10x-x-109">          (compatibility version 1.0.0, current version 111.1.5)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118033r24"></a></span></pre>
+   </div>
+<!--l. 360--><p class="indent" >   The fact that the ‘<span
+class="cmtt-10x-x-109">libport.dylib</span>&#x2019; was not found shows by the unresolved relative runtime-path:
+‘<span class="cmtt-10x-x-109">@loader_path</span>&#x2019; still shows. Use <span class="cmtt-10x-x-109">DYLD_LIBRARY_PATH </span>to specify additional directories where the system
+should look for runtime dependencies.
+</p><!--l. 365--><p class="indent" >   <div class="code shell">
+<!--l. 365--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118034r1"></a></span><span class="cmtt-10x-x-109">$ DYLD_PRINT_LIBRARIES=1 \ </span><br /><span class="label"><a
+ id="x23-118035r2"></a></span><span class="cmtt-10x-x-109">  DYLD_LIBRARY_PATH=</span><!--l. 367--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib:$DYLD_LIBRARY_PATH \ </span><br /><span class="label"><a
+ id="x23-118036r3"></a></span><span class="cmtt-10x-x-109">  ./foo </span><br /><span class="label"><a
+ id="x23-118037r4"></a></span><span class="cmtt-10x-x-109">dyld: loaded: /private/tmp/./foo </span><br /><span class="label"><a
+ id="x23-118038r5"></a></span><span class="cmtt-10x-x-109">dyld: loaded: </span><!--l. 370--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib/libport.dylib </span><br /><span class="label"><a
+ id="x23-118039r6"></a></span><span class="cmtt-10x-x-109">dyld: loaded: /usr/lib/libstdc++.6.dylib </span><br /><span class="label"><a
+ id="x23-118040r7"></a></span><span class="cmtt-10x-x-109">dyld: loaded: /usr/lib/libgcc_s.1.dylib </span><br /><span class="label"><a
+ id="x23-118041r8"></a></span><span class="cmtt-10x-x-109">dyld: loaded: /usr/lib/libSystem.B.dylib </span><br /><span class="label"><a
+ id="x23-118042r9"></a></span><span class="cmtt-10x-x-109">dyld: loaded: </span><!--l. 374--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib/libboost_filesystem-mt.dylib </span><br /><span class="label"><a
+ id="x23-118043r10"></a></span><span class="cmtt-10x-x-109">dyld: loaded: </span><!--l. 375--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib/libboost_signals-mt.dylib </span><br /><span class="label"><a
+ id="x23-118044r11"></a></span><span class="cmtt-10x-x-109">dyld: loaded: </span><!--l. 376--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib/libboost_system-mt.dylib </span><br /><span class="label"><a
+ id="x23-118045r12"></a></span><span class="cmtt-10x-x-109">dyld: loaded: </span><!--l. 377--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib/libboost_thread-mt.dylib </span><br /><span class="label"><a
+ id="x23-118046r13"></a></span><span class="cmtt-10x-x-109">dyld: loaded: /usr/lib/system/libmathCommon.A.dylib </span><br /><span class="label"><a
+ id="x23-118047r14"></a></span><span
+class="cmtt-10x-x-109">$</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-118048r15"></a></span></pre>
+   </div>
+<!--l. 382--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.2.6.4</span><a
+href="#QQ2-23-126" id="x23-11900014.2.6.4">Windows</a></h5>
+</p><!--l. 384--><p class="indent" >   If you are running Cygwin, then have a look at the following section, which uses some of its
+tools.
+</p><!--l. 387--><p class="indent" >   A speciﬁc constraint, for which currently we do not have nice solutions, is that when Windows
+loads a <span
+class="cmcsc-10x-x-109">DLL</span>, it looks for all its dependencies (i.e., other <span
+class="cmcsc-10x-x-109">DLL </span>that are needed) in the directory from
+which the program was run, or in the <span
+class="cmtt-10x-x-109">PATH</span>. There is no way, that we are aware of, to embed in a <span
+class="cmcsc-10x-x-109">DLL</span>
+the information about where the dependencies are. When trying to load a <span
+class="cmcsc-10x-x-109">DLL </span>with missing
+dependencies, say ‘<span
+class="cmtt-10x-x-109">foo.dll</span>&#x2019;, the error message will be something like “can&#x2019;t open the module”, and
+worse yet, if you read the detailed log messages (by setting <span class="cmtt-10x-x-109">GD_LEVEL </span>to <span
+class="cmtt-10x-x-109">DUMP </span>for instance) it will
+report “failed with error 126: The speciﬁed module could not be found” although the ﬁle <span
+class="cmti-10x-x-109">is</span>
+there.
+</p><!--l. 399--><p class="indent" >   So ﬁrst try to understand what are the missing dependencies. Under Windows, use
+<span
+class="cmtt-10x-x-109">DependencyWalker </span>(see <a
+href="http://dependencywalker.com" ><span
+class="cmtt-10x-x-109">http://dependencywalker.com</span></a>) to check that a given <span
+class="cmcsc-10x-x-109">DLL </span>ﬁnds all its
+dependencies. If some dependencies are not found either: </p>
+     <ul class="itemize1">
+     <li class="itemize">change your <span
+class="cmtt-10x-x-109">PATH </span>so that it goes via the directories that contain the dependencies of your
+     <span
+class="cmcsc-10x-x-109">DLL</span>s;
+     </li>
+     <li class="itemize">or copy these dependencies in the ‘<span
+class="cmtt-10x-x-109">bin/</span>&#x2019; directory of Urbi SDK, since that&#x2019;s the directory
+     of the program, ‘<span
+class="cmtt-10x-x-109">urbi-launch</span>&#x2019;.</li></ul>
+<!--l. 410--><p class="indent" >   The ﬁrst approach is more tractable. Beware that dependencies may also have dependencies&hellip;
+</p>
+<!--l. 413--><p class="noindent" ><span class="paragraphHead"><a
+href="#x23-12000014.2.6.4" id="x23-12000014.2.6.4"><span
+class="cmbx-10x-x-109">Cygwin</span></a></span>
+   Use the <span
+class="cmtt-10x-x-109">cygcheck.exe </span>program to check dependencies. Beware that you must provide a qualiﬁed
+path to the ﬁle. Chances are that if
+</p><!--l. 418--><p class="indent" >   <div class="code shell">
+<!--l. 418--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120001r1"></a></span><span class="cmtt-10x-x-109">$ cygcheck foo.dll</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120002r2"></a></span></pre>
+   </div>
+<!--l. 422--><p class="noindent" >does not work and will pretend that ‘<span
+class="cmtt-10x-x-109">foo.dll</span>&#x2019; does not exist (although it&#x2019;s <span
+class="cmti-10x-x-109">right there</span>), then this will
+work:
+</p><!--l. 426--><p class="indent" >   <div class="code shell">
+<!--l. 426--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120003r1"></a></span><span class="cmtt-10x-x-109">$ cygcheck ./foo.dll</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120004r2"></a></span></pre>
+   </div>
+<!--l. 430--><p class="indent" >   In this output, look for lines like these:
+</p><!--l. 432--><p class="indent" >   <div class="code shell">
+<!--l. 432--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120005r1"></a></span><span class="cmtt-10x-x-109">cygcheck: track_down: could not find OgreMain.dll </span><br /><span class="label"><a
+ id="x23-120006r2"></a></span><span class="cmtt-10x-x-109">cygcheck: track_down: could not find OIS.dll </span><br /><span class="label"><a
+ id="x23-120007r3"></a></span><span class="cmtt-10x-x-109">cygcheck: track_down: could not find libuobject-vc90.dll</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120008r4"></a></span></pre>
+   </div>
+<!--l. 438--><p class="noindent" >and make sure that ‘<span
+class="cmtt-10x-x-109">OgreMain.dll</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">OIS.dll</span>&#x2019; and so forth are visible in the <span
+class="cmtt-10x-x-109">PATH </span>(don&#x2019;t be worry
+about ‘<span
+class="cmtt-10x-x-109">libuobject-vc90.dll</span>&#x2019;, <span
+class="cmtt-10x-x-109">urbi-launch </span>will take care of it). Note that when they are ﬁnally
+visible from the <span
+class="cmtt-10x-x-109">PATH</span>, then you can run
+</p><!--l. 444--><p class="indent" >   <div class="code shell">
+<!--l. 444--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120009r1"></a></span><span class="cmtt-10x-x-109">$ cygcheck OgreMain.dll</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-120010r2"></a></span></pre>
+   </div>
+<!--l. 448--><p class="noindent" >without having to specify the path.
+</p><!--l. 451--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">14.3   </span> <a
+href="index.html#QQ2-23-128" id="x23-12100014.3">urbiscript</a></h3>
+<!--l. 452--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.3.1   </span> <a
+href="contents.html#QQ2-23-129" id="x23-12200014.3.1">Objects lifetime</a></h4>
+<!--l. 454--><p class="noindent" ><h5 class="subsubsectionHead"> <span class="titlemark">14.3.1.1</span><a
+href="#QQ2-23-130" id="x23-12300014.3.1.1">How do I create a new Object derivative?</a></h5> Urbi is based on prototypes. To create a new Object
+derivative (which will inherit all the Object methods), you can do:
+</p><!--l. 458--><p class="indent" >   <div class="code urbiscript">
+<!--l. 458--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-123001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myObject = Object.new(); </span><br /><span class="label"><a
+ id="x23-123002r2"></a></span><!--l. 460--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] Object_0x76543210</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-123003r3"></a></span></pre>
+   </div>
+<!--l. 463--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.1.2</span><a
+href="#QQ2-23-131" id="x23-12400014.3.1.2">How do I destroy an Object?</a></h5> There is no <a
+ id="x23-124001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">delete</span></span> in Urbi, for a number of
+reasons (see <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16400016.2">Section 16.2<!--tex4ht:ref: sec:lang:waituntil --></a>). Objects are deleted when they are no longer used/referenced
+to.
+</p><!--l. 468--><p class="indent" >   In practice, users who want to “delete an object” actually want to remove a slot — see <a
+href="basic-objects-value-model.html#x8-240004.1">Section 4.1<!--tex4ht:ref: sec:lang:waituntil --></a>.
+Users who want to clear an object can empty it — see <a
+href="migration-from-urbiscript-1-to-urbiscript-2.html#x25-16400016.2">Section 16.2<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p><!--l. 472--><p class="indent" >   Note that <span class="lstinline"><span class="cmtt-10x-x-109">myObject = nil</span></span> does not explicitly destroy the object bound to the name
+<span class="lstinline"><span
+class="cmtt-10x-x-109">myObject</span></span>, yet it may do so provided that <span class="lstinline"><span
+class="cmtt-10x-x-109">myObject</span></span> was the last and only reference to this
+object.
+</p><!--l. 477--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.3.2   </span> <a
+href="contents.html#QQ2-23-132" id="x23-12500014.3.2">Slots and variables</a></h4>
+<!--l. 479--><p class="noindent" ><h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.1</span><a
+href="#QQ2-23-133" id="x23-12600014.3.2.1">Is the lobby a scope?</a></h5>
+</p><!--l. 481--><p class="indent" >   One frequently asked question is what visibility do variables have in urbiscript, especially when
+they are declared at the top-level interactive loop. In this section, we will see the mechanisms behind
+slots, local variables and scoping to fully explain this behavior and determine how to proceed to give
+the right visibility to variables.
+</p><!--l. 487--><p class="indent" >   For instance, this code might seem confusing at ﬁrst:
+</p><!--l. 489--><p class="indent" >   <div class="code urbiscript">
+<!--l. 489--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-126001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> mind = 42; </span><br /><span class="label"><a
+ id="x23-126002r2"></a></span><!--l. 491--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-126003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> get() </span><br /><span class="label"><a
+ id="x23-126004r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-126005r5"></a></span><span class="cmtt-10x-x-109">  echo(mind); </span><br /><span class="label"><a
+ id="x23-126006r6"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-126007r7"></a></span><span class="cmtt-10x-x-109">get(); </span><br /><span class="label"><a
+ id="x23-126008r8"></a></span><!--l. 497--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000003] *** 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-126009r9"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> Object.get() </span><br /><span class="label"><a
+ id="x23-126010r10"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-126011r11"></a></span><span class="cmtt-10x-x-109">  echo(mind) </span><br /><span class="label"><a
+ id="x23-126012r12"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-126013r13"></a></span><!--l. 502--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Where is my mind?</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-126014r14"></a></span><span class="cmtt-10x-x-109">Object.get(); </span><br /><span class="label"><a
+ id="x23-126015r15"></a></span><!--l. 504--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004:error] !!! lookup failed: mind</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-126016r16"></a></span><!--l. 505--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004:error] !!!    called from: get</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-126017r17"></a></span></pre>
+   </div>
+<!--l. 508--><p class="noindent" ><span class="paragraphHead"><a
+href="#x23-12700014.3.2.1" id="x23-12700014.3.2.1"><span
+class="cmbx-10x-x-109">Local variables, slots and targets</span></a></span>
+   The ﬁrst point is to understand the diﬀerence between local variables and slots. Slots are simply
+object ﬁelds: a name in an object referring to another object, like members in C++. They can be
+deﬁned with the <a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">setSlot</span></span></a> method, or with the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> keyword.
+</p><!--l. 514--><p class="indent" >   <div class="code urbiscript">
+<!--l. 514--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127001r1"></a></span><!--l. 515--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Add an ‘x&#x2019; slot in Object, with value 51.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127002r2"></a></span><span class="cmtt-10x-x-109">Object.setSlot(</span><!--l. 516--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;x&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 51); </span><br /><span class="label"><a
+ id="x23-127003r3"></a></span><!--l. 517--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127004r4"></a></span><!--l. 518--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is an equivalent version, for the ‘y&#x2019; slot.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Object.y = 51; </span><br /><span class="label"><a
+ id="x23-127006r6"></a></span><!--l. 520--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127007r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127008r8"></a></span><!--l. 522--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// We can access these slots with the dot operator.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127009r9"></a></span><span class="cmtt-10x-x-109">Object.x + Object.y; </span><br /><span class="label"><a
+ id="x23-127010r10"></a></span><!--l. 524--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 102</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127011r11"></a></span></pre>
+   </div>
+<!--l. 527--><p class="indent" >   On the other hand, local variables are not stored in an object, but in the execution stack: their
+lifetime spans from their declaration point to the end of the current scope. They are declared with the
+‘var&#x2019; keyword.
+</p><!--l. 532--><p class="indent" >   <div class="code urbiscript">
+<!--l. 532--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127012r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> foo() </span><br /><span class="label"><a
+ id="x23-127013r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-127014r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 535--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Declare an ‘x&#x2019; local variable, with value 51.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127015r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 51; </span><br /><span class="label"><a
+ id="x23-127016r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 537--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// ‘x&#x2019; isn&#x2019;t stored in any object. It&#x2019;s simply</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127017r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 538--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// available until the end of the scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127018r7"></a></span><span class="cmtt-10x-x-109">  echo(x); </span><br /><span class="label"><a
+ id="x23-127019r8"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127020r9"></a></span></pre>
+   </div>
+<!--l. 543--><p class="indent" >   You probably noticed that in the last two code snippets, we used the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> keyword to declare both a
+slot in Object and a local variable. The rule is simple: <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> declares a slot if an owning object is
+speciﬁed with the dot notation, as in <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> owner.slot</span></span>, and a local variable if only an unqualiﬁed name
+is given, as in <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> name</span></span>.
+</p><!--l. 550--><p class="indent" >   <div class="code urbiscript">
+<!--l. 550--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127021r1"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-127022r2"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 552--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Store a ‘kyle&#x2019; slot in Object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127023r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Object.kyle = 42; </span><br /><span class="label"><a
+ id="x23-127024r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 554--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Declare a local variable, limited to this scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127025r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> kenny = 42; </span><br /><span class="label"><a
+ id="x23-127026r6"></a></span><span class="cmtt-10x-x-109">}; </span><!--l. 556--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// End of scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127027r7"></a></span><!--l. 557--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127028r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127029r9"></a></span><!--l. 559--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Kyle survived.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127030r10"></a></span><span class="cmtt-10x-x-109">echo(Object.kyle); </span><br /><span class="label"><a
+ id="x23-127031r11"></a></span><!--l. 561--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127032r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127033r13"></a></span><!--l. 563--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Oh my God, they killed Kenny.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127034r14"></a></span><span class="cmtt-10x-x-109">echo(kenny); </span><br /><span class="label"><a
+ id="x23-127035r15"></a></span><!--l. 565--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: kenny</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127036r16"></a></span></pre>
+   </div>
+<!--l. 568--><p class="indent" >   There is however an exception to this rule: <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span> and <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> scopes are designed to deﬁne a target
+where to store slots. Thus, in <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span> and <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> scopes, even unqualiﬁed <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> uses declare slots in the
+target.
+</p><!--l. 573--><p class="indent" >   <div class="code urbiscript">
+<!--l. 573--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127037r1"></a></span><!--l. 574--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Classical scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127038r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-127039r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> arm = 64; </span><!--l. 576--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Local to the scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127040r4"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x23-127041r5"></a></span><!--l. 578--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 64</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127042r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127043r7"></a></span><!--l. 580--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Do scope, with target Object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127044r8"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (Object) </span><br /><span class="label"><a
+ id="x23-127045r9"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-127046r10"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> chocolate = 64; </span><!--l. 583--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Stored as a slot in Object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127047r11"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x23-127048r12"></a></span><!--l. 585--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] Object</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127049r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127050r14"></a></span><!--l. 587--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// No arm...</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127051r15"></a></span><span class="cmtt-10x-x-109">echo(arm); </span><br /><span class="label"><a
+ id="x23-127052r16"></a></span><!--l. 589--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: arm</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127053r17"></a></span><!--l. 590--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// ... but still chocolate!</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127054r18"></a></span><span class="cmtt-10x-x-109">echo(chocolate); </span><br /><span class="label"><a
+ id="x23-127055r19"></a></span><!--l. 592--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 64</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127056r20"></a></span></pre>
+   </div>
+<!--l. 595--><p class="indent" >   Last tricky rule you must keep in mind: the top level of your connection — your interactive session
+— is a <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (lobby)</span></span> scope. That is, when you type <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x</span></span> directly in your connection, it stores an <span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span>
+slot in the <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span> object. So, what is this <span
+class="cmti-10x-x-109">lobby</span><a
+ id="x23-127057"></a>? It&#x2019;s precisely the object designed to store
+your top-level variables. Every Urbi server has an unique <a
+href="urbiscript-standard-library.html#object:Lobby"><span class="lstinline"><span
+class="cmtt-10x-x-109">Lobby</span></span></a> (note the capital), and
+every connection has its <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span> that inherits the <span class="lstinline"><span
+class="cmtt-10x-x-109">Lobby</span></span>. Thus, variables stored in <span class="lstinline"><span
+class="cmtt-10x-x-109">Lobby</span></span> are
+accessible from any connection, while variables stored in a connection&#x2019;s <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span> are local to this
+connection.
+</p><!--l. 607--><p class="indent" >   To fully understand how lobbies and the top-level work, we must understand how calls — message
+passing — work in urbiscript. In urbiscript, every call has a target. For instance, in <span class="lstinline"><span class="cmtt-10x-x-109">Object.x</span></span>,
+<a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a> is the target of the <span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span> call. If no target is speciﬁed, as in <span class="lstinline"><span
+class="cmtt-10x-x-109">x</span></span> alone, the target defaults
+to <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span>, yielding <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.x</span></span>. Knowing this rules, plus the fact that at the top-level <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span> is
+<span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span>, we can understand better what happens when deﬁning and accessing variables at the
+top-level:
+</p><!--l. 617--><p class="indent" >   <div class="code urbiscript">
+<!--l. 617--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127058r1"></a></span><!--l. 618--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Since we are at the top-level, this stores x in the lobby.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127059r2"></a></span><!--l. 619--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// It is equivalent to ‘var lobby.x&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127060r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = </span><!--l. 620--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;hello&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x23-127061r4"></a></span><!--l. 621--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;hello&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127062r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127063r6"></a></span><!--l. 623--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is an unqualified call, and is thus</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127064r7"></a></span><!--l. 624--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// equivalent to ‘this.x&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127065r8"></a></span><!--l. 625--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// That is, ‘lobby.x&#x2019; would be equivalent.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127066r9"></a></span><span class="cmtt-10x-x-109">x; </span><br /><span class="label"><a
+ id="x23-127067r10"></a></span><!--l. 627--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;hello&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-127068r11"></a></span></pre>
+   </div>
+<!--l. 630--><p class="noindent" ><span class="paragraphHead"><a
+href="#x23-12800014.3.2.1" id="x23-12800014.3.2.1"><span
+class="cmbx-10x-x-109">Solving the tricky example</span></a></span>
+   We now know all the scoping rules required to explain the behavior of the ﬁrst code snippet. First,
+let&#x2019;s determine why the ﬁrst access to <span class="lstinline"><span
+class="cmtt-10x-x-109">mind</span></span> works:
+</p><!--l. 635--><p class="indent" >   <div class="code urbiscript">
+<!--l. 635--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128001r1"></a></span><!--l. 636--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is equivalent to ‘var lobby.myMind = 42&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myMind = 42; </span><br /><span class="label"><a
+ id="x23-128003r3"></a></span><!--l. 638--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128004r4"></a></span><!--l. 639--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is equivalent to ‘function lobby.getMine...&#x2019;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128005r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> getMine() </span><br /><span class="label"><a
+ id="x23-128006r6"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-128007r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 642--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is equivalent to ‘echo(this.myMind)&#x2019;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128008r8"></a></span><span class="cmtt-10x-x-109">  echo(myMind); </span><br /><span class="label"><a
+ id="x23-128009r9"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-128010r10"></a></span><!--l. 645--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is equivalent to ‘this.getMine()&#x2019;, i.e. ‘lobby.getMine()&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128011r11"></a></span><span class="cmtt-10x-x-109">getMine(); </span><br /><span class="label"><a
+ id="x23-128012r12"></a></span><!--l. 647--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128013r13"></a></span></pre>
+   </div>
+<!--l. 650--><p class="indent" >   Step by step: </p>
+     <ul class="itemize1">
+     <li class="itemize">We create a <span class="lstinline"><span
+class="cmtt-10x-x-109">myMind</span></span> slot in <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span>, with value 42.
+     </li>
+     <li class="itemize">We create a <span class="lstinline"><span
+class="cmtt-10x-x-109">getMine</span></span> function in <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span>.
+     </li>
+     <li class="itemize">We call the lobby&#x2019;s <span class="lstinline"><span
+class="cmtt-10x-x-109">getMine</span></span> method.
+     </li>
+     <li class="itemize">We access <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.myMind</span></span> from within the method. Since the method was called with <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span>
+     as targetMine, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span> is <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span>, and <span class="lstinline"><span class="cmtt-10x-x-109">lobby.x</span></span> resolves to the previously deﬁned 42.</li></ul>
+<!--l. 662--><p class="indent" >   We can also explain why the second test fails:
+</p><!--l. 664--><p class="indent" >   <div class="code urbiscript">
+<!--l. 664--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128014r1"></a></span><!--l. 665--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create the ‘hisMind&#x2019; slot in the lobby.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128015r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> hisMind = 42; </span><br /><span class="label"><a
+ id="x23-128016r3"></a></span><!--l. 667--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128017r4"></a></span><!--l. 668--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Define a ‘getHis&#x2019; method in ‘Object&#x2019;.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128018r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> Object.getHis() </span><br /><span class="label"><a
+ id="x23-128019r6"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-128020r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 671--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Equivalent to echo(this.hisMind).</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128021r8"></a></span><span class="cmtt-10x-x-109">  echo(hisMind) </span><br /><span class="label"><a
+ id="x23-128022r9"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-128023r10"></a></span><!--l. 674--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Call Object&#x2019;s getHis method.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128024r11"></a></span><span class="cmtt-10x-x-109">Object.getHis(); </span><br /><span class="label"><a
+ id="x23-128025r12"></a></span><!--l. 676--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!! lookup failed: hisMind</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128026r13"></a></span><!--l. 677--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:error] !!!    called from: getHis</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-128027r14"></a></span></pre>
+   </div>
+<!--l. 680--><p class="indent" >   Step by step: </p>
+     <ul class="itemize1">
+     <li class="itemize">We create a <span class="lstinline"><span
+class="cmtt-10x-x-109">hisMind</span></span> slot in <span class="lstinline"><span
+class="cmtt-10x-x-109">lobby</span></span>, with value 42, like before.
+     </li>
+     <li class="itemize">We create a <span class="lstinline"><span
+class="cmtt-10x-x-109">getHis</span></span> function in <a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a>.
+     </li>
+     <li class="itemize">We call Object&#x2019;s <span class="lstinline"><span
+class="cmtt-10x-x-109">getHis</span></span> method.</li></ul>
+<!--l. 688--><p class="indent" >   In the method, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span> is <a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a>. Thus <span class="lstinline"><span
+class="cmtt-10x-x-109">hisMind</span></span>, which is <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.hisMind</span></span>, fails because Object has no
+such slot.
+</p><!--l. 691--><p class="indent" >   The key to understanding this behavior is that any unqualiﬁed call — unless it refers to a local
+variable — is destined to <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span>. Thus, variables stored in the lobby are only accessible from the
+top-level, or from functions that are targeted on the lobby.
+</p>
+<!--l. 697--><p class="noindent" ><span class="paragraphHead"><a
+href="#x23-12900014.3.2.1" id="x23-12900014.3.2.1"><span
+class="cmbx-10x-x-109">So, where to store global variables?</span></a></span>
+   From these rules, we can deduce a simple statement: since unqualiﬁed slots are searched in <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span>,
+for a slot to be global, it must always be accessible through <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span>. One way to achieve this is to store
+the slot in <a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a>, the ancestor of any object:
+</p><!--l. 703--><p class="indent" >   <div class="code urbiscript">
+<!--l. 703--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Object.global = 1664; </span><br /><span class="label"><a
+ id="x23-129002r2"></a></span><!--l. 705--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 1664</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129003r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> any_object() </span><br /><span class="label"><a
+ id="x23-129005r5"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-129006r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 709--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is equivalent to echo(this.global)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129007r7"></a></span><span class="cmtt-10x-x-109">  echo(global); </span><br /><span class="label"><a
+ id="x23-129008r8"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129009r9"></a></span></pre>
+   </div>
+<!--l. 714--><p class="indent" >   In the previous example, typing <span class="lstinline"><span
+class="cmtt-10x-x-109">global</span></span> will look for the <span class="lstinline"><span
+class="cmtt-10x-x-109">global</span></span> slot in <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span>. Since <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span>
+necessarily inherits <a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a>, it will necessarily be found.
+</p><!--l. 718--><p class="indent" >   This solution would work; however, storing all global variables in <a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a> wouldn&#x2019;t be very clean.
+<a
+href="urbiscript-standard-library.html#object:Object"><span class="lstinline"><span
+class="cmtt-10x-x-109">Object</span></span></a> is rather designed to hold methods shared by all objects. Instead, a <span class="lstinline"><span
+class="cmtt-10x-x-109">Global</span></span> object exists. This
+object is always accessible no matter where you are. So creating a genuine global variable is as simple
+as storing it in <span class="lstinline"><span
+class="cmtt-10x-x-109">Global</span></span>:
+</p><!--l. 726--><p class="indent" >   <div class="code urbiscript">
+<!--l. 726--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129010r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Global.g = </span><!--l. 727--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;I&#x2019;m global!&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x23-129011r2"></a></span><!--l. 728--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] &#x0022;I&#x2019;m global!&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129012r3"></a></span></pre>
+   </div>
+<!--l. 731--><p class="indent" >   Note that you might want to reproduce the <a
+href="urbiscript-standard-library.html#object:Global"><span class="lstinline"><span
+class="cmtt-10x-x-109">Global</span></span></a> system and create your own object to store
+your related variables in a more tidy fashion. This is for instance what is done for mathematical
+constants:
+</p><!--l. 735--><p class="indent" >   <div class="code urbiscript">
+<!--l. 735--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129013r1"></a></span><!--l. 736--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Store all constants here</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129014r2"></a></span><span class="cmtt-10x-x-109">package lang.Constants </span><br /><span class="label"><a
+ id="x23-129015r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-129016r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Pi = 3.14; </span><br /><span class="label"><a
+ id="x23-129017r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> Euler = 2.17; </span><br /><span class="label"><a
+ id="x23-129018r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> One = 1; </span><br /><span class="label"><a
+ id="x23-129019r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 742--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// ...</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129020r8"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x23-129021r9"></a></span><!--l. 744--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Test it.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129022r10"></a></span><span class="cmtt-10x-x-109">Constants.Pi; </span><br /><span class="label"><a
+ id="x23-129023r11"></a></span><!--l. 746--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 3.14</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129024r12"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> Object.testPi() { echo(Constants.Pi) }|; </span><br /><span class="label"><a
+ id="x23-129025r13"></a></span><span class="cmtt-10x-x-109">42.testPi(); </span><br /><span class="label"><a
+ id="x23-129026r14"></a></span><!--l. 749--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 3.14</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129027r15"></a></span><span class="cmtt-10x-x-109">import Constants.*; </span><br /><span class="label"><a
+ id="x23-129028r16"></a></span><span class="cmtt-10x-x-109">Pi; </span><br /><span class="label"><a
+ id="x23-129029r17"></a></span><!--l. 752--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 3.14</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-129030r18"></a></span></pre>
+   </div>
+<!--l. 755--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.2</span><a
+href="#QQ2-23-137" id="x23-13000014.3.2.2">How do I add a new slot in an object?</a></h5> To add a slot to an object <span class="lstinline"><span
+class="cmtt-10x-x-109">O</span></span>, you have to use the
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> keyword, which is syntactic sugar for the <span class="lstinline"><span
+class="cmtt-10x-x-109">setSlot</span></span> method:
+</p><!--l. 760--><p class="indent" >   <div class="code urbiscript">
+<!--l. 760--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> O2 = Object.new() | </span><br /><span class="label"><a
+ id="x23-130002r2"></a></span><!--l. 762--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Syntax...</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> O2.mySlot1 = 42; </span><br /><span class="label"><a
+ id="x23-130004r4"></a></span><!--l. 764--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130005r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130006r6"></a></span><!--l. 766--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// and semantics.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130007r7"></a></span><span class="cmtt-10x-x-109">O2.setSlot(</span><!--l. 767--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;mySlot2&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 23); </span><br /><span class="label"><a
+ id="x23-130008r8"></a></span><!--l. 768--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 23</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130009r9"></a></span></pre>
+   </div>
+<!--l. 771--><p class="indent" >   Note that in a method, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span></span> designates the current object. It is needed to distinguish the name of
+a slot in the current object, versus a local variable name:
+</p><!--l. 775--><p class="indent" >   <div class="code urbiscript">
+<!--l. 775--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130010r1"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-130011r2"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 777--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create a new slot in the current object.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130012r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.bar = 42; </span><br /><span class="label"><a
+ id="x23-130013r4"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130014r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 780--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create a local variable, which will not be known anymore</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130015r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 781--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// after we exit the current scope.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130016r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> qux = 23; </span><br /><span class="label"><a
+ id="x23-130017r8"></a></span><span class="cmtt-10x-x-109">}| </span><br /><span class="label"><a
+ id="x23-130018r9"></a></span><span class="cmtt-10x-x-109">qux; </span><br /><span class="label"><a
+ id="x23-130019r10"></a></span><!--l. 785--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001:error] !!! lookup failed: qux</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130020r11"></a></span><span class="cmtt-10x-x-109">bar; </span><br /><span class="label"><a
+ id="x23-130021r12"></a></span><!--l. 787--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 42</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-130022r13"></a></span></pre>
+   </div>
+<!--l. 791--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.3</span><a
+href="#QQ2-23-138" id="x23-13100014.3.2.3">How do I modify a slot of my object?</a></h5> Use the <span class="lstinline"><span
+class="cmtt-10x-x-109">=</span></span> operator, which is syntactic sugar for the
+<a
+href="urbiscript-standard-library.html#slot:Object.updateSlot"><span class="lstinline"><span class="cmtt-10x-x-109">Object.updateSlot</span></span></a> method.
+</p><!--l. 795--><p class="indent" >   <div class="code urbiscript">
+<!--l. 795--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-131001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> O </span><br /><span class="label"><a
+ id="x23-131002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-131003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> mySlot = 42; </span><br /><span class="label"><a
+ id="x23-131004r4"></a></span><span class="cmtt-10x-x-109">}| </span><br /><span class="label"><a
+ id="x23-131005r5"></a></span><!--l. 800--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Sugarful.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-131006r6"></a></span><span class="cmtt-10x-x-109">O.mySlot = 51; </span><br /><span class="label"><a
+ id="x23-131007r7"></a></span><!--l. 802--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-131008r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-131009r9"></a></span><!--l. 804--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Sugar-free.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-131010r10"></a></span><span class="cmtt-10x-x-109">O.updateSlot(</span><!--l. 805--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;mySlot&#x0022;</span></span></span><span class="cmtt-10x-x-109">, 23); </span><br /><span class="label"><a
+ id="x23-131011r11"></a></span><!--l. 806--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] 23</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-131012r12"></a></span></pre>
+   </div>
+<!--l. 809--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.4</span><a
+href="#QQ2-23-139" id="x23-13200014.3.2.4">How do I create or modify a local variable?</a></h5> Use <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">=</span></span>.
+</p><!--l. 812--><p class="indent" >   <div class="code urbiscript">
+<!--l. 812--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-132001r1"></a></span><!--l. 813--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// In two steps: definition, and initial assignment.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-132002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myLocalVariable; </span><br /><span class="label"><a
+ id="x23-132003r3"></a></span><span class="cmtt-10x-x-109">myLocalVariable = </span><!--l. 815--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x23-132004r4"></a></span><!--l. 816--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] &#x0022;foo&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-132005r5"></a></span><!--l. 817--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// In a single step: definition with an initial value.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-132006r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myOtherLocalVariable = </span><!--l. 818--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;bar&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x23-132007r7"></a></span><!--l. 819--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] &#x0022;bar&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-132008r8"></a></span></pre>
+   </div>
+<!--l. 823--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.5</span><a
+href="#QQ2-23-140" id="x23-13300014.3.2.5">How do I make a constructor?</a></h5> <a
+ id="x23-133001"></a>You can deﬁne a method called <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> which will be called
+automatically by <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span>. For example:
+</p><!--l. 828--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 828--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-133002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> myObject </span><br /><span class="label"><a
+ id="x23-133003r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-133004r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(x, y) </span><br /><span class="label"><a
+ id="x23-133005r4"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x23-133006r5"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.x = x; </span><br /><span class="label"><a
+ id="x23-133007r6"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.y = y; </span><br /><span class="label"><a
+ id="x23-133008r7"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x23-133009r8"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x23-133010r9"></a></span><span class="cmtt-10x-x-109">myInstance = myObject.new(10, 20);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-133011r10"></a></span></pre>
+   </div>
+<!--l. 840--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.6</span><a
+href="#QQ2-23-141" id="x23-13400014.3.2.6">How do I call a constructor of a parent class?</a></h5>
+</p><!--l. 842--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> function of parent classes is not called automatically when calling <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span> on ba child classe.
+It is the responsibility of the child to invoke <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> itself, using <a
+href="urbiscript-standard-library.html#slot:Code.apply"><span class="lstinline"><span class="cmtt-10x-x-109">Code.apply</span></span></a>:
+</p><!--l. 846--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 846--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-134001r1"></a></span><span class="cmtt-10x-x-109">package MyModule </span><br /><span class="label"><a
+ id="x23-134002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-134003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Parent </span><br /><span class="label"><a
+ id="x23-134004r4"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x23-134005r5"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(x) </span><br /><span class="label"><a
+ id="x23-134006r6"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x23-134007r7"></a></span><span class="cmtt-10x-x-109">      </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.x = x; </span><br /><span class="label"><a
+ id="x23-134008r8"></a></span><span class="cmtt-10x-x-109">    }; </span><br /><span class="label"><a
+ id="x23-134009r9"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x23-134010r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-134011r11"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Child: Parent </span><br /><span class="label"><a
+ id="x23-134012r12"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x23-134013r13"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(x, y) </span><br /><span class="label"><a
+ id="x23-134014r14"></a></span><span class="cmtt-10x-x-109">    { </span><br /><span class="label"><a
+ id="x23-134015r15"></a></span><span class="cmtt-10x-x-109">      Parent.init.apply([this, x]); </span><br /><span class="label"><a
+ id="x23-134016r16"></a></span><span class="cmtt-10x-x-109">      </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">.y = y; </span><br /><span class="label"><a
+ id="x23-134017r17"></a></span><span class="cmtt-10x-x-109">    } </span><br /><span class="label"><a
+ id="x23-134018r18"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x23-134019r19"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x23-134020r20"></a></span><span class="cmtt-10x-x-109">import MyModule; </span><br /><span class="label"><a
+ id="x23-134021r21"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> c = MyModule.Child.new(1, 2); </span><br /><span class="label"><a
+ id="x23-134022r22"></a></span><!--l. 868--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00028287] Child_0xb48e0e48</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-134023r23"></a></span><span class="cmtt-10x-x-109">c.x; </span><br /><span class="label"><a
+ id="x23-134024r24"></a></span><!--l. 870--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00029646] 1</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-134025r25"></a></span></pre>
+   </div>
+<!--l. 873--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.7</span><a
+href="#QQ2-23-142" id="x23-13500014.3.2.7">How can I manipulate the list of prototypes of my objects?</a></h5> The <a
+ id="x23-135001"></a><span class="lstinline"><span
+class="cmtt-10x-x-109">protos</span></span> method returns a
+list (which can be manipulated) containing the list of your object prototype.
+</p><!--l. 877--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 877--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-135002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myObject = Object.new; </span><br /><span class="label"><a
+ id="x23-135003r2"></a></span><span class="cmtt-10x-x-109">myObject.protos; </span><br /><span class="label"><a
+ id="x23-135004r3"></a></span><!--l. 880--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] [Object]</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-135005r4"></a></span></pre>
+   </div>
+<!--l. 883--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.8</span><a
+href="#QQ2-23-143" id="x23-13600014.3.2.8">How can I know the slots available for a given object?</a></h5> The <a
+href="urbiscript-standard-library.html#slot:Object.localSlotNames"><span class="lstinline"><span class="cmtt-10x-x-109">Object.localSlotNames</span></span></a> and
+<a
+href="urbiscript-standard-library.html#slot:Object.allSlotNames"><span class="lstinline"><span class="cmtt-10x-x-109">Object.allSlotNames</span></span></a> methods return respectively the local slot names and the local+inherited slot
+names.
+</p>
+<!--l. 888--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.2.9</span><a
+href="#QQ2-23-144" id="x23-13700014.3.2.9">How do I create a new function?</a></h5> Functions are ﬁrst class objects. That means that you can
+add them as any other slot in an object:
+</p><!--l. 892--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 892--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myObject = Object.new; </span><br /><span class="label"><a
+ id="x23-137002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myObject.myFunction = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> (x, y) </span><br /><span class="label"><a
+ id="x23-137003r3"></a></span><span class="cmtt-10x-x-109">  { echo (</span><!--l. 895--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;myFunction called with &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + x + </span><!--l. 895--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022; and &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + y) };</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137004r4"></a></span></pre>
+   </div>
+<!--l. 898--><p class="indent" >   You can also use the following notation to add a function to your object:
+</p><!--l. 901--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 901--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137005r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myObject = Object.new; </span><br /><span class="label"><a
+ id="x23-137006r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> myObject.myFunction (x, y) { </span><!--l. 903--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/* ... */</span></span></span><span class="cmtt-10x-x-109"> };</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137007r3"></a></span></pre>
+   </div>
+<!--l. 906--><p class="noindent" >or even group deﬁnitions within a <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span></span> scope, which will automatically deﬁne new slots instead of local
+variables and functions:
+</p><!--l. 911--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 911--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137008r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> myObject = Object.new; </span><br /><span class="label"><a
+ id="x23-137009r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (myObject) </span><br /><span class="label"><a
+ id="x23-137010r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-137011r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> myFunction (x, y) { </span><!--l. 915--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/* ... */</span></span></span><span class="cmtt-10x-x-109"> }; </span><br /><span class="label"><a
+ id="x23-137012r5"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137013r6"></a></span></pre>
+   </div>
+<!--l. 919--><p class="noindent" >or group those two statements by using a convenient <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span></span> scope:
+</p><!--l. 923--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 923--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137014r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> myObject </span><br /><span class="label"><a
+ id="x23-137015r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-137016r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> myFunction (x, y) { </span><!--l. 926--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/* ... */</span></span></span><span class="cmtt-10x-x-109"> }; </span><br /><span class="label"><a
+ id="x23-137017r4"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-137018r5"></a></span></pre>
+   </div>
+<!--l. 931--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.3.3   </span> <a
+href="contents.html#QQ2-23-145" id="x23-13800014.3.3">Tags</a></h4>
+<a
+ id="x23-138001"></a>
+<!--l. 934--><p class="noindent" >See <a
+href="parallelism-concurrent-flow-control.html#x14-6200010.3">Section 10.3<!--tex4ht:ref: sec:lang:waituntil --></a>, in the urbiscript User Manual, for an introduction about Tags. Then for a deﬁnition
+of the Tag objects (construction, use, slots, etc.), see <a
+href="urbiscript-standard-library.html#object:Tag"><span class="lstinline"><span
+class="cmtt-10x-x-109">Tag</span></span></a>.
+</p>
+<!--l. 938--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.3.1</span><a
+href="#QQ2-23-146" id="x23-13900014.3.3.1">How do I create a tag?</a></h5> See <a
+href="urbiscript-standard-library.html#x35-62700021.70.4">Section 21.70.4<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p>
+<!--l. 941--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.3.2</span><a
+href="#QQ2-23-147" id="x23-14000014.3.3.2">How do I stop a tag?</a></h5> Use the <span class="lstinline"><span
+class="cmtt-10x-x-109">stop</span></span> method (see <a
+href="urbiscript-standard-library.html#x35-61900021.70.1.1">Section 21.70.1.1<!--tex4ht:ref: sec:lang:waituntil --></a>). <div class="code urbiunchecked">
+<!--l. 943--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-140001r1"></a></span><span class="cmtt-10x-x-109">myTag.stop();</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-140002r2"></a></span></pre>
+   </div>
+<!--l. 947--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.3.3</span><a
+href="#QQ2-23-148" id="x23-14100014.3.3.3">Can tagged statements return a value?</a></h5> Yes, by giving it as a parameter to <span class="lstinline"><span
+class="cmtt-10x-x-109">stop</span></span>. See
+<a
+href="urbiscript-standard-library.html#x35-61900021.70.1.1">Section 21.70.1.1<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p><!--l. 952--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.3.4   </span> <a
+href="contents.html#QQ2-23-149" id="x23-14200014.3.4">Events</a></h4>
+<a
+ id="x23-142001"></a>
+<!--l. 955--><p class="noindent" >See <a
+href="event-based-programming.html#x15-6700011">Listing 11<!--tex4ht:ref: sec:lang:waituntil --></a>, in the urbiscript User Manual, for an introduction about event-based programming.
+Then for a deﬁnition of the Event objects (construction, use, slots, etc.), see <a
+href="urbiscript-standard-library.html#object:Event"><span class="lstinline"><span
+class="cmtt-10x-x-109">Event</span></span></a>.
+</p>
+<!--l. 960--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.4.1</span><a
+href="#QQ2-23-150" id="x23-14300014.3.4.1">How do I create an event?</a></h5> Events are objects, and must be created as any object by using
+<span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span> to create derivatives of the <span class="lstinline"><span
+class="cmtt-10x-x-109">Event</span></span> object.
+</p><!--l. 964--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 964--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-143001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> ev = Event.new();</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-143002r2"></a></span></pre>
+   </div>
+<!--l. 968--><p class="indent" >   See <a
+href="urbiscript-standard-library.html#x35-43600021.15.5">Section 21.15.5<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p>
+<!--l. 970--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.4.2</span><a
+href="#QQ2-23-151" id="x23-14400014.3.4.2">How do I emit an event?</a></h5> Use the <span class="lstinline"><span
+class="cmtt-10x-x-109">!</span></span> operator.
+</p><!--l. 973--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 973--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-144001r1"></a></span><span class="cmtt-10x-x-109">ev!(1, </span><!--l. 974--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-144002r2"></a></span></pre>
+   </div>
+<!--l. 977--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.3.4.3</span><a
+href="#QQ2-23-152" id="x23-14500014.3.4.3">How do I catch an event?</a></h5> Use the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span
+class="cmtt-10x-x-109">(</span><span
+class="cmitt-10x-x-109">event</span><span
+class="cmtt-10x-x-109">?</span><span
+class="cmitt-10x-x-109">args</span><span
+class="cmtt-10x-x-109">)</span></span> construct (see <a
+href="urbiscript-language-reference-manual.html#x31-36100020.11.1">Listing 20.11.1<!--tex4ht:ref: sec:lang:waituntil --></a>).
+</p><!--l. 981--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 981--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-145001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109">(ev?(1, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> msg)) </span><br /><span class="label"><a
+ id="x23-145002r2"></a></span><span class="cmtt-10x-x-109">  echo (</span><!--l. 983--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Received event with 1 and message &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + msg);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-145003r3"></a></span></pre>
+   </div>
+<!--l. 986--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">?</span></span> marker indicates that we are looking for an event instead of a Boolean condition. The
+construct <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> msg</span></span> indicates that the <span class="lstinline"><span
+class="cmtt-10x-x-109">msg</span></span> variable will be bound (as a local variable) in the body
+part of the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span> construct, with whatever value is present in the event that triggered the
+<span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span></span>.
+</p><!--l. 992--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.3.5   </span> <a
+href="contents.html#QQ2-23-153" id="x23-14600014.3.5">Standard Library</a></h4>
+<!--l. 994--><p class="noindent" ><h5 class="subsubsectionHead"> <span class="titlemark">14.3.5.1</span><a
+href="#QQ2-23-154" id="x23-14700014.3.5.1">How can I iterate over a list?</a></h5> <a
+ id="x23-147001"></a>
+</p><!--l. 997--><p class="indent" >   Use the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span></span> construct (<a
+href="urbiscript-language-reference-manual.html#x31-32000020.7.6">Listing 20.7.6<!--tex4ht:ref: sec:lang:waituntil --></a>), or the <a
+href="urbiscript-standard-library.html#slot:List.each"><span class="lstinline"><span class="cmtt-10x-x-109">List.each</span></span></a> method:
+</p><!--l. 1000--><p class="indent" >   <div class="code urbiscript">
+<!--l. 1000--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-147002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> i: [10, 11, 12]) echo (i); </span><br /><span class="label"><a
+ id="x23-147003r2"></a></span><!--l. 1002--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] *** 10</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-147004r3"></a></span><!--l. 1003--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] *** 11</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-147005r4"></a></span><!--l. 1004--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000003] *** 12</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-147006r5"></a></span></pre>
+   </div>
+<!--l. 1007--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">14.4   </span> <a
+href="index.html#QQ2-23-155" id="x23-14800014.4">UObjects</a></h3>
+<a
+ id="x23-148001"></a>
+<!--l. 1009--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.4.1   </span> <a
+href="contents.html#QQ2-23-156" id="x23-14900014.4.1">Is the UObject API Thread-Safe?</a></h4>
+<a
+ id="x23-149001"></a>
+<!--l. 1010--><p class="noindent" >We are receiving a lot of questions on thread-safety issues in UObject code. So here comes a
+quick explanation on how things work in plugin and remote mode, with a focus on those
+questions.
+</p>
+<!--l. 1014--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.4.1.1</span><a
+href="#QQ2-23-157" id="x23-15000014.4.1.1">Plugin mode</a></h5>
+</p><!--l. 1016--><p class="indent" >   In <span
+class="cmti-10x-x-109">plugin mode</span><a
+ id="x23-150001"></a>, all the UObject callbacks (timer, bound functions, notifyChange and
+notifyAccess targets) are called synchronously in the same thread that executes urbiscript code.
+All reads and writes to Urbi variables, through <span
+class="cmti-10x-x-109">UVar</span><a
+ id="x23-150002"></a>, are done synchronously. Access to
+the UObject API (reading/writing UVars, using <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">call</span></span><span
+class="cmtt-10x-x-109">()</span></span>...) is possible from other threads,
+though those operations are currently using one serialization lock with the main thread: each
+UObject API call from an other thread will wait until the main thread is ready to process
+it.
+</p>
+<!--l. 1026--><p class="indent" >   <h5 class="subsubsectionHead"> <span class="titlemark">14.4.1.2</span><a
+href="#QQ2-23-158" id="x23-15100014.4.1.2">Remote mode</a></h5>
+</p>
+<!--l. 1028--><p class="noindent" ><span class="paragraphHead"><a
+href="#x23-15200014.4.1.2" id="x23-15200014.4.1.2"><span
+class="cmbx-10x-x-109">Execution model</span></a></span>
+   In <span
+class="cmti-10x-x-109">remote mode</span><a
+ id="x23-152001"></a>, a single thread is also used to handle all UObject callbacks, for all the UObjects in
+the same executable. It means that two bound functions registered from the same executable will never
+execute in parallel. Consider this sample C++ function:
+</p><!--l. 1035--><p class="indent" >   <div class="code cxx">
+<!--l. 1035--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-152002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> MyObject::test(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> delay) </span><br /><span class="label"><a
+ id="x23-152003r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-152004r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> callNumber = 0; </span><br /><span class="label"><a
+ id="x23-152005r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> call = ++callNumber; </span><br /><span class="label"><a
+ id="x23-152006r5"></a></span><span class="cmtt-10x-x-109">  std::cerr &#x003C;&#x003C; </span><!--l. 1040--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;in &#x0022;</span></span></span><span class="cmtt-10x-x-109">  &#x003C;&#x003C; call &#x003C;&#x003C; </span><!--l. 1040--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: &#x0022;</span></span></span><span class="cmtt-10x-x-109"> &#x003C;&#x003C; time() &#x003C;&#x003C; std::endl; </span><br /><span class="label"><a
+ id="x23-152007r6"></a></span><span class="cmtt-10x-x-109">  sleep(delay); </span><br /><span class="label"><a
+ id="x23-152008r7"></a></span><span class="cmtt-10x-x-109">  std::cerr &#x003C;&#x003C; </span><!--l. 1042--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;out &#x0022;</span></span></span><span class="cmtt-10x-x-109"> &#x003C;&#x003C; call &#x003C;&#x003C; </span><!--l. 1042--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;: &#x0022;</span></span></span><span class="cmtt-10x-x-109"> &#x003C;&#x003C; time() &#x003C;&#x003C; std::endl; </span><br /><span class="label"><a
+ id="x23-152009r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x23-152010r9"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-152011r10"></a></span></pre>
+   </div>
+<!--l. 1047--><p class="indent" >   If this function is bound in a remote uobject, the following code:
+</p><!--l. 1049--><p class="indent" >   <div class="code cxx">
+<!--l. 1049--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-152012r1"></a></span><span class="cmtt-10x-x-109">MyObject.test(1), MyObject.test(1)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-152013r2"></a></span></pre>
+   </div>
+<!--l. 1053--><p class="noindent" >will produce the following output (assuming the ﬁrst call to <span class="lstinline"><span
+class="cmtt-10x-x-109">time</span></span> returns 1000).
+</p>
+   <div class="verbatim" id="verbatim-6">
+      <!--l. 1057--><pre class="listings"> <br /><span class="label"><a
+ id="x23-152014r1"></a></span>in 1: 1000 <br /><span class="label"><a
+ id="x23-152015r2"></a></span>out 1: 1001 <br /><span class="label"><a
+ id="x23-152016r3"></a></span>in 2: 1001 <br /><span class="label"><a
+ id="x23-152017r4"></a></span>out 2: 1002
+       <br /><span class="label"><a
+ id="x23-152018r5"></a></span></pre>
+</div>
+<!--l. 1062--><p class="nopar" >
+</p><!--l. 1064--><p class="indent" >   However, the execution of the Urbi kernel is not “stuck” while the remote function executes, as the
+following code demonstrates:
+</p><!--l. 1067--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 1067--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-152019r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> t = Tag.new(); </span><br /><span class="label"><a
+ id="x23-152020r2"></a></span><span class="cmtt-10x-x-109">test(1) | t.stop(), </span><br /><span class="label"><a
+ id="x23-152021r3"></a></span><span class="cmtt-10x-x-109">t:</span><span class="textkwd"><span
+class="cmtt-10x-x-109">every</span></span><span class="cmtt-10x-x-109">(300ms) </span><br /><span class="label"><a
+ id="x23-152022r4"></a></span><span class="cmtt-10x-x-109">  cerr &#x003C;&#x003C; </span><!--l. 1071--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;running&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-152023r5"></a></span></pre>
+   </div>
+<!--l. 1074--><p class="indent" >   The corresponding output is (mixing the kernel and the remote outputs):
+</p>
+   <div class="verbatim" id="verbatim-7">
+      <!--l. 1076--><pre class="listings"> <br /><span class="label"><a
+ id="x23-152024r1"></a></span>[0] running <br /><span class="label"><a
+ id="x23-152025r2"></a></span>in 1: 1000 <br /><span class="label"><a
+ id="x23-152026r3"></a></span>[300] running <br /><span class="label"><a
+ id="x23-152027r4"></a></span>[600] running <br /><span class="label"><a
+ id="x23-152028r5"></a></span>[900] running <br /><span class="label"><a
+ id="x23-152029r6"></a></span>out 1: 1001
+       <br /><span class="label"><a
+ id="x23-152030r7"></a></span></pre>
+</div>
+<!--l. 1083--><p class="nopar" >
+</p><!--l. 1085--><p class="indent" >   As you can see, Urbi semantics is respected (the execution ﬂow is stuck until the return value
+from the function is returned), but the kernel is not stuck: other pieces of code are still
+running.
+</p>
+<!--l. 1089--><p class="noindent" ><span class="paragraphHead"><a
+href="#x23-15300014.4.1.2" id="x23-15300014.4.1.2"><span
+class="cmbx-10x-x-109">Thread-safety</span></a></span>
+   The liburbi and the UObject API in remote mode are thread safe. All operations can be performed
+in any thread. As always, care must be taken for all non-atomic operations. For example, the following
+function is not thread safe:
+</p><!--l. 1096--><p class="indent" >   <div class="code cxx">
+<!--l. 1096--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-153001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-153002r2"></a></span><span class="cmtt-10x-x-109">writeToVar(UClient* cl, std::string varName, std::string value) </span><br /><span class="label"><a
+ id="x23-153003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-153004r4"></a></span><span class="cmtt-10x-x-109">  (*cl) &#x003C;&#x003C; varName &#x003C;&#x003C; </span><!--l. 1100--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022; = &#x0022;</span></span></span><span class="cmtt-10x-x-109"> &#x003C;&#x003C; value &#x003C;&#x003C; </span><!--l. 1100--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;;&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x23-153005r5"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-153006r6"></a></span></pre>
+   </div>
+<!--l. 1104--><p class="indent" >   Two simultaneous calls to this function from diﬀerent threads can result in the two
+messages being mixed. The following implementation of the same function is thread-safe
+however:
+</p><!--l. 1108--><p class="indent" >   <div class="code cxx">
+<!--l. 1108--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-153007r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-153008r2"></a></span><span class="cmtt-10x-x-109">writeToVar(UClient* cl, std::string varName, std::string value) </span><br /><span class="label"><a
+ id="x23-153009r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x23-153010r4"></a></span><span class="cmtt-10x-x-109">  std::stringstream s; </span><br /><span class="label"><a
+ id="x23-153011r5"></a></span><span class="cmtt-10x-x-109">  s &#x003C;&#x003C; varName &#x003C;&#x003C; </span><!--l. 1113--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022; = &#x0022;</span></span></span><span class="cmtt-10x-x-109"> &#x003C;&#x003C; value &#x003C;&#x003C; </span><!--l. 1113--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;;&#x0022;</span></span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x23-153012r6"></a></span><span class="cmtt-10x-x-109">  (*cl) &#x003C;&#x003C; s.str(); </span><br /><span class="label"><a
+ id="x23-153013r7"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x23-153014r8"></a></span></pre>
+   </div>
+<!--l. 1118--><p class="noindent" >since a single call to UClient&#x2019;s <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span class="cmtt-10x-x-109"> &#x003C;&#x003C;</span></span> is thread-safe.
+</p><!--l. 1123--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">14.5   </span> <a
+href="index.html#QQ2-23-161" id="x23-15400014.5">Miscellaneous</a></h3>
+<!--l. 1124--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.5.1   </span> <a
+href="contents.html#QQ2-23-162" id="x23-15500014.5.1">What has changed since the latest release?</a></h4>
+<!--l. 1125--><p class="noindent" >See <a
+href="release-notes.html#x48-80600030">Listing 30<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p><!--l. 1127--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.5.2   </span> <a
+href="contents.html#QQ2-23-163" id="x23-15600014.5.2">How can I contribute to the code?</a></h4>
+<!--l. 1129--><p class="noindent" >You are encouraged to submit patches to <a
+href="mailto:kernel@lists.gostai.com" ><span
+class="cmtt-10x-x-109">kernel@lists.gostai.com</span></a>, where they will be reviewed by
+the Urbi team. If they ﬁt the project and satisfy the quality requirements, they will be accepted. As of
+today there is no public repository for Urbi SDK (there will be, eventually), patches should be made
+against the latest source tarballs (see <a
+href="https://github.com/jcbaillie/urbi/urbi/2.x/" ><span
+class="cmtt-10x-x-109">https://github.com/jcbaillie/urbi/urbi/2.x/</span></a>).
+</p><!--l. 1136--><p class="indent" >   Even though Urbi SDK is free software (GNU Aﬀero General Public License 3+, see the
+‘<span
+class="cmtt-10x-x-109">LICENSE.txt</span>&#x2019; ﬁle), licensing patches under GNU AGPL3+ does not suﬃce to support our dual
+licensed products. This situation is common, see for instance the case of Oracle VM Virtual Box,
+<a
+href="http://www.virtualbox.org/wiki/Contributor_information" ><span
+class="cmtt-10x-x-109">http://www.virtualbox.org/wiki/Contributor_information</span></a>.
+</p><!--l. 1142--><p class="indent" >   There are diﬀerent means to ensure that your contributions to Urbi SDK can be accepted. None
+require that you “give away your copyright”. What is needed, is the right to use contributions, which
+can be achieved in two ways: </p>
+     <ul class="itemize1">
+     <li class="itemize">Sign the Urbi Open Source Contributor Agreement, see <a
+href="licenses.html#x52-95000031.10">Section 31.10<!--tex4ht:ref: sec:lang:waituntil --></a>. This may take some
+     time initially, but it will cover all your future contributions.
+     </li>
+     <li class="itemize">Submit your contribution under the Expat license (also known as the “MIT license”, see
+     <a
+href="licenses.html#x52-94300031.3">Section 31.3<!--tex4ht:ref: sec:lang:waituntil --></a>), or under the modiﬁed BSD license (see <a
+href="licenses.html#x52-94200031.2">Section 31.2<!--tex4ht:ref: sec:lang:waituntil --></a>).</li></ul>
+<!--l. 1157--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">14.5.3   </span> <a
+href="contents.html#QQ2-23-164" id="x23-15700014.5.3">How do I report a bug?</a></h4>
+<!--l. 1159--><p class="noindent" >Bug reports should be sent to <a
+href="mailto:kernel-bugs@lists.gostai.com" ><span
+class="cmtt-10x-x-109">kernel-bugs@lists.gostai.com</span></a>, it will be addressed as fast as
+possible. Please, be sure to read the FAQ (possibly updated on our web site), and to have checked that
+no more recent release ﬁxed your issue.
+</p><!--l. 1164--><p class="indent" >   Each bug report should contain a self-contained example, which can be tested by our team. Using
+self-contained code, i.e., code that does not depend on other code, helps ensuring that we will be
+able to duplicate the problem and analyze it promptly. It will also help us integrating the
+code snippet into our non-regression test suite so that the bug does not reappear in the
+future.
+</p><!--l. 1171--><p class="indent" >   If your report identiﬁes a bug in the Urbi kernel or its dependencies, we will prepare a ﬁx to be
+integrated in a later release. If the bug takes some time to ﬁx, we may provide you with a workaround
+so that your developments are not delayed.
+</p><!--l. 1176--><p class="indent" >   In your bug report, specify the Urbi version you are using (run ‘<span
+class="cmtt-10x-x-109">urbi --version</span>&#x2019;) and whether
+this bug is blocking you or not. Please keep <a
+href="mailto:kernel-bugs@lists.gostai.com" ><span
+class="cmtt-10x-x-109">kernel-bugs@lists.gostai.com</span></a> in copy of all your
+correspondence: do not reply individually to a member of our team, as this may slow down the
+handling of the report.
+</p><!--l. 1182--><p class="indent" >   If your bug report is about a failing ‘<span
+class="cmtt-10x-x-109">make check</span>&#x2019;, ﬁrst be sure to read <a
+href="build.html#x27-18700018.3">Section 18.3<!--tex4ht:ref: sec:lang:waituntil --></a>.
+</p>
+</body></html>

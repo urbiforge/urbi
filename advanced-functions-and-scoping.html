@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>6 Advanced Functions and Scoping</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="objective-programming-urbiscript-object-model.html" >Next</a><a
+href="urbiscript-user-manual.html#advanced-functions-and-scoping.html" >Up</a><a
+href="flow-control-constructs.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 6</span><br /><a
+href="index.html#QQ2-10-41" id="x10-350006">Advanced Functions and Scoping</a></h2>
+<!--l. 12--><p class="noindent" >This section presents advanced uses of functions and scoping, as well as their combo: lexical closures,
+which prove to be a very powerful tool.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >6.1 <a
+href="#x10-360006.1">Scopes as expressions</a></span>
+<br />    <span class="sectionToc" >6.2 <a
+href="#x10-370006.2">Advanced scoping</a></span>
+<br />    <span class="sectionToc" >6.3 <a
+href="#x10-380006.3">Local functions</a></span>
+<br />    <span class="sectionToc" >6.4 <a
+href="#x10-390006.4">Lexical closures</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">6.1   </span> <a
+href="index.html#QQ2-10-42" id="x10-360006.1">Scopes as expressions</a></h3>
+<!--l. 17--><p class="noindent" >Contrary to other languages from the C family, scopes are expressions: they can be used where values
+are expected, just as <span class="lstinline"><span class="cmtt-10x-x-109">1 + 1</span></span> or <span class="lstinline"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span>. They evaluate to the value of their last expression, or <span class="lstinline"><span
+class="cmtt-10x-x-109">void</span></span> if
+they are empty. The following listing illustrates the use of scopes as expressions. The last semicolon
+inside a scope is optional.
+</p><!--l. 23--><p class="indent" >   <div class="code urbiscript">
+<!--l. 23--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-36001r1"></a></span><!--l. 24--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Scopes evaluate to the value of their last expression.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-36002r2"></a></span><span class="cmtt-10x-x-109">{ 1; 2; 3; }; </span><br /><span class="label"><a
+ id="x10-36003r3"></a></span><!--l. 26--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-36004r4"></a></span><!--l. 27--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// They are expressions.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-36005r5"></a></span><span class="cmtt-10x-x-109">echo({1; 2; 3}); </span><br /><span class="label"><a
+ id="x10-36006r6"></a></span><!--l. 29--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-36007r7"></a></span></pre>
+   </div>
+<!--l. 32--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">6.2   </span> <a
+href="index.html#QQ2-10-43" id="x10-370006.2">Advanced scoping</a></h3>
+<!--l. 34--><p class="noindent" >Scopes can be nested. Variables can be redeﬁned in nested scopes. In this case, the inner variables hide
+the outer ones, as illustrated below.
+</p><!--l. 37--><p class="indent" >   <div class="code urbiscript">
+<!--l. 37--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 0;   </span><!--l. 38--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Define the outer x.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37002r2"></a></span><!--l. 39--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x10-37004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> x = 1; </span><!--l. 41--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Define an inner x.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37005r5"></a></span><span class="cmtt-10x-x-109">  x = 2;     </span><!--l. 42--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// These refer to</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37006r6"></a></span><span class="cmtt-10x-x-109">  echo(x);   </span><!--l. 43--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// the inner x</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37007r7"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x10-37008r8"></a></span><!--l. 45--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 2</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37009r9"></a></span><span class="cmtt-10x-x-109">x;           </span><!--l. 46--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is the outer x again.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37010r10"></a></span><!--l. 47--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37011r11"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x10-37012r12"></a></span><span class="cmtt-10x-x-109">  x = 3;     </span><!--l. 49--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// This is still the outer x.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37013r13"></a></span><span class="cmtt-10x-x-109">  echo(x); </span><br /><span class="label"><a
+ id="x10-37014r14"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x10-37015r15"></a></span><!--l. 52--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37016r16"></a></span><span class="cmtt-10x-x-109">x; </span><br /><span class="label"><a
+ id="x10-37017r17"></a></span><!--l. 54--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 3</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-37018r18"></a></span></pre>
+   </div>
+<!--l. 57--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">6.3   </span> <a
+href="index.html#QQ2-10-44" id="x10-380006.3">Local functions</a></h3>
+<!--l. 59--><p class="noindent" >Functions can be deﬁned anywhere local variables can — that is, about anywhere. These functions&#x2019;
+visibility are limited to the scope they&#x2019;re deﬁned in, like variables. This enables for instance to write
+local helper functions like <span class="lstinline"><span
+class="cmtt-10x-x-109">max2</span></span> in the example below.
+</p><!--l. 64--><p class="indent" >   <div class="code urbiscript">
+<!--l. 64--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-38001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> max3(a, b, c) </span><!--l. 65--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Max of three values</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-38002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x10-38003r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> max2(a, b) </span><br /><span class="label"><a
+ id="x10-38004r4"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x10-38005r5"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (a &#x003E; b) </span><br /><span class="label"><a
+ id="x10-38006r6"></a></span><span class="cmtt-10x-x-109">      a </span><br /><span class="label"><a
+ id="x10-38007r7"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-38008r8"></a></span><span class="cmtt-10x-x-109">      b </span><br /><span class="label"><a
+ id="x10-38009r9"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x10-38010r10"></a></span><span class="cmtt-10x-x-109">  max2(a, max2(b, c)); </span><br /><span class="label"><a
+ id="x10-38011r11"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-38012r12"></a></span></pre>
+   </div>
+<!--l. 78--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">6.4   </span> <a
+href="index.html#QQ2-10-45" id="x10-390006.4">Lexical closures</a></h3>
+<!--l. 80--><p class="noindent" >A <span
+class="cmti-10x-x-109">closure</span><a
+ id="x10-39001"></a> is the capture by a function of a variable external to this function. urbiscript supports lexical
+closure: functions can refer to outer local variables, as long as they are visible (in scope) from where
+the function is deﬁned.
+</p><!--l. 85--><p class="indent" >   <div class="code urbiscript">
+<!--l. 85--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> printSalaries(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> rate) </span><br /><span class="label"><a
+ id="x10-39003r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x10-39004r3"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> charges = 100; </span><br /><span class="label"><a
+ id="x10-39005r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> computeSalary(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> hours) </span><br /><span class="label"><a
+ id="x10-39006r5"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x10-39007r6"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 91--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// rate and charges are captured from the environment by closure.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39008r7"></a></span><span class="cmtt-10x-x-109">    rate * hours - charges </span><br /><span class="label"><a
+ id="x10-39009r8"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x10-39010r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39011r10"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 95--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Alice&#x2019;s salary is &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + computeSalary(35)); </span><br /><span class="label"><a
+ id="x10-39012r11"></a></span><span class="cmtt-10x-x-109">  echo(</span><!--l. 96--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Bob&#x2019;s salary is &#x0022;</span></span></span><span class="cmtt-10x-x-109"> + computeSalary(30)); </span><br /><span class="label"><a
+ id="x10-39013r12"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x10-39014r13"></a></span><span class="cmtt-10x-x-109">printSalaries(15); </span><br /><span class="label"><a
+ id="x10-39015r14"></a></span><!--l. 99--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** Alice&#x2019;s salary is 425</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39016r15"></a></span><!--l. 100--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** Bob&#x2019;s salary is 350</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39017r16"></a></span></pre>
+   </div>
+<!--l. 103--><p class="indent" >   Closures can also change captured variables, as shown below.
+</p><!--l. 106--><p class="indent" >   <div class="code urbiscript">
+<!--l. 106--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39018r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a = 0; </span><br /><span class="label"><a
+ id="x10-39019r2"></a></span><!--l. 108--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39020r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> b = 0; </span><br /><span class="label"><a
+ id="x10-39021r4"></a></span><!--l. 110--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39022r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> add(n) </span><br /><span class="label"><a
+ id="x10-39023r6"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x10-39024r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 113--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// a and b are updated by closure.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39025r8"></a></span><span class="cmtt-10x-x-109">  a += n; </span><br /><span class="label"><a
+ id="x10-39026r9"></a></span><span class="cmtt-10x-x-109">  b += n; </span><br /><span class="label"><a
+ id="x10-39027r10"></a></span><span class="cmtt-10x-x-109">  {} </span><br /><span class="label"><a
+ id="x10-39028r11"></a></span><span class="cmtt-10x-x-109">}|; </span><br /><span class="label"><a
+ id="x10-39029r12"></a></span><span class="cmtt-10x-x-109">add(25); </span><br /><span class="label"><a
+ id="x10-39030r13"></a></span><span class="cmtt-10x-x-109">add(25); </span><br /><span class="label"><a
+ id="x10-39031r14"></a></span><span class="cmtt-10x-x-109">add(1); </span><br /><span class="label"><a
+ id="x10-39032r15"></a></span><span class="cmtt-10x-x-109">a; </span><br /><span class="label"><a
+ id="x10-39033r16"></a></span><!--l. 122--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39034r17"></a></span><span class="cmtt-10x-x-109">b; </span><br /><span class="label"><a
+ id="x10-39035r18"></a></span><!--l. 124--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] 51</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x10-39036r19"></a></span></pre>
+   </div>
+<!--l. 127--><p class="indent" >   Closure can be really powerful tools in some situations; they are even more useful when combined
+with functional programming, as described in <a
+href="functional-programming.html#x13-550009">Listing 9</a>.
+</p>
+</body></html>

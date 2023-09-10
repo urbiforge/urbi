@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>2 Getting Started</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="urbiscript-user-manual.html" >Next</a><a
+href="index.html#getting-started.html" >Up</a><a
+href="contents.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 2</span><br /><a
+href="index.html#QQ2-4-12" id="x4-110002">Getting Started</a></h2>
+<!--l. 12--><p class="noindent" >urbiscript comes with a set of tools, two of which being of particular importance:
+     </p><dl class="description"><dt class="description">
+<span
+class="cmbxti-10x-x-109">urbi</span><a
+ id="x4-11001"></a> </dt><dd
+class="description">launches an Urbi server. There are several means to interact with it, which we will see
+     later.
+     </dd><dt class="description">
+<span
+class="cmbxti-10x-x-109">urbi-launch</span><a
+ id="x4-11002"></a> </dt><dd
+class="description">runs Urbi components, the UObjects, and connects them to an Urbi server.</dd></dl>
+<!--l. 21--><p class="indent" >   Please, ﬁrst make sure that these tools are properly installed. If you encounter problems, please
+see the frequently asked questions (<a
+href="faq.html#x23-10100014">Section 14</a>), and the detailed installation instructions
+(<a
+href="installation.html#x22-9300013">paragraph 13</a>).
+</p><!--l. 26--><p class="indent" >   <div class="code shell">
+<!--l. 26--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11003r1"></a></span><!--l. 27--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Make sure urbi is properly installed.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11004r2"></a></span><span class="cmtt-10x-x-109">$ urbi --version </span><br /><span class="label"><a
+ id="x4-11005r3"></a></span><span class="cmtt-10x-x-109">Urbi version 3.x.y</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11006r4"></a></span></pre>
+   </div>
+<!--l. 32--><p class="indent" >   There are several means to interact with a server spawned by <span
+class="cmtt-10x-x-109">urbi</span>, see <a
+href="programs.html#x30-20000019.3">Section 19.3</a> for details.
+First of all, you may use the options ‘<span
+class="cmtt-10x-x-109">-e</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--expression </span><span
+class="cmitt-10x-x-109">code </span>&#x2019; and ‘<span
+class="cmtt-10x-x-109">-f</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--file </span><span
+class="cmitt-10x-x-109">file </span>&#x2019; to send some
+<span
+class="cmitt-10x-x-109">code </span>or the contents of some <span
+class="cmitt-10x-x-109">file </span>to the newly run server. The option ‘<span
+class="cmtt-10x-x-109">q</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--quiet</span>&#x2019; discards the
+banner.
+</p><!--l. 39--><p class="indent" >   You may combine any number of these options, but beware that being event-driven, the server does
+not “know” when a program ends. Therefore, batch programs should end by calling <span class="lstinline"><span
+class="cmtt-10x-x-109">shutdown</span></span>. Using a
+Unix shell:
+</p><!--l. 44--><p class="indent" >   <div class="code shell">
+<a
+ id="x4-11007r1"></a>
+<a
+ id="x4-11008"></a>
+<!--l. 44--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11009r1"></a></span><!--l. 45--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># A classical program.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11010r2"></a></span><span class="cmtt-10x-x-109">$ urbi -q -e </span><!--l. 46--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;echo(&#x0022;Hello, World!&#x0022;);&#x2019;</span></span><span class="cmtt-10x-x-109"> -e </span><!--l. 46--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;shutdown;&#x2019;</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11011r3"></a></span><!--l. 47--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004] *** Hello, World!</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11012r4"></a></span></pre>
+    <div class="caption"
+><span class="id">Listing 2.1: </span><span
+class="content">A batch session under Unix.</span></div><!--tex4ht:label?: x4-11007r2 -->
+   </div>
+<!--l. 50--><p class="indent" >   If you are running Windows, then, since the quotation rules diﬀer, run:
+</p><!--l. 52--><p class="indent" >   <div class="code shell">
+<a
+ id="x4-11013r2"></a>
+<a
+ id="x4-11014"></a>
+<!--l. 52--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11015r1"></a></span><!--l. 53--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># A classical program.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11016r2"></a></span><span class="cmtt-10x-x-109">$ urbi -q -e </span><!--l. 54--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;echo(&#x0022;</span></span></span><!--l. 54--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello, World!&#x0022;</span></span></span><!--l. 54--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;);&#x0022;</span></span></span><span class="cmtt-10x-x-109"> -e </span><!--l. 54--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;shutdown;&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11017r3"></a></span><!--l. 55--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004] *** Hello, World!</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11018r4"></a></span></pre>
+    <div class="caption"
+><span class="id">Listing 2.2: </span><span
+class="content">A batch session under Windows.</span></div><!--tex4ht:label?: x4-11013r2 -->
+   </div>
+<!--l. 59--><p class="indent" >   To run an interactive session, use option ‘<span
+class="cmtt-10x-x-109">-i</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">--interactive</span>&#x2019;. Like most interactive interpreters,
+Urbi will evaluate the given commands and print out the results.
+</p><!--l. 63--><p class="indent" >   <div class="code shell">
+<a
+ id="x4-11019r3"></a>
+<a
+ id="x4-11020"></a>
+<!--l. 63--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11021r1"></a></span><span class="cmtt-10x-x-109">$ urbi -i </span><br /><span class="label"><a
+ id="x4-11022r2"></a></span><!--l. 65--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000825] *** Urbi version 3.x.y</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11023r3"></a></span><span class="cmtt-10x-x-109">1+2; </span><br /><span class="label"><a
+ id="x4-11024r4"></a></span><!--l. 67--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00001200] 3</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11025r5"></a></span><span
+class="cmtt-10x-x-109">shutdown;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11026r6"></a></span></pre>
+    <div class="caption"
+><span class="id">Listing 2.3: </span><span
+class="content">An interactive session under Unix.</span></div><!--tex4ht:label?: x4-11019r2 -->
+   </div>
+<!--l. 71--><p class="indent" >   The output from the server is preﬁxed by a number surrounded by square brackets: this is the date
+(in milliseconds since the server was launched) at which that line was sent by the server. This
+is useful at occasions, since Urbi is meant to run many parallel commands. Since these
+timestamps are irrelevant in most examples, they will often be ﬁlled with zeroes through this
+documentation.
+</p><!--l. 78--><p class="indent" >   Under Unix, the program <span
+class="cmtt-10x-x-109">rlwrap </span>provides additional services (history of commands, advanced
+command line edition etc.); run ‘<span
+class="cmtt-10x-x-109">rlwrap urbi -i</span>&#x2019;.
+</p><!--l. 82--><p class="indent" >   In either case the server can also be made available for network-based interactions using option
+‘<span
+class="cmtt-10x-x-109">--port </span><span
+class="cmitt-10x-x-109">port </span>&#x2019;. Note that while <span class="lstinline"><span
+class="cmtt-10x-x-109">shutdown</span></span> asks the server to quit, <span class="lstinline"><span
+class="cmtt-10x-x-109">quit</span></span> only quits one interactive
+session. In the following example (under Unix) the server is still available for other, possibly
+concurrent, sessions.
+</p><!--l. 88--><p class="indent" >   <div class="code shell">
+<a
+ id="x4-11027r4"></a>
+<a
+ id="x4-11028"></a>
+<!--l. 88--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11029r1"></a></span><span class="cmtt-10x-x-109">$ urbi --port 54000 &#x0026; </span><br /><span class="label"><a
+ id="x4-11030r2"></a></span><span class="cmtt-10x-x-109">[1] 77024 </span><br /><span class="label"><a
+ id="x4-11031r3"></a></span><span class="cmtt-10x-x-109">$ telnet localhost 54000 </span><br /><span class="label"><a
+ id="x4-11032r4"></a></span><span class="cmtt-10x-x-109">Trying 127.0.0.1... </span><br /><span class="label"><a
+ id="x4-11033r5"></a></span><span class="cmtt-10x-x-109">Connected to localhost. </span><br /><span class="label"><a
+ id="x4-11034r6"></a></span><span class="cmtt-10x-x-109">Escape character is </span><!--l. 94--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;^]&#x2019;</span></span><span class="cmtt-10x-x-109">. </span><br /><span class="label"><a
+ id="x4-11035r7"></a></span><!--l. 95--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00004816] *** Urbi version 3.x.y</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11036r8"></a></span><span class="cmtt-10x-x-109">12345679*8; </span><br /><span class="label"><a
+ id="x4-11037r9"></a></span><!--l. 97--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00018032] 98765432</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11038r10"></a></span><span class="cmtt-10x-x-109">quit; </span><br /><span class="label"><a
+ id="x4-11039r11"></a></span><span class="cmtt-10x-x-109">Connection closed by foreign host.</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11040r12"></a></span></pre>
+    <div class="caption"
+><span class="id">Listing 2.4: </span><span
+class="content">An interactive session under Unix.</span></div><!--tex4ht:label?: x4-11027r2 -->
+   </div>
+<!--l. 102--><p class="indent" >   Under Windows, instead of using <span
+class="cmtt-10x-x-109">telnet</span>, you may use <span
+class="cmtt-10x-x-109">Gostai Console </span>(part of the package),
+which provides a Graphical User Interface to a network-connection to an Urbi server. To launch the
+server, run:
+</p><!--l. 107--><p class="indent" >   <div class="code shell">
+<a
+ id="x4-11041r5"></a>
+<a
+ id="x4-11042"></a>
+<!--l. 107--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11043r1"></a></span><span class="cmtt-10x-x-109">C:\...&#x003E; start urbi --port 54000</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11044r2"></a></span></pre>
+    <div class="caption"
+><span class="id">Listing 2.5: </span><span
+class="content">Starting an interactive session under Windows.</span></div><!--tex4ht:label?: x4-11041r2 -->
+   </div>
+<!--l. 111--><p class="noindent" >and to launch the client, click on <span
+class="cmtt-10x-x-109">Gostai Console </span>which is installed by the installer.
+</p><!--l. 115--><p class="indent" >   Then, the interaction proceeds in the <span
+class="cmtt-10x-x-109">Gostai Console </span>windows. Specify the host name and port to
+use (‘<span
+class="cmtt-10x-x-109">127.0.0.1:54000</span>&#x2019;) in the text ﬁeld in the top of the window and click on the right to start the
+connection.
+</p>
+<div class="center"
+>
+<!--l. 120--><p class="noindent" >
+</p><!--l. 121--><p class="noindent" ><img
+src="urbi-sdk1x.png" alt="PIC" class="graphics" width="364.19667pt" height="255.17142pt"  /><!--tex4ht:graphics
+name="urbi-sdk1x.png" src="img/gostai-console.eps"
+--></p></div>
+<!--l. 124--><p class="indent" >   The program <span
+class="cmtt-10x-x-109">urbi-send </span>(see <a
+href="programs.html#x30-23200019.8">Section 19.8</a>) provides a nice interface to send batches of instructions
+(and/or ﬁles) to a running server.
+</p><!--l. 128--><p class="indent" >   <div class="code shell">
+<!--l. 128--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11045r1"></a></span><span class="cmtt-10x-x-109">$ urbi-send -P 54000 -e </span><!--l. 129--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;1+2*3;&#x0022;</span></span></span><span class="cmtt-10x-x-109"> -Q </span><br /><span class="label"><a
+ id="x4-11046r2"></a></span><!--l. 130--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00018032] 7</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11047r3"></a></span><!--l. 131--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Have the server shutdown;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11048r4"></a></span><span class="cmtt-10x-x-109">$ urbi-send -P 54000 -e </span><!--l. 132--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;shutdown;&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x4-11049r5"></a></span></pre>
+   </div>
+<!--l. 137--><p class="indent" >   You can now send commands to your Urbi server. If at any point you get lost, or want a fresh start,
+you can simply close and reopen your connection to the server to get a clean environment. In some
+cases, particularly if you made global changes in the environment, it is simpler to start
+anew: shut your current server down using the command <span class="lstinline"><span
+class="cmtt-10x-x-109">shutdown</span></span>, and spawn a new one.
+In interactive mode you can also use the shortcut sequence Ctrl-D, like in many other
+interpreters.
+</p><!--l. 145--><p class="indent" >   In case of a foreground task preventing you to execute other commands, you can use Ctrl-C to kill
+the foreground task, clear queued commands and restore interactive mode.
+</p><!--l. 151--><p class="indent" >   You are now ready to proceed to the urbiscript tutorial: see <a
+href="urbiscript-user-manual.html#x5-12000I">Listing I</a>.
+</p><!--l. 153--><p class="indent" >   Enjoy!
+</p>
+</body></html>

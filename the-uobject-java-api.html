@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>26 The UObject Java API</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="use-cases.html" >Next</a><a
+href="uobjects.html#the-uobject-java-api.html" >Up</a><a
+href="the-uobject-api.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 26</span><br /><a
+href="index.html#QQ2-42-897" id="x42-77000026">The UObject Java API</a></h2>
+<!--l. 17--><p class="noindent" >The UObject Java API can be used to add new remote objects written in Java to the urbiscript
+language, and to interact from Java with the objects that are already deﬁned. We cover the use cases
+of interfacing higher-level components (voice recognition, object detection&hellip;) with Urbi using
+Java.
+</p><!--l. 23--><p class="indent" >   The Java API deﬁnes the UObject class. To each instance of a Java class deriving from UObject
+will correspond an urbiscript object sharing some of its methods and attributes. The API provides
+methods to declare which elements of your object are to be shared. To share a variable with Urbi, you
+have to give it the type UVar. This type is a container that provides conversion and setter member
+functions for all types known to Urbi: <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.String</span></span>, the binary-holding structures
+<span class="lstinline"><span class="cmtt-10x-x-109">urbi.UBinary</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.USound</span></span> and <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UImage</span></span>, list types <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UList</span></span> and dictionaries
+<span class="lstinline"><span class="cmtt-10x-x-109">urbi.Dictionary</span></span>. This type can also read from and write to the <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UValue</span></span> class. The API provides
+methods to set up callbacks functions that will be notiﬁed when a variable is modiﬁed or
+read from urbiscript code. Instance methods of any prototype can be made accessible from
+urbiscript, providing all the argument types and the return type can be converted to/from
+<span class="lstinline"><span class="cmtt-10x-x-109">urbi.UValue</span></span>.
+</p><!--l. 39--><p class="indent" >   The UObject Java API has the following limitations: </p>
+     <ul class="itemize1">
+     <li class="itemize">it is available only to create remote UObjects, i.e., these objects run as separate processes.
+     </li>
+     <li class="itemize">the Java library is generated from the C++ SDK implementation, and rely on compiled
+     C++ code. Thus, remote Java UObjects can only run on computers having the full Urbi
+     native SDK installed.</li></ul>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >26.1 <a
+href="#x42-77100026.1">Compiling and running UObjects</a></span>
+<br />     <span class="subsectionToc" >26.1.1 <a
+href="#x42-77200026.1.1">Compiling and running by hand</a></span>
+<br />     <span class="subsectionToc" >26.1.2 <a
+href="#x42-77300026.1.2">The <span
+class="cmtt-10x-x-109">umake-java </span>and <span
+class="cmtt-10x-x-109">urbi-launch-java </span>tools</a></span>
+<br />    <span class="sectionToc" >26.2 <a
+href="#x42-77400026.2">Creating a class, binding variables and functions</a></span>
+<br />    <span class="sectionToc" >26.3 <a
+href="#x42-77500026.3">Creating new instances</a></span>
+<br />    <span class="sectionToc" >26.4 <a
+href="#x42-77600026.4">Binding functions</a></span>
+<br />    <span class="sectionToc" >26.5 <a
+href="#x42-77700026.5">Notiﬁcation of a variable change or access</a></span>
+<br />    <span class="sectionToc" >26.6 <a
+href="#x42-77800026.6">Timers</a></span>
+<br />    <span class="sectionToc" >26.7 <a
+href="#x42-77900026.7">Using Urbi variables</a></span>
+<br />    <span class="sectionToc" >26.8 <a
+href="#x42-78000026.8">Sending Urbi code</a></span>
+<br />    <span class="sectionToc" >26.9 <a
+href="#x42-78100026.9">Providing a main class or not</a></span>
+<br />    <span class="sectionToc" >26.10 <a
+href="#x42-78200026.10">Import the examples with Eclipse</a></span>
+<br />    <span class="sectionToc" >26.11 <a
+href="#x42-78300026.11">Run the UObject Java examples</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">26.1   </span> <a
+href="index.html#QQ2-42-898" id="x42-77100026.1">Compiling and running UObjects</a></h3>
+<!--l. 51--><p class="noindent" >UObjects can be compiled easily directly with the <span
+class="cmtt-10x-x-109">javac </span>compiler, then you can create JAR archives
+using the <span
+class="cmtt-10x-x-109">jar </span>tool.
+</p><!--l. 54--><p class="indent" >   In the following sections, we will try to create an uobject jar archive named ‘<span
+class="cmtt-10x-x-109">machine.jar</span>&#x2019; from a
+set of two ﬁles (‘<span
+class="cmtt-10x-x-109">Machine.java</span>&#x2019;, ‘<span
+class="cmtt-10x-x-109">UMachine.java</span>&#x2019;).
+</p><!--l. 58--><p class="indent" >   In what follows, <span
+class="cmitt-10x-x-109">urbi-root </span>denotes the top-level directory of your Urbi SDK package, see
+<a
+href="installation.html#x22-9700013.2">Section 13.2<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>.
+</p><!--l. 61--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">26.1.1   </span> <a
+href="contents.html#QQ2-42-899" id="x42-77200026.1.1">Compiling and running by hand</a></h4>
+<!--l. 63--><p class="noindent" >To compile your UObject you need to include in the classpath ‘<span
+class="cmtt-10x-x-109">liburbijava.jar</span>&#x2019;:
+</p><!--l. 66--><p class="indent" >   <div class="code shell">
+<!--l. 66--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-772001r1"></a></span><span class="cmtt-10x-x-109">$ javac -cp </span><!--l. 67--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/share/sdk-remote/java/lib/liburbijava.jar:. \ </span><br /><span class="label"><a
+ id="x42-772002r2"></a></span><span class="cmtt-10x-x-109">  Machine.java UMachine.java </span><br /><span class="label"><a
+ id="x42-772003r3"></a></span><span class="cmtt-10x-x-109">$ jar -cvf machine.jar UMachine.class Machine.class </span><br /><span class="label"><a
+ id="x42-772004r4"></a></span><span class="cmtt-10x-x-109">added manifest </span><br /><span class="label"><a
+ id="x42-772005r5"></a></span><span class="cmtt-10x-x-109">adding: UMachine.class </span><br /><span class="label"><a
+ id="x42-772006r6"></a></span><span class="cmtt-10x-x-109">adding: Machine.class</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-772007r7"></a></span></pre>
+   </div>
+<!--l. 75--><p class="indent" >   Then to run your uobject, you need to call <span
+class="cmtt-10x-x-109">java</span>. We provide a main class called <span
+class="cmtt-10x-x-109">urbi.UMain </span>in the
+‘<span
+class="cmtt-10x-x-109">liburbijava.jar</span>&#x2019; archive. You can use this class to start your UObjects. This class takes the names
+of your uobjects jar ﬁles as argument. You also need to specify the lib directory of the Urbi SDK into
+<span class="lstinline"><span class="cmtt-10x-x-109">java.library.path</span></span>:
+</p><!--l. 81--><p class="indent" >   <div class="code shell">
+<!--l. 81--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-772008r1"></a></span><span class="cmtt-10x-x-109">$ java -Djava.library.path=</span><!--l. 82--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/lib                          \ </span><br /><span class="label"><a
+ id="x42-772009r2"></a></span><span class="cmtt-10x-x-109">    -cp </span><!--l. 83--><span class="listings-nested"><span
+class="cmitt-10x-x-109">urbi-root</span></span><span class="cmtt-10x-x-109">/share/sdk-remote/java/lib/liburbijava.jar       \ </span><br /><span class="label"><a
+ id="x42-772010r3"></a></span><span class="cmtt-10x-x-109">     urbi.UMain ./machine.jar </span><br /><span class="label"><a
+ id="x42-772011r4"></a></span><span class="cmtt-10x-x-109">urbi-launch: obeying to URBI_ROOT = /usr/local/gostai </span><br /><span class="label"><a
+ id="x42-772012r5"></a></span><span class="cmtt-10x-x-109">UObject: Urbi version 3.x.y </span><br /><span class="label"><a
+ id="x42-772013r6"></a></span><span class="cmtt-10x-x-109">UObject: Remote Component Running on 127.0.0.1 54000 </span><br /><span class="label"><a
+ id="x42-772014r7"></a></span><span class="cmtt-10x-x-109">Kernel Version: 0 </span><br /><span class="label"><a
+ id="x42-772015r8"></a></span><span class="cmtt-10x-x-109">[LibUObject] Registering </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> UMachine.init 1 into UMachine.init from UMachine </span><br /><span class="label"><a
+ id="x42-772016r9"></a></span><span class="cmtt-10x-x-109">[LibUObject] Pushing UMachine.init </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-772017r10"></a></span></pre>
+   </div>
+<!--l. 93--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">26.1.2   </span> <a
+href="contents.html#QQ2-42-900" id="x42-77300026.1.2">The <span
+class="cmtt-10x-x-109">umake-java </span>and <span
+class="cmtt-10x-x-109">urbi-launch-java </span>tools</a></h4>
+<a
+ id="x42-773001"></a>
+<a
+ id="x42-773002"></a>
+<!--l. 98--><p class="noindent" ><span
+class="cmtt-10x-x-109">umake-java </span>can be used to compile Java UObjects. It will produce a JAR archive that you can use
+with <span
+class="cmtt-10x-x-109">urbi-launch-java</span>.
+</p><!--l. 101--><p class="indent" >   You can give it a list of ﬁles to compile: <div class="code shell">
+<!--l. 102--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773003r1"></a></span><span class="cmtt-10x-x-109">$ umake-java -q machine.uob/*.java -o machine.jar</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773004r2"></a></span></pre>
+   </div>
+<!--l. 106--><p class="noindent" >or directories in which C++ sources are looked for:
+</p><!--l. 109--><p class="indent" >   <div class="code shell">
+<!--l. 109--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773005r1"></a></span><span class="cmtt-10x-x-109">$ umake-java -q machine.uob -o machine.jar</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773006r2"></a></span></pre>
+   </div>
+<!--l. 113--><p class="noindent" >or ﬁnally, if you give no argument at all, the sources in the current directory:
+</p><!--l. 117--><p class="indent" >   <div class="code shell">
+<!--l. 117--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773007r1"></a></span><span class="cmtt-10x-x-109">$ </span><span class="textkwd"><span
+class="cmtt-10x-x-109">cd</span></span><span class="cmtt-10x-x-109"> machine.uob </span><br /><span class="label"><a
+ id="x42-773008r2"></a></span><span class="cmtt-10x-x-109">$ umake-java -q -o machine.jar</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773009r3"></a></span></pre>
+   </div>
+<!--l. 122--><p class="indent" >   To run your UObject then use <span
+class="cmtt-10x-x-109">urbi-launch-java </span>(see <a
+href="programs.html#x30-22200019.6">Section 19.6<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>):
+</p><!--l. 125--><p class="indent" >   <div class="code shell">
+<!--l. 125--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773010r1"></a></span><span class="cmtt-10x-x-109">$ urbi-launch-java machine.jar </span><br /><span class="label"><a
+ id="x42-773011r2"></a></span><span class="cmtt-10x-x-109">urbi-launch: obeying to URBI_ROOT = /usr/local/gostai </span><br /><span class="label"><a
+ id="x42-773012r3"></a></span><span class="cmtt-10x-x-109">UObject: Urbi version 3.x.y </span><br /><span class="label"><a
+ id="x42-773013r4"></a></span><span class="cmtt-10x-x-109">UObject: Remote Component Running on 127.0.0.1 54000 </span><br /><span class="label"><a
+ id="x42-773014r5"></a></span><span class="cmtt-10x-x-109">Kernel Version: 0 </span><br /><span class="label"><a
+ id="x42-773015r6"></a></span><span class="cmtt-10x-x-109">[LibUObject] Registering </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> UMachine.init 1 into UMachine.init from UMachine </span><br /><span class="label"><a
+ id="x42-773016r7"></a></span><span class="cmtt-10x-x-109">[LibUObject] Pushing UMachine.init </span><span class="textkwd"><span
+class="cmtt-10x-x-109">in</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-773017r8"></a></span></pre>
+   </div>
+<!--l. 135--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.2   </span> <a
+href="index.html#QQ2-42-901" id="x42-77400026.2">Creating a class, binding variables and functions</a></h3>
+<!--l. 138--><p class="noindent" >Let&#x2019;s illustrate those concepts by deﬁning a simple object: <span class="lstinline"><span
+class="cmtt-10x-x-109">adder</span></span>. This object has one variable <span class="lstinline"><span
+class="cmtt-10x-x-109">v</span></span>, and a
+method <span class="lstinline"><span
+class="cmtt-10x-x-109">add</span></span> that returns the sum of this variable and its argument.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">First you need some imports:
+     <!--l. 145--><p class="noindent" ><div class="code java">
+<!--l. 145--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">import</span></span><span class="cmtt-10x-x-109"> urbi.UObject; </span><br /><span class="label"><a
+ id="x42-774002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">import</span></span><span class="cmtt-10x-x-109"> urbi.UVar; </span><br /><span class="label"><a
+ id="x42-774003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">import</span></span><span class="cmtt-10x-x-109"> urbi.UValue;</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774004r4"></a></span></pre>
+     </div>
+     </li>
+     <li class="itemize">Then we declare and implement our <span class="lstinline"><span
+class="cmtt-10x-x-109">adder</span></span> class: <div class="code java">
+        <!--l. 152--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774005r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Adder </span><span class="textkwd"><span
+class="cmtt-10x-x-109">extends</span></span><span class="cmtt-10x-x-109"> UObject </span><!--l. 153--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// must extends UObject</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774006r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x42-774007r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 155--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Register the class within urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774008r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span class="cmtt-10x-x-109"> { UStart(Adder.</span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109">); } </span><br /><span class="label"><a
+ id="x42-774009r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774010r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 158--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Declare a variable v that will be accessible in Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774011r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">private</span></span><span class="cmtt-10x-x-109"> UVar v = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">new</span></span><span class="cmtt-10x-x-109"> UVar (); </span><br /><span class="label"><a
+ id="x42-774012r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774013r9"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 161--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// the class must have a single constructor taking a string</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774014r10"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> Adder (String s) </span><br /><span class="label"><a
+ id="x42-774015r11"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-774016r12"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">super</span></span><span class="cmtt-10x-x-109"> (s); </span><br /><span class="label"><a
+ id="x42-774017r13"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 165--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Bind the variable v to Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774018r14"></a></span><span class="cmtt-10x-x-109">    UBindVar (v, </span><!--l. 166--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;v&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-774019r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774020r16"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 168--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Initialize our UVar v to some value</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774021r17"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 169--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// (we choose 42 :)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774022r18"></a></span><span class="cmtt-10x-x-109">    v.setValue(42); </span><br /><span class="label"><a
+ id="x42-774023r19"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774024r20"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 172--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Bind the function add to Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774025r21"></a></span><span class="cmtt-10x-x-109">    UBindFunction (</span><!--l. 173--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;add&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-774026r22"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-774027r23"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774028r24"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 176--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Our method.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774029r25"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> add (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> rhs) </span><br /><span class="label"><a
+ id="x42-774030r26"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-774031r27"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 179--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Return the value of our UVar v (converted to double)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774032r28"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 180--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// plus the value of the argument of the function.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774033r29"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> v.doubleValue () + rhs; </span><br /><span class="label"><a
+ id="x42-774034r30"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-774035r31"></a></span><span
+class="cmtt-10x-x-109">}</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774036r32"></a></span></pre>
+     </div>
+<a
+ id="x42-774037"></a>
+     <!--l. 187--><p class="noindent" >To bind the variables to Urbi, we use the function: <div class="code java">
+<!--l. 188--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774038r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UBindVar (UVar v, String name)</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774039r2"></a></span></pre>
+     </div>
+     <!--l. 192--><p class="noindent" >This function takes as argument the UVar variables, and the name of the UVar (because Urbi
+     need to know what is the name of your variable). Once your variable is bound with <span class="lstinline"><span
+class="cmtt-10x-x-109">UBindVar</span></span> it
+     will be accessible in Urbi.
+     </p></li>
+     <li class="itemize">Each UObject needs to be registered within urbi using the code <div class="code java">
+        <!--l. 197--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774040r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span class="cmtt-10x-x-109"> { UStart(YourUObject.</span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109">); }</span>
+        <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774041r2"></a></span></pre>
+     </div>
+     </li></ul>
+<!--l. 202--><p class="indent" >   If you run this UObject and test it from Urbi it gives:
+</p><!--l. 204--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 204--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774042r1"></a></span><!--l. 205--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000102] *** Urbi version 3.x.y</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774043r2"></a></span><span class="cmtt-10x-x-109">Adder; </span><br /><span class="label"><a
+ id="x42-774044r3"></a></span><!--l. 207--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00006783] Adder</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774045r4"></a></span><span class="cmtt-10x-x-109">Adder.v; </span><br /><span class="label"><a
+ id="x42-774046r5"></a></span><!--l. 209--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00010871] 42</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774047r6"></a></span><span class="cmtt-10x-x-109">Adder.add(-26); </span><br /><span class="label"><a
+ id="x42-774048r7"></a></span><!--l. 211--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00025795] 16</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774049r8"></a></span><span class="cmtt-10x-x-109">Adder.add(-2.6); </span><br /><span class="label"><a
+ id="x42-774050r9"></a></span><!--l. 213--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00035411] 39.4</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-774051r10"></a></span></pre>
+   </div>
+<!--l. 216--><p class="indent" >   To summarize:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Declare your object class as extending UObject.
+     </li>
+     <li class="itemize">Declare a single constructor taking a String, and pass this string to the constructor of
+     UObject.
+     </li>
+     <li class="itemize">Declare the variables you want to share with Urbi with the type urbi.UVar.
+     </li>
+     <li class="itemize">In the constructor, call <span class="lstinline"><span
+class="cmtt-10x-x-109">UBindVar</span></span> for each UVar you want as an instance variable, and
+     <span class="lstinline"><span
+class="cmtt-10x-x-109">UBindFunction</span></span> for each function you want to bind.
+     </li>
+     <li class="itemize">Call the function <span class="lstinline"><span
+class="cmtt-10x-x-109">UStart</span></span> for each UObject class you deﬁne.</li></ul>
+<!--l. 231--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.3   </span> <a
+href="index.html#QQ2-42-902" id="x42-77500026.3">Creating new instances</a></h3>
+<!--l. 234--><p class="noindent" >When you start an Urbi server, an object of each class registered with <span class="lstinline"><span
+class="cmtt-10x-x-109">UStart</span></span> is created with the same
+name as the class. New instances can be created from Urbi using the <span class="lstinline"><span
+class="cmtt-10x-x-109">new</span></span> method. For each instance
+created in Urbi, a corresponding instance of the Java object is created. You can get the arguments
+passed to the constructor by deﬁning and binding a method named <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> with the appropriate number
+of arguments.
+</p><!--l. 242--><p class="indent" >   For example let&#x2019;s add an Urbi constructor to our Adder class. We rewrite it as follow:
+</p><!--l. 245--><p class="indent" >   <div class="code java">
+<!--l. 245--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Adder </span><span class="textkwd"><span
+class="cmtt-10x-x-109">extends</span></span><span class="cmtt-10x-x-109"> UObject </span><!--l. 246--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// must extends UObject</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x42-775003r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 248--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Register the class within urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span class="cmtt-10x-x-109"> { UStart(Adder.</span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109">); } </span><br /><span class="label"><a
+ id="x42-775005r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775006r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 251--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Declare a variable v that will be accessible in Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775007r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">private</span></span><span class="cmtt-10x-x-109"> UVar v = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">new</span></span><span class="cmtt-10x-x-109"> UVar (); </span><br /><span class="label"><a
+ id="x42-775008r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775009r9"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 254--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Constructor</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775010r10"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> Adder (String s) </span><br /><span class="label"><a
+ id="x42-775011r11"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-775012r12"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">super</span></span><span class="cmtt-10x-x-109"> (s); </span><br /><span class="label"><a
+ id="x42-775013r13"></a></span><span class="cmtt-10x-x-109">    UBindFunction (</span><!--l. 258--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;init&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-775014r14"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-775015r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775016r16"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 261--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// The init function is the constructor in Urbi. Here it takes</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775017r17"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 262--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// one argument that we use to initialize the &#x2019;v&#x2019; variable.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775018r18"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 263--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// The init function must return an int of value 0</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775019r19"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 264--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// if all went OK.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775020r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> v_init) </span><br /><span class="label"><a
+ id="x42-775021r21"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-775022r22"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 267--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Bind the variable v to Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775023r23"></a></span><span class="cmtt-10x-x-109">    UBindVar (v, </span><!--l. 268--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;v&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-775024r24"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775025r25"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 270--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Initialize our UVar v to the value given in the</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775026r26"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 271--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// constructor</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775027r27"></a></span><span class="cmtt-10x-x-109">    v.setValue(v_init); </span><br /><span class="label"><a
+ id="x42-775028r28"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775029r29"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 274--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Bind the function add to Urbi</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775030r30"></a></span><span class="cmtt-10x-x-109">    UBindFunction (</span><!--l. 275--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;add&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-775031r31"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775032r32"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x42-775033r33"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-775034r34"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775035r35"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> add (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> rhs) </span><br /><span class="label"><a
+ id="x42-775036r36"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-775037r37"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 282--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// Return the value of our UVar v (converted to double)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775038r38"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 283--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// plus the value of the argument of the function.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775039r39"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> v.doubleValue () + rhs; </span><br /><span class="label"><a
+ id="x42-775040r40"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-775041r41"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775042r42"></a></span></pre>
+   </div>
+<!--l. 289--><p class="indent" >   Now <span class="lstinline"><span
+class="cmtt-10x-x-109">v</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">add</span></span> are bound only when instance of the Adder object are constructed. We
+have added an <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> constructor with one argument that we use to initialize the value of
+<span class="lstinline"><span
+class="cmtt-10x-x-109">v</span></span>. You can run this UObject and test it in Urbi to see the diﬀerence with the previous
+example:
+</p><!--l. 295--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 295--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775043r1"></a></span><!--l. 296--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000097] *** Urbi version 3.x.y</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775044r2"></a></span><span class="cmtt-10x-x-109">Adder; </span><br /><span class="label"><a
+ id="x42-775045r3"></a></span><!--l. 298--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00010592] Adder</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775046r4"></a></span><span class="cmtt-10x-x-109">Adder.v; </span><br /><span class="label"><a
+ id="x42-775047r5"></a></span><!--l. 300--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00013094:error] !!! 2.1-7: lookup failed: v</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775048r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> a = Adder.new(51); </span><br /><span class="label"><a
+ id="x42-775049r7"></a></span><!--l. 302--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00041405] object_13</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775050r8"></a></span><span class="cmtt-10x-x-109">a.v; </span><br /><span class="label"><a
+ id="x42-775051r9"></a></span><!--l. 304--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00044742] 51</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775052r10"></a></span><span class="cmtt-10x-x-109">a.add(10); </span><br /><span class="label"><a
+ id="x42-775053r11"></a></span><!--l. 306--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00054783] 61</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-775054r12"></a></span></pre>
+   </div>
+<!--l. 310--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.4   </span> <a
+href="index.html#QQ2-42-903" id="x42-77600026.4">Binding functions</a></h3>
+<a
+ id="x42-776001"></a>
+<a
+ id="x42-776002"></a>
+<!--l. 315--><p class="noindent" >To bind the functions to Urbi, you can use: <div class="code java">
+<!--l. 316--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-776003r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UBindFunction (Object obj, String method_name, String[] parameters_name)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-776004r2"></a></span></pre>
+   </div>
+or one of the convenient version: <div class="code java">
+      <!--l. 320--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-776005r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UBindFunction (String method_name) </span><br /><span class="label"><a
+ id="x42-776006r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UBindFunctions(String ... method_names) </span><br /><span class="label"><a
+ id="x42-776007r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UBindFunction (Object obj, String method_name) </span><br /><span class="label"><a
+ id="x42-776008r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UBindFunctions (Object obj, String ... method_names)</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-776009r5"></a></span></pre>
+</div>
+<!--l. 327--><p class="indent" >   The ﬁrst function takes as argument the object containing the function (currently static methods
+cannot be bound). The second argument is the name of the function you want to bind. The third
+argument is a list of the names if the types of the arguments. For example for the function <span class="lstinline"><span
+class="cmtt-10x-x-109">add</span></span>, in the
+previous <span class="lstinline"><span
+class="cmtt-10x-x-109">Adder</span></span> example, we could have used:
+</p><!--l. 334--><p class="indent" >   <div class="code java">
+<!--l. 334--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-776010r1"></a></span><span class="cmtt-10x-x-109">String[] args = { </span><!--l. 335--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;java.lang.Double&#x0022;</span></span></span><span class="cmtt-10x-x-109"> }; </span><br /><span class="label"><a
+ id="x42-776011r2"></a></span><span class="cmtt-10x-x-109">UBindFunction (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">this</span></span><span class="cmtt-10x-x-109">, </span><!--l. 336--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;add&#x0022;</span></span></span><span class="cmtt-10x-x-109">, args);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-776012r3"></a></span></pre>
+   </div>
+<!--l. 339--><p class="noindent" >provided that, of course, the signature of the function was ﬁxed to use an <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Double</span></span> instead
+of a simple <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span></span>.
+</p><!--l. 343--><p class="indent" >   If in your UObject you have diﬀerent names for each of your methods, then you can use the shorter
+versions of <span class="lstinline"><span
+class="cmtt-10x-x-109">UBindFunction</span></span>.
+</p><!--l. 346--><p class="indent" >   The functions you can bind must follow these rules: </p>
+     <ul class="itemize1">
+     <li class="itemize">They can have between 0 and 16 arguments.
+     </li>
+     <li class="itemize">Their arguments can be of type:
+          <ul class="itemize2">
+          <li class="itemize">Urbi types:<br
+class="newline" /><span class="lstinline"><span class="cmtt-10x-x-109">urbi.UValue</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UVar</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UList</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UBinary</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UImage</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.USound</span></span>,
+          <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UDictionary</span></span>
+          </li>
+          <li class="itemize">Java instances:<br
+class="newline" /><span class="lstinline"><span class="cmtt-10x-x-109">java.lang.String</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Integer</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Boolean</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Double</span></span>,
+          <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Float</span></span>,   <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Long</span></span>,   <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Short</span></span>,   <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Character</span></span>,
+          <span class="lstinline"><span class="cmtt-10x-x-109">java.lang.Byte</span></span>
+          </li>
+          <li class="itemize">Java primitive types:<br
+class="newline" /><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">boolean</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">byte</span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">char</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">short</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">long</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">float</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span></span>.</li></ul>
+     </li>
+     <li class="itemize">Their return type can be one of the following type:
+          <ul class="itemize2">
+          <li class="itemize"><span class="lstinline"><span
+class="cmtt-10x-x-109">void</span></span>
+          </li>
+          <li class="itemize">Urbi types:<br
+class="newline" /><span class="lstinline"><span class="cmtt-10x-x-109">urbi.UValue</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UVar</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UList</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UBinary</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UImage</span></span>, <span class="lstinline"><span class="cmtt-10x-x-109">urbi.USound</span></span>,
+          <span class="lstinline"><span class="cmtt-10x-x-109">urbi.UDictionary</span></span>
+          </li>
+          <li class="itemize">Java instances:<br
+class="newline" /><span class="lstinline"><span class="cmtt-10x-x-109">java.lang.String</span></span>
+          </li>
+          <li class="itemize">Java primitive types:<br
+class="newline" /><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">boolean</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">byte</span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">char</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">short</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">long</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">float</span></span></span>, <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span></span>.</li></ul>
+     </li></ul>
+<!--l. 383--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.5   </span> <a
+href="index.html#QQ2-42-904" id="x42-77700026.5">Notiﬁcation of a variable change or access</a></h3>
+<a
+ id="x42-777001"></a>
+<a
+ id="x42-777002"></a>
+<!--l. 388--><p class="noindent" >You can register a function that will be called each time a variable is modiﬁed by calling
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span>, passing either an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> or a variable name as ﬁrst argument, and a member function
+of your <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> as second argument (and optionally a String array containing the name of the types of
+the arguments). The prototype for <span class="lstinline"><span
+class="cmtt-10x-x-109">UNotifyChange</span></span> is:
+</p><!--l. 394--><p class="indent" >   <div class="code java">
+<!--l. 394--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-777003r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UNotifyChange(String var_name, String method_name, String[] args_name); </span><br /><span class="label"><a
+ id="x42-777004r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UNotifyChange(String var_name, String method_name); </span><br /><span class="label"><a
+ id="x42-777005r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UNotifyChange(UVar v, String method_name, String[] args_name); </span><br /><span class="label"><a
+ id="x42-777006r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> UNotifyChange(UVar v, String method_name);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-777007r5"></a></span></pre>
+   </div>
+<!--l. 401--><p class="indent" >   The callback function can take zero or one argument: an UVar pointing to the UVar being
+modiﬁed. And the callback function must return an int (the value returned is currently ignored in the
+actual implementation) or nothing at all (void). The notifyChange callback function is always called
+after the variable value is changed.
+</p><!--l. 407--><p class="indent" >   Notify functions can be unregistered by calling the <span class="lstinline"><span
+class="cmtt-10x-x-109">unnotify</span></span> function of the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> class.
+</p><!--l. 410--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.6   </span> <a
+href="index.html#QQ2-42-905" id="x42-77800026.6">Timers</a></h3>
+<a
+ id="x42-778001"></a>
+<a
+ id="x42-778002"></a>
+<!--l. 414--><p class="noindent" >The API provides two methods to have a function called periodically: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">USetUpdate (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> period)</span></span> <br
+class="newline" /> Sets up a timer that calls the virtual UObject method <span class="lstinline"><span class="cmtt-10x-x-109">update ()</span></span> with the speciﬁed
+     <span
+class="cmitt-10x-x-109">period </span>(in milliseconds).Disable updates if <span
+class="cmitt-10x-x-109">period </span>is -1.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">USetTimer (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> period, Object o, String method_name)</span></span> <br
+class="newline" /> or
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">USetTimer (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> period, Object o, String method_name, String[] args_name)</span></span> <br
+class="newline" /> Invoke an UObject member function <span
+class="cmitt-10x-x-109">method</span><span
+class="cmitt-10x-x-109">_name </span>every <span
+class="cmitt-10x-x-109">period </span>milliseconds.</li></ul>
+<!--l. 426--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.7   </span> <a
+href="index.html#QQ2-42-906" id="x42-77900026.7">Using Urbi variables</a></h3>
+<!--l. 429--><p class="noindent" >You can read or write any Urbi variable by creating an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> passing the variable name to the
+constructor. Change the value by writing any compatible type to the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>, and access the value by
+casting the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> to any compatible type.
+</p><!--l. 434--><p class="indent" >   Note however that changes on the variable coming from Urbi code or an other module can take
+time to propagate to the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>. You can read and write all the Urbi properties of an <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> by reading
+and writing the appropriate <span class="lstinline"><span
+class="cmtt-10x-x-109">UProp</span></span> object in the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>.
+</p><!--l. 439--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.8   </span> <a
+href="index.html#QQ2-42-907" id="x42-78000026.8">Sending Urbi code</a></h3>
+<a
+ id="x42-780001"></a>
+<!--l. 443--><p class="noindent" >The <span class="lstinline"><span
+class="cmtt-10x-x-109">send</span></span> function sends Urbi code to the server:
+</p><!--l. 445--><p class="indent" >   <div class="code java">
+<!--l. 445--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-780002r1"></a></span><span class="cmtt-10x-x-109">send(</span><!--l. 446--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;myTag:1+1;&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-780003r2"></a></span></pre>
+   </div>
+<!--l. 449--><p class="noindent" ><a
+ id="x42-780004"></a>You can also use the <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">call</span></span></span> method to make an urbiscript function call:
+</p><!--l. 453--><p class="indent" >   <div class="code java">
+<!--l. 453--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-780005r1"></a></span><!--l. 454--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Java equivalent of urbiscript &#x2019;System.someFunc(12, &#x0022;foo&#x0022;);&#x2019;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-780006r2"></a></span><span class="cmtt-10x-x-109">call(</span><!--l. 455--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;System&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 455--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;someFunc&#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">new</span></span><span class="cmtt-10x-x-109"> UValue(12), </span><span class="textkwd"><span
+class="cmtt-10x-x-109">new</span></span><span class="cmtt-10x-x-109"> UValue(</span><!--l. 455--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;foo&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">));</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-780007r3"></a></span></pre>
+   </div>
+<!--l. 458--><p class="indent" >   They are member functions of the UObject class.
+</p><!--l. 516--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.9   </span> <a
+href="index.html#QQ2-42-908" id="x42-78100026.9">Providing a main class or not</a></h3>
+<!--l. 518--><p class="noindent" >We provide a main class, containing a main function, embedded in the ‘<span
+class="cmtt-10x-x-109">liburbijava.jar</span>&#x2019; ﬁle. This
+main class, called <a
+ id="x42-781001"></a><span class="lstinline"><span class="cmtt-10x-x-109">urbi.UMain</span></span> is responsible for the loading of the liburbijava native library, and also
+for the registering of your uobjects.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">When launching your UObjects with <span class="lstinline"><span
+class="cmtt-10x-x-109">java</span></span> or <span
+class="cmtt-10x-x-109">urbi-launch-java</span>, please do not provide
+     your main class.
+     </li>
+     <li class="itemize">When launching your UObjects with Eclipse:
+          <ul class="itemize2">
+          <li class="itemize">You can use the UMain class we provide, but this class require that you pass as
+          argument the path to your UObject jar ﬁle, when you run your uobject.
+          </li>
+          <li class="itemize">Or  you  can  provide  your  own  main  ﬁle.  In  this  case  you  have  to  put  the
+          UStart(YourUObject.class) call directly in your main ﬁle, and not in your uobject
+          classes. Your main should look like:
+          <!--l. 536--><p class="noindent" ><div class="code java">
+<!--l. 536--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781002r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">import</span></span><span class="cmtt-10x-x-109"> liburbi.main.*; </span><br /><span class="label"><a
+ id="x42-781003r2"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781004r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Main </span><br /><span class="label"><a
+ id="x42-781005r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x42-781006r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 541--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">/// load urbijava library</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781007r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781008r7"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-781009r8"></a></span><span class="cmtt-10x-x-109">    System.loadLibrary(</span><!--l. 544--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;urbijava&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-781010r9"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-781011r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781012r11"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> main(String argv[]) </span><br /><span class="label"><a
+ id="x42-781013r12"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x42-781014r13"></a></span><span class="cmtt-10x-x-109">    UObject.UStart(MyUObject1.</span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-781015r14"></a></span><span class="cmtt-10x-x-109">    UObject.UStart(MyUObject2.</span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x42-781016r15"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 551--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// ...</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781017r16"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781018r17"></a></span><span class="cmtt-10x-x-109">    UObject.main(argv); </span><br /><span class="label"><a
+ id="x42-781019r18"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x42-781020r19"></a></span><span
+class="cmtt-10x-x-109">}</span>
+             <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x42-781021r20"></a></span></pre>
+          </div>
+          <!--l. 558--><p class="noindent" >Call <span class="lstinline"><span class="cmtt-10x-x-109">System.loadLibrary(</span><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;urbijava&#x0022;</span></span><span
+class="cmtt-10x-x-109">);</span></span> to load the liburbijava native library.
+          </p><!--l. 561--><p class="noindent" >Note: when you call System.loadLibrary, java search for the library in the locations given in
+          <span
+class="cmtt-10x-x-109">java.library.path</span>. This special Java variable must be correctly set or you will get a
+          loading error when you run your Java program. You can set this options giving:
+          ‘<span
+class="cmtt-10x-x-109">-Djava.library.path=</span><span
+class="cmitt-10x-x-109">path to dir containing urbijava lib </span>&#x2019; to the Java VM
+          running your program.</p></li></ul>
+     <!--l. 569--><p class="noindent" >We provide two UObject examples under Eclipse. One uses urbi.UMain, the other provides its
+     own main class.</p></li></ul>
+<!--l. 574--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.10   </span> <a
+href="index.html#QQ2-42-909" id="x42-78200026.10">Import the examples with Eclipse</a></h3>
+<!--l. 576--><p class="noindent" >We provide a sample <a
+href="http://www.eclipse.org/" >Eclipse</a> project conﬁguration that you can import in Eclipse and use to create
+your own UObject Java.
+</p><!--l. 586--><p class="indent" >   We illustrate here how you can do this:
+</p><!--l. 588--><p class="indent" >
+     </p><ol  class="enumerate1" >
+     <li
+  class="enumerate" id="x42-782002x1">Open Eclipse
+     <div class="center"
+>
+<!--l. 591--><p class="noindent" >
+</p><!--l. 591--><p class="noindent" ><img
+src="urbi-sdk26x.png" alt="PIC" class="graphics" width="342.29654pt" height="216.96277pt"  /><!--tex4ht:graphics
+name="urbi-sdk26x.png" src="img/eclipse-import.eps"
+--></p></div>
+     </li>
+     <li
+  class="enumerate" id="x42-782004x2">Right click in the Package Explorer panel and select “import” (or go in File/import)
+     <div class="center"
+>
+<!--l. 596--><p class="noindent" >
+</p><!--l. 596--><p class="noindent" ><img
+src="urbi-sdk27x.png" alt="PIC" class="graphics" width="256.72403pt" height="227.60814pt"  /><!--tex4ht:graphics
+name="urbi-sdk27x.png" src="img/select-import.eps"
+--></p></div>
+     </li>
+     <li
+  class="enumerate" id="x42-782006x3">Select “Existing Projects into Workspace” in the opened windows
+     </li>
+     <li
+  class="enumerate" id="x42-782008x4">Click “Next”
+     <div class="center"
+>
+<!--l. 601--><p class="noindent" >
+</p><!--l. 601--><p class="noindent" ><img
+src="urbi-sdk28x.png" alt="PIC" class="graphics" width="256.72403pt" height="227.60814pt"  /><!--tex4ht:graphics
+name="urbi-sdk28x.png" src="img/select-proj.eps"
+--></p></div>
+     </li>
+     <li
+  class="enumerate" id="x42-782010x5">Enter the path of the Urbi SDK on your computer
+     </li>
+     <li
+  class="enumerate" id="x42-782012x6">Eclipse should ﬁnd the ‘<span
+class="cmtt-10x-x-109">.project</span>&#x2019; ﬁle we provide and display the <span
+class="cmtt-10x-x-109">urbijava </span>project
+     </li>
+     <li
+  class="enumerate" id="x42-782014x7">Select the <span
+class="cmtt-10x-x-109">urbijava </span>project and click “Finish”
+     <div class="center"
+>
+<!--l. 608--><p class="noindent" >
+</p><!--l. 608--><p class="noindent" ><img
+src="urbi-sdk29x.png" alt="PIC" class="graphics" width="342.29654pt" height="256.5384pt"  /><!--tex4ht:graphics
+name="urbi-sdk29x.png" src="img/project-uobject-open.eps"
+--></p></div>
+     </li></ol>
+<!--l. 611--><p class="indent" >   The Java project is loaded. You can see the jar containing the liburbi (‘<span
+class="cmtt-10x-x-109">liburbijava.jar</span>&#x2019;, storing
+the UObject Java API) which contains the Urbi package, and also see the sources of the example
+we provide. We put them in the package examples. You can inspire yourself from these
+examples to make your own UObjects. Here, we will see how to compile and run them in
+eclipse
+</p><!--l. 618--><p class="indent" >   If Eclipse complains about errors in the source code, it can be that your compiler
+compliance level is two low. You have to set the compiler compliance level to Java 5 at least
+(Windows/Preferences/Java/Compiler).
+</p>
+<div class="center"
+>
+<!--l. 622--><p class="noindent" >
+</p><!--l. 622--><p class="noindent" ><img
+src="urbi-sdk30x.png" alt="PIC" class="graphics" width="364.19667pt" height="285.80064pt"  /><!--tex4ht:graphics
+name="urbi-sdk30x.png" src="img/compiler-compliance-level.eps"
+--></p></div>
+<!--l. 625--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">26.11   </span> <a
+href="index.html#QQ2-42-910" id="x42-78300026.11">Run the UObject Java examples</a></h3>
+<!--l. 628--><p class="noindent" >We provide a sample ‘<span
+class="cmtt-10x-x-109">uobjectjava.launch</span>&#x2019; ﬁles that you can load in Eclipse to run the
+projects.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Click on Run/Open Run Dialog (or “Run...” or “Run Conﬁgurations” in some versions of
+     Eclipse)
+     <div class="center"
+>
+<!--l. 635--><p class="noindent" >
+</p><!--l. 635--><p class="noindent" ><img
+src="urbi-sdk31x.png" alt="PIC" class="graphics" width="342.29654pt" height="237.19046pt"  /><!--tex4ht:graphics
+name="urbi-sdk31x.png" src="img/run-uobjectjava.eps"
+--></p></div>
+     </li>
+     <li class="itemize">The launch conﬁgurations should be recognized automatically. Choose “uobjectjava”.
+     </li>
+     <li class="itemize">The project needs to load the urbijava native library. To this end, it will search the special
+     <span
+class="cmtt-10x-x-109">java.library.path </span>path. If this path is not correctly set, the example will trigger an
+     error. You have to add to <span
+class="cmtt-10x-x-109">java.library.path </span>the path to the <span
+class="cmitt-10x-x-109">lib </span>folder in the Urbi
+     SDK. You can do this from the “Run” menu, by selecting the “Arguments” tab, and
+     setting ‘<span
+class="cmtt-10x-x-109">-Djava.library.path=</span><span
+class="cmitt-10x-x-109">path-to-lib-directory </span>&#x2019; into the VM arguments.
+     See:
+     <div class="center"
+>
+<!--l. 648--><p class="noindent" >
+</p><!--l. 648--><p class="noindent" ><img
+src="urbi-sdk32x.png" alt="PIC" class="graphics" width="342.29654pt" height="230.59782pt"  /><!--tex4ht:graphics
+name="urbi-sdk32x.png" src="img/set_javalibrarypath.eps"
+--></p></div>
+     </li>
+     <li class="itemize">In order to run your remote UObject, you need also run an Urbi server. Your remote UObject
+     will connect to this Urbi server. By default Urbi servers listen on port 54000, and remote
+     UObjects try to connect to localhost on port 54000. If your urbi server is running on a diﬀerent
+     port or diﬀerent address, then you will need to give these port and address as argument to your
+     program, in the “Arguments” tab (something like: ‘<span
+class="cmtt-10x-x-109">-H </span><span
+class="cmitt-10x-x-109">address </span><span
+class="cmtt-10x-x-109">-P </span><span
+class="cmitt-10x-x-109">port </span>&#x2019;). You can also run
+     ‘<span
+class="cmtt-10x-x-109">--help</span>&#x2019; in this ﬁeld, and then when you will run the program it will display some help on the
+     arguments available.
+     </li>
+     <li class="itemize">Click “Apply”.
+     </li>
+     <li class="itemize">Click “Run”.</li></ul>
+</body></html>

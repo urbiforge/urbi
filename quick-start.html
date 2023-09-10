@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>24 Quick Start</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="the-uobject-api.html" >Next</a><a
+href="uobjects.html#quick-start.html" >Up</a><a
+href="urbi-sdkli5.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 24</span><br /><a
+href="index.html#QQ2-40-845" id="x40-72200024">Quick Start</a></h2>
+<!--l. 12--><p class="noindent" >This chapter presents Urbi SDK with a speciﬁc focus on its middleware features. It is self-contained in
+order to help readers quickly grasp the potential of Urbi used as a middleware. References to other
+sections of this document are liberally provided to point the reader to the more complete
+documentation; they should be ignored during the ﬁrst reading.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >24.1 <a
+href="#x40-72300024.1">UObject Basics</a></span>
+<br />     <span class="subsectionToc" >24.1.1 <a
+href="#x40-72400024.1.1">The Objects to Bind into Urbi</a></span>
+<br />     <span class="subsectionToc" >24.1.2 <a
+href="#x40-72500024.1.2">Wrapping into an UObject</a></span>
+<br />     <span class="subsectionToc" >24.1.3 <a
+href="#x40-72600024.1.3">Running Components</a></span>
+<br />    <span class="sectionToc" >24.2 <a
+href="#x40-72900024.2">Using urbiscript</a></span>
+<br />     <span class="subsectionToc" >24.2.1 <a
+href="#x40-73000024.2.1">The urbiscript Scripting Language</a></span>
+<br />     <span class="subsectionToc" >24.2.2 <a
+href="#x40-73100024.2.2">Concurrency</a></span>
+<br />    <span class="sectionToc" >24.3 <a
+href="#x40-73400024.3">Conclusion</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">24.1   </span> <a
+href="index.html#QQ2-40-846" id="x40-72300024.1">UObject Basics</a></h3>
+<!--l. 28--><p class="noindent" >As a simple running example, consider a (very) basic factory. Raw material delivered to the factory is
+pushed into some assembly machines, which takes some time.
+</p><!--l. 32--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">24.1.1   </span> <a
+href="contents.html#QQ2-40-847" id="x40-72400024.1.1">The Objects to Bind into Urbi</a></h4>
+<!--l. 34--><p class="noindent" >As a ﬁrth component of this factory, the core machine of the factory is implemented as follows. This
+class is pure regular C++, it uses no Urbi feature at all.
+</p><!--l. 38--><p class="indent" >   The header ‘<span
+class="cmtt-10x-x-109">machine.hh</span>&#x2019;, which declares <span class="lstinline"><span
+class="cmtt-10x-x-109">Machine</span></span>, is traditional. The documentation uses the
+Doxygen syntax.
+</p><!--l. 41--><p class="indent" >   <div class="code cxx"></p><!--l. 41--><div class="lstinputlisting">
+<a
+ id="x40-724001"></a>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724002r1"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#ifndef</span></span><span class="cmtt-10x-x-109"> MACHINE_MACHINE_HH </span><br /><span class="label"><a
+ id="x40-724003r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">#</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">define</span></span><span class="cmtt-10x-x-109"> MACHINE_MACHINE_HH </span><br /><span class="label"><a
+ id="x40-724004r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724005r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">#</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">include</span></span><span class="cmtt-10x-x-109"> &#x003C;urbi/uobject.hh&#x003E; </span><br /><span class="label"><a
+ id="x40-724006r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724007r6"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Machine </span><br /><span class="label"><a
+ id="x40-724008r7"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-724009r8"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x40-724010r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Construction.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724011r10"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// \param duration  how long the assembly process takes.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724012r11"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">///                  In seconds.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724013r12"></a></span><span class="cmtt-10x-x-109">  Machine(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">float</span></span><span class="cmtt-10x-x-109"> duration); </span><br /><span class="label"><a
+ id="x40-724014r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724015r14"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Lists of strings.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724016r15"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">typedef</span></span><span class="cmtt-10x-x-109"> std::list&#x003C;std::string&#x003E; strings; </span><br /><span class="label"><a
+ id="x40-724017r16"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724018r17"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Assemble the raw components into a product.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724019r18"></a></span><span class="cmtt-10x-x-109">  std::string </span><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span
+class="cmtt-10x-x-109">()(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> strings&#x0026; components) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x40-724020r19"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724021r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// The duration of the assembly process, in seconds.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724022r21"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Must be positive.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724023r22"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">float</span></span><span class="cmtt-10x-x-109"> duration; </span><br /><span class="label"><a
+ id="x40-724024r23"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x40-724025r24"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724026r25"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#endif</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textcmt"><span class="cmtt-10x-x-109">// ! MACHINE_MACHINE_HH</span></span>
+   </div>
+<!--l. 41--><p class="noindent" ></div>
+</p><!--l. 43--><p class="indent" >   The implementation ﬁle, ‘<span
+class="cmtt-10x-x-109">machine.cc</span>&#x2019;, is equally straightforward.
+</p><!--l. 45--><p class="indent" >   <div class="code cxx"></p><!--l. 45--><div class="lstinputlisting">
+<a
+ id="x40-724027"></a>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724028r1"></a></span><span class="textcmt"><span class="cmtt-10x-x-109">// A wrapper around Boost.Foreach.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724029r2"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#include</span></span><span class="cmtt-10x-x-109"> &#x003C;libport/</span><span class="textkwd"><span
+class="cmtt-10x-x-109">foreach</span></span><span class="cmtt-10x-x-109">.hh&#x003E; </span><br /><span class="label"><a
+ id="x40-724030r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724031r4"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#include</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;machine.hh&#x0022;</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724032r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724033r6"></a></span><span class="cmtt-10x-x-109">Machine::Machine(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">float</span></span><span class="cmtt-10x-x-109"> d) </span><br /><span class="label"><a
+ id="x40-724034r7"></a></span><span class="cmtt-10x-x-109">  : duration(d) </span><br /><span class="label"><a
+ id="x40-724035r8"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-724036r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109">(0 &#x003C;= d); </span><br /><span class="label"><a
+ id="x40-724037r10"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x40-724038r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724039r12"></a></span><span class="cmtt-10x-x-109">std::string </span><br /><span class="label"><a
+ id="x40-724040r13"></a></span><span class="cmtt-10x-x-109">Machine::</span><span class="textkwd"><span
+class="cmtt-10x-x-109">operator</span></span><span
+class="cmtt-10x-x-109">()(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> strings&#x0026; components) </span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724041r14"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-724042r15"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Waiting for duration seconds.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724043r16"></a></span><span class="cmtt-10x-x-109">  useconds_t one_second = 1000 * 1000; </span><br /><span class="label"><a
+ id="x40-724044r17"></a></span><span class="cmtt-10x-x-109">  usleep(useconds_t(duration * one_second)); </span><br /><span class="label"><a
+ id="x40-724045r18"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724046r19"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Iterate over the list of strings (using Boost.Foreach), and</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724047r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// concatenate them in res.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-724048r21"></a></span><span class="cmtt-10x-x-109">  std::string res; </span><br /><span class="label"><a
+ id="x40-724049r22"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">foreach</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; s, components) </span><br /><span class="label"><a
+ id="x40-724050r23"></a></span><span class="cmtt-10x-x-109">    res += s; </span><br /><span class="label"><a
+ id="x40-724051r24"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> res; </span><br /><span class="label"><a
+ id="x40-724052r25"></a></span><span
+class="cmtt-10x-x-109">}</span>
+   </div>
+<!--l. 45--><p class="noindent" ></div>
+</p><!--l. 47--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">24.1.2   </span> <a
+href="contents.html#QQ2-40-850" id="x40-72500024.1.2">Wrapping into an UObject</a></h4>
+<!--l. 49--><p class="noindent" >By <span
+class="cmti-10x-x-109">binding</span><a
+ id="x40-725001"></a> a UObject, we mean using the UObject API to declare objects to the Urbi world. These
+objects have member variables (also known as <span
+class="cmti-10x-x-109">attributes</span><a
+ id="x40-725002"></a>) and/or member functions (also known as
+<span
+class="cmti-10x-x-109">methods</span><a
+ id="x40-725003"></a>) all of them or some of them being declared to Urbi.
+</p><!--l. 54--><p class="indent" >   One could modify the <span class="lstinline"><span
+class="cmtt-10x-x-109">Machine</span></span> class to make it a UObject, yet we recommend wrapping pure C++
+classes into a diﬀerent, wrapping, UObject. It is strongly suggested to aggregate the native
+C++ objects in the UObject — rather than trying to derive from it. By convention, we
+prepend a “U” to the name of the base class, hence the <span class="lstinline"><span
+class="cmtt-10x-x-109">UMachine</span></span> class. This class provides a
+simpliﬁed interface, basically restricted to what will be exposed to Urbi. It must derive from
+<span class="lstinline"><span class="cmtt-10x-x-109">urbi::UObject</span></span>.
+</p><!--l. 62--><p class="indent" >   <div class="code cxx"></p><!--l. 62--><div class="lstinputlisting">
+<a
+ id="x40-725004"></a>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725005r1"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#ifndef</span></span><span class="cmtt-10x-x-109"> MACHINE_UMACHINE_HH </span><br /><span class="label"><a
+ id="x40-725006r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">#</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">define</span></span><span class="cmtt-10x-x-109"> MACHINE_UMACHINE_HH </span><br /><span class="label"><a
+ id="x40-725007r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725008r4"></a></span><span class="textcmt"><span class="cmtt-10x-x-109">// Include the UObject declarations.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725009r5"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">#</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">include</span></span><span class="cmtt-10x-x-109"> &#x003C;urbi/uobject.hh&#x003E; </span><br /><span class="label"><a
+ id="x40-725010r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725011r7"></a></span><span class="textcmt"><span class="cmtt-10x-x-109">// We wrap factories.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725012r8"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">#</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">include</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;machine.hh&#x0022;</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725013r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725014r10"></a></span><span class="textcmt"><span class="cmtt-10x-x-109">/// A UObject wrapping a machine object.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725015r11"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> UMachine </span><br /><span class="label"><a
+ id="x40-725016r12"></a></span><span class="cmtt-10x-x-109">  : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><br /><span class="label"><a
+ id="x40-725017r13"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-725018r14"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x40-725019r15"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// C++ contructor.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725020r16"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// \param name  name given to the instance.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725021r17"></a></span><span class="cmtt-10x-x-109">  UMachine(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; name); </span><br /><span class="label"><a
+ id="x40-725022r18"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725023r19"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Urbi constructor.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725024r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// \param d  the duration of the assembly process.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725025r21"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">///           Must be positive.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725026r22"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// \return 0 on success.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725027r23"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> init(urbi::ufloat d); </span><br /><span class="label"><a
+ id="x40-725028r24"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725029r25"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Wrapper around Machine::operator().</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725030r26"></a></span><span class="cmtt-10x-x-109">  std::string assemble(std::list&#x003C;std::string&#x003E; components); </span><br /><span class="label"><a
+ id="x40-725031r27"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725032r28"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// Function notified when the duration is changed.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725033r29"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// \param v   the UVar being modified (i.e., UMachine::duration).</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725034r30"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// \return 0  on success.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725035r31"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> duration_set(urbi::UVar&#x0026; v); </span><br /><span class="label"><a
+ id="x40-725036r32"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725037r33"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">private</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x40-725038r34"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// The duration of the assembly process.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725039r35"></a></span><span class="cmtt-10x-x-109">  urbi::UVar duration; </span><br /><span class="label"><a
+ id="x40-725040r36"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725041r37"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">/// The actual machine, wrapped in this UObject.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725042r38"></a></span><span class="cmtt-10x-x-109">  Machine* machine; </span><br /><span class="label"><a
+ id="x40-725043r39"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x40-725044r40"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#endif</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textcmt"><span class="cmtt-10x-x-109">// ! MACHINE_UMACHINE_HH</span></span>
+   </div>
+<!--l. 62--><p class="noindent" ></div>
+</p><!--l. 64--><p class="indent" >   The implementation of <span class="lstinline"><span
+class="cmtt-10x-x-109">UMachine</span></span> is simple. It uses some of the primitives used in the binding
+process (<a
+href="the-uobject-api.html#x41-74100025.2">Section 25.2<!--tex4ht:ref: sec:tut:import --></a>): </p>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">UStart(</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmtt-10x-x-109">)</span></span> declares classes that are UObjects; eventually such classes will appear in
+     urbiscript as <span class="lstinline"><span class="cmtt-10x-x-109">uobjects.</span><span
+class="cmitt-10x-x-109">class</span></span> (but since <a
+href="urbiscript-standard-library.html#object:Global"><span class="lstinline"><span
+class="cmtt-10x-x-109">Global</span></span></a> derives from <a
+href="urbiscript-standard-library.html#object:uobjects"><span class="lstinline"><span
+class="cmtt-10x-x-109">uobjects</span></span></a> you may just use
+     the simpler name <span
+class="cmitt-10x-x-109">class</span>). Use it once.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">UBindFunction(</span><span
+class="cmitt-10x-x-109">class</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">function</span><span
+class="cmtt-10x-x-109">)</span></span> declares  a  <span
+class="cmitt-10x-x-109">function</span>.  Eventually  bound  in  the
+     urbiscript world as <span class="lstinline"><span class="cmtt-10x-x-109">uobjects.</span><span
+class="cmitt-10x-x-109">class</span><span
+class="cmtt-10x-x-109">.</span><span
+class="cmitt-10x-x-109">function</span></span>.
+     </li>
+     <li class="itemize">Similarly, <span class="lstinline"><span class="cmtt-10x-x-109">UBindVar(</span><span
+class="cmitt-10x-x-109">class</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">variable</span><span
+class="cmtt-10x-x-109">)</span></span> declares a <span
+class="cmitt-10x-x-109">variable</span>.</li></ul>
+<!--l. 81--><p class="indent" >   Urbi relies on the prototype model for object-oriented programming, which is somewhat diﬀerent
+from the traditional C++ class-based model (<a
+href="basic-objects-value-model.html#x8-230004">Section 4<!--tex4ht:ref: sec:tut:import --></a>). This is reﬂected by the presence of <span
+class="cmti-10x-x-109">two</span>
+diﬀerent constructors: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">UMachine::UMachine</span></span>,  the  C++  constructor  invoked  for  every  single  instance  of  the
+     UObject. It is always invoked by the Urbi system when instantiating a UObject, <span
+class="cmti-10x-x-109">including</span>
+     the prototype itself. It sole argument is its name (an internal detail you need not be aware
+     of). The C++ constructor must register the <span class="lstinline"><span class="cmtt-10x-x-109">UMachine::init</span></span> function. It may also bind
+     functions and variables.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="cmtt-10x-x-109">UMachine::init</span></span>, the Urbi constructor invoked each time a new clone of <span class="lstinline"><span
+class="cmtt-10x-x-109">UMachine</span></span> is made,
+     i.e., for every instance except the ﬁrst one.
+     <!--l. 97--><p class="noindent" >Functions and variables that do not make sense for the initial prototype (which might not
+     be fully functional) should be bound here, rather than in the C++ constructor.</p></li></ul>
+<!--l. 102--><p class="indent" >   The following listing is abundantly commented, and is easy to grasp.
+</p><!--l. 104--><p class="indent" >   <div class="code cxx"></p><!--l. 104--><div class="lstinputlisting">
+<a
+ id="x40-725045"></a>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725046r1"></a></span><span class="textkwd"><span class="cmtt-10x-x-109">#include</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;umachine.hh&#x0022;</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725047r2"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725048r3"></a></span><span class="textcmt"><span class="cmtt-10x-x-109">// Register the UMachine UObject in the Urbi world.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725049r4"></a></span><span class="cmtt-10x-x-109">UStart(UMachine); </span><br /><span class="label"><a
+ id="x40-725050r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725051r6"></a></span><span class="textcmt"><span class="cmtt-10x-x-109">// Bouncing the name to the UObject constructor is mandatory.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725052r7"></a></span><span class="cmtt-10x-x-109">UMachine::UMachine(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; name) </span><br /><span class="label"><a
+ id="x40-725053r8"></a></span><span class="cmtt-10x-x-109">  : urbi::UObject(name) </span><br /><span class="label"><a
+ id="x40-725054r9"></a></span><span class="cmtt-10x-x-109">  , machine(0) </span><br /><span class="label"><a
+ id="x40-725055r10"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-725056r11"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Register the Urbi constructor.  This is the only mandatory</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725057r12"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// part of the C++ constructor.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725058r13"></a></span><span class="cmtt-10x-x-109">  UBindFunction(UMachine, init); </span><br /><span class="label"><a
+ id="x40-725059r14"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x40-725060r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725061r16"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725062r17"></a></span><span class="cmtt-10x-x-109">UMachine::init(urbi::ufloat d) </span><br /><span class="label"><a
+ id="x40-725063r18"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-725064r19"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Failure on invalid arguments.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725065r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (d &#x003C; 0) </span><br /><span class="label"><a
+ id="x40-725066r21"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 1; </span><br /><span class="label"><a
+ id="x40-725067r22"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725068r23"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Bind the functions, i.e., declare them to the Urbi world.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725069r24"></a></span><span class="cmtt-10x-x-109">  UBindFunction(UMachine, assemble); </span><br /><span class="label"><a
+ id="x40-725070r25"></a></span><span class="cmtt-10x-x-109">  UBindThreadedFunctionRename </span><br /><span class="label"><a
+ id="x40-725071r26"></a></span><span class="cmtt-10x-x-109">    (UMachine, assemble, </span><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;threadedAssemble&#x0022;</span></span><span class="cmtt-10x-x-109">, urbi::LOCK_FUNCTION); </span><br /><span class="label"><a
+ id="x40-725072r27"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Bind the UVars before using them.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725073r28"></a></span><span class="cmtt-10x-x-109">  UBindVar(UMachine, duration); </span><br /><span class="label"><a
+ id="x40-725074r29"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725075r30"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Set the duration.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725076r31"></a></span><span class="cmtt-10x-x-109">  duration = d; </span><br /><span class="label"><a
+ id="x40-725077r32"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Build the machine.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725078r33"></a></span><span class="cmtt-10x-x-109">  machine = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">new</span></span><span class="cmtt-10x-x-109"> Machine(d); </span><br /><span class="label"><a
+ id="x40-725079r34"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725080r35"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Request that duration_set be invoked each time duration is</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725081r36"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// changed.  Declared after the above &#x0022;duration = d&#x0022; since we don&#x2019;t</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725082r37"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// want it to be triggered for this first assignment.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725083r38"></a></span><span class="cmtt-10x-x-109">  UNotifyChange(duration, &#x0026;UMachine::duration_set); </span><br /><span class="label"><a
+ id="x40-725084r39"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725085r40"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Success.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725086r41"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x40-725087r42"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x40-725088r43"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725089r44"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725090r45"></a></span><span class="cmtt-10x-x-109">UMachine::duration_set(urbi::UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x40-725091r46"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-725092r47"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109">(machine); </span><br /><span class="label"><a
+ id="x40-725093r48"></a></span><span class="cmtt-10x-x-109">  urbi::ufloat d = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">static_cast</span></span><span class="cmtt-10x-x-109">&#x003C;urbi::ufloat&#x003E;(v); </span><br /><span class="label"><a
+ id="x40-725094r49"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (0 &#x003C;= d) </span><br /><span class="label"><a
+ id="x40-725095r50"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x40-725096r51"></a></span><span class="cmtt-10x-x-109">    </span><span class="textcmt"><span class="cmtt-10x-x-109">// Valid value.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725097r52"></a></span><span class="cmtt-10x-x-109">    machine-&#x003E;duration = d; </span><br /><span class="label"><a
+ id="x40-725098r53"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x40-725099r54"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x40-725100r55"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725101r56"></a></span><span class="cmtt-10x-x-109">    </span><span class="textcmt"><span class="cmtt-10x-x-109">// Report failure.</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725102r57"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 1; </span><br /><span class="label"><a
+ id="x40-725103r58"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x40-725104r59"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725105r60"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725106r61"></a></span><span class="cmtt-10x-x-109">std::string </span><br /><span class="label"><a
+ id="x40-725107r62"></a></span><span class="cmtt-10x-x-109">UMachine::assemble(std::list&#x003C;std::string&#x003E; components) </span><br /><span class="label"><a
+ id="x40-725108r63"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-725109r64"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">assert</span></span><span class="cmtt-10x-x-109">(machine); </span><br /><span class="label"><a
+ id="x40-725110r65"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725111r66"></a></span><span class="cmtt-10x-x-109">  </span><span class="textcmt"><span class="cmtt-10x-x-109">// Bounce to Machine::operator().</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-725112r67"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> (*machine)(components); </span><br /><span class="label"><a
+ id="x40-725113r68"></a></span><span
+class="cmtt-10x-x-109">}</span>
+   </div>
+<!--l. 104--><p class="noindent" ></div>
+</p><!--l. 106--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">24.1.3   </span> <a
+href="contents.html#QQ2-40-853" id="x40-72600024.1.3">Running Components</a></h4>
+<!--l. 115--><p class="noindent" >As a ﬁrst beneﬁt from using the Urbi environment, this source code is already runnable! No <span class="lstinline"><span
+class="cmtt-10x-x-109">main</span></span>
+function is needed, the Urbi system provides one.
+</p><!--l. 119--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">24.1.3.1   </span> <a
+href="contents.html#QQ2-40-854" id="x40-72700024.1.3.1">Compiling</a></h5>
+<!--l. 120--><p class="noindent" >Of course, beforehand, we need to compile this UObject into some loadable module. The Urbi modules
+are <span
+class="cmti-10x-x-109">shared objects</span><a
+ id="x40-727001"></a>, i.e., libraries that can be loaded on demand (and unloaded) during the execution of
+the program. Their typical ﬁle names depend on the architecture: ‘<span
+class="cmtt-10x-x-109">machine.so</span>&#x2019; on most
+Unix platforms (including Mac OS X), and ‘<span
+class="cmtt-10x-x-109">machine.dll</span>&#x2019; on Windows. To abstract away
+from these diﬀerences, we will simply use the base name, ‘<span
+class="cmtt-10x-x-109">machine</span>&#x2019; with the Urbi tool
+chain.
+</p><!--l. 128--><p class="indent" >   There are several options to compile our machine as a UObject. If you are using Microsoft Visual
+Studio, the Urbi SDK installer created a “UObject” project template accessible through the “New
+project” wizard. Otherwise, you can use directly your regular compiler tool chain. You may also use
+<span
+class="cmtt-10x-x-109">umake-shared </span>from the ‘<span
+class="cmtt-10x-x-109">umake-*</span>&#x2019; family of programs (<a
+href="programs.html#x30-24400019.10.2">Section 19.10.2<!--tex4ht:ref: sec:tut:import --></a>):
+</p><!--l. 135--><p class="indent" >   <div class="code shell">
+<!--l. 135--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-727002r1"></a></span><span class="cmtt-10x-x-109">$ ls machine.uob </span><br /><span class="label"><a
+ id="x40-727003r2"></a></span><span class="cmtt-10x-x-109">machine.cc  machine.hh  umachine.cc  umachine.hh </span><br /><span class="label"><a
+ id="x40-727004r3"></a></span><span class="cmtt-10x-x-109">$ umake-shared machine.uob -o machine </span><br /><span class="label"><a
+ id="x40-727005r4"></a></span><!--l. 139--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># ... Lots of compilation log messages ...</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-727006r5"></a></span><span class="cmtt-10x-x-109">$ ls </span><br /><span class="label"><a
+ id="x40-727007r6"></a></span><span class="cmtt-10x-x-109">_ubuild-machine.so  machine.la  machine.so  machine.uob</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-727008r7"></a></span></pre>
+   </div>
+<!--l. 144--><p class="indent" >   The various ﬁles are:
+     </p><dl class="description"><dt class="description">
+<span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">machine.uob</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description">Merely by convention, the sources of our UObject are in a ‘<span
+class="cmtt-10x-x-109">*.uob</span>&#x2019; directory.
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">machine.so</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description">A             shared             dlopen-module.             This             is             the
+     “true” product of the <span
+class="cmtt-10x-x-109">umake-shared </span>invocation. Its default name can be quite complex
+     (‘<span
+class="cmtt-10x-x-109">uobject-i386-apple-darwin9.7.0.so</span>&#x2019; on my machine), as it will encode information
+     about the architecture of your machine; if you don&#x2019;t need such accuracy, use the option
+     ‘<span
+class="cmtt-10x-x-109">--output</span>&#x2019;/‘<span
+class="cmtt-10x-x-109">-o</span>&#x2019; to specify the output ﬁle name.
+     <!--l. 155--><p class="noindent" ><span
+class="cmtt-10x-x-109">umake-shared </span>traversed ‘<span
+class="cmtt-10x-x-109">machine.uob</span>&#x2019; to gather and process relevant ﬁles (source ﬁles,
+     headers, libraries and object ﬁles) in order to produce this output ﬁle.
+     </p></dd><dt class="description">
+<span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">_ubuild-machine.so</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description">this is a temporary directory in which the compilation takes place. It
+     can be safely removed by hand, or using <span
+class="cmtt-10x-x-109">umake-deepclean </span>(<a
+href="programs.html#x30-24400019.10.2">Section 19.10.2<!--tex4ht:ref: sec:tut:import --></a>).
+     </dd><dt class="description">
+<span
+class="cmbx-10x-x-109">‘</span><span
+class="cmtt-10x-x-109">machine.la</span><span
+class="cmbx-10x-x-109">&#x2019;</span> </dt><dd
+class="description">a  <a
+href="http://www.gnu.org/software/libtool/" >GNU  Libtool</a>  ﬁle  that  contains  information  such  as  dependencies  on  other
+     libraries. While this ﬁle should be useless most of the time, we recommend against removing
+     it: it may help understand some problems.</dd></dl>
+<!--l. 169--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">24.1.3.2   </span> <a
+href="contents.html#QQ2-40-855" id="x40-72800024.1.3.2">Running UObjects</a></h5>
+<!--l. 171--><p class="noindent" >There are several means to toy with this simple UObject. You can use <span
+class="cmtt-10x-x-109">urbi-launch </span>(<a
+href="programs.html#x30-21200019.5">Section 19.5<!--tex4ht:ref: sec:tut:import --></a>) to
+plug the UMachine in an Urbi server and enter an interactive session.
+</p><!--l. 175--><p class="indent" >   <div class="code shell">
+<!--l. 175--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728001r1"></a></span><!--l. 176--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109"># Launch an Urbi server with UMachine plugged in.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728002r2"></a></span><span class="cmtt-10x-x-109">$ urbi-launch --start machine -- --interactive </span><br /><span class="label"><a
+ id="x40-728003r3"></a></span><!--l. 178--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000] *** Urbi version 3.x.y</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> f = UMachine.new(1s); </span><br /><span class="label"><a
+ id="x40-728005r5"></a></span><!--l. 180--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00020853] UMachine_0x1899c90</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728006r6"></a></span><span class="cmtt-10x-x-109">f.assemble([</span><!--l. 181--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Hello, &#x0022;</span></span></span><span class="cmtt-10x-x-109">, </span><!--l. 181--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;World!&#x0022;</span></span></span><span class="cmtt-10x-x-109">]); </span><br /><span class="label"><a
+ id="x40-728007r7"></a></span><!--l. 182--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00038705] &#x0022;Hello, World!&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728008r8"></a></span><span
+class="cmtt-10x-x-109">shutdown;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728009r9"></a></span></pre>
+   </div>
+<!--l. 186--><p class="indent" >   You may also launch the machine UObject in the background, as a network component:
+</p><!--l. 189--><p class="indent" >   <div class="code shell">
+<!--l. 189--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728010r1"></a></span><span class="cmtt-10x-x-109">$ urbi-launch --start machine --host 0.0.0.0 --port 54000 &#x0026;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728011r2"></a></span></pre>
+   </div>
+<!--l. 193--><p class="noindent" >and interact with it using your favorite client (<span
+class="cmtt-10x-x-109">telnet</span>, <span
+class="cmtt-10x-x-109">netcat</span>, <span
+class="cmtt-10x-x-109">socat</span>, &hellip;), or using the <span
+class="cmtt-10x-x-109">urbi-send </span>tool
+(<a
+href="programs.html#x30-23200019.8">Section 19.8<!--tex4ht:ref: sec:tut:import --></a>).
+</p><!--l. 198--><p class="indent" >   <div class="code shell">
+<!--l. 198--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728012r1"></a></span><span class="cmtt-10x-x-109">$ urbi-send --port 54000                       \ </span><br /><span class="label"><a
+ id="x40-728013r2"></a></span><span class="cmtt-10x-x-109">            -e </span><!--l. 200--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;UMachine.assemble([12, 34]);&#x2019;</span></span><span class="cmtt-10x-x-109">  \ </span><br /><span class="label"><a
+ id="x40-728014r3"></a></span><span class="cmtt-10x-x-109">            --quit </span><br /><span class="label"><a
+ id="x40-728015r4"></a></span><!--l. 202--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00126148] &#x0022;1234&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728016r5"></a></span><!--l. 203--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:client_error] End of file</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728017r6"></a></span><span class="cmtt-10x-x-109">$ urbi-send --port 54000                     \ </span><br /><span class="label"><a
+ id="x40-728018r7"></a></span><span class="cmtt-10x-x-109">            -e </span><!--l. 205--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;var f = UMachine.new(1s)|&#x2019;</span></span><span class="cmtt-10x-x-109">   \ </span><br /><span class="label"><a
+ id="x40-728019r8"></a></span><span class="cmtt-10x-x-109">            -e </span><!--l. 206--><span class="listings-nested"><span class="cmtt-10x-x-109">&#x2019;f.assemble([&#x0022;ab&#x0022;, &#x0022;cd&#x0022;]);&#x2019;</span></span><span class="cmtt-10x-x-109">   \ </span><br /><span class="label"><a
+ id="x40-728020r9"></a></span><span class="cmtt-10x-x-109">            --quit </span><br /><span class="label"><a
+ id="x40-728021r10"></a></span><!--l. 208--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00146159] &#x0022;abcd&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728022r11"></a></span><!--l. 209--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000000:client_error] End of file</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-728023r12"></a></span></pre>
+   </div>
+<!--l. 217--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">24.2   </span> <a
+href="index.html#QQ2-40-856" id="x40-72900024.2">Using urbiscript</a></h3>
+<!--l. 223--><p class="noindent" >urbiscript is a programming language primarily designed for robotics. Its syntax is inspired by that of
+C++: if you know C, C++, Java or C#, writing urbiscript programs is easy. It&#x2019;s a dynamic
+object-oriented (<a
+href="objective-programming-urbiscript-object-model.html#x11-400007">Listing 7<!--tex4ht:ref: sec:tut:import --></a>) scripting language, which makes it well suited for high-level application. It
+supports and emphasizes parallel (<a
+href="parallelism-concurrent-flow-control.html#x14-5900010">Listing 10<!--tex4ht:ref: sec:tut:import --></a>) and event-based programming (<a
+href="event-based-programming.html#x15-6700011">Listing 11<!--tex4ht:ref: sec:tut:import --></a>),
+which are very popular paradigms in robotics, by providing core primitives and language
+constructs.
+</p><!--l. 232--><p class="indent" >   Thanks to its client/server approach, one can easily interact with a robot, to monitor it, or to
+experiment live changes in the urbiscript programs.
+</p><!--l. 235--><p class="indent" >   Courtesy of the UObject architecture, urbiscript is fully integrated with C++. As already seen in
+the above examples (<a
+href="#x40-72600024.1.3">Section 24.1.3<!--tex4ht:ref: sec:tut:import --></a>), you can bind C++ classes in urbiscript seamlessly. urbiscript is
+also integrated with many other languages such as Java (<a
+href="the-uobject-java-api.html#x42-77000026">Listing 26<!--tex4ht:ref: sec:tut:import --></a>), MatLab or Python. The UObject
+framework also naturally provides urbiscript with support for distributed architectures: objects can run
+in diﬀerent processes, possibly on remote computers.
+</p><!--l. 246--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">24.2.1   </span> <a
+href="contents.html#QQ2-40-857" id="x40-73000024.2.1">The urbiscript Scripting Language</a></h4>
+<!--l. 248--><p class="noindent" >The following example shows how one can easily interface UObjects into the urbiscript language. The
+following simple class (actually, a genuine object, in urbiscript “classes are objects”, see <a
+href="objective-programming-urbiscript-object-model.html#x11-400007">Listing 7<!--tex4ht:ref: sec:tut:import --></a>)
+aggregates two assembly machines, a fast one, and a slow one. This class demonstrates usual
+object-oriented, sequential, features.
+</p><!--l. 258--><p class="indent" >   <div class="code urbiscript">
+<!--l. 258--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> TwoMachineFactory </span><br /><span class="label"><a
+ id="x40-730002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-730003r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 261--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// A shorthand common to all the Two Machine factories.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> UMachine = uobjects.UMachine; </span><br /><span class="label"><a
+ id="x40-730005r5"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730006r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 264--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Default machines.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730007r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> fastMachine = UMachine.new(10ms); </span><br /><span class="label"><a
+ id="x40-730008r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> slowMachine = UMachine.new(100ms); </span><br /><span class="label"><a
+ id="x40-730009r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730010r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 268--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The urbiscript constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730011r11"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 269--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Build two machines, a fast one, and a slow one.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730012r12"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> init(fast = 10ms, slow = 100ms) </span><br /><span class="label"><a
+ id="x40-730013r13"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x40-730014r14"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 272--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Make sure fast &#x003C;= slow.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730015r15"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (slow &#x003C; fast) </span><br /><span class="label"><a
+ id="x40-730016r16"></a></span><span class="cmtt-10x-x-109">      [fast, slow] = [slow, fast]; </span><br /><span class="label"><a
+ id="x40-730017r17"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 275--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Two machines for each instance of TwoMachineFactory.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730018r18"></a></span><span class="cmtt-10x-x-109">    fastMachine = UMachine.new(fast); </span><br /><span class="label"><a
+ id="x40-730019r19"></a></span><span class="cmtt-10x-x-109">    slowMachine = UMachine.new(slow); </span><br /><span class="label"><a
+ id="x40-730020r20"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x40-730021r21"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730022r22"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 280--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Wrappers to make invocation of the machine simpler.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730023r23"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> fast(input) { fastMachine.assemble(input) }; </span><br /><span class="label"><a
+ id="x40-730024r24"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> slow(input) { slowMachine.assemble(input) }; </span><br /><span class="label"><a
+ id="x40-730025r25"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730026r26"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 284--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Use the slow machine for large jobs.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730027r27"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> assemble(input) </span><br /><span class="label"><a
+ id="x40-730028r28"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x40-730029r29"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> res| </span><br /><span class="label"><a
+ id="x40-730030r30"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> machine| </span><br /><span class="label"><a
+ id="x40-730031r31"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (5 &#x003C; input.size) </span><br /><span class="label"><a
+ id="x40-730032r32"></a></span><span class="cmtt-10x-x-109">      { machine = </span><!--l. 290--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;slow&#x0022;</span></span></span><span class="cmtt-10x-x-109"> | res = slow(input); } </span><br /><span class="label"><a
+ id="x40-730033r33"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730034r34"></a></span><span class="cmtt-10x-x-109">      { machine = </span><!--l. 292--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;fast&#x0022;</span></span></span><span class="cmtt-10x-x-109"> | res = fast(input); } | </span><br /><span class="label"><a
+ id="x40-730035r35"></a></span><span class="cmtt-10x-x-109">    echo (</span><!--l. 293--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Used the %s machine (%s =&#x003E; %s)&#x0022;</span></span></span><span class="cmtt-10x-x-109"> % [machine, input, res]) | </span><br /><span class="label"><a
+ id="x40-730036r36"></a></span><span class="cmtt-10x-x-109">    res </span><br /><span class="label"><a
+ id="x40-730037r37"></a></span><span class="cmtt-10x-x-109">  }; </span><br /><span class="label"><a
+ id="x40-730038r38"></a></span><span class="cmtt-10x-x-109">}; </span><br /><span class="label"><a
+ id="x40-730039r39"></a></span><!--l. 297--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000001] TwoMachineFactory</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730040r40"></a></span></pre>
+   </div>
+<!--l. 300--><p class="indent" >   Using this class is straightforward.
+</p><!--l. 302--><p class="indent" >   <div class="code urbiscript">
+<!--l. 302--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730041r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> f = TwoMachineFactory.new()|; </span><br /><span class="label"><a
+ id="x40-730042r2"></a></span><span class="cmtt-10x-x-109">f.assemble([1, 2, 3, 4, 5, 6]); </span><br /><span class="label"><a
+ id="x40-730043r3"></a></span><!--l. 305--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] *** Used the slow machine ([1, 2, 3, 4, 5, 6] =&#x003E; 123456)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730044r4"></a></span><!--l. 306--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000003] &#x0022;123456&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730045r5"></a></span><span class="cmtt-10x-x-109">f.assemble([1]); </span><br /><span class="label"><a
+ id="x40-730046r6"></a></span><!--l. 308--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004] *** Used the fast machine ([1] =&#x003E; 1)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730047r7"></a></span><!--l. 309--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000005] &#x0022;1&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-730048r8"></a></span></pre>
+   </div>
+<!--l. 312--><p class="indent" >   The genuine power of urbiscript is when concurrency comes into play.
+</p><!--l. 314--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">24.2.2   </span> <a
+href="contents.html#QQ2-40-858" id="x40-73100024.2.2">Concurrency</a></h4>
+<!--l. 325--><p class="noindent" >Why should we wait for the slow job to ﬁnish if we have a fast machine available? To do so, we must
+stop requesting a <span
+class="cmti-10x-x-109">sequential </span>composition between both calls. We did that by using the sequential
+operator, ‘<span
+class="cmtt-10x-x-109">;</span>&#x2019;. In urbiscript, there exists its concurrent counter-part: ‘<span
+class="cmtt-10x-x-109">,</span>&#x2019;. Indeed, running <span class="lstinline"><span
+class="cmitt-10x-x-109">a</span><span class="cmtt-10x-x-109">, </span><span
+class="cmitt-10x-x-109">b</span></span> means
+“launch the program <span
+class="cmitt-10x-x-109">a </span>and then launch the program <span
+class="cmitt-10x-x-109">b</span>”. The urbiscript Manual contains a whole
+section devoted to explaining these operators (<a
+href="parallelism-concurrent-flow-control.html#x14-5900010">Listing 10<!--tex4ht:ref: sec:tut:import --></a>).
+</p><!--l. 334--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">24.2.2.1   </span> <a
+href="contents.html#QQ2-40-859" id="x40-73200024.2.2.1">First Attempt</a></h5>
+<!--l. 336--><p class="noindent" >Let&#x2019;s try it:
+</p><!--l. 338--><p class="indent" >   <div class="code urbiscript">
+<!--l. 338--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-732001r1"></a></span><span class="cmtt-10x-x-109">f.assemble([1, 2, 3, 4, 5, 6]), </span><br /><span class="label"><a
+ id="x40-732002r2"></a></span><span class="cmtt-10x-x-109">f.assemble([1]), </span><br /><span class="label"><a
+ id="x40-732003r3"></a></span><!--l. 341--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] *** Used the slow machine ([1, 2, 3, 4, 5, 6] =&#x003E; 123456)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-732004r4"></a></span><!--l. 342--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004] *** Used the fast machine ([1] =&#x003E; 1)</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-732005r5"></a></span></pre>
+   </div>
+<!--l. 345--><p class="noindent" >This is a complete failure.
+</p><!--l. 348--><p class="indent" >   Why?
+</p><!--l. 350--><p class="indent" >   Since Urbi cannot expect that your code is thread-safe, by default all calls to UObject features are
+<span
+class="cmti-10x-x-109">synchronous</span><a
+ id="x40-732006"></a>, or <span
+class="cmti-10x-x-109">blocking</span><a
+ id="x40-732007"></a>: <span
+class="cmti-10x-x-109">the whole Urbi system is suspended until the function returns</span>. There is a
+single thread of execution for Urbi, and when calling a function from a (plugged) UObject, that thread
+of execution is devoted to evaluated the code.
+</p><!--l. 357--><p class="indent" >   See for instance below that, in even though <span class="lstinline"><span class="cmtt-10x-x-109">f.assemble</span></span> is slow and launched in background, the
+almost instantaneous display of <span class="lstinline"><span
+class="cmtt-10x-x-109">ping</span></span> is not performed immediately.
+</p><!--l. 361--><p class="indent" >   <div class="code urbiscript">
+<!--l. 361--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-732008r1"></a></span><span class="cmtt-10x-x-109">echo(f.slow([1, 2, 3, 4, 5, 6])), </span><br /><span class="label"><a
+ id="x40-732009r2"></a></span><span class="cmtt-10x-x-109">echo(</span><!--l. 363--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;ping&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x40-732010r3"></a></span><!--l. 364--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] *** 123456</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-732011r4"></a></span><!--l. 365--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] *** ping</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-732012r5"></a></span></pre>
+   </div>
+<!--l. 368--><p class="indent" >   There are several means to address this unintended behavior. If the base library provides a
+threaded API (in our example, the <span class="lstinline"><span
+class="cmtt-10x-x-109">Machine</span></span> class, not the <span class="lstinline"><span
+class="cmtt-10x-x-109">UMachine</span></span> UObject wrapper), then you could
+use it. Yet we don&#x2019;t recommend it, as it takes away from Urbi the possibility to really
+control concurrency issues (for instance it cannot turn non-blocking functions into blocking
+functions).
+</p><!--l. 375--><p class="indent" >   A better option is to ask Urbi to turn blocking function calls into non-blocking ones.
+</p><!--l. 378--><p class="noindent" >
+</p>
+   <h5 class="subsubsectionHead"><span class="titlemark">24.2.2.2   </span> <a
+href="contents.html#QQ2-40-860" id="x40-73300024.2.2.2">Second Attempt: Threaded Functions</a></h5>
+<!--l. 380--><p class="noindent" >If you read carefully the body of the <span class="lstinline"><span class="cmtt-10x-x-109">UMachine::init</span></span> function, you will ﬁnd the following piece of
+code:
+</p><!--l. 383--><p class="indent" >   <div class="code cxx">
+<!--l. 383--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733001r1"></a></span><span class="cmtt-10x-x-109">UBindFunction(UMachine, assemble); </span><br /><span class="label"><a
+ id="x40-733002r2"></a></span><span class="cmtt-10x-x-109">UBindThreadedFunctionRename </span><br /><span class="label"><a
+ id="x40-733003r3"></a></span><span class="cmtt-10x-x-109">  (UMachine, assemble, </span><!--l. 386--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;threadedAssemble&#x0022;</span></span></span><span class="cmtt-10x-x-109">, urbi::LOCK_FUNCTION);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733004r4"></a></span></pre>
+   </div>
+<!--l. 389--><p class="noindent" >Both calls bind the function <span class="lstinline"><span class="cmtt-10x-x-109">UMachine::assemble</span></span>, but the second one will run the call in a separate
+thread. Since multiple calls to a single function (or diﬀerent functions of a single object etc.) are likely
+to fail, a locking model must be provided. Here, <span class="lstinline"><span class="cmtt-10x-x-109">urbi::LOCK_FUNCTION</span></span> means that concurrent calls to
+<span class="lstinline"><span class="cmtt-10x-x-109">UMachine::assemble</span></span> must be serialized: one at a time.
+</p><!--l. 397--><p class="indent" >   To use this threaded version of <span class="lstinline"><span
+class="cmtt-10x-x-109">assemble</span></span>, we can simply patch our <span class="lstinline"><span
+class="cmtt-10x-x-109">TwoMachineFactory</span></span>
+class:
+</p><!--l. 400--><p class="indent" >   <div class="code urbiscript">
+<!--l. 400--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733005r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">do</span></span><span class="cmtt-10x-x-109"> (TwoMachineFactory) </span><br /><span class="label"><a
+ id="x40-733006r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x40-733007r3"></a></span><span class="cmtt-10x-x-109">  fast = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> (input) { fastMachine.threadedAssemble(input) }; </span><br /><span class="label"><a
+ id="x40-733008r4"></a></span><span class="cmtt-10x-x-109">  slow = </span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> (input) { slowMachine.threadedAssemble(input) }; </span><br /><span class="label"><a
+ id="x40-733009r5"></a></span><span
+class="cmtt-10x-x-109">}|;</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733010r6"></a></span></pre>
+   </div>
+<!--l. 408--><p class="indent" >   Let&#x2019;s try again where we failed previously (<a
+href="#x40-73200024.2.2.1">Section 24.2.2.1<!--tex4ht:ref: sec:tut:import --></a>):
+</p><!--l. 410--><p class="indent" >   <div class="code urbiscript">
+<!--l. 410--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733011r1"></a></span><span class="cmtt-10x-x-109">f.assemble([1, 2, 3, 4, 5, 6]), </span><br /><span class="label"><a
+ id="x40-733012r2"></a></span><span class="cmtt-10x-x-109">f.assemble([1]), </span><br /><span class="label"><a
+ id="x40-733013r3"></a></span><!--l. 413--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000004] *** Used the fast machine ([1] =&#x003E; 1)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733014r4"></a></span><!--l. 414--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000002] *** Used the slow machine ([1, 2, 3, 4, 5, 6] =&#x003E; 123456)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733015r5"></a></span><span class="cmtt-10x-x-109">sleep(200ms);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733016r6"></a></span></pre>
+   </div>
+<!--l. 418--><p class="indent" >   Victory! The fast machine answered ﬁrst.
+</p><!--l. 420--><p class="indent" >   You may have noticed that the result is no longer reported. Indeed, the urbiscript interactive shell
+only displays the result of synchronous expressions (i.e., those ending with a ‘<span
+class="cmtt-10x-x-109">;</span>&#x2019;): asynchronous answers
+are confusing (see the inversion here).
+</p><!--l. 425--><p class="indent" >   <a
+href="urbiscript-standard-library.html#object:Channel"><span class="lstinline"><span
+class="cmtt-10x-x-109">Channels</span></span></a> are useful to “send” asynchronous answers.
+</p><!--l. 427--><p class="indent" >   <div class="code urbiscript">
+<!--l. 427--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733017r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> c1 = Channel.new(</span><!--l. 428--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;c1&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x40-733018r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">var</span></span><span class="cmtt-10x-x-109"> c2 = Channel.new(</span><!--l. 429--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;c2&#x0022;</span></span></span><span class="cmtt-10x-x-109">)|; </span><br /><span class="label"><a
+ id="x40-733019r3"></a></span><span class="cmtt-10x-x-109">c1 &#x003C;&#x003C; f.assemble([10, 20, 30, 40, 50, 60]), </span><br /><span class="label"><a
+ id="x40-733020r4"></a></span><span class="cmtt-10x-x-109">c2 &#x003C;&#x003C; f.assemble([100]), </span><br /><span class="label"><a
+ id="x40-733021r5"></a></span><span class="cmtt-10x-x-109">sleep(200ms); </span><br /><span class="label"><a
+ id="x40-733022r6"></a></span><!--l. 433--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000535] *** Used the fast machine ([100] =&#x003E; 100)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733023r7"></a></span><!--l. 434--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000535:c2] &#x0022;100&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733024r8"></a></span><!--l. 435--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000625] *** Used the slow machine ([10, 20, 30, 40, 50, 60] =&#x003E; 102030405060)</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733025r9"></a></span><!--l. 436--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00000625:c1] &#x0022;102030405060&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x40-733026r10"></a></span></pre>
+   </div>
+<!--l. 439--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">24.3   </span> <a
+href="index.html#QQ2-40-861" id="x40-73400024.3">Conclusion</a></h3>
+<!--l. 441--><p class="noindent" >This section gave only a quick glance to all the power that Urbi provides to support concurrency.
+Actually, it makes plenty of sense to embed an Urbi engine in a native C++ program, and to delegate
+the concurrency issues to it. Thanks to its middleware and client/server architecture, it is
+then possible to connect it to remote components of diﬀerent kinds, such as using ROS for
+instance.
+</p><!--l. 448--><p class="indent" >   Then, a host of features are at hand, ready to be used when you need them: event-driven
+programming, automatic monitoring of expressions, interactive sessions, &hellip;and, last but not least, the
+urbiscript programming language.
+</p>
+</body></html>

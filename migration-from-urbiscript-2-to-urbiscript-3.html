@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>17 Migration from urbiscript 2 to urbiscript 3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="build.html" >Next</a><a
+href="guidelines-and-cook-books.html#migration-from-urbiscript-2-to-urbiscript-3.html" >Up</a><a
+href="migration-from-urbiscript-1-to-urbiscript-2.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 17</span><br /><a
+href="index.html#QQ2-26-182" id="x26-17500017">Migration from urbiscript 2 to urbiscript 3</a></h2>
+<!--l. 11--><p class="noindent" >This chapter describes the changes needed to make urbiscript code written for urbiscript 2 work in the
+urbiscript 3 interpreter.
+</p>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >17.1 <a
+href="#x26-17600017.1">Automatic function evaluation without parenthesis</a></span>
+<br />    <span class="sectionToc" >17.2 <a
+href="#x26-17700017.2">getSlot and setSlot</a></span>
+<br />    <span class="sectionToc" >17.3 <a
+href="#x26-17800017.3">Packages</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">17.1   </span> <a
+href="index.html#QQ2-26-183" id="x26-17600017.1">Automatic function evaluation without parenthesis</a></h3>
+<!--l. 16--><p class="noindent" >The most visible change from urbiscript 2 to urbiscript 3 is that functions are no longer called when
+parenthesis are omitted. The function itself is returned instead.
+</p><!--l. 20--><p class="indent" >   So one must add missing parenthesis around all function calls, or convert functions with no
+arguments to properties (<a
+href="objective-programming-urbiscript-object-model.html#x11-500007.8">7.8<!--tex4ht:ref: sec:tut:getter --></a>) where appropriate.
+</p><!--l. 24--><p class="indent" >   To help you track function calls missing parenthesis, you can deﬁne the environment variable
+URBI_REPORT_MISSING_PAREN.
+</p><!--l. 28--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 28--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-176001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">function</span></span><span class="cmtt-10x-x-109"> f() {1}; </span><br /><span class="label"><a
+ id="x26-176002r2"></a></span><!--l. 30--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00004397] function () { 1 }</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-176003r3"></a></span><span class="cmtt-10x-x-109">f; </span><!--l. 31--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// In urbiscript 2 this would have called f</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-176004r4"></a></span><span class="cmtt-10x-x-109">[  Urbi.Compatibility   ] Maybe missing parens </span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> 2.1 </span><br /><span class="label"><a
+ id="x26-176005r5"></a></span><!--l. 33--><span class="listings-nested"><span class="urbianswer"><span class="cmtt-10x-x-109">[00005092] function () { 1 }</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-176006r6"></a></span></pre>
+   </div>
+<!--l. 36--><p class="indent" >   This will produce false positives in the urbiscript standard library that you can safely ignore, and
+false positives in urbiscript 3 code.
+</p><!--l. 39--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">17.2   </span> <a
+href="index.html#QQ2-26-184" id="x26-17700017.2">getSlot and setSlot</a></h3>
+<!--l. 41--><p class="noindent" >Since <a
+href="urbiscript-standard-library.html#object:Slot"><span class="lstinline"><span
+class="cmtt-10x-x-109">Slot</span></span></a>s are now exposed in urbiscript, the urbiscript 2 <a
+href="#slot:Slot.getSlot"><span class="lstinline"><span class="cmtt-10x-x-109">Slot.getSlot</span></span></a> and <a
+href="#slot:Slot.setSlot"><span class="lstinline"><span class="cmtt-10x-x-109">Slot.setSlot</span></span></a> have
+been renamed to <a
+href="#slot:Slot.getSlotValue"><span class="lstinline"><span class="cmtt-10x-x-109">Slot.getSlotValue</span></span></a> and <a
+href="#slot:Slot.setSlotValue"><span class="lstinline"><span class="cmtt-10x-x-109">Slot.setSlotValue</span></span></a>.
+</p><!--l. 45--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">17.3   </span> <a
+href="index.html#QQ2-26-185" id="x26-17800017.3">Packages</a></h3>
+<!--l. 47--><p class="noindent" >Since packages (<a
+href="organizing-your-code-using-package-and-import.html#x12-520008">8<!--tex4ht:ref: sec:tut:import --></a>) were introduced, some functions are no longuer directly accessible without the
+proper import or package preﬁx. One notable instance is the content of <a
+href="urbiscript-standard-library.html#object:System"><span class="lstinline"><span
+class="cmtt-10x-x-109">System</span></span></a>:
+</p><!--l. 51--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 51--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-178001r1"></a></span><span class="cmtt-10x-x-109">hostName; </span><br /><span class="label"><a
+ id="x26-178002r2"></a></span><span class="cmtt-10x-x-109">[02623134:error] !!! 29.1-8: lookup failed: hostName </span><br /><span class="label"><a
+ id="x26-178003r3"></a></span><span class="cmtt-10x-x-109">System.hostName; </span><br /><span class="label"><a
+ id="x26-178004r4"></a></span><span class="cmtt-10x-x-109">[02627733] </span><!--l. 55--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;redlance&#x0022;</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-178005r5"></a></span><span class="cmtt-10x-x-109">import System.*; </span><br /><span class="label"><a
+ id="x26-178006r6"></a></span><span class="cmtt-10x-x-109">hostName; </span><br /><span class="label"><a
+ id="x26-178007r7"></a></span><span class="cmtt-10x-x-109">[02635245] </span><!--l. 58--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;redlance&#x0022;</span></span></span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x26-178008r8"></a></span></pre>
+   </div>
+</body></html>

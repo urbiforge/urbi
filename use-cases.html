@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+>
+<head><title>27 Use Cases</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- 2,xhtml,info,next,sections+,mouseover,uni-html4,charset=utf8 -->
+<meta name="src" content="urbi-sdk.tex" />
+<meta name="date" content="2016-05-08 14:32:00" />
+<link rel="stylesheet" type="text/css" href="urbi-sdk.css" />
+<script type="text/javascript" src="urbi-sdk-js.js"></script>
+<script type="text/javascript" src="overlib.js"><!-- overLIB (c) Erik Bosrup --></script> <!--http://www.bosrup.com/web/overlib/--></head><body
+><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class="header">
+   <a href="index-of-terms.html">Index</a><a
+href="tables-and-indexes.html" >Next</a><a
+href="uobjects.html#use-cases.html" >Up</a><a
+href="the-uobject-java-api.html" >Previous</a><a href="index.html">Urbi SDK 3.0.0</a></div><h2 class="chapterHead"><span class="titlemark">Chapter 27</span><br /><a
+href="index.html#QQ2-43-911" id="x43-78400027">Use Cases</a></h2>
+   <div class="sectionTOCS">
+    <span class="sectionToc" >27.1 <a
+href="#x43-78500027.1">Writing a Servomotor Device</a></span>
+<br />     <span class="subsectionToc" >27.1.1 <a
+href="#x43-78600027.1.1">Caching</a></span>
+<br />     <span class="subsectionToc" >27.1.2 <a
+href="#x43-78700027.1.2">Using Timers</a></span>
+<br />    <span class="sectionToc" >27.2 <a
+href="#x43-78800027.2">Using Hubs to Group Objects</a></span>
+<br />     <span class="subsectionToc" >27.2.1 <a
+href="#x43-78900027.2.1">Alternate Implementation</a></span>
+<br />    <span class="sectionToc" >27.3 <a
+href="#x43-79000027.3">Writing a Camera Device</a></span>
+<br />     <span class="subsectionToc" >27.3.1 <a
+href="#x43-79100027.3.1">Optimization in Plugin Mode</a></span>
+<br />    <span class="sectionToc" >27.4 <a
+href="#x43-79200027.4">Writing a Speaker or Microphone Device</a></span>
+<br />    <span class="sectionToc" >27.5 <a
+href="#x43-79300027.5">Writing a Softdevice: Ball Detection</a></span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">27.1   </span> <a
+href="index.html#QQ2-43-912" id="x43-78500027.1">Writing a Servomotor Device</a></h3>
+<!--l. 13--><p class="noindent" >Let&#x2019;s write a <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> for a servomotor device whose underlying API is:
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">bool</span></span><span class="cmtt-10x-x-109"> initialize (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id)</span></span> <br
+class="newline" /> Initialize the servomotor with given ID.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> getPosition (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id)</span></span> <br
+class="newline" /> Read servomotor of given id position.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> setPosition (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> pos)</span></span> <br
+class="newline" /> Send a command to servomotor.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> setPID (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> p, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> i, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> d)</span></span> <br
+class="newline" /> Set P, I, and D arguments.</li></ul>
+<!--l. 27--><p class="indent" >   First our header. Our servo device provides an attribute named <span class="lstinline"><span
+class="cmtt-10x-x-109">val</span></span>, the standard Urbi name, and
+two ways to set PID gain: a method, and three variables.
+</p><!--l. 31--><p class="indent" >   <div class="code cxx">
+<!--l. 31--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> servo : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><!--l. 32--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// must inherit UObject</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x43-785004r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 35--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// the class must have a single constructor taking a string</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785005r5"></a></span><span class="cmtt-10x-x-109">  servo(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;); </span><br /><span class="label"><a
+ id="x43-785006r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785007r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 38--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Urbi  constructor</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785008r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id); </span><br /><span class="label"><a
+ id="x43-785009r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785010r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 41--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// main attribute</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785011r11"></a></span><span class="cmtt-10x-x-109">  urbi::UVar val; </span><br /><span class="label"><a
+ id="x43-785012r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785013r13"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 44--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// position variables:</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785014r14"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 45--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//  P gain</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785015r15"></a></span><span class="cmtt-10x-x-109">  urbi::UVar P; </span><br /><span class="label"><a
+ id="x43-785016r16"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 47--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//  I gain</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785017r17"></a></span><span class="cmtt-10x-x-109">  urbi::UVar I; </span><br /><span class="label"><a
+ id="x43-785018r18"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 49--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//  D gain</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785019r19"></a></span><span class="cmtt-10x-x-109">  urbi::UVar D; </span><br /><span class="label"><a
+ id="x43-785020r20"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785021r21"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 52--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// callback for val change</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785022r22"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> valueChanged(UVar&#x0026; v); </span><br /><span class="label"><a
+ id="x43-785023r23"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 54--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//callback for val access</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785024r24"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> valueAccessed(UVar&#x0026; v); </span><br /><span class="label"><a
+ id="x43-785025r25"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 56--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// callback for PID change</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785026r26"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> pidChanged(UVar&#x0026; v); </span><br /><span class="label"><a
+ id="x43-785027r27"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785028r28"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 59--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// method to change all values</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785029r29"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> setPID(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> p, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> i, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> d); </span><br /><span class="label"><a
+ id="x43-785030r30"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785031r31"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 62--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// motor ID</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785032r32"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id_; </span><br /><span class="label"><a
+ id="x43-785033r33"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785034r34"></a></span></pre>
+   </div>
+<!--l. 67--><p class="indent" >   The constructor only registers init, so that our default instance <span class="lstinline"><span
+class="cmtt-10x-x-109">servo</span></span> does nothing, and can only
+be used to create new instances.
+</p><!--l. 71--><p class="indent" >   <div class="code cxx">
+<!--l. 71--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785035r1"></a></span><span class="cmtt-10x-x-109">servo::servo (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; s) </span><br /><span class="label"><a
+ id="x43-785036r2"></a></span><span class="cmtt-10x-x-109">  : urbi::UObject (s) </span><br /><span class="label"><a
+ id="x43-785037r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785038r4"></a></span><span class="cmtt-10x-x-109">   </span><!--l. 75--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// register init</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785039r5"></a></span><span class="cmtt-10x-x-109">   UBindFunction (servo, init); </span><br /><span class="label"><a
+ id="x43-785040r6"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785041r7"></a></span></pre>
+   </div>
+<!--l. 80--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> function, called in a new instance each time a new Urbi instance is created, registers the
+four variables (<span class="lstinline"><span
+class="cmtt-10x-x-109">val</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">P</span></span>, <span class="lstinline"><span
+class="cmtt-10x-x-109">I</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">D</span></span>), and sets up callback functions.
+</p><!--l. 85--><p class="indent" >   <div class="code cxx">
+<!--l. 85--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785042r1"></a></span><!--l. 86--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Urbi constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785043r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785044r3"></a></span><span class="cmtt-10x-x-109">servo::init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id) </span><br /><span class="label"><a
+ id="x43-785045r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785046r5"></a></span><span class="cmtt-10x-x-109">  id_ = id; </span><br /><span class="label"><a
+ id="x43-785047r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785048r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (!initialize (id)) </span><br /><span class="label"><a
+ id="x43-785049r8"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 1; </span><br /><span class="label"><a
+ id="x43-785050r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785051r10"></a></span><span class="cmtt-10x-x-109">  UBindVar (servo, val); </span><br /><span class="label"><a
+ id="x43-785052r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785053r12"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 97--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// val is both a sensor and an actuator.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785054r13"></a></span><span class="cmtt-10x-x-109">  Uowned (val); </span><br /><span class="label"><a
+ id="x43-785055r14"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785056r15"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 100--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Set blend mode to mix.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785057r16"></a></span><span class="cmtt-10x-x-109">  val.blend = urbi::UMIX; </span><br /><span class="label"><a
+ id="x43-785058r17"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785059r18"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 103--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Register variables.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785060r19"></a></span><span class="cmtt-10x-x-109">  UBindVar (servo, P); </span><br /><span class="label"><a
+ id="x43-785061r20"></a></span><span class="cmtt-10x-x-109">  UBindVar (servo, I); </span><br /><span class="label"><a
+ id="x43-785062r21"></a></span><span class="cmtt-10x-x-109">  UBindVar (servo, D); </span><br /><span class="label"><a
+ id="x43-785063r22"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785064r23"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 108--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Register functions.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785065r24"></a></span><span class="cmtt-10x-x-109">  UBindFunction (servo, setPID); </span><br /><span class="label"><a
+ id="x43-785066r25"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785067r26"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 111--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Register callbacks on functions.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785068r27"></a></span><span class="cmtt-10x-x-109">  UNotifyChange (val, &#x0026;servo::valueChanged); </span><br /><span class="label"><a
+ id="x43-785069r28"></a></span><span class="cmtt-10x-x-109">  UNotifyAccess (val, &#x0026;servo::valueAccessed); </span><br /><span class="label"><a
+ id="x43-785070r29"></a></span><span class="cmtt-10x-x-109">  UNotifyChange (P, &#x0026;servo::pidChanged); </span><br /><span class="label"><a
+ id="x43-785071r30"></a></span><span class="cmtt-10x-x-109">  UNotifyChange (I, &#x0026;servo::pidChanged); </span><br /><span class="label"><a
+ id="x43-785072r31"></a></span><span class="cmtt-10x-x-109">  UNotifyChange (D, &#x0026;servo::pidChanged); </span><br /><span class="label"><a
+ id="x43-785073r32"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785074r33"></a></span></pre>
+   </div>
+<!--l. 120--><p class="indent" >   Then we deﬁne our callback methods. <span class="lstinline"><span class="cmtt-10x-x-109">servo::valueChanged</span></span> will be called each time the <span class="lstinline"><span
+class="cmtt-10x-x-109">val</span></span>
+variable is modiﬁed, just after the value is changed: we use this method to send our servo commands.
+<span class="lstinline"><span class="cmtt-10x-x-109">servo::valueAccessed</span></span> is called just before the value is going to be read. In this function we request
+the current value from the servo, and set <span class="lstinline"><span
+class="cmtt-10x-x-109">val</span></span> accordingly.
+</p><!--l. 127--><p class="indent" >   <div class="code cxx">
+<!--l. 127--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785075r1"></a></span><!--l. 128--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called each time val is written to.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785076r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785077r3"></a></span><span class="cmtt-10x-x-109">servo::valueChanged (urbi::UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x43-785078r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785079r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 132--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// v is a reference to our class member val: you can use both</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785080r6"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 133--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// indifferently.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785081r7"></a></span><span class="cmtt-10x-x-109">  setPosition (id, (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">)val); </span><br /><span class="label"><a
+ id="x43-785082r8"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-785083r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785084r10"></a></span><!--l. 137--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called each time val is read.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785085r11"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785086r12"></a></span><span class="cmtt-10x-x-109">servo::valueAccessed (urbi::UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x43-785087r13"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785088r14"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 141--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// v is a reference to val.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785089r15"></a></span><span class="cmtt-10x-x-109">  val = getPosition (id); </span><br /><span class="label"><a
+ id="x43-785090r16"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785091r17"></a></span></pre>
+   </div>
+<!--l. 146--><p class="indent" >   <span class="lstinline"><span class="cmtt-10x-x-109">servo::pidChanged</span></span> is called each time one of the PID variables is written to. The function
+<span class="lstinline"><span class="cmtt-10x-x-109">servo::setPID</span></span> can be called directly from Urbi.
+</p><!--l. 150--><p class="indent" >   <div class="code cxx">
+<!--l. 150--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785092r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785093r2"></a></span><span class="cmtt-10x-x-109">servo::pidChanged (urbi::UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x43-785094r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785095r4"></a></span><span class="cmtt-10x-x-109">  setPID(id, (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">)P, (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">)I, (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">)D); </span><br /><span class="label"><a
+ id="x43-785096r5"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-785097r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785098r7"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785099r8"></a></span><span class="cmtt-10x-x-109">servo::setPID (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> p, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> i, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> d) </span><br /><span class="label"><a
+ id="x43-785100r9"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-785101r10"></a></span><span class="cmtt-10x-x-109">  setPID (id, p, i, d); </span><br /><span class="label"><a
+ id="x43-785102r11"></a></span><span class="cmtt-10x-x-109">  P = p; </span><br /><span class="label"><a
+ id="x43-785103r12"></a></span><span class="cmtt-10x-x-109">  I = i; </span><br /><span class="label"><a
+ id="x43-785104r13"></a></span><span class="cmtt-10x-x-109">  D = d; </span><br /><span class="label"><a
+ id="x43-785105r14"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-785106r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785107r16"></a></span><!--l. 166--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Register servo class to the Urbi kernel.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785108r17"></a></span><span class="cmtt-10x-x-109">UStart (servo);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785109r18"></a></span></pre>
+   </div>
+<!--l. 170--><p class="indent" >   That&#x2019;s it, compile this module, and you can use it within urbiscript:
+</p><!--l. 172--><p class="indent" >   <div class="code urbiunchecked">
+<!--l. 172--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785110r1"></a></span><!--l. 173--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Create a new instance.  Calls init (1).</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785111r2"></a></span><span class="cmtt-10x-x-109">headPan = new servo (1); </span><br /><span class="label"><a
+ id="x43-785112r3"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785113r4"></a></span><!--l. 176--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Calls setPID ().</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785114r5"></a></span><span class="cmtt-10x-x-109">headPan.setPID (8,2,1); </span><br /><span class="label"><a
+ id="x43-785115r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785116r7"></a></span><!--l. 179--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Calls valueChanged ().</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785117r8"></a></span><span class="cmtt-10x-x-109">headPan.val = 13; </span><br /><span class="label"><a
+ id="x43-785118r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785119r10"></a></span><!--l. 182--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Calls valueAccessed ().</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785120r11"></a></span><span class="cmtt-10x-x-109">headPan.val * 12; </span><br /><span class="label"><a
+ id="x43-785121r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785122r13"></a></span><!--l. 185--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Periodically calls valueChanged ().</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785123r14"></a></span><span class="cmtt-10x-x-109">headPan.val = 0 sin:1s ampli:20, </span><br /><span class="label"><a
+ id="x43-785124r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785125r16"></a></span><!--l. 188--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Periodically calls valueAccessed ().</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785126r17"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">at</span></span><span class="cmtt-10x-x-109"> (headPan.val &#x003C; 0) </span><br /><span class="label"><a
+ id="x43-785127r18"></a></span><span class="cmtt-10x-x-109">  echo (</span><!--l. 190--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;left&#x0022;</span></span></span><span
+class="cmtt-10x-x-109">);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-785128r19"></a></span></pre>
+   </div>
+<!--l. 193--><p class="indent" >   The sample code above has one problem: <span class="lstinline"><span
+class="cmtt-10x-x-109">valueAccessed</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">valueChanged</span></span> are called each time
+the value is read or written from Urbi, which can happen quite often. This is a problem if sending the
+actual command (<span class="lstinline"><span
+class="cmtt-10x-x-109">setPosition</span></span> in our example) takes time to execute. There are two solutions to this
+issue.
+</p><!--l. 199--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">27.1.1   </span> <a
+href="contents.html#QQ2-43-913" id="x43-78600027.1.1">Caching</a></h4>
+<!--l. 201--><p class="noindent" >One solution is to remember the last time the value was read/written, and not apply the new
+command before a ﬁxed time. Note that the kernel is doing this automatically for <span class="lstinline"><span
+class="cmtt-10x-x-109">UOwned</span></span>&#x2019;d variables
+that are in a blend mode diﬀerent than <span class="lstinline"><span
+class="cmtt-10x-x-109">normal</span></span>. So the easiest solution to the above problem is likely
+to set the variable to the <span class="lstinline"><span
+class="cmtt-10x-x-109">mix</span></span> blending mode. The unavoidable drawback is that commands are not
+applied immediately, but only after a small delay.
+</p><!--l. 209--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">27.1.2   </span> <a
+href="contents.html#QQ2-43-914" id="x43-78700027.1.2">Using Timers</a></h4>
+<!--l. 211--><p class="noindent" >Instead of updating/fetching the value on demand, you can chose to do it periodically based on a
+timer. A small diﬀerence between the two API methods comes in handy for this case: the <span class="lstinline"><span class="cmtt-10x-x-109">update()</span></span>
+virtual method called periodically after being set up by <span class="lstinline"><span class="cmtt-10x-x-109">USetUpdate(interval)</span></span> is called just after one
+pass of Urbi code execution, whereas the timers set up by <span class="lstinline"><span
+class="cmtt-10x-x-109">USetTimer</span></span> are called just before one pass of
+Urbi code execution. So the ideal solution is to read your sensors in the second callback, and write to
+your actuators in the ﬁrst. Our previous example (omitting PID handling for clarity) can be rewritten.
+The header becomes:
+</p><!--l. 223--><p class="indent" >   <div class="code cxx">
+<!--l. 223--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787001r1"></a></span><!--l. 224--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Inherit from UObject.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787002r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> servo : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><br /><span class="label"><a
+ id="x43-787003r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-787004r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x43-787005r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 228--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The class must have a single constructor taking a string.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787006r6"></a></span><span class="cmtt-10x-x-109">  servo (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;) </span><br /><span class="label"><a
+ id="x43-787007r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787008r8"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 231--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Urbi constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787009r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id); </span><br /><span class="label"><a
+ id="x43-787010r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787011r11"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 234--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787012r12"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">virtual</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> update (); </span><br /><span class="label"><a
+ id="x43-787013r13"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 236--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787014r14"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> getVal (); </span><br /><span class="label"><a
+ id="x43-787015r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787016r16"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 239--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Our position variable.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787017r17"></a></span><span class="cmtt-10x-x-109">  urbi::UVar val; </span><br /><span class="label"><a
+ id="x43-787018r18"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787019r19"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 242--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Motor ID.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787020r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id_; </span><br /><span class="label"><a
+ id="x43-787021r21"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787022r22"></a></span></pre>
+   </div>
+<!--l. 247--><p class="indent" >   Constructor is unchanged, <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> becomes:
+</p><!--l. 249--><p class="indent" >   <div class="code cxx">
+<!--l. 249--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787023r1"></a></span><!--l. 250--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Urbi constructor.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787024r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787025r3"></a></span><span class="cmtt-10x-x-109">servo::init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id) </span><br /><span class="label"><a
+ id="x43-787026r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-787027r5"></a></span><span class="cmtt-10x-x-109">  id_ = id; </span><br /><span class="label"><a
+ id="x43-787028r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787029r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (!initialize (id)) </span><br /><span class="label"><a
+ id="x43-787030r8"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x43-787031r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787032r10"></a></span><span class="cmtt-10x-x-109">  UBindVar (servo,val); </span><br /><span class="label"><a
+ id="x43-787033r11"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 260--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Val is both a sensor and an actuator.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787034r12"></a></span><span class="cmtt-10x-x-109">  UOwned(val); </span><br /><span class="label"><a
+ id="x43-787035r13"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787036r14"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 263--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Will call update () periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787037r15"></a></span><span class="cmtt-10x-x-109">  USetUpdate(1); </span><br /><span class="label"><a
+ id="x43-787038r16"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 265--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Idem for getVal ().</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787039r17"></a></span><span class="cmtt-10x-x-109">  USetTimer (1, &#x0026;servo::getVal); </span><br /><span class="label"><a
+ id="x43-787040r18"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-787041r19"></a></span></pre>
+   </div>
+<!--l. 270--><p class="indent" >   <span class="lstinline"><span
+class="cmtt-10x-x-109">valueChanged</span></span> becomes <span class="lstinline"><span
+class="cmtt-10x-x-109">update</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">valueAccessed</span></span> becomes <span class="lstinline"><span
+class="cmtt-10x-x-109">getVal</span></span>. Instead of being called on
+demand, they are now called periodically. The period of the call cannot be lower than
+the value returned by <span class="lstinline"><span class="cmtt-10x-x-109">Object.getPeriod;</span></span> so you can set it to 0 to mean “as fast as is
+useful”.
+</p><!--l. 277--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">27.2   </span> <a
+href="index.html#QQ2-43-915" id="x43-78800027.2">Using Hubs to Group Objects</a></h3>
+<!--l. 279--><p class="noindent" >Now, suppose that, for our previous example, we can speed things up by sending all the servomotor
+commands at the same time, using the following method that takes two arrays of ids and
+positions.
+</p><!--l. 283--><p class="indent" >   <div class="code cxx">
+<!--l. 283--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> setPositions(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> count, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">* ids, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">* positions);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788002r2"></a></span></pre>
+   </div>
+<!--l. 287--><p class="indent" >   A hub is the perfect way to handle this task. The UObject header stays the same. We add a hub
+declaration:
+</p><!--l. 290--><p class="indent" >   <div class="code cxx">
+<!--l. 290--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788003r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> servohub : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObjectHub </span><br /><span class="label"><a
+ id="x43-788004r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-788005r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x43-788006r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 294--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The class must have a single constructor taking a string.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788007r5"></a></span><span class="cmtt-10x-x-109">  servohub (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;); </span><br /><span class="label"><a
+ id="x43-788008r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788009r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 297--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788010r8"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">virtual</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> update (); </span><br /><span class="label"><a
+ id="x43-788011r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788012r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 300--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called by servo.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788013r11"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> addValue (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> val); </span><br /><span class="label"><a
+ id="x43-788014r12"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788015r13"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">* ids; </span><br /><span class="label"><a
+ id="x43-788016r14"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">* vals; </span><br /><span class="label"><a
+ id="x43-788017r15"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> size; </span><br /><span class="label"><a
+ id="x43-788018r16"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> count; </span><br /><span class="label"><a
+ id="x43-788019r17"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788020r18"></a></span></pre>
+   </div>
+<!--l. 310--><p class="indent" >   <span class="lstinline"><span class="cmtt-10x-x-109">servo::update</span></span> becomes a call to the <span class="lstinline"><span
+class="cmtt-10x-x-109">addValue</span></span> method of the hub:
+</p><!--l. 313--><p class="indent" >   <div class="code cxx">
+<!--l. 313--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788021r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788022r2"></a></span><span class="cmtt-10x-x-109">servo::update() </span><br /><span class="label"><a
+ id="x43-788023r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-788024r4"></a></span><span class="cmtt-10x-x-109">  ((servohub*)getUObjectHub (</span><!--l. 317--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;servohub&#x0022;</span></span></span><span class="cmtt-10x-x-109">))-&#x003E;addValue (id, (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">)val); </span><br /><span class="label"><a
+ id="x43-788025r5"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788026r6"></a></span></pre>
+   </div>
+<!--l. 321--><p class="indent" >   The following line can be added to the servo <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> method, although it has no use in our speciﬁc
+example:
+</p><!--l. 324--><p class="indent" >   <div class="code cxx">
+<!--l. 324--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788027r1"></a></span><span class="cmtt-10x-x-109">URegister(servohub);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788028r2"></a></span></pre>
+   </div>
+<!--l. 328--><p class="indent" >   Finally, the implementation of our hub methods is:
+</p><!--l. 330--><p class="indent" >   <div class="code cxx">
+<!--l. 330--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788029r1"></a></span><span class="cmtt-10x-x-109">servohub::servohub (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; s) </span><br /><span class="label"><a
+ id="x43-788030r2"></a></span><span class="cmtt-10x-x-109">  : UObjectHub (s) </span><br /><span class="label"><a
+ id="x43-788031r3"></a></span><span class="cmtt-10x-x-109">  , ids   (0) </span><br /><span class="label"><a
+ id="x43-788032r4"></a></span><span class="cmtt-10x-x-109">  , vals  (0) </span><br /><span class="label"><a
+ id="x43-788033r5"></a></span><span class="cmtt-10x-x-109">  , size  (0) </span><br /><span class="label"><a
+ id="x43-788034r6"></a></span><span class="cmtt-10x-x-109">  , count (0) </span><br /><span class="label"><a
+ id="x43-788035r7"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-788036r8"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 338--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// setup our timer</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788037r9"></a></span><span class="cmtt-10x-x-109">  USetUpdate (1); </span><br /><span class="label"><a
+ id="x43-788038r10"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-788039r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788040r12"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788041r13"></a></span><span class="cmtt-10x-x-109">servohub::update () </span><br /><span class="label"><a
+ id="x43-788042r14"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-788043r15"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 345--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788044r16"></a></span><span class="cmtt-10x-x-109">  setPositions (count, ids, vals); </span><br /><span class="label"><a
+ id="x43-788045r17"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788046r18"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 348--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Reset position counter.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788047r19"></a></span><span class="cmtt-10x-x-109">  count = 0; </span><br /><span class="label"><a
+ id="x43-788048r20"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788049r21"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x43-788050r22"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-788051r23"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788052r24"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788053r25"></a></span><span class="cmtt-10x-x-109">servohub::addValue (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id, </span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109"> val) </span><br /><span class="label"><a
+ id="x43-788054r26"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-788055r27"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (count + 1 &#x003C; size) </span><br /><span class="label"><a
+ id="x43-788056r28"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x43-788057r29"></a></span><span class="cmtt-10x-x-109">    </span><!--l. 359--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Allocate more memory.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788058r30"></a></span><span class="cmtt-10x-x-109">    ids = (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">*) realloc (ids, (count + 1) * </span><span class="textkwd"><span
+class="cmtt-10x-x-109">sizeof</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109">)); </span><br /><span class="label"><a
+ id="x43-788059r31"></a></span><span class="cmtt-10x-x-109">    vals = (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">*) realloc (vals, (count + 1) * </span><span class="textkwd"><span
+class="cmtt-10x-x-109">sizeof</span></span><span class="cmtt-10x-x-109"> (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">)); </span><br /><span class="label"><a
+ id="x43-788060r32"></a></span><span class="cmtt-10x-x-109">    size = count + 1; </span><br /><span class="label"><a
+ id="x43-788061r33"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x43-788062r34"></a></span><span class="cmtt-10x-x-109">  ids[count] = id; </span><br /><span class="label"><a
+ id="x43-788063r35"></a></span><span class="cmtt-10x-x-109">  vals[count++] = val; </span><br /><span class="label"><a
+ id="x43-788064r36"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-788065r37"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788066r38"></a></span><span class="cmtt-10x-x-109">UStartHub (servohub);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-788067r39"></a></span></pre>
+   </div>
+<!--l. 371--><p class="indent" >   Periodically, the <span class="lstinline"><span
+class="cmtt-10x-x-109">update</span></span> method is called on each servo instance, which adds commands to the hub
+arrays, then the <span class="lstinline"><span
+class="cmtt-10x-x-109">update</span></span> method of the hub is called, actually sending the command and resetting the
+array.
+</p><!--l. 376--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">27.2.1   </span> <a
+href="contents.html#QQ2-43-916" id="x43-78900027.2.1">Alternate Implementation</a></h4>
+<!--l. 378--><p class="noindent" >Alternatively, to demonstrate the use of the members hub variable, we can entirely remove the <span class="lstinline"><span
+class="cmtt-10x-x-109">update</span></span>
+method in the servo class (and the <span class="lstinline"><span class="cmtt-10x-x-109">USetUpdate()</span></span> call in <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>), and rewrite the hub <span class="lstinline"><span
+class="cmtt-10x-x-109">update</span></span> method
+the following way:
+</p><!--l. 383--><p class="indent" >   <div class="code cxx">
+<!--l. 383--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-789001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> servohub::update() </span><br /><span class="label"><a
+ id="x43-789002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-789003r3"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 386--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//called periodically</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-789004r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">for</span></span><span class="cmtt-10x-x-109"> (UObjectList::iterator i = members.begin (); </span><br /><span class="label"><a
+ id="x43-789005r5"></a></span><span class="cmtt-10x-x-109">       i != members.end (); </span><br /><span class="label"><a
+ id="x43-789006r6"></a></span><span class="cmtt-10x-x-109">       ++i) </span><br /><span class="label"><a
+ id="x43-789007r7"></a></span><span class="cmtt-10x-x-109">    addValue (((servo*)*i)-&#x003E;id, (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">double</span></span><span class="cmtt-10x-x-109">)((servo*)*i)-&#x003E;val); </span><br /><span class="label"><a
+ id="x43-789008r8"></a></span><span class="cmtt-10x-x-109">  setPositions(count, ids, vals); </span><br /><span class="label"><a
+ id="x43-789009r9"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 392--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// reset position counter</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-789010r10"></a></span><span class="cmtt-10x-x-109">  count = 0; </span><br /><span class="label"><a
+ id="x43-789011r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-789012r12"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x43-789013r13"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-789014r14"></a></span></pre>
+   </div>
+<!--l. 399--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">27.3   </span> <a
+href="index.html#QQ2-43-917" id="x43-79000027.3">Writing a Camera Device</a></h3>
+<a
+ id="x43-790001"></a>
+<!--l. 402--><p class="noindent" >A camera device is an UObject whose <span class="lstinline"><span
+class="cmtt-10x-x-109">val</span></span> ﬁeld is a binary object. The Urbi kernel itself doesn&#x2019;t make
+any diﬀerence between all the possible binary formats and data type, but the API provides
+image-speciﬁc structures for convenience. You must be careful about memory management. The
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> structure handles its own memory: copies are deep, and the destructor frees the associated
+buﬀer. The <span class="lstinline"><span
+class="cmtt-10x-x-109">UImage</span></span> and <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> structures do not.
+</p><!--l. 410--><p class="indent" >   Let&#x2019;s suppose we have an underlying camera API with the following functions: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">bool</span></span><span class="cmtt-10x-x-109"> initialize (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id)</span></span> <br
+class="newline" /> Initialize the camera with given ID.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> getWidth (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id)</span></span> <br
+class="newline" /> Return image width.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> getHeight (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id)</span></span> <br
+class="newline" /> Return image height.
+     </li>
+     <li class="itemize"><span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">char</span></span><span class="cmtt-10x-x-109">* getImage (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id)</span></span> <br
+class="newline" /> Get image buﬀer of format RGB24. The buﬀer returned is always the same and doesn&#x2019;t
+     have to be freed.</li></ul>
+<!--l. 423--><p class="indent" >   Our device code can be written as follows: <div class="code cxx">
+<!--l. 424--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790002r1"></a></span><!--l. 425--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Inherit from UObject.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790003r2"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> Camera : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><br /><span class="label"><a
+ id="x43-790004r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-790005r4"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x43-790006r5"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 429--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The class must have a single constructor taking a string.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790007r6"></a></span><span class="cmtt-10x-x-109">  Camera(</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;); </span><br /><span class="label"><a
+ id="x43-790008r7"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790009r8"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 432--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Urbi constructor. Throw in case of error.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790010r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id); </span><br /><span class="label"><a
+ id="x43-790011r10"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790012r11"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 435--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Our image variable and dimensions.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790013r12"></a></span><span class="cmtt-10x-x-109">  urbi::UVar val; </span><br /><span class="label"><a
+ id="x43-790014r13"></a></span><span class="cmtt-10x-x-109">  urbi::UVar width; </span><br /><span class="label"><a
+ id="x43-790015r14"></a></span><span class="cmtt-10x-x-109">  urbi::UVar height; </span><br /><span class="label"><a
+ id="x43-790016r15"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790017r16"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 440--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called on access.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790018r17"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> getVal (UVar&#x0026;); </span><br /><span class="label"><a
+ id="x43-790019r18"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790020r19"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 443--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Called periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790021r20"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">virtual</span></span><span
+class="cmtt-10x-x-109"> </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> update (); </span><br /><span class="label"><a
+ id="x43-790022r21"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790023r22"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 446--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Frame counter for caching.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790024r23"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> frame; </span><br /><span class="label"><a
+ id="x43-790025r24"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 448--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Frame number of last access.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790026r25"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> accessFrame; </span><br /><span class="label"><a
+ id="x43-790027r26"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 450--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Camera id.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790028r27"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id_; </span><br /><span class="label"><a
+ id="x43-790029r28"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 452--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Storage for last captured image.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790030r29"></a></span><span class="cmtt-10x-x-109">  UBinary bin; </span><br /><span class="label"><a
+ id="x43-790031r30"></a></span><span
+class="cmtt-10x-x-109">};</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790032r31"></a></span></pre>
+   </div>
+<!--l. 457--><p class="indent" >   The constructor only registers <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>:
+</p><!--l. 459--><p class="indent" >   <div class="code cxx">
+<!--l. 459--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790033r1"></a></span><span class="cmtt-10x-x-109">Camera::Camera (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; s) </span><br /><span class="label"><a
+ id="x43-790034r2"></a></span><span class="cmtt-10x-x-109">  : urbi::UObject (s) </span><br /><span class="label"><a
+ id="x43-790035r3"></a></span><span class="cmtt-10x-x-109">  , frame (0) </span><br /><span class="label"><a
+ id="x43-790036r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-790037r5"></a></span><span class="cmtt-10x-x-109">  UBindFunction (Camera, init); </span><br /><span class="label"><a
+ id="x43-790038r6"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790039r7"></a></span></pre>
+   </div>
+<!--l. 468--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> function binds the variable, a function called on access, and sets a timer up on update. It
+also initializes the <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> structure.
+</p><!--l. 472--><p class="indent" >   <div class="code cxx">
+<!--l. 472--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790040r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790041r2"></a></span><span class="cmtt-10x-x-109">Camera::init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> id) </span><br /><span class="label"><a
+ id="x43-790042r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-790043r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 476--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">//urbi constructor</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790044r5"></a></span><span class="cmtt-10x-x-109">  id_ = id; </span><br /><span class="label"><a
+ id="x43-790045r6"></a></span><span class="cmtt-10x-x-109">  frame = 0; </span><br /><span class="label"><a
+ id="x43-790046r7"></a></span><span class="cmtt-10x-x-109">  accessFrame = 0; </span><br /><span class="label"><a
+ id="x43-790047r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790048r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (!initialize (id)) </span><br /><span class="label"><a
+ id="x43-790049r10"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">throw</span></span><span class="cmtt-10x-x-109"> std::runtime_error(</span><!--l. 482--><span class="listings-nested"><span class="textstr"><span class="cmtt-10x-x-109">&#x0022;Failed to initialize camera&#x0022;</span></span></span><span class="cmtt-10x-x-109">); </span><br /><span class="label"><a
+ id="x43-790050r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790051r12"></a></span><span class="cmtt-10x-x-109">  UBindVar (Camera, val); </span><br /><span class="label"><a
+ id="x43-790052r13"></a></span><span class="cmtt-10x-x-109">  UBindVar (Camera, width); </span><br /><span class="label"><a
+ id="x43-790053r14"></a></span><span class="cmtt-10x-x-109">  UBindVar (Camera, height); </span><br /><span class="label"><a
+ id="x43-790054r15"></a></span><span class="cmtt-10x-x-109">  width = getWidth (id); </span><br /><span class="label"><a
+ id="x43-790055r16"></a></span><span class="cmtt-10x-x-109">  height = getHeight (id); </span><br /><span class="label"><a
+ id="x43-790056r17"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790057r18"></a></span><span class="cmtt-10x-x-109">  UNotifyAccess (val, &#x0026;Camera::getVal); </span><br /><span class="label"><a
+ id="x43-790058r19"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790059r20"></a></span><span class="cmtt-10x-x-109">  bin.type = BINARY_IMAGE; </span><br /><span class="label"><a
+ id="x43-790060r21"></a></span><span class="cmtt-10x-x-109">  bin.image.width = width; </span><br /><span class="label"><a
+ id="x43-790061r22"></a></span><span class="cmtt-10x-x-109">  bin.image.height = height; </span><br /><span class="label"><a
+ id="x43-790062r23"></a></span><span class="cmtt-10x-x-109">  bin.image.imageFormat = IMAGE_RGB; </span><br /><span class="label"><a
+ id="x43-790063r24"></a></span><span class="cmtt-10x-x-109">  bin.image.size = width * height * 3; </span><br /><span class="label"><a
+ id="x43-790064r25"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790065r26"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 498--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Call update () periodically.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790066r27"></a></span><span class="cmtt-10x-x-109">  USetUpdate (1); </span><br /><span class="label"><a
+ id="x43-790067r28"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790068r29"></a></span></pre>
+   </div>
+<!--l. 503--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">update</span></span> function simply updates the frame counter:
+</p><!--l. 505--><p class="indent" >   <div class="code cxx">
+<!--l. 505--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790069r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790070r2"></a></span><span class="cmtt-10x-x-109">Camera::update () </span><br /><span class="label"><a
+ id="x43-790071r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-790072r4"></a></span><span class="cmtt-10x-x-109">  ++frame; </span><br /><span class="label"><a
+ id="x43-790073r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109"> 0; </span><br /><span class="label"><a
+ id="x43-790074r6"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790075r7"></a></span></pre>
+   </div>
+<!--l. 514--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">getVal</span></span> updates the camera value, only if it hasn&#x2019;t already been called this frame, which
+provides a simple caching mechanism to avoid performing the potentially long operation of acquiring
+an image too often.
+</p><!--l. 519--><p class="indent" >   <div class="code cxx">
+<!--l. 519--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790076r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790077r2"></a></span><span class="cmtt-10x-x-109">Camera::getVal(urbi::UVar&#x0026;) </span><br /><span class="label"><a
+ id="x43-790078r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-790079r4"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (frame == accessFrame) </span><br /><span class="label"><a
+ id="x43-790080r5"></a></span><span class="cmtt-10x-x-109">    </span><span class="textkwd"><span
+class="cmtt-10x-x-109">return</span></span><span class="cmtt-10x-x-109">; </span><br /><span class="label"><a
+ id="x43-790081r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790082r7"></a></span><span class="cmtt-10x-x-109">  bin.image.data = getImage (id); </span><br /><span class="label"><a
+ id="x43-790083r8"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 527--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Assign image to bin.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790084r9"></a></span><span class="cmtt-10x-x-109">  val = bin; </span><br /><span class="label"><a
+ id="x43-790085r10"></a></span><span class="cmtt-10x-x-109">} </span><br /><span class="label"><a
+ id="x43-790086r11"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790087r12"></a></span><span class="cmtt-10x-x-109">UStart(Camera);</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-790088r13"></a></span></pre>
+   </div>
+<!--l. 534--><p class="indent" >   The image data is copied inside the kernel when proceeding this way.
+</p><!--l. 536--><p class="indent" >   Be careful, suppose that we had created the <span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> structure inside the <span class="lstinline"><span
+class="cmtt-10x-x-109">getVal</span></span> method, our
+buﬀer would have been freed at the end of the function. To avoid this, set it to 0 after assigning the
+<span class="lstinline"><span
+class="cmtt-10x-x-109">UBinary</span></span> to the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>.
+</p><!--l. 541--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">27.3.1   </span> <a
+href="contents.html#QQ2-43-918" id="x43-79100027.3.1">Optimization in Plugin Mode</a></h4>
+<!--l. 543--><p class="noindent" >In plugin mode with 0-copy enabled (see <a
+href="the-uobject-api.html#x41-76000025.13.3">Section 25.13.3<!--tex4ht:ref: sec:tools:urbi-launch:uobject --></a>), in order to avoid copying images, you can
+get direct access to the internal buﬀer by casting the <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> to a <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> UBinary&#x0026;</span></span>, from which you can
+get the <span class="lstinline"><span
+class="cmtt-10x-x-109">image</span></span>.
+</p><!--l. 548--><p class="indent" >   You cannot modify it directly.
+</p><!--l. 550--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">27.4   </span> <a
+href="index.html#QQ2-43-919" id="x43-79200027.4">Writing a Speaker or Microphone Device</a></h3>
+<!--l. 552--><p class="noindent" >Sound handling works similarly to image manipulation, the <span class="lstinline"><span
+class="cmtt-10x-x-109">USound</span></span> structure is provided for this
+purpose. The recommended way to implement a microphone is to ﬁll the <span class="lstinline"><span
+class="cmtt-10x-x-109">UObject</span></span> val variable with the
+sound data corresponding to one kernel period. If you do so, the Urbi code <span class="lstinline"><span class="textkwd"><span
+class="cmtt-10x-x-109">loop</span></span><span class="cmtt-10x-x-109"> tag:micro.val,</span></span> will
+produce the expected result.
+</p><!--l. 559--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">27.5   </span> <a
+href="index.html#QQ2-43-920" id="x43-79300027.5">Writing a Softdevice: Ball Detection</a></h3>
+<!--l. 561--><p class="noindent" >Algorithms that require intense computation can be written in C++ but still be usable within Urbi:
+they acquire their data using <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span> referencing other modules&#x2019; variables, and output their results to
+other <span class="lstinline"><span
+class="cmtt-10x-x-109">UVar</span></span>. Let&#x2019;s consider the case of a ball detector device that takes an image as input, and outputs
+the coordinates of a ball if one is found.
+</p><!--l. 568--><p class="indent" >   The header is deﬁned like:
+</p><!--l. 570--><p class="indent" >   <div class="code cxx">
+<!--l. 570--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793001r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">class</span></span><span class="cmtt-10x-x-109"> BallTracker : </span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109"> urbi::UObject </span><br /><span class="label"><a
+ id="x43-793002r2"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-793003r3"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">public</span></span><span class="cmtt-10x-x-109">: </span><br /><span class="label"><a
+ id="x43-793004r4"></a></span><span class="cmtt-10x-x-109">  BallTracker (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026;); </span><br /><span class="label"><a
+ id="x43-793005r5"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span class="cmtt-10x-x-109"> init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; varname); </span><br /><span class="label"><a
+ id="x43-793006r6"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793007r7"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 577--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Is the ball visible?</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793008r8"></a></span><span class="cmtt-10x-x-109">  urbi::UVar visible; </span><br /><span class="label"><a
+ id="x43-793009r9"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793010r10"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 580--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Ball coordinates.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793011r11"></a></span><span class="cmtt-10x-x-109">  urbi::UVar x; </span><br /><span class="label"><a
+ id="x43-793012r12"></a></span><span class="cmtt-10x-x-109">  urbi::UVar y; </span><br /><span class="label"><a
+ id="x43-793013r13"></a></span><span class="cmtt-10x-x-109"> };</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793014r14"></a></span></pre>
+   </div>
+<!--l. 586--><p class="indent" >   The constructor only registers <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span>:
+</p><!--l. 588--><p class="indent" >   <div class="code cxx">
+<!--l. 588--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793015r1"></a></span><!--l. 589--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// The constructor registers init only.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793016r2"></a></span><span class="cmtt-10x-x-109">BallTracker::BallTracker (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109">::string&#x0026; s) </span><br /><span class="label"><a
+ id="x43-793017r3"></a></span><span class="cmtt-10x-x-109">  : urbi::UObject (s) </span><br /><span class="label"><a
+ id="x43-793018r4"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-793019r5"></a></span><span class="cmtt-10x-x-109">  UBindFunction (BallTracker, init); </span><br /><span class="label"><a
+ id="x43-793020r6"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793021r7"></a></span></pre>
+   </div>
+<!--l. 597--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">init</span></span> function binds the variables and a callback on update of the image variable passed as a
+argument.
+</p><!--l. 600--><p class="indent" >   <div class="code cxx">
+<!--l. 600--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793022r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793023r2"></a></span><span class="cmtt-10x-x-109">BallTracker::init (</span><span class="textkwd"><span
+class="cmtt-10x-x-109">const</span></span><span class="cmtt-10x-x-109"> std::string&#x0026; cameraval) </span><br /><span class="label"><a
+ id="x43-793024r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-793025r4"></a></span><span class="cmtt-10x-x-109">  UBindVar (BallTracker, visible); </span><br /><span class="label"><a
+ id="x43-793026r5"></a></span><span class="cmtt-10x-x-109">  UBindVar (BallTracker, x); </span><br /><span class="label"><a
+ id="x43-793027r6"></a></span><span class="cmtt-10x-x-109">  UBindVar (BallTracker, y); </span><br /><span class="label"><a
+ id="x43-793028r7"></a></span><span class="cmtt-10x-x-109">  UNotifyChange (cameraval, &#x0026;BallTracker::newImage); </span><br /><span class="label"><a
+ id="x43-793029r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793030r9"></a></span><span class="cmtt-10x-x-109">  visible = 0; </span><br /><span class="label"><a
+ id="x43-793031r10"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793032r11"></a></span></pre>
+   </div>
+<!--l. 613--><p class="indent" >   The <span class="lstinline"><span
+class="cmtt-10x-x-109">newImage</span></span> function runs the detection algorithm on the image in its argument, and updates the
+variables.
+</p><!--l. 616--><p class="indent" >   <div class="code cxx">
+<!--l. 616--><pre class="listings"><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793033r1"></a></span><span class="textkwd"><span
+class="cmtt-10x-x-109">void</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793034r2"></a></span><span class="cmtt-10x-x-109">BallTracker::newImage (urbi::UVar&#x0026; v) </span><br /><span class="label"><a
+ id="x43-793035r3"></a></span><span class="cmtt-10x-x-109">{ </span><br /><span class="label"><a
+ id="x43-793036r4"></a></span><span class="cmtt-10x-x-109">  </span><!--l. 620--><span class="listings-nested"><span class="textcmt"><span class="cmtt-10x-x-109">// Cast to UImage.</span></span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793037r5"></a></span><span class="cmtt-10x-x-109">  urbi::UImage i = v; </span><br /><span class="label"><a
+ id="x43-793038r6"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">int</span></span><span class="cmtt-10x-x-109"> px,py; </span><br /><span class="label"><a
+ id="x43-793039r7"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">bool</span></span><span class="cmtt-10x-x-109"> found = detectBall (i.data, i.width, i.height, &#x0026;px, &#x0026;py); </span><br /><span class="label"><a
+ id="x43-793040r8"></a></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793041r9"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">if</span></span><span class="cmtt-10x-x-109"> (found) </span><br /><span class="label"><a
+ id="x43-793042r10"></a></span><span class="cmtt-10x-x-109">  { </span><br /><span class="label"><a
+ id="x43-793043r11"></a></span><span class="cmtt-10x-x-109">    visible = 1; </span><br /><span class="label"><a
+ id="x43-793044r12"></a></span><span class="cmtt-10x-x-109">    x = px / i.width; </span><br /><span class="label"><a
+ id="x43-793045r13"></a></span><span class="cmtt-10x-x-109">    y = py / i.height; </span><br /><span class="label"><a
+ id="x43-793046r14"></a></span><span class="cmtt-10x-x-109">  } </span><br /><span class="label"><a
+ id="x43-793047r15"></a></span><span class="cmtt-10x-x-109">  </span><span class="textkwd"><span
+class="cmtt-10x-x-109">else</span></span><span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793048r16"></a></span><span class="cmtt-10x-x-109">    visible = 0; </span><br /><span class="label"><a
+ id="x43-793049r17"></a></span><span
+class="cmtt-10x-x-109">}</span>
+      <span
+class="cmtt-10x-x-109"> </span><br /><span class="label"><a
+ id="x43-793050r18"></a></span></pre>
+   </div>
+</body></html>
