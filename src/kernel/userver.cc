@@ -17,6 +17,7 @@
 #include <libport/cstdlib>
 
 #include <fstream>
+#include <sstream>
 #include <string>
 
 #include <stdlib.h>
@@ -87,6 +88,10 @@
 #include <kernel/uobject.hh>
 
 #include <object/urbi/logger.hh>
+
+#ifdef URBI_WITH_EMBED
+#include <kernel/embed.hh>
+#endif
 
 using libport::program_name;
 using object::objects_type;
@@ -724,9 +729,28 @@ namespace kernel
   std::string
   UServer::find_file(const libport::path& path) const
   {
-    return search_path.find_file(path) / path.basename();
+    try
+    {
+      return search_path.find_file(path) / path.basename();
+    }
+    catch(libport::file_library::Not_found&)
+    {
+#ifdef URBI_WITH_EMBED
+	  std::string spath = path.to_string();
+	  boost::replace_all(spath, "\\","/");
+      auto it = embeded_files.find(spath);
+      if (it != embeded_files.end())
+        return spath;
+      GD_FPUSH_DUMP("embed failed for %s", spath);
+#endif
+      throw;
+    }
   }
 
+  static std::string find_fs_file(libport::file_library& search_path, const libport::path& path)
+  {
+    return search_path.find_file(path) / path.basename();
+  }
   UErrorValue
   UServer::load_file(const std::string& base, UConnection& connection)
   {
@@ -739,7 +763,7 @@ namespace kernel
     {
       try
       {
-        std::string file = find_file(base);
+        std::string file = find_fs_file(search_path, libport::path(base));
         is = new std::ifstream(file.c_str(), std::ios::binary);
         finally << boost::bind(boost::checked_delete<std::istream>, is);
         GD_FINFO_DUMP("loading %s", file);
@@ -747,8 +771,23 @@ namespace kernel
       catch (libport::file_library::Not_found&)
       {
         GD_FINFO_DUMP("file not found: %s", base);
+#ifdef URBI_WITH_EMBED
+        std::string nbase = base;
+        boost::replace_all(nbase, "\\", "/");
+        auto it = embeded_files.find(nbase);
+        if (it == embeded_files.end())
+        {
+         GD_FINFO_DUMP("embed not found: %s", nbase);
+          errno = ENOENT;
+          return UFAIL;
+        }
+        connection.received(libport::format("//#push 1 \"%1%\"\n", base));
+        connection.received(it->second.c_str(), it->second.size());
+        return USUCCESS;
+#else
         errno = ENOENT;
         return UFAIL;
+#endif
       }
       if (!*is)
         return UFAIL;

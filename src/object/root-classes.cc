@@ -96,6 +96,8 @@ namespace urbi
       return args.front();
     }
 
+    int dummy_register_function();
+
     /// Initialize the root classes.  There are some dependency issues.
     /// For instance, String is a clone of Object, but Object.type is a
     /// String.  So we need to control the initialization sequence.
@@ -104,6 +106,7 @@ namespace urbi
     {
       if (root_classes_initialized)
         return;
+      dummy_register_function();
       root_classes_initialized = true;
 
       // The construction of the primitive classes goes in several

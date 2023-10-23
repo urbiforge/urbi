@@ -275,10 +275,6 @@ namespace urbi
     system_loadFile(rObject, const std::string& filename, rObject self)
     {
       GD_FPUSH_TRACE("Load file: %s", filename);
-#if defined ENABLE_SERIALIZATION
-      if (!libport::path(filename).exists())
-        runner::raise_urbi(SYMBOL(FileNotFound), to_urbi(filename));
-#endif
       try
       {
         return execute_parsed(parser::parse_file(filename), self);
