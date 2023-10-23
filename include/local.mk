@@ -36,7 +36,8 @@ dist_kernel_include_HEADERS =		        \
   include/urbi/kernel/uconnection.hxx		\
   include/urbi/kernel/userver.hh		\
   include/urbi/kernel/userver.hxx		\
-  include/urbi/kernel/utypes.hh
+  include/urbi/kernel/utypes.hh                 \
+  include/urbi/kernel/lowlevel.hh
 
 dist_object_include_HEADERS =                   \
   include/urbi/object/any-to-boost-function.hh  \

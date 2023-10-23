@@ -1272,7 +1272,8 @@ static rObject ast_call(Job& job, const ast::Ast* e)
     // try lang
     if (!loc.first)
     {
-      static rObject lang = object::Object::package_lang_get();
+      // FIXME speedup
+      rObject lang = object::Object::package_lang_get();
       loc = lang->slot_locate(s);
       if (loc.first)
         tgt = lang;

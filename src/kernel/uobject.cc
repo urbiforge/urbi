@@ -331,7 +331,11 @@ static rObject where;
 static std::set<void*> initialized;
 // Tracke mode
 static bool trace_uvars = 0;
-static libport::file_library uobjects_path;
+static libport::file_library& uobjects_path()
+{
+  static libport::file_library* up = new libport::file_library();
+  return *up;
+}
 
 // Link between rObject and UObject.
 static ObjectLinks& object_links = get_object_links();
@@ -492,7 +496,7 @@ void uobjects_reload()
 const libport::file_library
 uobject_uobjects_path()
 {
-  return uobjects_path;
+  return uobjects_path();
 }
 
 /// The UObject load path as a List of Path.
@@ -503,7 +507,7 @@ uobject_uobjectsPath(const rObject&)
   List::value_type list;
 
   foreach (const libport::path& p,
-           uobjects_path.search_path_get())
+           uobjects_path().search_path_get())
     list << new object::Path(p);
   return list;
 }
@@ -513,11 +517,11 @@ static
 void
 uobject_uobjectsPathSet(const rObject&, List::value_type list)
 {
-  uobjects_path.search_path().clear();
+  uobjects_path().search_path().clear();
   foreach (rObject p, list)
   {
     rPath path = p->as<object::Path>();
-    uobjects_path.search_path().push_back(path->value_get());
+    uobjects_path().search_path().push_back(path->value_get());
   }
 }
 
@@ -2130,16 +2134,33 @@ namespace urbi
       return res;
     }
 
+  bool forceLoad(rObject, std::string const& name)
+  {
+    std::cerr << "attempting reload of " << name << std::endl;
+    foreach (urbi::baseURBIStarter* i, urbi::baseURBIStarter::list())
+    {
+      std::cerr << "found " << i->name << std::endl;
+      if (i->name == name)
+      {
+        std::cerr << "hit!" << std::endl;
+        urbi::getCurrentContext()->newUObjectClass(i);
+        return true;
+      }
+    }
+    return false;
+  }
     /*! Initialize plugin UObjects.
       \param args object in which the instances will be stored.
-    */
-    rObject uobject_initialize(const objects_type& args)
+  */
+  rObject uobject_initialize(const objects_type& args)
     {
       CAPTURE_GLOBAL(Object);
       urbi::setCurrentContext(new urbi::impl::KernelUContextImpl());
       where = args.front();
       where->slot_set_value(SYMBOL(setTrace), object::primitive(&setTrace));
       uobjects_reload();
+      where->slot_set_value(SYMBOL(forceLoad),
+                            object::primitive(forceLoad));
       where->slot_set_value(SYMBOL(getStats),
                             object::primitive(&Stats::get));
       where->slot_set_value(SYMBOL(clearStats),
@@ -2154,7 +2175,7 @@ namespace urbi
 
       where->bind(SYMBOL(searchPath),    &uobject_uobjectsPath,
                   &uobject_uobjectsPathSet);
-      uobjects_path
+      uobjects_path()
         .push_back(libport::xgetenv("URBI_UOBJECT_PATH", ".:"),
                    kernel::urbiserver->urbi_root_get().uobjects_path(),
                    ":");

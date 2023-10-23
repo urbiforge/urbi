@@ -73,6 +73,13 @@ GD_CATEGORY(Urbi);
 
 #define URBI_EXIT(Status, ...)                 \
   throw urbi::Exit(Status, libport::format (__VA_ARGS__))
+namespace urbi
+{
+  namespace object
+  {
+    extern bool root_classes_initialized;
+  }
+}
 
 class ConsoleServer
   : public kernel::UServer
@@ -84,7 +91,8 @@ public:
     , libport::Socket(kernel::UServer::get_io_service())
     , fast(fast)
     , ctime(0)
-  {}
+  {
+  }
 
   virtual ~ConsoleServer()
   {}
@@ -536,81 +544,6 @@ namespace urbi
     return data;
 }
 
-  static
-  int
-  init(const libport::cli_args_type& _args, bool errors,
-       libport::Semaphore* sem, UrbiRoot& urbi_root)
-  {
-    auto d = do_init(_args, errors, sem, urbi_root);
-    return main_loop(d);
-  }
-
-  static boost::optional<LoopData> state;
-  ATTRIBUTE_DLLEXPORT int init_kernel_mean(const char* pgm)
-  {
-     UrbiRoot r = UrbiRoot(std::string(pgm));
-     std::vector<std::string> args { "urbi", "--port", "54000"};
-     state = do_init(args, false, nullptr, r);
-     return 0;
-  }
-  ATTRIBUTE_DLLEXPORT int init_kernel(std::string pgm, std::vector<std::string> const& args)
-  {
-    UrbiRoot r = UrbiRoot(pgm);
-    state = do_init(args, false, nullptr, r);
-    return 0;
-  }
-
-  ATTRIBUTE_DLLEXPORT unsigned long step_kernel()
-  {
-    return state->server->work();
-  }
-
-  int
-  main_loop(LoopData& data)
-  {
-    ConsoleServer& s = *data.server;
-    libport::utime_t next_time = 0;
-    libport::utsname machine;
-    GD_FINFO_DEBUG("machine: %s", machine);
-#if defined WIN32 || defined __APPLE__
-    bool needs_read_stdin =
-      (machine.system() != "Darwin" || machine.release_major() < 10);
-    GD_FINFO_DEBUG("needs_read_stdin: %s", needs_read_stdin);
-#endif
-    while (true)
-    {
-#if defined WIN32 || defined __APPLE__
-      if (needs_read_stdin && data.interactive)
-      {
-        std::string input;
-        try
-        {
-          input = libport::read_stdin();
-        }
-        catch (const libport::exception::Exception& e)
-        {
-          std::cerr << libport::program_name() << ": "
-                    << e.what() << std::endl;
-          data.interactive = false;
-          onCloseStdin(s.ghost_connection_get());
-        }
-        GD_FINFO_DEBUG("Got input: %s", input);
-        if (!input.empty())
-          s.ghost_connection_get().received(input);
-      }
-#endif
-      next_time = s.work();
-      GD_FINFO_DEBUG("next_time: %s (is exit: %s)",
-                     next_time,
-                     next_time == sched::SCHED_EXIT);
-      if (next_time == sched::SCHED_EXIT)
-        break;
-      s.ctime = std::max(next_time, s.ctime + 1000L);
-    }
-
-    return s.return_value_get();
-  }
-
 #ifndef LIBPORT_DEBUG_DISABLE
 
   static libport::local_data&
@@ -656,6 +589,128 @@ namespace urbi
 # endif
   }
 #endif
+  static
+  int
+  init(const libport::cli_args_type& _args, bool errors,
+       libport::Semaphore* sem, UrbiRoot& urbi_root)
+  {
+    auto d = do_init(_args, errors, sem, urbi_root);
+    return main_loop(d);
+  }
+
+  static bool first_time = true;
+  static std::vector<boost::function0<void>> saved_inits;
+  static boost::optional<LoopData> state;
+ namespace object
+ {
+  void
+    cleanup_existing_objects();
+ }
+  static void reinit()
+  {
+    if (first_time)
+    {
+      debugger_data_thread_coro_local();
+      GD_INIT_DEBUG_PER(debugger_data_thread_coro_local);
+      saved_inits = urbi::initializations_();
+    }
+    else
+    {
+      libport::InstanceTracker<object::Lobby>::clear();
+      kernel::just_die_already = true;
+      urbi::object::cleanup_existing_objects();
+      urbi::object::object_iteration++;
+      urbi::object::CentralizedSlots::wipe();
+      kernel::just_die_already = false;
+      auto& inits = urbi::initializations_();
+      for (auto& ini: saved_inits)
+        inits.push_back(ini);
+    }
+    first_time = false;
+  }
+  ATTRIBUTE_DLLEXPORT int init_kernel_mean(const char* pgm)
+  {
+    reinit();
+     urbi::object::root_classes_initialized = false;
+     UrbiRoot r = UrbiRoot(std::string(pgm));
+     std::vector<std::string> args { "urbi", "--port", "54000", "--stack-size", "4096"};
+     state = do_init(args, false, nullptr, r);
+     return 0;
+  }
+  ATTRIBUTE_DLLEXPORT int init_kernel(std::string pgm, std::vector<std::string> const& args)
+  {
+    reinit();
+    urbi::object::root_classes_initialized = false;
+    UrbiRoot r = UrbiRoot(pgm);
+    state = do_init(args, false, nullptr, r);
+    return 0;
+  }
+
+  ATTRIBUTE_DLLEXPORT unsigned long step_kernel()
+  {
+      return state->server->work();
+  }
+  ATTRIBUTE_DLLEXPORT void kill_kernel()
+  {
+    if (state && state->server)
+    {
+      state->server->close();
+      try
+      {
+         delete state->server;
+         state->server = nullptr;
+      }
+      catch(std::exception const& e)
+      {
+        std::cerr << "swallowing exception deleting server: " << e.what() << std::endl;
+      }
+    }
+  }
+  int
+  main_loop(LoopData& data)
+  {
+    ConsoleServer& s = *data.server;
+    libport::utime_t next_time = 0;
+    libport::utsname machine;
+    GD_FINFO_DEBUG("machine: %s", machine);
+#if defined WIN32 || defined __APPLE__
+    bool needs_read_stdin =
+      (machine.system() != "Darwin" || machine.release_major() < 10);
+    GD_FINFO_DEBUG("needs_read_stdin: %s", needs_read_stdin);
+#endif
+    while (true)
+    {
+#if defined WIN32 || defined __APPLE__
+      if (needs_read_stdin && data.interactive)
+      {
+        std::string input;
+        try
+        {
+          input = libport::read_stdin();
+        }
+        catch (const libport::exception::Exception& e)
+        {
+          std::cerr << libport::program_name() << ": "
+                    << e.what() << std::endl;
+          data.interactive = false;
+          onCloseStdin(s.ghost_connection_get());
+        }
+        GD_FINFO_DEBUG("Got input: %s", input);
+        if (!input.empty())
+          s.ghost_connection_get().received(input);
+      }
+#endif
+      next_time = s.work();
+      GD_FINFO_DEBUG("next_time: %s (is exit: %s)",
+                     next_time,
+                     next_time == sched::SCHED_EXIT);
+      if (next_time == sched::SCHED_EXIT)
+        break;
+      s.ctime = std::max(next_time, s.ctime + 1000L);
+    }
+
+    return s.return_value_get();
+  }
 
   int
   main(const libport::cli_args_type& args,

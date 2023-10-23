@@ -138,7 +138,7 @@ namespace urbi
       set(Object* owner, const key_type& key, value_type v,
           bool overwrite = false);
 
-
+      static void wipe();
       /*----------.
       | Helpers.  |
       `----------*/
@@ -156,9 +156,9 @@ namespace urbi
       /// The boost multi index.
       static content_type* content_;
       /// The location-wise index.
-      static loc_index_type& loc_index_;
+      static loc_index_type* loc_index_;
       /// The owner-wise index.
-      static obj_index_type& obj_index_;
+      static obj_index_type* obj_index_;
       /// Marker to detect finalize() reentrency
       static bool in_finalize_;
       /// Delayed calls to finalize that must be made asap

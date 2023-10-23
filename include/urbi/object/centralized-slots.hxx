@@ -30,13 +30,13 @@ namespace urbi
     inline CentralizedSlots::iterator
     CentralizedSlots::begin(Object* owner)
     {
-      return obj_index_.equal_range(owner).first;
+      return obj_index_->equal_range(owner).first;
     }
 
     inline CentralizedSlots::const_iterator
     CentralizedSlots::begin(const Object* owner)
     {
-      return obj_index_.equal_range(const_cast<Object*>(owner)).first;
+      return obj_index_->equal_range(const_cast<Object*>(owner)).first;
     }
 
     inline void
@@ -44,7 +44,7 @@ namespace urbi
     {
 #if BOOST_VERSION <= 105500
       if (owner->slots_.size_)
-        obj_index_.erase(owner);
+        obj_index_->erase(owner);
 #else
       // boost::multi_index_container with boost > 1.55 does not seem to support reentrency into erase,
       // so we remove this reentrency by appending objects to finalize into delayed_finalize_.
@@ -59,7 +59,7 @@ namespace urbi
         {
           libport::Finally finally;
           finally << libport::scoped_set(in_finalize_, true);
-          obj_index_.erase(owner);
+          obj_index_->erase(owner);
         }
         while (!delayed_finalize_.empty())
         {
@@ -77,13 +77,13 @@ namespace urbi
     inline CentralizedSlots::iterator
     CentralizedSlots::end(Object* owner)
     {
-      return obj_index_.equal_range(owner).second;
+      return obj_index_->equal_range(owner).second;
     }
 
     inline CentralizedSlots::const_iterator
     CentralizedSlots::end(const Object* owner)
     {
-      return obj_index_.equal_range(const_cast<Object*>(owner)).second;
+      return obj_index_->equal_range(const_cast<Object*>(owner)).second;
     }
 
     inline Object*
@@ -126,7 +126,9 @@ namespace urbi
     {
       loc_index_type::iterator it = where(owner, key);
       if (it == content_->end())
+      {
         return 0;
+      }
       return it->second;
     }
 
@@ -136,7 +138,7 @@ namespace urbi
       loc_index_type::iterator it = where(owner, key);
       if (it == content_->end())
 	return false;
-      loc_index_.erase(it);
+      loc_index_->erase(it);
       --owner->slots_.size_;
       return true;
     }
@@ -151,9 +153,16 @@ namespace urbi
     inline CentralizedSlots::loc_index_type::iterator
     CentralizedSlots::where(const Object* owner, const key_type& key)
     {
-      return loc_index_.find(location_type(const_cast<Object*>(owner), key));
+      return loc_index_->find(location_type(const_cast<Object*>(owner), key));
     }
 
+    inline void
+    CentralizedSlots::wipe()
+    {
+      content_ = new CentralizedSlots::content_type();
+      loc_index_ = &content_->get<0>();
+      obj_index_ = &content_->get<1>();
+    }
   }
 }
 

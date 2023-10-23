@@ -61,6 +61,7 @@ namespace urbi
 {
   namespace object
   {
+    extern int object_iteration;
     /// Run time values for Urbi.
     class URBI_SDK_API Object
       : public libport::RefCounted
@@ -433,6 +434,9 @@ namespace urbi
 
       mutable int lookup_id_;
 
+#if WITH_THIS_OBJECT_ITERATION
+      int this_object_iteration;
+#endif
     public:
       typedef boost::unordered_set<rObject> objects_set_type;
       template<class F> friend bool

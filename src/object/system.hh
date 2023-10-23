@@ -17,6 +17,7 @@
 # define OBJECT_SYSTEM_HH
 
 # include <set>
+# include <boost/function.hpp>
 
 # include <ast/loc.hh>
 # include <urbi/object/fwd.hh>
@@ -53,6 +54,7 @@ namespace urbi
     /// Run actions registered with URBI_INITIALIZATION_REGISTER.
     void initializations_run();
   }; // namespace object
+  std::vector<boost::function0<void>>& initializations_();
 }
 
 #endif // !OBJECT_SYSTEM_HH
