@@ -23,6 +23,7 @@ print >>fwd_hh, """
 # include <boost/preprocessor/array.hpp>
 # include <boost/preprocessor/repeat.hpp>
 # include <boost/preprocessor/seq/for_each.hpp>
+# include <boost/unordered_map.hpp>
 
 # include <libport/intrusive-ptr.hh>
 # include <libport/typelist.hh>
