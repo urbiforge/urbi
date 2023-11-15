@@ -20,6 +20,7 @@
 # define AST_FWD_HH
 
 # include <boost/ptr_container/ptr_vector.hpp>
+# include <boost/unordered_map.hpp>
 
 # include <libport/fwd.hh>
 # include <libport/hash.hh>
