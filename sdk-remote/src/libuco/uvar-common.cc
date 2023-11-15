@@ -22,8 +22,8 @@ namespace urbi
 
     namespace impl
     {
-	    thread_local UContextImpl::CleanupList UContextImpl::cleanup_list_;
-	}
+	    UContextImpl::CleanupList UContextImpl::cleanup_list_;
+    }
   /*-------.
   | UVar.  |
   `-------*/

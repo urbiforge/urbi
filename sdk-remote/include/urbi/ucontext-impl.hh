@@ -169,7 +169,7 @@ namespace urbi
       RTPSendGrouped rtpSendGrouped;
     private:
       typedef std::vector<std::vector<std::function<void()> > > CleanupList;
-      static thread_local CleanupList cleanup_list_;
+      static CleanupList cleanup_list_;
     };
 
     class URBI_SDK_API UObjectImpl
