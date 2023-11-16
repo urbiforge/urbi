@@ -1,4 +1,4 @@
-name: Linux
+name: Linux-clang-libc++-static
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       with:
         submodules: true
     - name: dependencies
-      run: sudo apt-get install -y clang libc++-12-dev wget
+      run: sudo apt-get install -y clang libc++-14-dev wget
     - name: Version
       run: cd  $GITHUB_WORKSPACE && git describe --always > /tmp/version.txt
     - name: Boost
