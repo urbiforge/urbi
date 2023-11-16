@@ -547,7 +547,9 @@ enable_testing()
 
 add_subdirectory(share)
 #Requires lib uobject
+if (NOT STATIC_BUILD)
 add_subdirectory(sdk-remote/src/uobjects)
+endif()
 if (NOT I_AM_A_ROBOT)
 #  add_subdirectory(sdk-remote/src/swig/java)
 endif()
