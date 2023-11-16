@@ -1,0 +1,12 @@
+--- /usr/lib/llvm-14/include/c++/v1/__config	2022-03-23 08:41:07.000000000 +0100
++++ /usr/lib/llvm-14/include/c++/v1/__config.new	2023-11-16 13:39:12.027393115 +0100
+@@ -167,7 +167,8 @@
+ #define _LIBCPP_CONCAT(_LIBCPP_X,_LIBCPP_Y) _LIBCPP_CONCAT1(_LIBCPP_X,_LIBCPP_Y)
+ 
+ #ifndef _LIBCPP_ABI_NAMESPACE
+-# define _LIBCPP_ABI_NAMESPACE _LIBCPP_CONCAT(__,_LIBCPP_ABI_VERSION)
++//# define _LIBCPP_ABI_NAMESPACE _LIBCPP_CONCAT(__,_LIBCPP_ABI_VERSION)
++# define _LIBCPP_ABI_NAMESPACE __1
+ #endif
+ 
+ #if __cplusplus < 201103L
