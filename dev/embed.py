@@ -16,7 +16,7 @@ output = sys.argv[1]
 base_path = sys.argv[2]
 inputs = sys.argv[3:]
 
-os.makedirs(os.path.dirname(path), exist_ok=True)
+os.makedirs(os.path.dirname(output), exist_ok=True)
 with open(output, 'w') as out:
     out.write("""
 #include <string>
