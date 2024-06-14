@@ -35,7 +35,7 @@ Build Urbi:
  * git clone https://github.com/urbiforge/urbi.git urbi
    cd urbi
    git submodule update --init
-   cmake -Bbuild . -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/tmp/urbisdk
+   cmake -Bbuild . -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local
    cmake --build build --config Release
    cmake --install build --config Release
 
